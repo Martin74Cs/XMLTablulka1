@@ -1,43 +1,43 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.018711</C_PROJ>
-    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
-    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
-    <M_STAVBY>Litvínov</M_STAVBY>
-    <C_UKOL>0300</C_UKOL>
-    <NAZ_UKOL>BDEP</NAZ_UKOL>
-    <HIP>Ing. Jan Koreček</HIP>
-    <DIL>J</DIL>
-    <CAST />
-    <PROFESE />
-    <PORADI />
-    <OR_CISLO>003</OR_CISLO>
-    <NAZEV>Elektroinstalace</NAZEV>
-    <AUTOR>Ing. Michal Kašpar</AUTOR>
+    <C_PROJ>P.019495</C_PROJ>
+    <NAZ_PROJ>ECOFLEX-NAVÝŠENÍ VÝKONU RK12 NA 3300 tDS/DEN A 80t/DEN TÁLOVÉHO M</NAZ_PROJ>
+    <INVESTOR>Mondi Štětí a.s.</INVESTOR>
+    <M_STAVBY>Štětí</M_STAVBY>
+    <C_UKOL>0200</C_UKOL>
+    <NAZ_UKOL> DOKUMENTACE PRO VYDÁNÍ STAVEBNÍHO POVOL</NAZ_UKOL>
+    <HIP>Ing. Pavel Pozděna</HIP>
+    <DIL>D</DIL>
+    <CAST>1</CAST>
+    <PROFESE>3</PROFESE>
+    <PORADI>2</PORADI>
+    <OR_CISLO>004</OR_CISLO>
+    <NAZEV>Půdorys +18,000</NAZEV>
+    <AUTOR>Ing. Pavel Titze</AUTOR>
     <PSSO />
     <PCC>TP</PCC>
     <TD>G</TD>
-    <PCDOC>0527</PCDOC>
-    <TYP_DOC>G= Výkres (C1-G-xxxx); Vykr</TYP_DOC>
+    <PCDOC>0583</PCDOC>
+    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>22.02.0202 0:00:00</DAT_REV>
+    <DAT_REV>14.04.2022 0:00:00</DAT_REV>
     <C_REV>A</C_REV>
-    <AUT_REV>Ing. Michal Kašpar</AUT_REV>
-    <ID_DOC>011F6</ID_DOC>
-    <PATH>G:\Z\P.018711\0300\Vykr\G0527A.Dwg</PATH>
-    <GLOBALID>IJYPBTCJ8O@220028</GLOBALID>
+    <AUT_REV>Dr. Milan Šimko</AUT_REV>
+    <ID_DOC>011IZ</ID_DOC>
+    <PATH>G:\Z\P.019495\0200\Výkres\G0583A.Dwg</PATH>
+    <GLOBALID>IJ!!BUMU30@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
     <EXT>Dwg</EXT>
-    <APSSO>J</APSSO>
-    <FPC>G0527A</FPC>
+    <APSSO>D 13 2</APSSO>
+    <FPC>G0583A</FPC>
     <ID_DOCR />
-    <OR_CIT>1</OR_CIT>
-    <POM>Vykr</POM>
-    <PROF_CX>E= ELEKTRO</PROF_CX>
+    <OR_CIT>4</OR_CIT>
+    <POM>Výkres</POM>
+    <PROF_CX>VF</PROF_CX>
     <C_SUBREV />
     <YES>ANO</YES>
     <NO />
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K připomínkám</POP_REV>
+    <POP_REV>k odsouhlasení</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>011F6</ID_DOCC>
+    <ID_DOCC>011IZ</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA />
-    <SPD_TX>BDEP</SPD_TX>
-    <KONTROL>Bc. Jaroslav Burda</KONTROL>
-    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <SPD_LA>DZS</SPD_LA>
+    <SPD_TX>Dok. změny stavby před dok.</SPD_TX>
+    <KONTROL>Ing. Jakub Fučík</KONTROL>
+    <SCHVALIL> Pavel Pozděna</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />
