@@ -1,0 +1,70 @@
+<DocumentElement>
+  <cestina>
+    <CYCOSTATUS />
+    <C_PROJ>P.018711</C_PROJ>
+    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
+    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
+    <M_STAVBY>Litvínov</M_STAVBY>
+    <C_UKOL>0300</C_UKOL>
+    <NAZ_UKOL>BDEP</NAZ_UKOL>
+    <HIP>Ing. Jan Koreček</HIP>
+    <DIL>J</DIL>
+    <CAST />
+    <PROFESE />
+    <PORADI />
+    <OR_CISLO>003</OR_CISLO>
+    <NAZEV>Elektroinstalace</NAZEV>
+    <AUTOR>Ing. Michal Kašpar</AUTOR>
+    <PSSO />
+    <PCC>TP</PCC>
+    <TD>G</TD>
+    <PCDOC>0527</PCDOC>
+    <TYP_DOC>G= Výkres (C1-G-xxxx); Vykr</TYP_DOC>
+    <VYBAVENI />
+    <P_STR>0</P_STR>
+    <POV>0</POV>
+    <DAT_REV>22.02.0202 0:00:00</DAT_REV>
+    <C_REV>A</C_REV>
+    <AUT_REV>Ing. Michal Kašpar</AUT_REV>
+    <ID_DOC>011F6</ID_DOC>
+    <PATH>G:\Z\P.018711\0300\Vykr\G0527A.Dwg</PATH>
+    <GLOBALID>IJYPBTCJ8O@220028</GLOBALID>
+    <LOCKFLAG />
+    <REVFLAG>H</REVFLAG>
+    <EXT>Dwg</EXT>
+    <APSSO>J</APSSO>
+    <FPC>G0527A</FPC>
+    <ID_DOCR />
+    <OR_CIT>1</OR_CIT>
+    <POM>Vykr</POM>
+    <PROF_CX>E= ELEKTRO</PROF_CX>
+    <C_SUBREV />
+    <YES>ANO</YES>
+    <NO />
+    <MANAG />
+    <ID_DOCM />
+    <SIGNUM />
+    <TITLEBLOCK />
+    <TITLESCALE />
+    <TITLESHEET />
+    <FLGN_E />
+    <POP_REV>K připomínkám</POP_REV>
+    <SIG />
+    <ID_DOCD />
+    <ID_DOCC>011F6</ID_DOCC>
+    <ODBOR />
+    <PS_SO />
+    <CISLO />
+    <SPD_LA />
+    <SPD_TX>BDEP</SPD_TX>
+    <KONTROL>Bc. Jaroslav Burda</KONTROL>
+    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <CD_PUV />
+    <NAZEV2 />
+    <ISSUER />
+    <PROJECT />
+    <TYPE />
+    <NUMBER />
+    <FOLIO />
+  </cestina>
+</DocumentElement>

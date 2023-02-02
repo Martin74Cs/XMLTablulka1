@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:MainDataTable="cestina" msdata:UseCurrentLocale="true">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="cestina">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CYCOSTATUS" type="xs:string" minOccurs="0" />
+              <xs:element name="C_PROJ" type="xs:string" minOccurs="0" />
+              <xs:element name="NAZ_PROJ" type="xs:string" minOccurs="0" />
+              <xs:element name="INVESTOR" type="xs:string" minOccurs="0" />
+              <xs:element name="M_STAVBY" type="xs:string" minOccurs="0" />
+              <xs:element name="C_UKOL" type="xs:string" minOccurs="0" />
+              <xs:element name="NAZ_UKOL" type="xs:string" minOccurs="0" />
+              <xs:element name="HIP" type="xs:string" minOccurs="0" />
+              <xs:element name="DIL" type="xs:string" minOccurs="0" />
+              <xs:element name="CAST" type="xs:string" minOccurs="0" />
+              <xs:element name="PROFESE" type="xs:string" minOccurs="0" />
+              <xs:element name="PORADI" type="xs:string" minOccurs="0" />
+              <xs:element name="OR_CISLO" type="xs:string" minOccurs="0" />
+              <xs:element name="NAZEV" type="xs:string" minOccurs="0" />
+              <xs:element name="AUTOR" type="xs:string" minOccurs="0" />
+              <xs:element name="PSSO" type="xs:string" minOccurs="0" />
+              <xs:element name="PCC" type="xs:string" minOccurs="0" />
+              <xs:element name="TD" type="xs:string" minOccurs="0" />
+              <xs:element name="PCDOC" type="xs:string" minOccurs="0" />
+              <xs:element name="TYP_DOC" type="xs:string" minOccurs="0" />
+              <xs:element name="VYBAVENI" type="xs:string" minOccurs="0" />
+              <xs:element name="P_STR" type="xs:string" minOccurs="0" />
+              <xs:element name="POV" type="xs:string" minOccurs="0" />
+              <xs:element name="DAT_REV" type="xs:string" minOccurs="0" />
+              <xs:element name="C_REV" type="xs:string" minOccurs="0" />
+              <xs:element name="AUT_REV" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_DOC" type="xs:string" minOccurs="0" />
+              <xs:element name="PATH" type="xs:string" minOccurs="0" />
+              <xs:element name="GLOBALID" type="xs:string" minOccurs="0" />
+              <xs:element name="LOCKFLAG" type="xs:string" minOccurs="0" />
+              <xs:element name="REVFLAG" type="xs:string" minOccurs="0" />
+              <xs:element name="EXT" type="xs:string" minOccurs="0" />
+              <xs:element name="APSSO" type="xs:string" minOccurs="0" />
+              <xs:element name="FPC" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_DOCR" type="xs:string" minOccurs="0" />
+              <xs:element name="OR_CIT" type="xs:string" minOccurs="0" />
+              <xs:element name="POM" type="xs:string" minOccurs="0" />
+              <xs:element name="PROF_CX" type="xs:string" minOccurs="0" />
+              <xs:element name="C_SUBREV" type="xs:string" minOccurs="0" />
+              <xs:element name="YES" type="xs:string" minOccurs="0" />
+              <xs:element name="NO" type="xs:string" minOccurs="0" />
+              <xs:element name="MANAG" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_DOCM" type="xs:string" minOccurs="0" />
+              <xs:element name="SIGNUM" type="xs:string" minOccurs="0" />
+              <xs:element name="TITLEBLOCK" type="xs:string" minOccurs="0" />
+              <xs:element name="TITLESCALE" type="xs:string" minOccurs="0" />
+              <xs:element name="TITLESHEET" type="xs:string" minOccurs="0" />
+              <xs:element name="FLGN_E" type="xs:string" minOccurs="0" />
+              <xs:element name="POP_REV" type="xs:string" minOccurs="0" />
+              <xs:element name="SIG" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_DOCD" type="xs:string" minOccurs="0" />
+              <xs:element name="ID_DOCC" type="xs:string" minOccurs="0" />
+              <xs:element name="ODBOR" type="xs:string" minOccurs="0" />
+              <xs:element name="PS_SO" type="xs:string" minOccurs="0" />
+              <xs:element name="CISLO" type="xs:string" minOccurs="0" />
+              <xs:element name="SPD_LA" type="xs:string" minOccurs="0" />
+              <xs:element name="SPD_TX" type="xs:string" minOccurs="0" />
+              <xs:element name="KONTROL" type="xs:string" minOccurs="0" />
+              <xs:element name="SCHVALIL" type="xs:string" minOccurs="0" />
+              <xs:element name="CD_PUV" type="xs:string" minOccurs="0" />
+              <xs:element name="NAZEV2" type="xs:string" minOccurs="0" />
+              <xs:element name="ISSUER" type="xs:string" minOccurs="0" />
+              <xs:element name="PROJECT" type="xs:string" minOccurs="0" />
+              <xs:element name="TYPE" type="xs:string" minOccurs="0" />
+              <xs:element name="NUMBER" type="xs:string" minOccurs="0" />
+              <xs:element name="FOLIO" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

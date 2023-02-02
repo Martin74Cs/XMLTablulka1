@@ -1,0 +1,51 @@
+WORD;DATABASE;Exel;dodlist;seznam;POPIS;poznámka
+TEDomain;NAZEV;NAZEV;;;Druh dokumentu - Neexistuje;xxxx
+CDOK;PCC;CDOK1;;;èíslo dokumentu asi složenina;PCC,TD,PCDOC
+;PCDOC;CDOK2;;7;èíslo dokumentu asi složenina;PCDOC
+REV;C_REV;REV;;9;revize;
+CA4;DIL;CAS4;;2;orientaèní èíslo asi složenina;DIL,ÈÁST,PROFESE,PORADI,OR_CISLO
+;CAST;;;3;;
+;PROFESE;;;4;;
+;PORADI;;;5;;
+;OR_CISLO;;;6;;
+PROJEKT;C_PROJ;PROJEKT;CPROJ;;èíslo projektu;C_PROJ,C_UKOL
+UTAJENI;;;;;xxx;xxx
+ZAKAZNIK;INVESTOR;ZAKAZNIK;ZAK;;zakazník;
+NAZEV;NAZ_PROJ;NAZEV;NAZPROJ;;název projektu;
+STUPEN;NAZ_UKOL;;NAZUKOL;;stupeò projektu v doc není oznaèeno;
+;M_STAVBY;;MISTO;;místo stavby;
+;HIP;;PRM;;jméno manažera;
+NA4;NAZEV;NA4;;8;název dokumentu;
+REV4;;REV4;;;revize;
+DAT4;;DAT4;;;datum;
+TEStatus4;;;;;stupeò dokumentace;
+POP4;;POP4;;;popis revize;
+ZPRAC4;;ZPRAC4;;;;
+KONTROL4;;KONTROL4;;;;
+SCHVALIL4;;SCHVALIL4;;;;
+REV3;;REV3;;;;
+DAT3;;DAT3;;;;
+TEStatus3;;;;;;
+POP3;;;;;;
+ZPRAC3;;;;;;
+KONTROL3;;KONTROL3;;;;
+SCHVALIL3;;SCHVALIL3;;;;
+REV2;;;;;;
+DAT2;;;;;;
+TEStatus2;;;;;;
+POP2;;;;;;
+ZPRAC2;;;;;;
+KONTROL2;;;;;;
+SCHVALIL2;;;;;;
+REV1;C_REV;REV1;;;revize;
+DAT1;DAT_REV;DAT1;DAT;18;datum;
+TEStatus1;;;;;xxxx;
+POP1;POP_REV;POP1;;11;popis revize;
+ZPRAC1;AUT_REV;ZPRAC1;ZPR0;19;;
+KONTROL1;KONTROL;KONTROL1;;20;;
+SCHVALIL1;SCHVALIL;SCHVALIL1;PRM0;21;;
+SOUBOR;FPC;;;;Uložit soubor jako;
+;SPD_LA;;STA;;;
+;PATH;;;23;;
+;PROF_CX;;;13;SOUÈÁST OR_CIT;
+;OR_CIT;;;;;
