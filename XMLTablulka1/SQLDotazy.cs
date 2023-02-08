@@ -20,7 +20,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí tabulku celé databaze
         /// </summary>
-        public DataTable HledejVse()
+        public async Task<DataTable> HledejVse()
         {
             string Dotaz = "SELECT * FROM TEZAK";
             Dbf dbf = new();
@@ -34,7 +34,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium
         /// </summary>
-        public DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
+        public async Task<DataTable> HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
         {
             if (CisloProjektu == "") throw new Exception($"Číslo {CisloProjektu} nexistuje"); // return null;
             //string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY PCDOC";
@@ -48,7 +48,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium, 3.nazev sloupce, 4.kriterium
         /// </summary>
-        public DataTable HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
+        public async Task<DataTable> HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
         {
             if (PrvekText1 == "") throw new ArgumentNullException($"Číslo {PrvekText1} nexistuje");
             if (PrvekText2 == "") throw new ArgumentNullException($"Číslo {PrvekText2} nexistuje");
@@ -64,7 +64,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí neopakující se obsah zadaného nazvu sloupce.
         /// </summary>
-        public string[] SeznamJeden(VyberSloupec Prvek)
+        public async Task<string[]> SeznamJeden(VyberSloupec Prvek)
         {
             string Dotaz = "SELECT DISTINCT " + Prvek + " FROM tezak";
             DataSet data = new Dbf().Pripoj(Dotaz);
@@ -82,7 +82,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Hledej číslo dokumentu ve formatu T1234, N9876 
         /// </summary>
-        public DataTable HledejCislo(string HledejCislo)
+        public async Task<DataTable> HledejCislo(string HledejCislo)
         {
             if (HledejCislo == "") throw new ArgumentNullException("Číslo {HledejCislo} nexistuje", HledejCislo); // return null;
             string TD = HledejCislo.First().ToString().ToUpper(); //první znak retezce

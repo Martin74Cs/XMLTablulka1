@@ -12,7 +12,7 @@ namespace WFForm
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
             SQLDotazy sql = new();
             string CisloProjektu = "P.018711";
@@ -27,7 +27,7 @@ namespace WFForm
             TreeNode Strom = new("Pokus");
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
-                string[] Pole = sql.SeznamJeden(VyberSloupec.C_PROJ);
+                string[] Pole = await sql.SeznamJeden(VyberSloupec.C_PROJ);
                 CisloProjektu = Pole[0];
                 Pole.SaveTXT(Cesty.CislaProjektuTxt);          
             }
@@ -37,7 +37,7 @@ namespace WFForm
                     TreeView1.Nodes.Add("C_PROJ", item);
             }
 
-            table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
+            table = await new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
             dataGridView1.DataSource = table;
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
@@ -76,7 +76,7 @@ namespace WFForm
             //dataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
         }
 
-        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private async void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode N = TreeView1.SelectedNode;
             //char Separ = Convert.ToChar(TreeView1.PathSeparator);
@@ -89,6 +89,7 @@ namespace WFForm
                         break;
                     case 1:
                         string querry = "SELECT DISTINCT " + Sloupec.C_UKOL + "  FROM TEZAK WHERE [" + N.Name + "]='" + N.Text + "'";
+
                         foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
                             N.Nodes.Add(Sloupec.C_UKOL, item[Sloupec.C_UKOL].ToString());
                         N.Expand();
@@ -182,7 +183,7 @@ namespace WFForm
             }
         }
 
-        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             string GlobalID = dataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
@@ -202,7 +203,7 @@ namespace WFForm
             {
                 case "DWG":
                     MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
-					
+					//pokraèuje v komponentì Autocad
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
@@ -220,6 +221,11 @@ namespace WFForm
         private void Button1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

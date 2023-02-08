@@ -8,7 +8,7 @@ namespace XMLTabulka1
 {
     public class JedenRadek
     {
-        public string MyProperty { get; set; }
+
         public string RAZITKO { get; set; }
         public string SUBJECT1 { get; set; }
         public string SUBJECT2 { get; set; }

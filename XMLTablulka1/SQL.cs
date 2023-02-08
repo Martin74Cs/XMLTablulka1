@@ -38,7 +38,7 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Jakýkoli textový dotaz na databázi v SQL server
+        /// Jakýkoli textový dotaz na databázi v SQL server, není definován nazev tabulky
         /// </summary>
         /// <param name="Querry"></param>
         public void SQLConection(string Querry)
@@ -48,11 +48,10 @@ namespace XMLTabulka1
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
-
         }
 
         /// <summary>
-        /// Jakýkoli textový dotaz na databázi v SQL server
+        /// Jakýkoli textový dotaz "Querry" na databázi "Database" v SQL server
         /// </summary>
         /// <param name="Querry"></param>
         public void SQLConection(string Querry, string Database)
@@ -62,7 +61,6 @@ namespace XMLTabulka1
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
-
         }
 
         //Načete data z databaze SQL
@@ -82,7 +80,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vytvoření kopie DBF na SQl Serveru
         /// </summary>
-        public void DataSql()
+        public async void DataSql()
         {
             //pouze jednou
             string Database = "DBF";
@@ -106,7 +104,7 @@ namespace XMLTabulka1
             catch (Exception)
             {   }
             SQLDotazy sql = new();
-            DataTable dt = sql.HledejVse();
+            DataTable dt = await sql.HledejVse();
 
             //new Table
             string strCreateColumns = "";
