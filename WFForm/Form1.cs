@@ -1,4 +1,5 @@
 using System.Data;
+using System.Runtime.InteropServices;
 using XMLTabulka1;
 
 
@@ -27,7 +28,7 @@ namespace WFForm
             TreeNode Strom = new("Pokus");
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
-                string[] Pole = await sql.SeznamJeden(VyberSloupec.C_PROJ);
+                string[] Pole = sql.SeznamJeden(VyberSloupec.C_PROJ);
                 CisloProjektu = Pole[0];
                 Pole.SaveTXT(Cesty.CislaProjektuTxt);          
             }
@@ -203,7 +204,9 @@ namespace WFForm
             {
                 case "DWG":
                     MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
-					//pokraèuje v komponentì Autocad
+                    //pokraèuje v komponentì Autocad
+                    LibraryAplikace.Acad la = new();
+                    la.Program();
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());

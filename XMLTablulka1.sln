@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WFForm", "WFForm\WFForm.csp
 		{EC395638-C9A5-4868-AD54-5D7C234DDA26} = {EC395638-C9A5-4868-AD54-5D7C234DDA26}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryAplikace", "LibraryAplikace\LibraryAplikace.csproj", "{BC2C2319-243E-434B-A011-33DB571F1A1F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library48", "ClassLibrary1\Library48.csproj", "{71E6D562-6230-451C-8AC9-0E121AFC12D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{3393136D-ED91-4C07-BC29-07C34B4DCBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3393136D-ED91-4C07-BC29-07C34B4DCBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3393136D-ED91-4C07-BC29-07C34B4DCBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2C2319-243E-434B-A011-33DB571F1A1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2C2319-243E-434B-A011-33DB571F1A1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2C2319-243E-434B-A011-33DB571F1A1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2C2319-243E-434B-A011-33DB571F1A1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71E6D562-6230-451C-8AC9-0E121AFC12D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71E6D562-6230-451C-8AC9-0E121AFC12D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71E6D562-6230-451C-8AC9-0E121AFC12D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71E6D562-6230-451C-8AC9-0E121AFC12D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

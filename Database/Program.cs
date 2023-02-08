@@ -14,14 +14,17 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
 
+//funguje odladěno
 //převede databazi dbf na sql
-SQL databse = new();
-databse.DataSql();
-return;
+//SQL databse = new();
+//databse.DataSql();
+//return;
+
+new Library48.Acad().Program();
+
 
 SQLDotazy sql = new();
-DataTable data1 = sql.HledejVse();
-
+DataTable data1 = await sql.HledejVse();
 sql.SeznamJeden(VyberSloupec.C_PROJ).SaveTXT(Cesty.CislaProjektuTxt);
 
 Kontroly kontroly = new();
@@ -39,7 +42,7 @@ kontroly.Linq();
 //soubor.SaveXML(data1, Cesty.SouborDbf + "/Test4Linq.xml");
 //Console.WriteLine(data1.Rows[0][VyberSloupec.NAZ_PROJ.ToString()].ToString());
 
-DataTable table = sql.HledejCislo("N7000");
+DataTable table = await sql.HledejCislo("N7000");
 if (table != null)
 {
     Console.WriteLine(table.Rows[0][VyberSloupec.NAZ_PROJ.ToString()].ToString());
@@ -72,10 +75,10 @@ Environment.Exit(0);
 
 public class Kontroly
 {
-    public void Linq()
+    public async void Linq()
     {
         SQLDotazy sql = new();
-        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
         LinqDotazy linq = new();
         DataTable Nova = linq.Test5(table,VyberSloupec.C_UKOL);
@@ -86,10 +89,10 @@ public class Kontroly
         Nova.DataTabletoCSV(Cesty.Pomoc + "/CSVLinq6.txt");
     }
 
-    public void CteniZapisXML()
+    public async void CteniZapisXML()
     {
         SQLDotazy sql = new();
-        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
 
         Soubor.SaveXML(table, Cesty.Pomoc + "/XML.xml");
@@ -99,10 +102,10 @@ public class Kontroly
 
     }
 
-    public void CteniZapisTXT()
+    public async void CteniZapisTXT()
     {
         SQLDotazy sql = new();
-        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
         table.DataTabletoCSV(Cesty.Pomoc + "/CSV.txt");
 

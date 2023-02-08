@@ -10,7 +10,7 @@ namespace XMLTabulka1
     public class Word
     {
         /// <summary>
-        /// volani dynamické knihovny
+        /// volani dynamické knihovny c:\Users\Martin\OneDrive\Word\NewWord1\Podpora\
         /// </summary>
         /// <param name="cesta">cesta kde umístěn soubor</param>
         /// <param name="XML">cesta k XML záznam z databaze</param>

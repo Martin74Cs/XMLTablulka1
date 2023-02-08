@@ -64,7 +64,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí neopakující se obsah zadaného nazvu sloupce.
         /// </summary>
-        public async Task<string[]> SeznamJeden(VyberSloupec Prvek)
+        public string[] SeznamJeden(VyberSloupec Prvek)
         {
             string Dotaz = "SELECT DISTINCT " + Prvek + " FROM tezak";
             DataSet data = new Dbf().Pripoj(Dotaz);
