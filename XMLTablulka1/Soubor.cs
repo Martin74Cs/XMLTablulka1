@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -153,16 +154,27 @@ namespace XMLTabulka1
         }
 
         public static bool SaveJson(this DataTable Table)
-
         {
             string temp = JsonConvert.SerializeObject(Table);
             Soubor.SaveTXT(Table, Cesty.Pomoc + @"\Json.txt");
             DataTable Nove = (DataTable)JsonConvert.DeserializeObject(temp, typeof(DataTable) );
             Soubor.SaveTXT(Nove, Cesty.Pomoc + @"\JsonnNew.txt");
-
-              return true;
+             return true;
         }
+        public static bool LoadJson(string cesta)
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            serializer.Converters.Add(new JavaScriptDateTimeConverter());
+            serializer.NullValueHandling = NullValueHandling.Ignore;
 
+            StreamWriter sw = new StreamWriter(cesta);
+            JsonWriter writer = new JsonTextWriter(sw);
+            
+            //serializer.Serialize(writer, product);
+            // {"ExpiryDate":new Date(1230375600000),"Price":0}
+            
+            return true;
+        }
 
         /// <summary>Ze souboru CSV nacte data do datatable </summary>
         public static DataTable CSVtoDataTable(string Soubor)
