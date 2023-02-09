@@ -16,7 +16,6 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 
 //funguje odladěno
 //převede databazi dbf na sql
-
 //SQL databse = new();
 //databse.DataSql();
 //return;

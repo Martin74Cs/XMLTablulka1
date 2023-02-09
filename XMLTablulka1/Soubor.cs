@@ -6,8 +6,10 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
+using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
 {
@@ -153,7 +155,7 @@ namespace XMLTabulka1
             }
         }
 
-        public static bool SaveJson(this DataTable Table)
+        public static bool LoadSaveJson(this DataTable Table)
         {
             string temp = JsonConvert.SerializeObject(Table);
             Soubor.SaveTXT(Table, Cesty.Pomoc + @"\Json.txt");
@@ -161,18 +163,33 @@ namespace XMLTabulka1
             Soubor.SaveTXT(Nove, Cesty.Pomoc + @"\JsonnNew.txt");
              return true;
         }
-        public static T LoadJson<T>(string cesta)
-        {
-            JsonSerializer serializer = new JsonSerializer();
-            serializer.Converters.Add(new JavaScriptDateTimeConverter());
-            serializer.NullValueHandling = NullValueHandling.Ignore;
 
-            StreamWriter sw = new StreamWriter(cesta);
-            JsonWriter writer = new JsonTextWriter(sw);
-            
-            serializer.Serialize(writer, T);
-            // {"ExpiryDate":new Date(1230375600000),"Price":0}
-            return T;
+        public static void LoadJson(this MojeZakazky moje, string cesta)
+        {
+            if (File.Exists(cesta))
+            {
+                string jsonString = File.ReadAllText(cesta);
+                moje = System.Text.Json.JsonSerializer.Deserialize<MojeZakazky>(jsonString)!;
+            }
+        }
+        public static void LoadJson<T>(this T moje, string cesta)
+        {
+            if (File.Exists(cesta))
+            {
+                string jsonString = File.ReadAllText(cesta);
+                moje = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString)!;
+            }
+        }
+        public static void SaveJson(this MojeZakazky moje, string cesta)
+        {
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
+            File.WriteAllText(cesta, jsonString);
+        }
+
+        public static void SaveJson<T>(this T moje, string cesta)
+        {
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
+            File.WriteAllText(cesta, jsonString);
         }
 
         /// <summary>Ze souboru CSV nacte data do datatable </summary>
