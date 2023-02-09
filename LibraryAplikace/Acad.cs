@@ -1,6 +1,8 @@
 ﻿using AutoCAD;
+using Podpora;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics.X86;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryAplikace
@@ -9,9 +11,26 @@ namespace LibraryAplikace
     {
         public void Program()
         {
-          var acad =  PripojAcad();
-            acad.Visible = true;
+            //var acad =  PripojAcad();
+            var acad = OpenAcad();
+            if (acad != null) acad.Visible = true;
         }
+
+
+
+        static AutoCAD.AcadApplication OpenAcad()
+        {
+            try
+            {
+                return (AutoCAD.AcadApplication)Marshal2.GetActiveObject("Autocad.Application");
+            }
+            catch (Exception)
+            {
+                return new AutoCAD.AcadApplication();
+                //throw;
+            }
+        }
+
 
 
         /// <summary>
@@ -45,13 +64,21 @@ namespace LibraryAplikace
                         //app = Marshal.GetObjectForIUnknown(item.MainWindowHandle);
                         //app = Marshal.GetObjectForIUnknown(item.MainWindowHandle);
                         //AutoCAD.AcadApplication obj = Marshal.ReleaseComObject(("Autocad.Application") as AutoCAD.AcadApplication; 
-                        app = (AutoCAD.AcadApplication)item; 
+                        //app = (AutoCAD.AcadApplication)item; 
+
+                        //https://stackoverflow.com/questions/58010510/no-definition-found-for-getactiveobject-from-system-runtime-interopservices-mars
+                        string filename = @"C:\Users\Martin\Documents\rr.dwg";
+                        var ttt = Marshal.BindToMoniker(filename);
+
+                        AutoCAD.AcadDocument ddd = (AutoCAD.AcadDocument)ttt;
+                        
+                        var sss = ddd.Name;
                         break;
                     }
                 }
                 if (app == null)
                 {
-                    //return new AutoCAD.AcadApplication();
+                    return new AutoCAD.AcadApplication();
                 }
                 return app;
             }

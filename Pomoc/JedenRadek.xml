@@ -1,42 +1,42 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.018711</C_PROJ>
-    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
-    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
-    <M_STAVBY>Litvínov</M_STAVBY>
-    <C_UKOL>0300</C_UKOL>
-    <NAZ_UKOL>BDEP</NAZ_UKOL>
-    <HIP>Ing. Jan Koreček</HIP>
+    <C_PROJ>P.020168</C_PROJ>
+    <NAZ_PROJ>Stavební úpravy haly P3 - T PROJECT</NAZ_PROJ>
+    <INVESTOR>GLOBAL SERVICES SOLUTIONS s. r. o.</INVESTOR>
+    <M_STAVBY>Pardubice</M_STAVBY>
+    <C_UKOL>0200</C_UKOL>
+    <NAZ_UKOL>Dokumentace pro stavební povolení</NAZ_UKOL>
+    <HIP>Dařbuján Lukáš, DiS</HIP>
     <DIL>D</DIL>
-    <CAST />
+    <CAST>1.3</CAST>
     <PROFESE />
     <PORADI />
-    <OR_CISLO>003</OR_CISLO>
-    <NAZEV>P&amp;ID</NAZEV>
-    <AUTOR>Ing. Jan Volejník</AUTOR>
-    <PSSO />
-    <PCC>TP</PCC>
-    <TD>G</TD>
-    <PCDOC>0460</PCDOC>
-    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
+    <OR_CISLO />
+    <NAZEV>Požárně bezpečnostní řešení</NAZEV>
+    <AUTOR>Ing. Simona Boruchová</AUTOR>
+    <PSSO>D.1.3</PSSO>
+    <PCC />
+    <TD />
+    <PCDOC />
+    <TYP_DOC />
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>02.02.2022 0:00:00</DAT_REV>
-    <C_REV>A</C_REV>
-    <AUT_REV>MARCEL DITTRICH ING.</AUT_REV>
-    <ID_DOC>011CC</ID_DOC>
-    <PATH>G:\Z\P.018711\0300\Výkres\G0460A.Dwg</PATH>
-    <GLOBALID>IJZABSS1DH@220028</GLOBALID>
+    <DAT_REV>25.08.0202 0:00:00</DAT_REV>
+    <C_REV />
+    <AUT_REV>Ing. Simona Boruchová</AUT_REV>
+    <ID_DOC>01233</ID_DOC>
+    <PATH>G:\Z\P.020168\0201\NIC\N01233.Nic</PATH>
+    <GLOBALID>I16YBZ36H4@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>Dwg</EXT>
-    <APSSO>D</APSSO>
-    <FPC>G0460A</FPC>
+    <EXT>Nic</EXT>
+    <APSSO />
+    <FPC>N01233</FPC>
     <ID_DOCR />
-    <OR_CIT>1</OR_CIT>
-    <POM>Výkres</POM>
+    <OR_CIT>0</OR_CIT>
+    <POM>NIC</POM>
     <PROF_CX />
     <C_SUBREV />
     <YES>ANO</YES>
@@ -48,19 +48,19 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K připomínkám</POP_REV>
+    <POP_REV />
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>011CC</ID_DOCC>
+    <ID_DOCC>01233</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA />
-    <SPD_TX>BDEP</SPD_TX>
+    <SPD_LA>DSP</SPD_LA>
+    <SPD_TX>Dok. pro stav. povolení</SPD_TX>
     <KONTROL>Pavel Grund</KONTROL>
-    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <SCHVALIL>Lukáš Dařbuján</SCHVALIL>
     <CD_PUV />
-    <NAZEV2>Propojka PE2 a PE3</NAZEV2>
+    <NAZEV2 />
     <ISSUER />
     <PROJECT />
     <TYPE />

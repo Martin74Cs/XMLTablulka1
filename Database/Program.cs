@@ -16,11 +16,13 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 
 //funguje odladěno
 //převede databazi dbf na sql
+
 //SQL databse = new();
 //databse.DataSql();
 //return;
 
-new Library48.Acad().Program();
+new LibraryAplikace.Acad().Program();
+//new Library48.Acad().Program();
 
 
 SQLDotazy sql = new();

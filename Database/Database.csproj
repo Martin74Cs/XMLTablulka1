@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Library48.csproj" />
     <ProjectReference Include="..\LibraryAplikace\LibraryAplikace.csproj" />
     <ProjectReference Include="..\XMLTablulka1\XMLTabulka1.csproj" />
   </ItemGroup>

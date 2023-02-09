@@ -14,7 +14,7 @@ namespace Library48
         public void Program()
         {
             var acad = PripojAcad48();
-            acad.Visible = true;
+            if (acad != null) acad.Visible = true;
         }
 
         /// <summary>
