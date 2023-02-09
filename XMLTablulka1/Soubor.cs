@@ -161,7 +161,7 @@ namespace XMLTabulka1
             Soubor.SaveTXT(Nove, Cesty.Pomoc + @"\JsonnNew.txt");
              return true;
         }
-        public static bool LoadJson(string cesta)
+        public static T LoadJson<T>(string cesta)
         {
             JsonSerializer serializer = new JsonSerializer();
             serializer.Converters.Add(new JavaScriptDateTimeConverter());
@@ -170,10 +170,9 @@ namespace XMLTabulka1
             StreamWriter sw = new StreamWriter(cesta);
             JsonWriter writer = new JsonTextWriter(sw);
             
-            //serializer.Serialize(writer, product);
+            serializer.Serialize(writer, T);
             // {"ExpiryDate":new Date(1230375600000),"Price":0}
-            
-            return true;
+            return T;
         }
 
         /// <summary>Ze souboru CSV nacte data do datatable </summary>
