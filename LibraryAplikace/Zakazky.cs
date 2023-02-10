@@ -12,6 +12,11 @@ namespace LibraryAplikace
     {
         public void MojeZakazky()
         {
+  
+        }
+        
+        public void MojeZakazkyOLD()
+        {
             if (File.Exists(Cesty.PodporaDataXml))
             { 
                 XmlDocument doc = new XmlDocument();
@@ -41,8 +46,6 @@ namespace LibraryAplikace
                     }
                 }
             }
-
-
         }
     }
 }
