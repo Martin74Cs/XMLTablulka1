@@ -1,22 +1,27 @@
 ﻿using AutoCAD;
 using Podpora;
+using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
+using System.Web;
+using XMLTabulka1;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryAplikace
 {
     public class Acad
     {
-        public void Program()
+        public string[] Program(DataRow CelyRadek)
         {
             //var acad =  PripojAcad();
             var acad = OpenAcad();
             if (acad != null) acad.Visible = true;
+            string[] Soubor = new Soubor().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString());
+            if (Soubor.Count() > 0)
+                acad.Documents.Open(Soubor.First());
+            return Soubor;
         }
-
-
 
         static AutoCAD.AcadApplication OpenAcad()
         {

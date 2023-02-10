@@ -1,39 +1,39 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.020048</C_PROJ>
-    <NAZ_PROJ>Solární park Synthesia</NAZ_PROJ>
-    <INVESTOR>Synthesia, a.s.</INVESTOR>
+    <C_PROJ>P.020384</C_PROJ>
+    <NAZ_PROJ>Rekonstrukce rozvodu tepla Horka</NAZ_PROJ>
+    <INVESTOR>Synthesia a.s.</INVESTOR>
     <M_STAVBY>Pardubice</M_STAVBY>
-    <C_UKOL>0000</C_UKOL>
-    <NAZ_UKOL>studie</NAZ_UKOL>
-    <HIP>Ing. Jakub Fučík</HIP>
-    <DIL>D</DIL>
-    <CAST />
+    <C_UKOL>0300</C_UKOL>
+    <NAZ_UKOL>1.část záměru</NAZ_UKOL>
+    <HIP>Ing. Jan Koreček</HIP>
+    <DIL>C</DIL>
+    <CAST>1</CAST>
     <PROFESE />
     <PORADI />
-    <OR_CISLO>003</OR_CISLO>
-    <NAZEV>FVE plocha 2</NAZEV>
-    <AUTOR>Ing. Michal Kašpar</AUTOR>
-    <PSSO />
+    <OR_CISLO />
+    <NAZEV>Situační výkres širších vztahů</NAZEV>
+    <AUTOR>Ing. Simona Hrdinová</AUTOR>
+    <PSSO>C.1</PSSO>
     <PCC>TP</PCC>
     <TD>G</TD>
-    <PCDOC>1015</PCDOC>
+    <PCDOC>0924</PCDOC>
     <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>29.09.0202 0:00:00</DAT_REV>
+    <DAT_REV>09.12.2022 0:00:00</DAT_REV>
     <C_REV>A</C_REV>
-    <AUT_REV>Ing. Michal Kašpar</AUT_REV>
-    <ID_DOC>012C2</ID_DOC>
-    <PATH>G:\Z\P.020048\0000\Výkres\G1015A.Dwg</PATH>
-    <GLOBALID>I1H$B$69KR@220028</GLOBALID>
+    <AUT_REV>Ing. Martina Hejská</AUT_REV>
+    <ID_DOC>0127M</ID_DOC>
+    <PATH>G:\Z\P.020384\0300\Výkres\G0924A.Dwg</PATH>
+    <GLOBALID>I0%FBZJC6D@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
     <EXT>Dwg</EXT>
-    <APSSO>D</APSSO>
-    <FPC>G1015A</FPC>
+    <APSSO>C 1</APSSO>
+    <FPC>G0924A</FPC>
     <ID_DOCR />
     <OR_CIT>0</OR_CIT>
     <POM>Výkres</POM>
@@ -51,14 +51,14 @@
     <POP_REV>K připomínkám</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>012C2</ID_DOCC>
+    <ID_DOCC>0127M</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA>S</SPD_LA>
-    <SPD_TX>Studie</SPD_TX>
-    <KONTROL>Bc. Jaroslav Burda</KONTROL>
-    <SCHVALIL>Ing. Jakub Fučík</SCHVALIL>
+    <SPD_LA />
+    <SPD_TX>DPS</SPD_TX>
+    <KONTROL>Ing. Martina Hejská</KONTROL>
+    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

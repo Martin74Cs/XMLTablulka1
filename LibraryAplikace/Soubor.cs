@@ -23,8 +23,14 @@ namespace LibraryAplikace
         }
 
         public string[] HledejZdaExistujeSoubor(string JmenoSouboru)
-        { 
+        {
             List<string> list = new List<string>();
+            var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
+            if (Directory.Exists(AdresarJedna) == false)
+            {
+                return list.ToArray();
+            }
+                
             var Soubor = Path.GetFileNameWithoutExtension(JmenoSouboru);
             int Delka;
             if (Soubor.Length >= 6) 
@@ -33,7 +39,18 @@ namespace LibraryAplikace
                 Delka = Soubor.Length;
             var Soubor6 = Soubor.Substring(0, Delka).ToUpper();
 
-            var Adresar = Directory.GetDirectories(Soubor);
+            //Procházení souboru
+            foreach (var SouborJedna in Directory.GetFiles(AdresarJedna))
+            {
+                if (Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper() == Soubor6)
+                {
+                    list.ToList().Add(Soubor);
+                    list.ToArray();
+                }
+            }
+
+            //Procházení adresářů
+            var Adresar = Directory.GetDirectories(AdresarJedna);
             foreach ( var item in Adresar) 
             {
                 string[] Pom = ProjdiSoubory(item, Delka, Soubor6, Adresar);
@@ -49,7 +66,8 @@ namespace LibraryAplikace
         {
             foreach (var item in Pole)
             {
-                if (ProjdiSoubory(item, Delka, Soubor6, Pole).Count() <= 0)
+                var pom = ProjdiSoubory(item, Delka, Soubor6, Pole);
+                if (pom.Count() <= 0)
                     break;
             }
 

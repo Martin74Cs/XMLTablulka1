@@ -33,6 +33,7 @@ namespace XMLTabulka1
         PROF_CX,
         OR_CIT,
         GLOBALID,
+        PATH
     }
 
     public static class Sloupec
@@ -40,6 +41,7 @@ namespace XMLTabulka1
         public static string C_UKOL => VyberSloupec.C_UKOL.ToString();
         public static string EXT => VyberSloupec.EXT.ToString();
         public static string NAZEV => VyberSloupec.NAZEV.ToString();
+        public static string PATH => VyberSloupec.PATH.ToString();
         public static DataRow CelyRadek { get; set; }
         public static string Pripona { get; set; }
         public static string CestaDatabaze { get; set; }

@@ -206,7 +206,7 @@ namespace WFForm
                     MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
                     //pokraèuje v komponentì Autocad
                     LibraryAplikace.Acad la = new();
-                    la.Program();
+                    la.Program(Sloupec.CelyRadek);
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
