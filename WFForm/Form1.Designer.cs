@@ -33,6 +33,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.bAdd = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -47,7 +49,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.tableLayoutPanel1.SetRowSpan(this.dataGridView1, 2);
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(965, 441);
+            this.dataGridView1.Size = new System.Drawing.Size(778, 487);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
@@ -58,14 +60,14 @@
             this.TreeView1.Location = new System.Drawing.Point(3, 153);
             this.TreeView1.Name = "TreeView1";
             this.tableLayoutPanel1.SetRowSpan(this.TreeView1, 2);
-            this.TreeView1.Size = new System.Drawing.Size(144, 441);
+            this.TreeView1.Size = new System.Drawing.Size(144, 487);
             this.TreeView1.TabIndex = 1;
             this.TreeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(335, 115);
+            this.button1.Location = new System.Drawing.Point(450, 124);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -80,9 +82,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.53965F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.46035F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.30072F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.69928F));
             this.tableLayoutPanel1.Controls.Add(this.dataGridView1, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.TreeView1, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 2, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 3);
@@ -91,7 +94,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1121, 597);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(934, 643);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // groupBox1
@@ -99,19 +102,39 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Location = new System.Drawing.Point(702, 3);
+            this.groupBox1.Controls.Add(this.bAdd);
+            this.groupBox1.Controls.Add(this.listView1);
+            this.groupBox1.Location = new System.Drawing.Point(531, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(416, 144);
+            this.groupBox1.Size = new System.Drawing.Size(400, 144);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Funkce";
+            // 
+            // bAdd
+            // 
+            this.bAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bAdd.Location = new System.Drawing.Point(355, 6);
+            this.bAdd.Name = "bAdd";
+            this.bAdd.Size = new System.Drawing.Size(45, 23);
+            this.bAdd.TabIndex = 4;
+            this.bAdd.Text = "Add";
+            this.bAdd.UseVisualStyleBackColor = true;
+            this.bAdd.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(0, 34);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(400, 110);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1122, 601);
+            this.ClientSize = new System.Drawing.Size(936, 645);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -130,5 +153,7 @@
         public TreeView TreeView1;
         private TableLayoutPanel tableLayoutPanel1;
         private GroupBox groupBox1;
+        private ListView listView1;
+        private Button bAdd;
     }
 }

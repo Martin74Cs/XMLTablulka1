@@ -1,4 +1,6 @@
 ﻿using System.Data;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace XMLTabulka1
 {
@@ -29,6 +31,23 @@ namespace XMLTabulka1
             if (Data == null) throw new ArgumentNullException($"Podle krytérii nebyly nenalezeny záznamy");
             //return Data.Tables[0];
             return new Cestina().Tabulka(Data.Tables[0]);
+        }
+
+        /// <summary>
+        /// Vratí Pole stringů názvy sloupců Databaze Tezek
+        /// </summary>
+        public async Task<string[]> SloupceTezek()
+        {
+            string Dotaz = "SELECT TOP 1 * FROM TEZAK";
+            Dbf dbf = new();
+            DataSet Data = dbf.Pripoj(Dotaz);
+            if (Data == null) throw new ArgumentNullException($"Podle krytérii nebyly nenalezeny záznamy");
+            List<string> Pole = new();
+            foreach (DataColumn item in Data.Tables[0].Columns)
+            {
+                Pole.Add(item.ColumnName);
+            }
+            return Pole.ToArray();
         }
 
         /// <summary>

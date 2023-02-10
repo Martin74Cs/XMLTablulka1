@@ -8,7 +8,7 @@ using XMLTabulka1;
 
 namespace LibraryAplikace
 {
-    public class Zakazky
+    public partial class Zakazky
     {
         public void MojeZakazky()
         {
