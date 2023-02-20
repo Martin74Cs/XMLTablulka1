@@ -1,7 +1,7 @@
 using System.Data;
 using System.Runtime.InteropServices;
 using XMLTabulka1;
-
+using XMLTabulka1.Trida;
 
 namespace WFForm
 {
@@ -38,7 +38,7 @@ namespace WFForm
                     TreeView1.Nodes.Add("C_PROJ", item);
             }
 
-            table = await new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
+            table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
             dataGridView1.DataSource = table;
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
@@ -94,12 +94,14 @@ namespace WFForm
                         foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
                             N.Nodes.Add(Sloupec.C_UKOL, item[Sloupec.C_UKOL].ToString());
                         N.Expand();
+                        InfoProjekt.CisloProjektu = Cesta[0].ToString();
                         break;
                     case 2:
                         querry = "SELECT DISTINCT DIL FROM TEZAK WHERE " + N.Parent.Name + "='" + N.Parent.Text + "' AND " + N.Name + "='" + N.Text + "' AND (NOT (DIL IS NULL))";
                         foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
                             N.Nodes.Add("DIL", item["DIL"].ToString());
                         N.Expand();
+                        InfoProjekt.CisloTasku = Cesta[1].ToString();
                         break;
                     case 3:
                         querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
@@ -136,6 +138,7 @@ namespace WFForm
             }
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
+
         }
 
         public static void Barvy(DataGridView data)
@@ -233,7 +236,12 @@ namespace WFForm
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new LibraryAplikace.Zakazky().MojeZakazky();
+            new LibraryAplikace.Zakazky().MojeZakazkyAdd();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -39,6 +39,7 @@ namespace XMLTabulka1
     public static class Sloupec
     {
         public static string C_UKOL => VyberSloupec.C_UKOL.ToString();
+        public static string C_PROJ => VyberSloupec.C_PROJ.ToString();
         public static string EXT => VyberSloupec.EXT.ToString();
         public static string NAZEV => VyberSloupec.NAZEV.ToString();
         public static string PATH => VyberSloupec.PATH.ToString();

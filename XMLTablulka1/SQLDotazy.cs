@@ -36,7 +36,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí Pole stringů názvy sloupců Databaze Tezek
         /// </summary>
-        public async Task<string[]> SloupceTezek()
+        public async Task<string[]> SloupceTezak()
         {
             string Dotaz = "SELECT TOP 1 * FROM TEZAK";
             Dbf dbf = new();
@@ -51,9 +51,21 @@ namespace XMLTabulka1
         }
 
         /// <summary>
+        /// Vrati jeden radek dle podmínky
+        /// </summary>
+        public DataRow JedenTezak(string Hledej, string Polozka)
+        {
+            string Dotaz = $"SELECT TOP 1 * FROM TEZAK WHERE {Hledej} = '{Polozka}'";
+            Dbf dbf = new();
+            DataSet Data = dbf.Pripoj(Dotaz);
+            if (Data == null) throw new ArgumentNullException($"Podle krytérii nebyly nenalezeny záznamy");
+            return new Cestina().Tabulka(Data.Tables[0]).Rows[0];
+        }
+
+        /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium
         /// </summary>
-        public async Task<DataTable> HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
+        public DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
         {
             if (CisloProjektu == "") throw new Exception($"Číslo {CisloProjektu} nexistuje"); // return null;
             //string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY PCDOC";

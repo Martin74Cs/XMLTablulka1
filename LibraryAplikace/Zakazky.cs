@@ -10,9 +10,17 @@ namespace LibraryAplikace
 {
     public partial class Zakazky
     {
-        public void MojeZakazky()
+        public void MojeZakazkyAdd()
         {
-  
+            if (File.Exists(Cesty.PodporaDataXml))
+            {
+           
+            }
+            else 
+            {
+                Stream fs = new FileStream(Cesty.PodporaDataXml, FileMode.Create);
+                fs.Close();
+            }
         }
         
         public void MojeZakazkyOLD()
