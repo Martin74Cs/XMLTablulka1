@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -192,6 +193,33 @@ namespace XMLTabulka1
             File.WriteAllText(cesta, jsonString);
         }
 
+        /// <summary>
+        /// Převod DataTable na Json definovany <T>
+        /// </summary>
+        public static List<T> DataTabletoJson<T>(this DataTable table)
+        {
+            List<T> teZaks = new List<T>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                Type temp = typeof(T);
+                T obj = Activator.CreateInstance<T>();
+
+                foreach (DataColumn column in table.Columns)
+                {
+                    foreach (PropertyInfo pro in temp.GetProperties())
+                    {
+                        if (pro.Name == column.ColumnName)
+                            pro.SetValue(obj, row[column.ColumnName], null);
+                        else
+                            continue;
+                    }
+                }
+                teZaks.Add(obj);
+            }
+            return teZaks;
+        }
+
         /// <summary>Ze souboru CSV nacte data do datatable </summary>
         public static DataTable CSVtoDataTable(string Soubor)
         {
@@ -207,7 +235,7 @@ namespace XMLTabulka1
             }
             while (!sr.EndOfStream)
             {
-                string? cti = sr.ReadLine();
+                string cti = sr.ReadLine();
                 DataRow row = Table.NewRow();
                 string[] data = cti.Split(';');
                 for (int i = 0; i < Table.Columns.Count; i++)
@@ -238,7 +266,7 @@ namespace XMLTabulka1
                 Pole = "";
                 foreach (DataColumn col in Table.Columns)
                 {
-                    string? hl = item[col].ToString();
+                    string hl = item[col].ToString();
                     if ((hl == @"N=A4 tech_z(TP-N-xxxx); Text") ||
                         (hl == @"G= Výkres (C1-G-xxxx); Vykr") ||
                         (hl == @"S= A4 Static.vyp(TP-S-xxxx); Text"))

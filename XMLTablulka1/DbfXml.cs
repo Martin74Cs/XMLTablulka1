@@ -12,7 +12,7 @@ namespace XMLTabulka1
     public class DbfXml
     {
 
-        public DataSet Pripoj(string Querry)
+        public static DataSet Pripoj(string Querry)
         {
         
             return new DataSet();

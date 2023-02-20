@@ -1,10 +1,12 @@
-﻿using System;
+﻿using AutoCAD;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using XMLTabulka1;
+using XMLTabulka1.Trida;
 
 namespace LibraryAplikace
 {
@@ -12,6 +14,8 @@ namespace LibraryAplikace
     {
         public void MojeZakazkyAdd()
         {
+            TeZak.GetTeZak().SaveJson(Cesty.PodporaDataXml);
+
             if (File.Exists(Cesty.PodporaDataXml))
             {
            
@@ -19,6 +23,7 @@ namespace LibraryAplikace
             else 
             {
                 Stream fs = new FileStream(Cesty.PodporaDataXml, FileMode.Create);
+                
                 fs.Close();
             }
         }
@@ -35,7 +40,8 @@ namespace LibraryAplikace
                 rdr.Close();
 
                 Dictionary<string, string> ListZak = new();
-                XmlElement room = doc.DocumentElement;
+                XmlElement? room = doc.DocumentElement;
+                if (room == null) return;
                 foreach (XmlNode sd in room.ChildNodes)
                 {
                     foreach (XmlNode n in sd.ChildNodes)

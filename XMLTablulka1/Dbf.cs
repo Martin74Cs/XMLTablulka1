@@ -12,7 +12,7 @@ namespace XMLTabulka1
 {
     public class Dbf
     {
-        public DataSet Pripoj(string Querry)
+        public static DataSet Pripoj(string Querry)
         {
             //if (File.Exists(Cesty.SouborDbf) == false) return null;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) throw new Exception($"System nepoužívá platformu Windows");

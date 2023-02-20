@@ -87,7 +87,7 @@ namespace LibraryAplikace
             string Cesta = "";
             
             //Ve Adresár je aktuální adresář z cesty pokus
-            string Adresar = new FileInfo(Cesta).DirectoryName;
+            string? Adresar = new FileInfo(Cesta).DirectoryName;
             Adresar = Path.GetDirectoryName(Cesta);
 
             //V disk je název disku např G:\ z cesty pokus

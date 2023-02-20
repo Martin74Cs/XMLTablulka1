@@ -13,7 +13,7 @@ namespace WFForm
             InitializeComponent();
         }
 
-        private async void Form1_Load(object sender, EventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             SQLDotazy sql = new();
             string CisloProjektu = "P.018711";
@@ -77,7 +77,7 @@ namespace WFForm
             //dataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
         }
 
-        private async void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             TreeNode N = TreeView1.SelectedNode;
             //char Separ = Convert.ToChar(TreeView1.PathSeparator);
@@ -101,7 +101,6 @@ namespace WFForm
                         foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
                             N.Nodes.Add("DIL", item["DIL"].ToString());
                         N.Expand();
-                        InfoProjekt.CisloTasku = Cesta[1].ToString();
                         break;
                     case 3:
                         querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
@@ -138,6 +137,13 @@ namespace WFForm
             }
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
+
+            if (string.IsNullOrEmpty(InfoProjekt.CisloTasku))
+            {
+                DataTable table = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
+                TeZak teZaks = Soubor.DataTabletoJson<TeZak>(table).First();
+                InfoProjekt.Projekt = teZaks.NAZ_PROJ;
+            }
 
         }
 
@@ -187,7 +193,7 @@ namespace WFForm
             }
         }
 
-        private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             string GlobalID = dataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();

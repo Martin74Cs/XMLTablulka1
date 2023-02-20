@@ -104,7 +104,7 @@ namespace XMLTabulka1
             catch (Exception)
             {   }
             SQLDotazy sql = new();
-            DataTable dt = await sql.HledejVse();
+            DataTable dt = sql.HledejVse();
 
             //new Table
             string strCreateColumns = "";
