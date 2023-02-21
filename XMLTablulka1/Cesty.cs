@@ -16,6 +16,7 @@ namespace XMLTabulka1
 
         public static string PodporaSpolecneCsv => Podpora + @"\SPOLECNE2.csv";
         public static string PodporaDataXml => Podpora + @"\data.xml";
+        public static string PodporaDataJson => Podpora + @"\data.json";
         public static string AktualniAdresar => Environment.CurrentDirectory;
         
         public static string SouborExe => System.Reflection.Assembly.GetExecutingAssembly().Location;

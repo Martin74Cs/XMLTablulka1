@@ -9,6 +9,6 @@ namespace XMLTabulka1.Trida
     public class MojeZakazky
     {
         public string CisloProjektu { get; set; } = string.Empty;
-        public string PopisProjektu { get; set; } = string.Empty;
+        public string ProjektNazev { get; set; } = string.Empty;
     }
 }

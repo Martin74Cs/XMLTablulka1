@@ -48,7 +48,7 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Vrati jeden radek dle podmínky
+        /// Vrati jeden radek dle podmínky SELECT TOP 1 *
         /// </summary>
         public DataTable JedenTezak(string Hledej, string Polozka)
         {

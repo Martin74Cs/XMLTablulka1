@@ -8,35 +8,35 @@
     <C_UKOL>0300</C_UKOL>
     <NAZ_UKOL>BDEP</NAZ_UKOL>
     <HIP>Ing. Jan Koreček</HIP>
-    <DIL>B</DIL>
+    <DIL>C</DIL>
     <CAST />
     <PROFESE />
     <PORADI />
     <OR_CISLO />
-    <NAZEV>Situace stavby</NAZEV>
+    <NAZEV>Řešení z hlediska BOZP, PO, ŽP</NAZEV>
     <AUTOR>Ing. Jan Volejník</AUTOR>
-    <PSSO>B</PSSO>
-    <PCC>TP</PCC>
-    <TD>G</TD>
-    <PCDOC>0270</PCDOC>
-    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
+    <PSSO>C</PSSO>
+    <PCC />
+    <TD />
+    <PCDOC />
+    <TYP_DOC />
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>31.03.2022 0:00:00</DAT_REV>
-    <C_REV>A</C_REV>
-    <AUT_REV>Ing. Martina Hejská</AUT_REV>
-    <ID_DOC>0112A</ID_DOC>
-    <PATH>G:\Z\P.018711\0300\Výkres\G0270A.Dwg</PATH>
-    <GLOBALID>IJQHBRWXK5@220028</GLOBALID>
+    <DAT_REV />
+    <C_REV />
+    <AUT_REV />
+    <ID_DOC>0112B</ID_DOC>
+    <PATH>G:\Z\P.018711\0300\NIC\N0112B.Nic</PATH>
+    <GLOBALID>IJQGBRWXLW@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>Dwg</EXT>
-    <APSSO>B</APSSO>
-    <FPC>G0270A</FPC>
+    <EXT>Nic</EXT>
+    <APSSO />
+    <FPC>N0112B</FPC>
     <ID_DOCR />
     <OR_CIT>0</OR_CIT>
-    <POM>Výkres</POM>
+    <POM>NIC</POM>
     <PROF_CX />
     <C_SUBREV />
     <YES>ANO</YES>
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K připomínkám</POP_REV>
+    <POP_REV />
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>0112A</ID_DOCC>
+    <ID_DOCC>0112B</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
     <SPD_LA />
     <SPD_TX>BDEP</SPD_TX>
-    <KONTROL>Ing. Martina Hejská</KONTROL>
-    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <KONTROL />
+    <SCHVALIL />
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

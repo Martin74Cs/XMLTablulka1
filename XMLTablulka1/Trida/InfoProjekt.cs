@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace XMLTabulka1.Trida
 {
-    public static class InfoProjekt
+    public class InfoProjekt
     {
-        public static string CisloProjektu { get; set; }
-        public static string Projekt { get; set; }
-        public static string CisloTasku { get; set; }
-        public static string Task { get; set; }
-        public static string Nazev { get; set; }
-        public static string Misto { get; set; }
-        public static string Investor { get; set; }
-        public static string HIP { get; set; }
+        public static string CisloProjektu { get; set; } = string.Empty;
+        public static string Projekt { get; set; } = string.Empty;
+        public static string CisloTasku { get; set; } = string.Empty;
+        public static string Task { get; set; } = string.Empty;
+        public static string Nazev { get; set; } = string.Empty;
+        public static string Misto { get; set; } = string.Empty;
+        public static string Investor { get; set; } = string.Empty;
+        public static string HIP { get; set; } = string.Empty;
     }
 }

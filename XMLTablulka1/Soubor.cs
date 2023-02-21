@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
@@ -102,6 +103,27 @@ namespace XMLTabulka1
             return Pole.Split(';',StringSplitOptions.RemoveEmptyEntries);
         }
 
+        /// <summary>        /// Nacti XmlDocument ze souboru  /// </summary>
+        public static XmlDocument LoadXML(string Cesta)
+        {
+            if(!File.Exists(Cesta)) return null;
+            XmlDocument Pole = new XmlDocument();
+            string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
+            Pole.LoadXml(xmlString);
+
+            return Pole;
+        }
+
+        /// <summary>
+        /// Uložení xml dokumentu do souboru Cesta
+        /// </summary>       
+        public static void SaveXML(this XmlDocument doc, string Cesta)
+        {
+            if (File.Exists(Cesta)) return;
+            doc.PreserveWhitespace= true;
+            doc.Save(Cesta);           
+        }
+
         /// <summary>Uloži DataTable do XML </summary>
         public static bool SaveXML(DataTable Table, string CestaXML)
         {
@@ -129,7 +151,7 @@ namespace XMLTabulka1
         }
 
         /// <summary> Nacte XML do DataTable </summary>
-        public static DataTable LoadXML(string CestaXML)
+        public static DataTable LoadXMLToDataTable(string CestaXML)
         {
             if (!File.Exists(CestaXML)) return null;
             DataTable Table = new();
@@ -165,23 +187,37 @@ namespace XMLTabulka1
              return true;
         }
 
-        public static void LoadJson(this MojeZakazky moje, string cesta)
+        public static void LoadJson(this List<MojeZakazky> moje, string cesta)
         {
             if (File.Exists(cesta))
             {
                 string jsonString = File.ReadAllText(cesta);
-                moje = System.Text.Json.JsonSerializer.Deserialize<MojeZakazky>(jsonString)!;
+                moje = System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString)!;
             }
         }
-        public static void LoadJson<T>(this T moje, string cesta)
+
+        public static T LoadJson<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
             {
                 string jsonString = File.ReadAllText(cesta);
-                moje = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString)!;
+                T moje = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString)!;
+                return moje;
             }
+            return null;
         }
-        public static void SaveJson(this MojeZakazky moje, string cesta)
+
+        public static List<T> LoadJsonList<T>(string cesta) where T : class
+        {
+            if (File.Exists(cesta))
+            {
+                string jsonString = File.ReadAllText(cesta);
+                List<T> moje = System.Text.Json.JsonSerializer.Deserialize<List<T>>(jsonString)!;
+                return moje;
+            }
+            return null;
+        }
+        public static void SaveJson(this List<MojeZakazky> moje, string cesta)
         {
             string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
             File.WriteAllText(cesta, jsonString);
@@ -218,6 +254,33 @@ namespace XMLTabulka1
                 teZaks.Add(obj);
             }
             return teZaks;
+        }
+
+        /// <summary>
+        /// Převod XmlDocument na Json string
+        /// </summary>
+        public static string XmltoJson(XmlDocument doc)
+        {
+            return JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
+        }
+
+        public static string XmlToJsonWithoutRoot(XDocument xml)
+        {
+            return JsonConvert.SerializeXNode(xml, Newtonsoft.Json.Formatting.None, omitRootObject: true);
+        }
+
+        private static readonly XDeclaration _defaultDeclaration = new("1.0", null, null);
+        public static string JsonToXml(string json)
+        {
+            var doc = JsonConvert.DeserializeXNode(json)!;
+            var declaration = doc.Declaration ?? _defaultDeclaration;
+            return $"{declaration}{Environment.NewLine}{doc}";
+        }
+        public static string JsonToXmlWithExplicitRoot(string json, string rootName)
+        {
+            var doc = JsonConvert.DeserializeXNode(json, rootName)!;
+            var declaration = doc.Declaration ?? _defaultDeclaration;
+            return $"{declaration}{Environment.NewLine}{doc}";
         }
 
         /// <summary>Ze souboru CSV nacte data do datatable </summary>

@@ -42,6 +42,18 @@ namespace WFForm
             dataGridView1.DataSource = table;
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
+
+            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList(); 
+            listView1.Clear();
+            listView1.View = System.Windows.Forms.View.Details;
+            listView1.Columns.Add(Sloupec.C_PROJ);
+            listView1.Columns.Add(Sloupec.NAZEV);
+            listView1.Columns[1].Width= 250;
+
+            foreach (var item in moje)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
+            }
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -94,6 +106,7 @@ namespace WFForm
                         foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
                             N.Nodes.Add(Sloupec.C_UKOL, item[Sloupec.C_UKOL].ToString());
                         N.Expand();
+                        //vazba na moje zakazky
                         InfoProjekt.CisloProjektu = Cesta[0].ToString();
                         break;
                     case 2:
@@ -137,16 +150,6 @@ namespace WFForm
             }
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
-
-            if (string.IsNullOrEmpty(InfoProjekt.CisloTasku))
-            {
-                DataTable table = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
-                TeZak teZaks = Soubor.DataTabletoJson<TeZak>(table).First();
-
-                InfoProjekt.Projekt = teZaks.NAZ_PROJ;
-                InfoProjekt.CisloProjektu = teZaks.C_PROJ;
-            }
-
         }
 
         public static void Barvy(DataGridView data)
@@ -250,6 +253,20 @@ namespace WFForm
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            listView1.Clear();
+            listView1.View = System.Windows.Forms.View.Details;
+            listView1.Columns.Add(Sloupec.C_PROJ);
+            listView1.Columns.Add(Sloupec.NAZEV);
+            listView1.Columns[1].Width = 250;
+            var moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            foreach (var item in moje)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
+            }
         }
     }
 }
