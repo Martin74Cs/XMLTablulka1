@@ -142,7 +142,9 @@ namespace WFForm
             {
                 DataTable table = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
                 TeZak teZaks = Soubor.DataTabletoJson<TeZak>(table).First();
+
                 InfoProjekt.Projekt = teZaks.NAZ_PROJ;
+                InfoProjekt.CisloProjektu = teZaks.C_PROJ;
             }
 
         }

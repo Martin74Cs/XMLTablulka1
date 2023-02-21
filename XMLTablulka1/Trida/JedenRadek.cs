@@ -8,7 +8,6 @@ namespace XMLTabulka1.Trida
 {
     public class JedenRadek
     {
-
         public string RAZITKO { get; set; }
         public string SUBJECT1 { get; set; }
         public string SUBJECT2 { get; set; }

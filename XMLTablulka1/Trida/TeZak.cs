@@ -1,27 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using XMLTabulka1.Trida;
 
 namespace XMLTabulka1.Trida
 {
     public sealed class TeZak
     {
-
-        public TeZak() { }
-
-        private static TeZak instance;
-
-        public static TeZak GetTeZak()
-        {
-            if (instance == null)
-            { 
-                instance = new TeZak();
-            }
-            return instance;
-        }
-
         public string C_PROJ { get; set; } = string.Empty;
         public string CYCOSTATUS { get; set; } = string.Empty;
         public string NAZ_PROJ { get; set; } = string.Empty;

@@ -1,4 +1,5 @@
 ﻿using AutoCAD;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,19 +15,31 @@ namespace LibraryAplikace
     {
         public void MojeZakazkyAdd()
         {
-            TeZak.GetTeZak().SaveJson(Cesty.PodporaDataXml);
+            //string json = JsonSerializer.Serialize(InfoProjekt);
 
-            if (File.Exists(Cesty.PodporaDataXml))
+            //TeZak.GetTeZak().SaveJson(Cesty.PodporaDataXml);
+            //string test = InfoProjekt.Projekt;
+
+            //InfoProjekt.Projekt;
+            //InfoProjekt.CisloProjektu;           
+
+            if (File.Exists(Cesty.PodporaDataXml) == false)
             {
-           
-            }
-            else 
-            {
-                Stream fs = new FileStream(Cesty.PodporaDataXml, FileMode.Create);
-                
+                FileStream fs = new FileStream(Cesty.PodporaDataXml,FileMode.CreateNew);
                 fs.Close();
+
+                StreamWriter fw = new StreamWriter(Cesty.PodporaDataXml);
+                fw.WriteLine("<SEZNAM></SEZNAM>");
+                fw.Close();
             }
+            
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(Cesty.PodporaDataXml);
+            XmlElement elem = doc.CreateElement("C_PROJ");
+
+
         }
+
         
         public void MojeZakazkyOLD()
         {
