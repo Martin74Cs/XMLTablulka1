@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<SEZNAM>
-  <C_PROJ>P.020345</C_PROJ>
-  <NAZ_PROJ></NAZ_PROJ>
-  <C_PROJ>P.020488</C_PROJ>
-  <NAZ_PROJ></NAZ_PROJ>
-  <C_PROJ>P.020220</C_PROJ>
-  <NAZ_PROJ></NAZ_PROJ>
-  <C_PROJ>P.019639</C_PROJ>
-  <NAZ_PROJ></NAZ_PROJ>
+<?xml version="1.0" encoding="utf-8"?>
+<SEZNAM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MojeZakazky>
+    <CisloProjektu>P.020394</CisloProjektu>
+    <ProjektNazev>REKONSTRUKCE, ROZŠÍŘENÍ A MODERNIZACE ZÁVODU</ProjektNazev>
+  </MojeZakazky>
+  <MojeZakazky>
+    <CisloProjektu>P.019947</CisloProjektu>
+    <ProjektNazev>Demivoda</ProjektNazev>
+  </MojeZakazky>
 </SEZNAM>

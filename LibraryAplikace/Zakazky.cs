@@ -1,5 +1,6 @@
 ﻿using AutoCAD;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,16 +29,14 @@ namespace LibraryAplikace
 
         public void MojeZakazkyAddJson()
         {
-            if (File.Exists(Cesty.PodporaDataXml) == false)
+            List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
+            MojeZakazky nove = new MojeZakazky
             {
-                List<MojeZakazky> moje = new();
-                //moje.CisloProjektu = InfoProjekt.CisloProjektu;
-                //moje.ProjektNazev = InfoProjekt.Projekt;
-                moje.SaveJson(Cesty.PodporaDataJson);
-            }
-
-            //MojeZakazky moje1 = new MojeZakazky();
-            //MojeZakazky xx = XMLTabulka1.Soubor.LoadJson<MojeZakazky>(Cesty.PodporaDataJson);
+                CisloProjektu = InfoProjekt.CisloProjektu,
+                ProjektNazev = InfoProjekt.Projekt,
+            };
+            mojelist.Add(nove);
+            mojelist.SaveJson(Cesty.PodporaDataJson);
         }
 
         public void MojeZakazkyAdd()
@@ -48,74 +47,60 @@ namespace LibraryAplikace
 
             if (File.Exists(Cesty.PodporaDataXml) == false)
             {
-                //XmlDocument docnew = new XmlDocument();
-
-                //XmlNode rootNode = docnew.CreateElement("SEZNAM");
-                //docnew.AppendChild(rootNode);
-
-                //docnew.Save(Cesty.PodporaDataXml);
-
                 XDocument docnew = new XDocument();
+                //XMLTabulka1.Soubor.xml(docnew, Cesty.PodporaDataXml);
                 XElement xElement = new XElement("SEZNAM");
                 docnew.Add(xElement);
+                //docnew.Save(Cesty.PodporaDataXml);
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<MojeZakazky>));
+                XmlWriter writer = docnew.CreateWriter();
+                List<MojeZakazky> moje = new();
+                xmlSerializer.Serialize(writer, moje);
                 docnew.Save(Cesty.PodporaDataXml);
+                // docnew.Save(Cesty.PodporaDataXml);
+
             }
-            XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
-            XElement xEle = new XElement("C_PROJ", InfoProjekt.CisloProjektu);
-            doc.Root.Add(xEle);
 
-            xEle = new XElement("NAZ_PROJ", InfoProjekt.Nazev);
-            doc.Root.Add(xEle);
-            doc.Save(Cesty.PodporaDataXml);
-
-            //string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
-            //if (string.IsNullOrEmpty(xmlString)) return;
-
-            //XmlDocument doc = new XmlDocument();
-            //doc.LoadXml(xmlString);
-
-            //XmlElement radek = doc.CreateElement("RADEK");
-            //XmlNode Rodic = doc.DocumentElement.AppendChild(radek);
-
-            //XmlElement elem = doc.CreateElement("C_PROJ");
-            //elem.InnerText = InfoProjekt.CisloProjektu;
-            //Rodic.AppendChild(elem);
-
-            //elem = doc.CreateElement("NAZ_PROJ");
-            //elem.InnerText = InfoProjekt.Projekt;
-            //Rodic.AppendChild(elem);
-
-            //doc.PreserveWhitespace = true;
-            //doc.Save(Cesty.PodporaDataXml);
-
-            //MojeZakazky moje = new MojeZakazky();
-            //moje = XMLTabulka1.Soubor.LoadJson<MojeZakazky>(Cesty.PodporaDataJson);
-
-            List<MojeZakazky> mojelist = new();
-            mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
-
-            MojeZakazky nove = new MojeZakazky 
-            { 
+            //XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
+            List<MojeZakazky> moje1 = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
+            MojeZakazky nove = new MojeZakazky
+            {
                 CisloProjektu = InfoProjekt.CisloProjektu,
                 ProjektNazev = InfoProjekt.Projekt,
             };
-            mojelist.Add(nove);
-            mojelist.SaveJson(Cesty.PodporaDataJson);
+            moje1.Add(nove);
+            moje1.SaveXML(Cesty.PodporaDataXml);
+            
+            //XElement xEle = new XElement("C_PROJ", InfoProjekt.CisloProjektu);
+            //doc.Root.Add(xEle);
+
+            //xEle = new XElement("NAZ_PROJ", InfoProjekt.Projekt);
+            //doc.Root.Add(xEle);
+            //doc.Save(Cesty.PodporaDataXml);
+
         }
 
         public List<MojeZakazky> MojeZakazkyList()
         {
+            List<MojeZakazky> Pole = MojeZakazkyListXML();
             if (File.Exists(Cesty.PodporaDataXml) == false) return new();        
-
-            string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
-            if (string.IsNullOrEmpty(xmlString)) return new();
-
-            XDocument doc = XDocument.Load(Cesty.PodporaDataXml);          
-            string Json = XMLTabulka1.Soubor.XmlToJsonWithoutRoot(doc);
-
             List<MojeZakazky> mojelist = new();
             mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
             return mojelist;
+        }
+
+        public List<MojeZakazky> MojeZakazkyListXML()
+        {
+            if (File.Exists(Cesty.PodporaDataXml) == false) return new();
+            //string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
+            //if (string.IsNullOrEmpty(xmlString)) return new();
+
+            XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
+
+            List<MojeZakazky> Pole = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
+
+            return Pole;
         }
 
         public void MojeZakazkyOLD()
@@ -128,6 +113,7 @@ namespace LibraryAplikace
                 XmlReader rdr = XmlReader.Create(fs);
                 doc.Load(rdr);
                 rdr.Close();
+                fs.Close();
 
                 Dictionary<string, string> ListZak = new();
                 XmlElement? room = doc.DocumentElement;
@@ -151,5 +137,38 @@ namespace LibraryAplikace
                 }
             }
         }
+
+        //poznámka
+        //lze použí starší spůsob vytvořebí XML dokumentu
+
+        //XmlDocument docnew = new XmlDocument();
+
+        //XmlNode rootNode = docnew.CreateElement("SEZNAM");
+        //docnew.AppendChild(rootNode);
+
+        //docnew.Save(Cesty.PodporaDataXml);
+
+        //string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
+        //if (string.IsNullOrEmpty(xmlString)) return;
+
+        //XmlDocument doc = new XmlDocument();
+        //doc.LoadXml(xmlString);
+
+        //XmlElement radek = doc.CreateElement("RADEK");
+        //XmlNode Rodic = doc.DocumentElement.AppendChild(radek);
+
+        //XmlElement elem = doc.CreateElement("C_PROJ");
+        //elem.InnerText = InfoProjekt.CisloProjektu;
+        //Rodic.AppendChild(elem);
+
+        //elem = doc.CreateElement("NAZ_PROJ");
+        //elem.InnerText = InfoProjekt.Projekt;
+        //Rodic.AppendChild(elem);
+
+        //doc.PreserveWhitespace = true;
+        //doc.Save(Cesty.PodporaDataXml);
+
+        //MojeZakazky moje = new MojeZakazky();
+        //moje = XMLTabulka1.Soubor.LoadJson<MojeZakazky>(Cesty.PodporaDataJson);
     }
 }

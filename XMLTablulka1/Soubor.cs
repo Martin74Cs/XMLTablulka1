@@ -6,11 +6,13 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
@@ -104,25 +106,34 @@ namespace XMLTabulka1
         }
 
         /// <summary>        /// Nacti XmlDocument ze souboru  /// </summary>
-        public static XmlDocument LoadXML(string Cesta)
+        public static XDocument LoadXML(string Cesta)
         {
             if(!File.Exists(Cesta)) return null;
-            XmlDocument Pole = new XmlDocument();
-            string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
-            Pole.LoadXml(xmlString);
-
+            XDocument Pole = XDocument.Load(Cesta);
+            //string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
+            //Pole.LoadXml(xmlString);
             return Pole;
         }
 
         /// <summary>
         /// Uložení xml dokumentu do souboru Cesta
         /// </summary>       
-        public static void SaveXML(this XmlDocument doc, string Cesta)
+        public static void SaveXML(this XDocument doc, string Cesta)
         {
             if (File.Exists(Cesta)) return;
-            doc.PreserveWhitespace= true;
             doc.Save(Cesta);           
         }
+
+        public static void SaveXML<T>(this List<T> moje, string Cesta)
+        {
+            //File.Delete(Cesta);
+            FileStream writer = new(Cesta, FileMode.Create);
+            XmlSerializer ser = new XmlSerializer(typeof(List<T>),
+                new XmlRootAttribute("SEZNAM"));
+            ser.Serialize(writer, moje);
+        }
+
+
 
         /// <summary>Uloži DataTable do XML </summary>
         public static bool SaveXML(DataTable Table, string CestaXML)
@@ -215,8 +226,35 @@ namespace XMLTabulka1
                 List<T> moje = System.Text.Json.JsonSerializer.Deserialize<List<T>>(jsonString)!;
                 return moje;
             }
-            return null;
+            return new();
         }
+
+        public static List<T> LoadXML<T>(string cesta) where T : class
+        {
+            if (File.Exists(cesta))
+            {
+                //XDocument doc = XDocument.Load(cesta);
+                //XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));              
+                //XmlReader reader = doc.Root.CreateReader();
+
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>),
+                new XmlRootAttribute("SEZNAM"));
+                //XmlReader reader = doc.CreateReader();
+                var reader = new StreamReader(cesta);
+                List<T> Pole = (List<T>)xmlSerializer.Deserialize(reader);
+                reader.Close();
+                return Pole;
+
+                //XDocument xml = XDocument.Load(cesta);
+                //string json = XMLTabulka1.Soubor.XmltoJson(xml);
+                //string jsonString = File.ReadAllText(cesta);
+                //XmlSerializer xmlSerializer = new XmlSerializer(typeof(Moje));
+                //xmlSerializer.Deserialize(reader);  
+
+            }
+            return new();
+        }
+
         public static void SaveJson(this List<MojeZakazky> moje, string cesta)
         {
             string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
@@ -259,9 +297,9 @@ namespace XMLTabulka1
         /// <summary>
         /// Převod XmlDocument na Json string
         /// </summary>
-        public static string XmltoJson(XmlDocument doc)
+        public static string XmltoJson(XDocument doc)
         {
-            return JsonConvert.SerializeXmlNode(doc, Newtonsoft.Json.Formatting.Indented);
+            return JsonConvert.SerializeXNode(doc, Newtonsoft.Json.Formatting.Indented);
         }
 
         public static string XmlToJsonWithoutRoot(XDocument xml)
