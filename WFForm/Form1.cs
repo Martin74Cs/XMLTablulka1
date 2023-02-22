@@ -16,6 +16,22 @@ namespace WFForm
             InitializeComponent();
         }
 
+        //podpora form opakuje se
+        public void VypisMojeZakazky()
+        {
+            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            listView1.Clear();
+            listView1.View = System.Windows.Forms.View.Details;
+            listView1.Columns.Add(Sloupec.C_PROJ);
+            listView1.Columns.Add(Sloupec.NAZEV);
+            listView1.Columns[1].Width = 250;
+
+            foreach (var item in moje)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             SQLDotazy sql = new();

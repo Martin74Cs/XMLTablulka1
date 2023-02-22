@@ -35,14 +35,20 @@ namespace LibraryAplikace
                 CisloProjektu = InfoProjekt.CisloProjektu,
                 ProjektNazev = InfoProjekt.Projekt,
             };
-            mojelist.Add(nove);
-            mojelist.SaveJson(Cesty.PodporaDataJson);
+
+            //kontrola existence prvku
+            var kontrola = mojelist.FirstOrDefault(x => x == nove);
+            if (kontrola == null)
+            { 
+                //pokud není bude přidán a ulozen
+                mojelist.Add(nove);
+                mojelist.SaveJson(Cesty.PodporaDataJson);
+            }
         }
 
         public void MojeZakazkyAdd()
         {
             InfoProjekt.Projekt = JmenoProjektuDlePrvniho();
-
             MojeZakazkyAddJson();
 
             if (File.Exists(Cesty.PodporaDataXml) == false)
@@ -58,27 +64,21 @@ namespace LibraryAplikace
                 List<MojeZakazky> moje = new();
                 xmlSerializer.Serialize(writer, moje);
                 docnew.Save(Cesty.PodporaDataXml);
-                // docnew.Save(Cesty.PodporaDataXml);
-
             }
 
-            //XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
-            List<MojeZakazky> moje1 = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
+            List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
             MojeZakazky nove = new MojeZakazky
             {
                 CisloProjektu = InfoProjekt.CisloProjektu,
                 ProjektNazev = InfoProjekt.Projekt,
             };
-            moje1.Add(nove);
-            moje1.SaveXML(Cesty.PodporaDataXml);
-            
-            //XElement xEle = new XElement("C_PROJ", InfoProjekt.CisloProjektu);
-            //doc.Root.Add(xEle);
-
-            //xEle = new XElement("NAZ_PROJ", InfoProjekt.Projekt);
-            //doc.Root.Add(xEle);
-            //doc.Save(Cesty.PodporaDataXml);
-
+            var kontrola = mojelist.FirstOrDefault(x => x == nove);
+            if (kontrola == null)
+            {
+                //pokud není bude přidán a ulozen
+                mojelist.Add(nove);
+                mojelist.SaveXML(Cesty.PodporaDataXml);
+            }
         }
 
         public List<MojeZakazky> MojeZakazkyList()
