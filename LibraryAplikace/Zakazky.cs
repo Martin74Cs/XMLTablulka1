@@ -93,13 +93,8 @@ namespace LibraryAplikace
         public List<MojeZakazky> MojeZakazkyListXML()
         {
             if (File.Exists(Cesty.PodporaDataXml) == false) return new();
-            //string xmlString = File.ReadAllText(Cesty.PodporaDataXml);
-            //if (string.IsNullOrEmpty(xmlString)) return new();
-
             XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
-
             List<MojeZakazky> Pole = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
-
             return Pole;
         }
 

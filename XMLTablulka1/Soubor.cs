@@ -131,6 +131,7 @@ namespace XMLTabulka1
             XmlSerializer ser = new XmlSerializer(typeof(List<T>),
                 new XmlRootAttribute("SEZNAM"));
             ser.Serialize(writer, moje);
+            writer.Close();
         }
 
 
@@ -233,13 +234,8 @@ namespace XMLTabulka1
         {
             if (File.Exists(cesta))
             {
-                //XDocument doc = XDocument.Load(cesta);
-                //XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>));              
-                //XmlReader reader = doc.Root.CreateReader();
-
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>),
                 new XmlRootAttribute("SEZNAM"));
-                //XmlReader reader = doc.CreateReader();
                 var reader = new StreamReader(cesta);
                 List<T> Pole = (List<T>)xmlSerializer.Deserialize(reader);
                 reader.Close();

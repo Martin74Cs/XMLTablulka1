@@ -1,7 +1,10 @@
 using System.Data;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
+using static System.Windows.Forms.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WFForm
 {
@@ -43,17 +46,7 @@ namespace WFForm
             Barvy(dataGridView1);
             SloupecSirka(dataGridView1.Columns);
 
-            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList(); 
-            listView1.Clear();
-            listView1.View = System.Windows.Forms.View.Details;
-            listView1.Columns.Add(Sloupec.C_PROJ);
-            listView1.Columns.Add(Sloupec.NAZEV);
-            listView1.Columns[1].Width= 250;
-
-            foreach (var item in moje)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
-            }
+            VypisMojeZakazky();
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -248,6 +241,7 @@ namespace WFForm
         private void button2_Click(object sender, EventArgs e)
         {
             new LibraryAplikace.Zakazky().MojeZakazkyAdd();
+            VypisMojeZakazky();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -257,15 +251,29 @@ namespace WFForm
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            listView1.Clear();
-            listView1.View = System.Windows.Forms.View.Details;
-            listView1.Columns.Add(Sloupec.C_PROJ);
-            listView1.Columns.Add(Sloupec.NAZEV);
-            listView1.Columns[1].Width = 250;
-            var moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
-            foreach (var item in moje)
+            VypisMojeZakazky();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            SelectedListViewItemCollection V = listView1.SelectedItems;
+            foreach (ListViewItem item in V)
             {
-                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
+                MojeZakazky del = moje.FirstOrDefault(x => x.CisloProjektu == item.Text);
+                if (del != null)
+                    moje.Remove(del);
+                moje.SaveXML(Cesty.PodporaDataXml);
+                moje.SaveJson(Cesty.PodporaDataJson);
+            }
+            VypisMojeZakazky();
+        }
+
+        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                button3_Click(sender, e);
             }
         }
     }
