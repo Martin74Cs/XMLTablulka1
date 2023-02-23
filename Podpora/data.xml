@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SEZNAM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<SEZNAM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MojeZakazky>
+    <CisloProjektu>P.019947</CisloProjektu>
+    <ProjektNazev>Demivoda</ProjektNazev>
+  </MojeZakazky>
+</SEZNAM>

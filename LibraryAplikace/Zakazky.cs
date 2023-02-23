@@ -54,10 +54,8 @@ namespace LibraryAplikace
             if (File.Exists(Cesty.PodporaDataXml) == false)
             {
                 XDocument docnew = new XDocument();
-                //XMLTabulka1.Soubor.xml(docnew, Cesty.PodporaDataXml);
                 XElement xElement = new XElement("SEZNAM");
                 docnew.Add(xElement);
-                //docnew.Save(Cesty.PodporaDataXml);
 
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<MojeZakazky>));
                 XmlWriter writer = docnew.CreateWriter();

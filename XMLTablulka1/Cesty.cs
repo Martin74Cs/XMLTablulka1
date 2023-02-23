@@ -13,6 +13,7 @@ namespace XMLTabulka1
         public static string CislaProjektuTxt => Pomoc + @"\Cisla_zakázek.txt";
 
         public static string JedenRadekXml => Pomoc + @"\JedenRadek.xml";
+        public static string JedenRadekJson => Pomoc + @"\JedenRadek.json";
 
         public static string PodporaSpolecneCsv => Podpora + @"\SPOLECNE2.csv";
         public static string PodporaDataXml => Podpora + @"\data.xml";

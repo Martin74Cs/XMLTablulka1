@@ -263,6 +263,12 @@ namespace XMLTabulka1
             File.WriteAllText(cesta, jsonString);
         }
 
+        public static void SaveJson<T>(this List<T> moje, string cesta)
+        {
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
+            File.WriteAllText(cesta, jsonString);
+        }
+
         /// <summary>
         /// Převod DataTable na Json definovany <T>
         /// </summary>
@@ -306,13 +312,13 @@ namespace XMLTabulka1
         private static readonly XDeclaration _defaultDeclaration = new("1.0", null, null);
         public static string JsonToXml(string json)
         {
-            var doc = JsonConvert.DeserializeXNode(json)!;
+            var doc = JsonConvert.DeserializeXNode(json);
             var declaration = doc.Declaration ?? _defaultDeclaration;
             return $"{declaration}{Environment.NewLine}{doc}";
         }
         public static string JsonToXmlWithExplicitRoot(string json, string rootName)
         {
-            var doc = JsonConvert.DeserializeXNode(json, rootName)!;
+            var doc = JsonConvert.DeserializeXNode(json, rootName);
             var declaration = doc.Declaration ?? _defaultDeclaration;
             return $"{declaration}{Environment.NewLine}{doc}";
         }

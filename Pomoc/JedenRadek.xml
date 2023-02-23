@@ -1,42 +1,42 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.018711</C_PROJ>
-    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
-    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
-    <M_STAVBY>Litvínov</M_STAVBY>
-    <C_UKOL>0300</C_UKOL>
-    <NAZ_UKOL>BDEP</NAZ_UKOL>
-    <HIP>Ing. Jan Koreček</HIP>
-    <DIL>C</DIL>
+    <C_PROJ>P.020345</C_PROJ>
+    <NAZ_PROJ>RA3 375 In-line Coil</NAZ_PROJ>
+    <INVESTOR>Cabot Italiana S.p.A</INVESTOR>
+    <M_STAVBY>Ravena</M_STAVBY>
+    <C_UKOL>0000</C_UKOL>
+    <NAZ_UKOL>Feasibility study</NAZ_UKOL>
+    <HIP>Ing. Radomír Špaček</HIP>
+    <DIL>A</DIL>
     <CAST />
     <PROFESE />
     <PORADI />
     <OR_CISLO />
-    <NAZEV>Řešení z hlediska BOZP, PO, ŽP</NAZEV>
-    <AUTOR>Ing. Jan Volejník</AUTOR>
-    <PSSO>C</PSSO>
-    <PCC />
-    <TD />
-    <PCDOC />
-    <TYP_DOC />
+    <NAZEV>Technical report</NAZEV>
+    <AUTOR>Ing. Rostislav Danhel</AUTOR>
+    <PSSO>A</PSSO>
+    <PCC>TP</PCC>
+    <TD>N</TD>
+    <PCDOC>8160</PCDOC>
+    <TYP_DOC>N=A4 tech_z(TP-N-xxxx); Text</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV />
-    <C_REV />
-    <AUT_REV />
-    <ID_DOC>0112B</ID_DOC>
-    <PATH>G:\Z\P.018711\0300\NIC\N0112B.Nic</PATH>
-    <GLOBALID>IJQGBRWXLW@220028</GLOBALID>
+    <DAT_REV>22.09.0202 0:00:00</DAT_REV>
+    <C_REV>A</C_REV>
+    <AUT_REV>Ing. Rostislav Danhel</AUT_REV>
+    <ID_DOC>012B7</ID_DOC>
+    <PATH>G:\Z\P.020345\0000\Text\N8160A.Doc</PATH>
+    <GLOBALID>I11JBZ#4#E@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>Nic</EXT>
-    <APSSO />
-    <FPC>N0112B</FPC>
+    <EXT>Doc</EXT>
+    <APSSO>A</APSSO>
+    <FPC>N8160A</FPC>
     <ID_DOCR />
     <OR_CIT>0</OR_CIT>
-    <POM>NIC</POM>
+    <POM>Text</POM>
     <PROF_CX />
     <C_SUBREV />
     <YES>ANO</YES>
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV />
+    <POP_REV>K odsouhlasení</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>0112B</ID_DOCC>
+    <ID_DOCC>012B7</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA />
-    <SPD_TX>BDEP</SPD_TX>
-    <KONTROL />
-    <SCHVALIL />
+    <SPD_LA>DU</SPD_LA>
+    <SPD_TX>Study</SPD_TX>
+    <KONTROL>Ing. Jakub Fučík</KONTROL>
+    <SCHVALIL>Ing. Radomír Špaček</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

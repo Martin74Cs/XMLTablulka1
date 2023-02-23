@@ -1,4 +1,5 @@
 using System.Data;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using XMLTabulka1;
@@ -218,11 +219,14 @@ namespace WFForm
 
             //Pøípona souboru uvedená v databázi
             Sloupec.Pripona = Sloupec.CelyRadek[Sloupec.EXT].ToString().ToUpper();
-            Sloupec.CestaDatabaze = Cesty.Pomoc + @"/pokus.docx";
+            Sloupec.CestaDatabaze = Cesty.Pomoc + @"\pokus.docx";
 
             //Uložení vybraného øádu v databázi do souboru xml
             Soubor.SaveXML(data, Cesty.JedenRadekXml);
 
+            List<TeZak> json = data.DataTabletoJson<TeZak>();
+            json.SaveJson(Cesty.JedenRadekJson);
+            
             switch (Sloupec.Pripona)
             {
                 case "DWG":
@@ -291,6 +295,12 @@ namespace WFForm
             {
                 button3_Click(sender, e);
             }
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            var proc = new System.Diagnostics.Process();
+            proc = Process.Start("explorer.exe ", $"G:/z/ {InfoProjekt.CisloProjektu} / {InfoProjekt.Task}");
         }
     }
 }
