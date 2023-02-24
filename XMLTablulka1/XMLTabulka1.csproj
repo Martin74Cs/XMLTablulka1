@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="Podpora">
-      <HintPath>..\..\..\..\OneDrive\Word\NewWord1\Podpora\bin\Debug\net6.0\Podpora.dll</HintPath>
+      <HintPath>..\..\..\..\Word\NewWord1\Podpora\bin\Debug\net6.0\Podpora.dll</HintPath>
     </Reference>
   </ItemGroup>
 

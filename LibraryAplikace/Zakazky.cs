@@ -42,6 +42,7 @@ namespace LibraryAplikace
             { 
                 //pokud není bude přidán a ulozen
                 mojelist.Add(nove);
+
                 mojelist.SaveJson(Cesty.PodporaDataJson);
             }
         }

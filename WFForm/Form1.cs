@@ -1,5 +1,6 @@
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using XMLTabulka1;
@@ -300,7 +301,35 @@ namespace WFForm
         private void button2_Click_2(object sender, EventArgs e)
         {
             var proc = new System.Diagnostics.Process();
-            proc = Process.Start("explorer.exe ", $"G:/z/ {InfoProjekt.CisloProjektu} / {InfoProjekt.Task}");
+            if (!string.IsNullOrEmpty(InfoProjekt.CisloProjektu) && !string.IsNullOrEmpty(InfoProjekt.Task))
+                proc = Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu + @"\" + InfoProjekt.Task);
+            else if (!string.IsNullOrEmpty(InfoProjekt.CisloProjektu))
+            {
+                proc = Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu);
+            }
+            
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            var V = listView1.FocusedItem.SubItems; //
+            string Vyber = V[0].Text;
+            foreach (TreeNode item in TreeView1.Nodes)
+            {
+                if (item.Text == Vyber)
+                {
+                    item.ExpandAll();
+                    TreeView1.TopNode= item;
+                    break;
+                }
+            }
         }
     }
 }

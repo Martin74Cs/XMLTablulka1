@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SEZNAM xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MojeZakazky>
-    <CisloProjektu>P.019947</CisloProjektu>
-    <ProjektNazev>Demivoda</ProjektNazev>
+    <CisloProjektu>P.020496</CisloProjektu>
+    <ProjektNazev>Nový manganová závod Chvaletice</ProjektNazev>
+  </MojeZakazky>
+  <MojeZakazky>
+    <CisloProjektu>P.019850</CisloProjektu>
+    <ProjektNazev>New production of DPG</ProjektNazev>
+  </MojeZakazky>
+  <MojeZakazky>
+    <CisloProjektu>P.020384</CisloProjektu>
+    <ProjektNazev>Rekonstrukce rozvodu tepla Horka</ProjektNazev>
   </MojeZakazky>
 </SEZNAM>
