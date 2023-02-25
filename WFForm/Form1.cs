@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -19,6 +20,9 @@ namespace WFForm
         }
 
         //podpora form opakuje se
+        /// <summary>
+        /// Do listView Vypíše seznam moje zakazky.
+        /// </summary>
         public void VypisMojeZakazky()
         {
             List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
@@ -47,13 +51,15 @@ namespace WFForm
                     CisloProjektu = Arg[1];
             }
             TreeNode Strom = new("Pokus");
+
+            //nacti seznam projektù Cesty.CislaProjektuTxt pokud neexisuteje tak do vytvoø.
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
                 string[] Pole = sql.SeznamJeden(VyberSloupec.C_PROJ);
                 CisloProjektu = Pole[0];
                 Pole.SaveTXT(Cesty.CislaProjektuTxt);          
             }
-            if (File.Exists(Cesty.CislaProjektuTxt))
+            else
             {
                 foreach (string item in Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                     TreeView1.Nodes.Add("C_PROJ", item);
@@ -313,7 +319,7 @@ namespace WFForm
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+           new XMLTabulka1.Aktualizuj().Smazat();
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)

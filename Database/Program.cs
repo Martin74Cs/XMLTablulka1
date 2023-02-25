@@ -1,5 +1,7 @@
 ﻿using System.Data;
+using System.Xml.Linq;
 using XMLTabulka1;
+using XMLTabulka1.Trida;
 
 string[] Arg = Environment.GetCommandLineArgs();
 Dictionary<string, string> Pole = Database.Argument.GetArgument(Arg);
@@ -13,20 +15,16 @@ Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
-
 //funguje odladěno
 //převede databazi dbf na sql
 //SQL databse = new();
 //databse.DataSql();
 //return;
 
-new LibraryAplikace.Acad().Program();
-//new Library48.Acad().Program();
+DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
+new LibraryAplikace.Acad().Program(tabulka.Rows[0]);
 
-
-SQLDotazy sql = new();
-DataTable data1 = await sql.HledejVse();
-sql.SeznamJeden(VyberSloupec.C_PROJ).SaveTXT(Cesty.CislaProjektuTxt);
+DataTable data1 = new SQLDotazy().HledejVse();
 
 Kontroly kontroly = new();
 kontroly.CteniZapisXML();
@@ -43,7 +41,7 @@ kontroly.Linq();
 //soubor.SaveXML(data1, Cesty.SouborDbf + "/Test4Linq.xml");
 //Console.WriteLine(data1.Rows[0][VyberSloupec.NAZ_PROJ.ToString()].ToString());
 
-DataTable table = await sql.HledejCislo("N7000");
+DataTable table = new SQLDotazy().HledejCislo("N7000");
 if (table != null)
 {
     Console.WriteLine(table.Rows[0][VyberSloupec.NAZ_PROJ.ToString()].ToString());
@@ -79,7 +77,7 @@ public class Kontroly
     public async void Linq()
     {
         SQLDotazy sql = new();
-        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
         LinqDotazy linq = new();
         DataTable Nova = linq.Test5(table,VyberSloupec.C_UKOL);
@@ -93,12 +91,12 @@ public class Kontroly
     public async void CteniZapisXML()
     {
         SQLDotazy sql = new();
-        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
 
         Soubor.SaveXML(table, Cesty.Pomoc + "/XML.xml");
 
-        DataTable NewTable = Soubor.LoadXML(Cesty.Pomoc + "/XML.xml"); 
+        XDocument NewTable = Soubor.LoadXML(Cesty.Pomoc + "/XML.xml"); 
         Soubor.SaveXML(NewTable, Cesty.Pomoc + "/NewXML.xml");
 
     }
@@ -106,19 +104,16 @@ public class Kontroly
     public async void CteniZapisTXT()
     {
         SQLDotazy sql = new();
-        DataTable table = await sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+        DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
         table.DataTabletoCSV(Cesty.Pomoc + "/CSV.txt");
 
-        Soubor.SaveJson(table);
-        table.SaveJson();
+        //Soubor.SaveJson(table);
+        //table.SaveJson();
 
         DataTable NewTable = Soubor.CSVtoDataTable(Cesty.Pomoc + "/CSV.txt"); ;
         table.DataTabletoCSV(Cesty.Pomoc + "/CSVNew.txt");
-
     }
-
-
 }
 
 

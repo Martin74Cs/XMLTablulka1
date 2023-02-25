@@ -10,8 +10,10 @@ namespace XMLTabulka1
     {
         //jedna se o cestu k XMLTablulka.dll
 
-        public static string CislaProjektuTxt => Pomoc + @"\Cisla_zakázek.txt";
-
+        public static string CislaProjektuTxt => Pomoc + @"\Cisla_projektů.txt";
+        public static string NazevProjektuTxt => Pomoc + @"\Nazev_projektu.txt";
+        public static string CislaDokumentu => Pomoc + @"\CislaDokumentu.txt";
+        
         public static string JedenRadekXml => Pomoc + @"\JedenRadek.xml";
         public static string JedenRadekJson => Pomoc + @"\JedenRadek.json";
 

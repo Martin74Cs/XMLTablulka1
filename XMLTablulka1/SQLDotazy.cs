@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Text;
+using System.Xml.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace XMLTabulka1
@@ -89,14 +90,15 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Vrátí neopakující se obsah zadaného nazvu sloupce.
+        /// Vrátí neopakující se obsah zadaného nazvu sloupce. Řazení sestupně DESC.
         /// </summary>
         public string[] SeznamJeden(VyberSloupec Prvek)
         {
-            string Dotaz = "SELECT DISTINCT " + Prvek + " FROM tezak";
+            string Dotaz = $"SELECT DISTINCT {Prvek} FROM tezak  ORDER BY {Prvek} DESC";
             DataSet data = Dbf.Pripoj(Dotaz);
             if (data == null) throw new ArgumentNullException($"Podle {data} krytérii nebyl v databázi nenalezen žádný záznam");
             DataTable Table = new Cestina().Tabulka(data.Tables[0]);
+
             Stack<string> Nazev = new Stack<string>();
             foreach (DataRow item in Table.Rows)
             {
@@ -105,6 +107,8 @@ namespace XMLTabulka1
             return Nazev.ToArray();
             //new XmlTabulka.Cestina().Tabulka(data);
         }
+
+
 
         /// <summary>
         /// Hledej číslo dokumentu ve formatu T1234, N9876 

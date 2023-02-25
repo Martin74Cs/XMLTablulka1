@@ -12,6 +12,12 @@ namespace XMLTabulka1
 {
     public class Dbf
     {
+        /// <summary>
+        /// Připojení databaze DBF, Data jsou uloženy na cestě Cesty.SouborDbf
+        /// </summary>
+        /// <param name="Querry">Dotaz</param>
+        /// <returns>DataSet</returns>
+
         public static DataSet Pripoj(string Querry)
         {
             //if (File.Exists(Cesty.SouborDbf) == false) return null;
