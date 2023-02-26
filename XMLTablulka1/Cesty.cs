@@ -8,12 +8,16 @@ namespace XMLTabulka1
 {
     public static class Cesty
     {
-        //jedna se o cestu k XMLTablulka.dll
+        //Cesty k souborum Acad
+        public static string Acad => Podpora + @"\Acad";
+        public static string SablonaDwg => Acad + @"\Sablona.dwg";
 
-        public static string CislaProjektuTxt => Pomoc + @"\Cisla_projektů.txt";
-        public static string NazevProjektuTxt => Pomoc + @"\Nazev_projektu.txt";
-        public static string CislaDokumentu => Pomoc + @"\CislaDokumentu.txt";
-        
+        //Cesty k podpůrným souborum
+        public static string CislaProjektuTxt => Pomoc + @"\CislaProjektů.txt";
+        public static string NazevProjektuTxt => Pomoc + @"\NazevProjektu.txt";
+        public static string CislaDokumentuXML => Pomoc + @"\CislaDokumentu.xml";
+        public static string CislaDokumentuJson => Pomoc + @"\CislaDokumentu.json";
+
         public static string JedenRadekXml => Pomoc + @"\JedenRadek.xml";
         public static string JedenRadekJson => Pomoc + @"\JedenRadek.json";
 
@@ -28,6 +32,7 @@ namespace XMLTabulka1
         public static string AdresarSpusteni => Path.GetDirectoryName(SouborExe); 
 
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
+        public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
         public static string Pomoc => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Pomoc"));
 

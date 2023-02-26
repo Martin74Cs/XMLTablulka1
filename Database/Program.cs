@@ -31,7 +31,7 @@ kontroly.CteniZapisXML();
 kontroly.CteniZapisTXT();
 kontroly.Linq();
 
-//LinqDotazy ld = new();
+LinqDotazy ld = new();
 
 //DataTable data1 = sql.HledejVse();
 //ld.Test4(data1).Vypis();
@@ -123,7 +123,11 @@ public static class Extension
     {
         foreach (DataRow item in data.Rows)
         {
-
+            foreach (DataColumn col in data.Columns)
+            {
+                Console.Write(item[col.ColumnName].ToString() + ", ");
+            }
+            Console.Writeline();
         }
         Console.WriteLine("Continuos Press Key ....");
         Console.ReadKey(true);

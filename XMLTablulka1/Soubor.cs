@@ -286,7 +286,7 @@ namespace XMLTabulka1
                     foreach (PropertyInfo pro in temp.GetProperties())
                     {
                         if (pro.Name == column.ColumnName)
-                            pro.SetValue(obj, row[column.ColumnName], null);
+                            pro.SetValue(obj, row[column.ColumnName].ToString(), null);
                         else
                             continue;
                     }

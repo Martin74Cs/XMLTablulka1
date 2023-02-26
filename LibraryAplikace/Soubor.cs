@@ -44,7 +44,7 @@ namespace LibraryAplikace
             {
                 if (Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper() == Soubor6)
                 {
-                    list.ToList().Add(Soubor);
+                    list.Add(SouborJedna);
                     list.ToArray();
                 }
             }

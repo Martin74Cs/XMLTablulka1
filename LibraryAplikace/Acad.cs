@@ -6,12 +6,41 @@ using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 using System.Web;
 using XMLTabulka1;
+using XMLTabulka1.Trida;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryAplikace
 {
     public class Acad
     {
+        public string[] Program(TeZak teZak)
+        {
+            //var acad =  PripojAcad();
+            var acad = OpenAcad();
+            if (acad != null) acad.Visible = true;
+            DirectoryInfo disk = new DirectoryInfo(teZak.PATH).Root;
+            if (!Directory.Exists(disk.Name))
+                teZak.PATH = teZak.PATH.Replace(disk.Name, "C:\\");
+            string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
+            if (Soubor.Count() > 0)
+                //muže být nalezeno více souborů
+                acad.Documents.Open(Soubor.First());
+            else
+            {
+                VytvoritAcad(teZak.PATH);
+                acad.Documents.Open(teZak.PATH);
+            }
+            return Soubor;
+        }
+
+        private void VytvoritAcad(string Cesta)
+        {
+            if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+            if (!File.Exists(Cesta))
+                File.Copy(Cesty.SablonaDwg, Cesta);
+        }
+
         public string[] Program(DataRow CelyRadek)
         {
             //var acad =  PripojAcad();
@@ -23,6 +52,7 @@ namespace LibraryAplikace
             return Soubor;
         }
 
+        //Open Acad
         static AutoCAD.AcadApplication OpenAcad()
         {
             try
@@ -35,8 +65,6 @@ namespace LibraryAplikace
                 //throw;
             }
         }
-
-
 
         /// <summary>
         /// Pripojení Aplikace Autocad

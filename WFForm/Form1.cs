@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 using static System.Windows.Forms.ListView;
@@ -19,27 +20,27 @@ namespace WFForm
             InitializeComponent();
         }
 
-        //podpora form opakuje se
-        /// <summary>
-        /// Do listView Vypíše seznam moje zakazky.
-        /// </summary>
-        public void VypisMojeZakazky()
+        private void Form1_Shown(object sender, EventArgs e)
         {
-            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
-            listView1.Clear();
-            listView1.View = System.Windows.Forms.View.Details;
-            listView1.Columns.Add(Sloupec.C_PROJ);
-            listView1.Columns.Add(Sloupec.NAZEV);
-            listView1.Columns[1].Width = 250;
 
-            foreach (var item in moje)
-            {
-                listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
-            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
+            if (!File.Exists(Cesty.SouborTezakDbf))
+            {
+                string Cesta = Aktualizuj.OpenDataze();
+                Form form = Aktualizuj.Text(); 
+                form.Show();
+                form.TopLevel= true;
+                await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
+                form.Close();
+                form.Dispose();
+                new XMLTabulka1.Aktualizuj().AktualizujData();
+            }  
+            
+            new XMLTabulka1.Aktualizuj().AktualizujData();
+
             SQLDotazy sql = new();
             string CisloProjektu = "P.018711";
             //string CisloProjektu = ""; //= "P.002112";
@@ -52,25 +53,15 @@ namespace WFForm
             }
             TreeNode Strom = new("Pokus");
 
-            //nacti seznam projektù Cesty.CislaProjektuTxt pokud neexisuteje tak do vytvoø.
-            if (!File.Exists(Cesty.CislaProjektuTxt))
-            {
-                string[] Pole = sql.SeznamJeden(VyberSloupec.C_PROJ);
-                CisloProjektu = Pole[0];
-                Pole.SaveTXT(Cesty.CislaProjektuTxt);          
-            }
-            else
-            {
+            TreeView1.Nodes.Clear();
                 foreach (string item in Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                     TreeView1.Nodes.Add("C_PROJ", item);
-            }
+            //}
 
             table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
-            dataGridView1.DataSource = table;
-            Barvy(dataGridView1);
-            SloupecSirka(dataGridView1.Columns);
+            dataGridView1.Vypis(table);
+            listView1.VypisMojeZakazky();
 
-            VypisMojeZakazky();
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -91,8 +82,6 @@ namespace WFForm
             }
         }
 
-
-
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count > 0)
@@ -108,111 +97,7 @@ namespace WFForm
 
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode N = TreeView1.SelectedNode;
-            //char Separ = Convert.ToChar(TreeView1.PathSeparator);
-            string[] Cesta = N.FullPath.Split(TreeView1.PathSeparator);
-            if (N.Nodes.Count <= 0)
-            { 
-                switch (Cesta.Length)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        string querry = "SELECT DISTINCT " + Sloupec.C_UKOL + "  FROM TEZAK WHERE [" + N.Name + "]='" + N.Text + "'";
-
-                        foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
-                            N.Nodes.Add(Sloupec.C_UKOL, item[Sloupec.C_UKOL].ToString());
-                        N.Expand();
-                        //vazba na moje zakazky
-                        InfoProjekt.CisloProjektu = Cesta[0].ToString();
-                        break;
-                    case 2:
-                        querry = "SELECT DISTINCT DIL FROM TEZAK WHERE " + N.Parent.Name + "='" + N.Parent.Text + "' AND " + N.Name + "='" + N.Text + "' AND (NOT (DIL IS NULL))";
-                        foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
-                            N.Nodes.Add("DIL", item["DIL"].ToString());
-                        N.Expand();
-                        break;
-                    case 3:
-                        querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
-                        foreach (DataRow item in SQLDotazy.Hledej(querry).Rows)
-                            N.Nodes.Add("CAST", item["CAST"].ToString());
-                        N.Expand();
-                        break;
-                    default:
-                        break;
-                }
-            }
-            switch (Cesta.Length)
-            {
-                case 0:
-                    break;
-                case 1:
-                    string querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID,NAZ_PROJ,INVESTOR,M_STAVBY,HIP FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
-                    break;
-                case 2:
-                    querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
-                    break;
-                case 3:
-                    querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND DIL = '" + Cesta[2] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
-                    break;
-                case 4:
-                    querry = "SELECT * FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND [DIL] = '" + Cesta[2] + "' AND [CAST] = '" + Cesta[3] + "' ORDER BY [DIL],[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
-                    break;
-                default:
-                    break;
-            }
-            Barvy(dataGridView1);
-            SloupecSirka(dataGridView1.Columns);
-        }
-
-        public static void Barvy(DataGridView data)
-        {
-            for (int Radek = 0; Radek < data.Rows.Count - 1; Radek++)
-            {
-                switch (data.Rows[Radek].Cells[VyberSloupec.EXT.ToString()].Value.ToString().ToUpper())
-                {
-                    case "DWG":
-                        if (Radek % 2 == 0)
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(242, 224, 182);
-                        else
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(237, 213, 156);
-                        break;
-                    case "DOC":
-                        if (Radek % 2 == 0)
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(214, 244, 245);
-                        else
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(186, 236, 237);
-                        break;
-                    case "XLS":
-                        if (Radek % 2 == 0)
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(213, 236, 157);
-                        else
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.FromArgb(199, 229, 123);
-                        break;
-                    default:
-                        if (Radek % 2 == 0)
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.White;
-                        else
-                            data.Rows[Radek].DefaultCellStyle.BackColor = Color.WhiteSmoke;
-                        break;
-                }
-            }
-        }
-
-        public static void SloupecSirka(DataGridViewColumnCollection Columns)
-        {
-            string[] ABC = { "DIL", "CAST", "PROFESE", "PORADI", "OR_CISLO", "PROF_CX", "OR_CIT", "NAZEV", "PCC", "TD", "PCDOC", "C_REV", "ID_DOCR", "EXT", "GLOBALID" };
-            int[] Cisla = { 50, 50, 50, 50, 50, 50, 50, 300, 40, 40, 60, 40, 40, 40, 100 };
-            for (int i = 0; i < ABC.Length; i++)
-            {
-                if (Columns[ABC[i]] is null)
-                    continue;
-                Columns[ABC[i]].Width = Cisla[i];
-            }
+            dataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
         }
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -240,7 +125,8 @@ namespace WFForm
                     MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
                     //pokraèuje v komponentì Autocad
                     LibraryAplikace.Acad la = new();
-                    la.Program(Sloupec.CelyRadek);
+                    //la.Program(Sloupec.CelyRadek);
+                    la.Program(json.First());
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
@@ -268,7 +154,7 @@ namespace WFForm
         private void button2_Click(object sender, EventArgs e)
         {
             new LibraryAplikace.Zakazky().MojeZakazkyAdd();
-            VypisMojeZakazky();
+            listView1.VypisMojeZakazky();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -278,7 +164,7 @@ namespace WFForm
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            VypisMojeZakazky();
+            listView1.VypisMojeZakazky();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -293,7 +179,7 @@ namespace WFForm
                 moje.SaveXML(Cesty.PodporaDataXml);
                 moje.SaveJson(Cesty.PodporaDataJson);
             }
-            VypisMojeZakazky();
+            listView1.VypisMojeZakazky();
         }
 
         private void listView1_KeyDown(object sender, KeyEventArgs e)
@@ -313,13 +199,26 @@ namespace WFForm
             {
                 proc = Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu);
             }
-            
-
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private async void button4_Click(object sender, EventArgs e)
         {
-           new XMLTabulka1.Aktualizuj().Smazat();
+            string Cesta = Aktualizuj.OpenDataze();
+            Form form = Aktualizuj.Text();
+            form.Show();
+            await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
+            form.Close();
+            form.Dispose();
+
+            new XMLTabulka1.Aktualizuj().AktualizujData();
+
+            TreeView1.Nodes.Clear();
+            foreach (string item in Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+                TreeView1.Nodes.Add("C_PROJ", item);
+            //}
+
+            table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+            dataGridView1.Vypis(table);
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -331,11 +230,16 @@ namespace WFForm
             {
                 if (item.Text == Vyber)
                 {
+                    InfoProjekt.CisloProjektu = Vyber;
                     item.ExpandAll();
                     TreeView1.TopNode= item;
+
+                    table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+                    dataGridView1.Vypis(table);
                     break;
                 }
             }
         }
+
     }
 }

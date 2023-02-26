@@ -1,42 +1,42 @@
 <DocumentElement>
   <cestina>
-    <CYCOSTATUS xml:space="preserve"> </CYCOSTATUS>
-    <C_PROJ>P.020394</C_PROJ>
-    <NAZ_PROJ>REKONSTRUKCE, ROZŠÍŘENÍ A MODERNIZACE ZÁVODU</NAZ_PROJ>
-    <INVESTOR>Měď Povrly a.s.</INVESTOR>
-    <M_STAVBY>Povrly</M_STAVBY>
-    <C_UKOL>0000</C_UKOL>
-    <NAZ_UKOL>Studie</NAZ_UKOL>
-    <HIP>Dařbuján Lukáš, DiS</HIP>
-    <DIL>A</DIL>
+    <CYCOSTATUS />
+    <C_PROJ>P.018711</C_PROJ>
+    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
+    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
+    <M_STAVBY>Litvínov</M_STAVBY>
+    <C_UKOL>0310</C_UKOL>
+    <NAZ_UKOL>BDEP</NAZ_UKOL>
+    <HIP>Ing. Jan Koreček</HIP>
+    <DIL>B</DIL>
     <CAST />
     <PROFESE />
     <PORADI />
-    <OR_CISLO>001</OR_CISLO>
-    <NAZEV>TECHNICKÁ ZPRÁVA</NAZEV>
-    <AUTOR>ŠIMKO MILAN DR.~</AUTOR>
-    <PSSO>A</PSSO>
+    <OR_CISLO />
+    <NAZEV>Situace stavby</NAZEV>
+    <AUTOR>Ing. Jan Volejník</AUTOR>
+    <PSSO>B</PSSO>
     <PCC>TP</PCC>
-    <TD>N</TD>
-    <PCDOC>8111</PCDOC>
-    <TYP_DOC>N=A4 tech_z(TP-N-xxxx); Text</TYP_DOC>
+    <TD>G</TD>
+    <PCDOC>0270</PCDOC>
+    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>26.08.0202 0:00:00</DAT_REV>
+    <DAT_REV>24.02.2023 0:00:00</DAT_REV>
     <C_REV>A</C_REV>
-    <AUT_REV>JAKUB FILIP</AUT_REV>
-    <ID_DOC>01239</ID_DOC>
-    <PATH>G:\Z\P.020394\0000\Text\N8111A.Doc</PATH>
-    <GLOBALID>I16&amp;BZ4F3U@220028</GLOBALID>
+    <AUT_REV>Ing. Martina Hejská</AUT_REV>
+    <ID_DOC>0138P</ID_DOC>
+    <PATH>G:\Z\P.018711\0310\Výkres\G0270A.Dwg</PATH>
+    <GLOBALID>I25KB&amp;U0OV@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>Doc</EXT>
-    <APSSO>A</APSSO>
-    <FPC>N8111A</FPC>
+    <EXT>Dwg</EXT>
+    <APSSO>B</APSSO>
+    <FPC>G0270A</FPC>
     <ID_DOCR />
     <OR_CIT>0</OR_CIT>
-    <POM>Text</POM>
+    <POM>Výkres</POM>
     <PROF_CX />
     <C_SUBREV />
     <YES>ANO</YES>
@@ -47,18 +47,18 @@
     <TITLEBLOCK />
     <TITLESCALE />
     <TITLESHEET />
-    <FLGN_E>AED134</FLGN_E>
+    <FLGN_E />
     <POP_REV>K připomínkám</POP_REV>
     <SIG />
-    <ID_DOCD />
-    <ID_DOCC>01239</ID_DOCC>
+    <ID_DOCD>0112A</ID_DOCD>
+    <ID_DOCC>0138P</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA>S</SPD_LA>
-    <SPD_TX>Studie</SPD_TX>
-    <KONTROL>ŠIMKO MILAN DR.~</KONTROL>
-    <SCHVALIL>DAŘBUJÁN LUKÁŠ~</SCHVALIL>
+    <SPD_LA />
+    <SPD_TX>BDEP</SPD_TX>
+    <KONTROL>Ing. Martina Hejská</KONTROL>
+    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />
