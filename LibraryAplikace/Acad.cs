@@ -18,9 +18,11 @@ namespace LibraryAplikace
             //var acad =  PripojAcad();
             var acad = OpenAcad();
             if (acad != null) acad.Visible = true;
+            //ověření existence disků
             DirectoryInfo disk = new DirectoryInfo(teZak.PATH).Root;
             if (!Directory.Exists(disk.Name))
                 teZak.PATH = teZak.PATH.Replace(disk.Name, "C:\\");
+            //hledání všech souborů které odpovídají názvu výkresu dle poslední 6 znaků.
             string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
             if (Soubor.Count() > 0)
                 //muže být nalezeno více souborů
@@ -33,6 +35,9 @@ namespace LibraryAplikace
             return Soubor;
         }
 
+        /// <summary>
+        /// Vytvoří adresař a soubor dwg dle šablony.
+        /// </summary>
         private void VytvoritAcad(string Cesta)
         {
             if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
@@ -41,6 +46,9 @@ namespace LibraryAplikace
                 File.Copy(Cesty.SablonaDwg, Cesta);
         }
 
+        /// <summary>
+        /// Hledej soubor dwg pokud existuje otevři ho.
+        /// </summary>
         public string[] Program(DataRow CelyRadek)
         {
             //var acad =  PripojAcad();
@@ -51,8 +59,10 @@ namespace LibraryAplikace
                 acad.Documents.Open(Soubor.First());
             return Soubor;
         }
-
-        //Open Acad
+         
+        ///<summary>
+        /// Otevří aplikaci Autocad
+        /// </summary>
         static AutoCAD.AcadApplication OpenAcad()
         {
             try
@@ -69,7 +79,6 @@ namespace LibraryAplikace
         /// <summary>
         /// Pripojení Aplikace Autocad
         /// </summary>
-        /// <returns></returns>
         public AutoCAD.AcadApplication PripojAcad()
         {
             AutoCAD.AcadApplication app = null;
@@ -85,19 +94,6 @@ namespace LibraryAplikace
                     if (item.MainWindowTitle.Substring(0,16) == "Autodesk AutoCAD")
                     {
                         Console.WriteLine("Funguje bylo autodesk autocad 2019");
-                        //acAppComObj = (AcadApplication)Marshal.GetActiveObject("AutoCAD.Application");
-
-                        //var ttt = Marshal.GetComObjectData(item.Handle);
-                        //app = Marshal.GetObjectForIUnknown(item.Handle) as AutoCAD.AcadApplication;
-
-                        //app = CType(GetObject(, "Autocad.Application"), AcadApplication)
-
-                        //AutoCAD.AcadApplication acadapp = (AutoCAD.AcadApplication)Application.AcadApplication;
-
-                        //app = Marshal.GetObjectForIUnknown(item.MainWindowHandle);
-                        //app = Marshal.GetObjectForIUnknown(item.MainWindowHandle);
-                        //AutoCAD.AcadApplication obj = Marshal.ReleaseComObject(("Autocad.Application") as AutoCAD.AcadApplication; 
-                        //app = (AutoCAD.AcadApplication)item; 
 
                         //https://stackoverflow.com/questions/58010510/no-definition-found-for-getactiveobject-from-system-runtime-interopservices-mars
                         string filename = @"C:\Users\Martin\Documents\rr.dwg";
@@ -126,8 +122,6 @@ namespace LibraryAplikace
         /// <summary>
         /// Otevre výkres acadu
         /// </summary>
-        /// <param name="cesta"></param>
-        /// <returns></returns>
         public AutoCAD.AcadDocument OtevriAcad(string cesta)
         {
             if (File.Exists(cesta))
