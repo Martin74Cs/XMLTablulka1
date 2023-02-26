@@ -11,17 +11,27 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryAplikace
 {
-    public class Acad
+    public static class Acad
     {
-        public string[] Program(TeZak teZak)
+        public static string[] Program(TeZak teZak)
         {
-            //var acad =  PripojAcad();
+            //Otevři Acad = PripojAcad();
             var acad = OpenAcad();
             if (acad != null) acad.Visible = true;
+            
+            //hledaní otevřeno dokumentu
+            AcadDocument dokument = acad.KontrolaOpenDokument(teZak.PATH);
+            if (dokument != null)
+            {
+                dokument.Open(teZak.PATH);
+                return new string[] { teZak.PATH };
+            }
+
             //ověření existence disků
             DirectoryInfo disk = new DirectoryInfo(teZak.PATH).Root;
             if (!Directory.Exists(disk.Name))
                 teZak.PATH = teZak.PATH.Replace(disk.Name, "C:\\");
+
             //hledání všech souborů které odpovídají názvu výkresu dle poslední 6 znaků.
             string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
             if (Soubor.Count() > 0)
@@ -38,7 +48,7 @@ namespace LibraryAplikace
         /// <summary>
         /// Vytvoří adresař a soubor dwg dle šablony.
         /// </summary>
-        private void VytvoritAcad(string Cesta)
+        private static void VytvoritAcad(string Cesta)
         {
             if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                 Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
@@ -49,7 +59,7 @@ namespace LibraryAplikace
         /// <summary>
         /// Hledej soubor dwg pokud existuje otevři ho.
         /// </summary>
-        public string[] Program(DataRow CelyRadek)
+        public static string[] Program(DataRow CelyRadek)
         {
             //var acad =  PripojAcad();
             var acad = OpenAcad();
@@ -63,7 +73,7 @@ namespace LibraryAplikace
         ///<summary>
         /// Otevří aplikaci Autocad
         /// </summary>
-        static AutoCAD.AcadApplication OpenAcad()
+        public static AutoCAD.AcadApplication OpenAcad()
         {
             try
             {
@@ -75,11 +85,34 @@ namespace LibraryAplikace
                 //throw;
             }
         }
+        
+        /// <summary>
+        /// Kontrola otevřeného dokumentu.
+        /// </summary>
+        public static AcadDocument KontrolaOpenDokument(this AcadApplication Acapp ,string Cesta)
+        {
+            AcadDocument doc = null;
+            try
+            {
+                foreach (AcadDocument item in Acapp.Documents)
+                {
+                    if (Path.GetFileName(item.Name) == Path.GetFileName(Cesta))
+                    {
+                        Acapp.Documents.Open(Cesta);
+                        doc = item;
+                        break;
+                    }
+                }
+            }
+            catch (Exception)
+            {   }
+            return doc;
+        }
 
         /// <summary>
         /// Pripojení Aplikace Autocad
         /// </summary>
-        public AutoCAD.AcadApplication PripojAcad()
+        public static AutoCAD.AcadApplication PripojAcad()
         {
             AutoCAD.AcadApplication app = null;
             try
@@ -122,7 +155,7 @@ namespace LibraryAplikace
         /// <summary>
         /// Otevre výkres acadu
         /// </summary>
-        public AutoCAD.AcadDocument OtevriAcad(string cesta)
+        public static AcadDocument OtevriAcad(string cesta)
         {
             if (File.Exists(cesta))
                 return PripojAcad().Documents.Open(cesta);

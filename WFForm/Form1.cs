@@ -1,3 +1,4 @@
+using LibraryAplikace;
 using System.Collections.Specialized;
 using System.Data;
 using System.Diagnostics;
@@ -54,7 +55,7 @@ namespace WFForm
             TreeNode Strom = new("Pokus");
 
             TreeView1.Nodes.Clear();
-                foreach (string item in Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+                foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                     TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
@@ -114,7 +115,7 @@ namespace WFForm
             Sloupec.CestaDatabaze = Cesty.Pomoc + @"\pokus.docx";
 
             //Uložení vybraného øádu v databázi do souboru xml
-            Soubor.SaveXML(data, Cesty.JedenRadekXml);
+            XMLTabulka1.Soubor.SaveXML(data, Cesty.JedenRadekXml);
 
             List<TeZak> json = data.DataTabletoJson<TeZak>();
             json.SaveJson(Cesty.JedenRadekJson);
@@ -124,9 +125,8 @@ namespace WFForm
                 case "DWG":
                     MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
                     //pokraèuje v komponentì Autocad
-                    LibraryAplikace.Acad la = new();
                     //la.Program(Sloupec.CelyRadek);
-                    la.Program(json.First());
+                    Acad.Program(json.First());
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
@@ -213,7 +213,7 @@ namespace WFForm
             new XMLTabulka1.Aktualizuj().AktualizujData();
 
             TreeView1.Nodes.Clear();
-            foreach (string item in Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+            foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                 TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
