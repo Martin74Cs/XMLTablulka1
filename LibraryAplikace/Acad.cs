@@ -21,7 +21,7 @@ namespace LibraryAplikace
             
             //hledaní otevřeno dokumentu
             AcadDocument dokument = acad.KontrolaOpenDokument(teZak.PATH);
-            if (dokument == null)
+            if (dokument != null)
             {
                 //dokument.Open(teZak.PATH);
                 return new string[] { teZak.PATH };

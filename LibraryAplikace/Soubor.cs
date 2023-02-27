@@ -42,6 +42,7 @@ namespace LibraryAplikace
             //Procházení souboru
             foreach (var SouborJedna in Directory.GetFiles(AdresarJedna))
             {
+                string test = Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper();
                 if (Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper() == Soubor6)
                 {
                     list.Add(SouborJedna);

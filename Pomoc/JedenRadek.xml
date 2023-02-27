@@ -1,43 +1,43 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.018711</C_PROJ>
-    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
-    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
-    <M_STAVBY>Litvínov</M_STAVBY>
-    <C_UKOL>0310</C_UKOL>
-    <NAZ_UKOL>BDEP</NAZ_UKOL>
-    <HIP>Ing. Jan Koreček</HIP>
-    <DIL>B</DIL>
-    <CAST />
-    <PROFESE />
-    <PORADI />
-    <OR_CISLO />
-    <NAZEV>Situace stavby</NAZEV>
-    <AUTOR>Ing. Jan Volejník</AUTOR>
-    <PSSO>B</PSSO>
+    <C_PROJ>1</C_PROJ>
+    <NAZ_PROJ>Výroba jednobázových a dvoubázových materiálů a položelatiny</NAZ_PROJ>
+    <INVESTOR>CZ HERMEX s.r.o.</INVESTOR>
+    <M_STAVBY />
+    <C_UKOL>300</C_UKOL>
+    <NAZ_UKOL>Dokumentace pro provádění stavby</NAZ_UKOL>
+    <HIP>Ing. Zdeněk Mládek</HIP>
+    <DIL>C</DIL>
+    <CAST>14</CAST>
+    <PROFESE>2</PROFESE>
+    <PORADI>2</PORADI>
+    <OR_CISLO>001</OR_CISLO>
+    <NAZEV>Technologické schéma část 1</NAZEV>
+    <AUTOR>Ing. Zdeněk Mládek</AUTOR>
+    <PSSO>C.14-2.2</PSSO>
     <PCC>TP</PCC>
-    <TD>G</TD>
-    <PCDOC>0270</PCDOC>
-    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
+    <TD>A</TD>
+    <PCDOC>3997</PCDOC>
+    <TYP_DOC>G= Výkres (C1-G-xxxx); Vykr</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>24.02.2023 0:00:00</DAT_REV>
-    <C_REV>A</C_REV>
-    <AUT_REV>Ing. Martina Hejská</AUT_REV>
-    <ID_DOC>0138P</ID_DOC>
-    <PATH>G:\Z\P.018711\0310\Výkres\G0270A.Dwg</PATH>
-    <GLOBALID>I25KB&amp;U0OV@220028</GLOBALID>
+    <DAT_REV>13.11.2012 0:00:00</DAT_REV>
+    <C_REV>1</C_REV>
+    <AUT_REV>Marcela Petržilková</AUT_REV>
+    <ID_DOC>009T1</ID_DOC>
+    <PATH>G:\Z\1\300\Vykr\A39971.Dwg</PATH>
+    <GLOBALID>H%PW95XAY9@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
     <EXT>Dwg</EXT>
-    <APSSO>B</APSSO>
-    <FPC>G0270A</FPC>
-    <ID_DOCR />
-    <OR_CIT>0</OR_CIT>
-    <POM>Výkres</POM>
-    <PROF_CX />
+    <APSSO>C 142 2</APSSO>
+    <FPC>A39971</FPC>
+    <ID_DOCR>008OH</ID_DOCR>
+    <OR_CIT>3</OR_CIT>
+    <POM>Vykr</POM>
+    <PROF_CX>V</PROF_CX>
     <C_SUBREV />
     <YES>ANO</YES>
     <NO />
@@ -48,19 +48,19 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K připomínkám</POP_REV>
+    <POP_REV>ZMĚNA DIMENZE POTRUBÍ DN250</POP_REV>
     <SIG />
-    <ID_DOCD>0112A</ID_DOCD>
-    <ID_DOCC>0138P</ID_DOCC>
+    <ID_DOCD />
+    <ID_DOCC>009T1</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA />
-    <SPD_TX>BDEP</SPD_TX>
-    <KONTROL>Ing. Martina Hejská</KONTROL>
-    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <SPD_LA>DPS</SPD_LA>
+    <SPD_TX>Dok. pro provádění stavby</SPD_TX>
+    <KONTROL>Pavel Grund</KONTROL>
+    <SCHVALIL>Ing. Zdeněk Mládek</SCHVALIL>
     <CD_PUV />
-    <NAZEV2 />
+    <NAZEV2>Homogenizace + finální prosev JB</NAZEV2>
     <ISSUER />
     <PROJECT />
     <TYPE />
