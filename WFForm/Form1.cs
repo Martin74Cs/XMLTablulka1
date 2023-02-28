@@ -123,17 +123,19 @@ namespace WFForm
             switch (Sloupec.Pripona)
             {
                 case "DWG":
-                    MessageBox.Show("Byl vybrán soubor DWG. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
+                    DialogResult result = MessageBox.Show("Byl vybrán soubor DWG. \nNázev vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString() + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
                     //pokraèuje v komponentì Autocad
                     //la.Program(Sloupec.CelyRadek);
-                    Acad.Program(json.First());
+                    if (result == DialogResult.Yes)
+                        Acad.Program(json.First());
                     break;
                 case "XLS":
                     MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
                     break;
                 case "DOC":
-                    MessageBox.Show("Byl vybrán soubor DOC. \n Název vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
-                    Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                    DialogResult result1 = MessageBox.Show("Byl vybrán soubor DOC. \nNázev vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString() + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                    if (result1 == DialogResult.Yes)
+                        Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
                     break;
                 default:
                     MessageBox.Show("Bylo XXX " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());

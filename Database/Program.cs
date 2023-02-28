@@ -22,7 +22,7 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //return;
 
 DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
-new LibraryAplikace.Acad().Program(tabulka.Rows[0]);
+new LibraryAplikace.Acad.Program(tabulka.Rows[0]);
 
 DataTable data1 = new SQLDotazy().HledejVse();
 
