@@ -15,6 +15,7 @@ Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
+//funguje seznam tabulek SQL3DPlant
 SQL sql = new SQL();
 sql.Databaze().SaveTXT(Cesty.SQL3DPlant);
 
