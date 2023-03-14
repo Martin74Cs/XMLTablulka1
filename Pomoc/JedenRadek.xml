@@ -1,39 +1,39 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.018711</C_PROJ>
-    <NAZ_PROJ>Ethylenová propojka mezi PE2 a PE3</NAZ_PROJ>
-    <INVESTOR>UNIPETROL RPA a.s.</INVESTOR>
-    <M_STAVBY>Litvínov</M_STAVBY>
-    <C_UKOL>0310</C_UKOL>
-    <NAZ_UKOL>BDEP</NAZ_UKOL>
-    <HIP>Ing. Jan Koreček</HIP>
-    <DIL>B</DIL>
-    <CAST />
-    <PROFESE />
+    <C_PROJ>P.020837</C_PROJ>
+    <NAZ_PROJ>ZEVO Opatovice</NAZ_PROJ>
+    <INVESTOR>Elektrárny Opatovice a.s.</INVESTOR>
+    <M_STAVBY>Opatovice nad Labem</M_STAVBY>
+    <C_UKOL>0200</C_UKOL>
+    <NAZ_UKOL>Dokumentace pro stavební povolení</NAZ_UKOL>
+    <HIP>Ing. Radomír Špaček</HIP>
+    <DIL>D</DIL>
+    <CAST>2</CAST>
+    <PROFESE>3</PROFESE>
     <PORADI />
-    <OR_CISLO />
-    <NAZEV>Situace stavby</NAZEV>
-    <AUTOR>Ing. Jan Volejník</AUTOR>
-    <PSSO>B</PSSO>
+    <OR_CISLO>001</OR_CISLO>
+    <NAZEV>Přehledové schéma</NAZEV>
+    <AUTOR>Ing. Radomír Špaček</AUTOR>
+    <PSSO>D.2-3</PSSO>
     <PCC>TP</PCC>
     <TD>G</TD>
-    <PCDOC>0270</PCDOC>
+    <PCDOC>1522</PCDOC>
     <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>24.02.2023 0:00:00</DAT_REV>
+    <DAT_REV>10.01.0202 0:00:00</DAT_REV>
     <C_REV>A</C_REV>
-    <AUT_REV>Ing. Martina Hejská</AUT_REV>
-    <ID_DOC>0138P</ID_DOC>
-    <PATH>G:\Z\P.018711\0310\Výkres\G0270A.Dwg</PATH>
-    <GLOBALID>I25KB&amp;U0OV@220028</GLOBALID>
+    <AUT_REV>Martin Csato</AUT_REV>
+    <ID_DOC>0132X</ID_DOC>
+    <PATH>G:\Z\P.020837\0200\Výkres\G1522A.Dwg</PATH>
+    <GLOBALID>I1PXB%ELBO@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
     <EXT>Dwg</EXT>
-    <APSSO>B</APSSO>
-    <FPC>G0270A</FPC>
+    <APSSO>D 23</APSSO>
+    <FPC>G1522A</FPC>
     <ID_DOCR />
     <OR_CIT>0</OR_CIT>
     <POM>Výkres</POM>
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K připomínkám</POP_REV>
+    <POP_REV>K odsouhlasení</POP_REV>
     <SIG />
-    <ID_DOCD>0112A</ID_DOCD>
-    <ID_DOCC>0138P</ID_DOCC>
+    <ID_DOCD />
+    <ID_DOCC>0132X</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA />
-    <SPD_TX>BDEP</SPD_TX>
-    <KONTROL>Ing. Martina Hejská</KONTROL>
-    <SCHVALIL>Ing. Jan Koreček</SCHVALIL>
+    <SPD_LA>DSP</SPD_LA>
+    <SPD_TX>Dok. pro stav. povolení</SPD_TX>
+    <KONTROL>Ing. Michal Kašpar</KONTROL>
+    <SCHVALIL>Ing. Radomír Špaček</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

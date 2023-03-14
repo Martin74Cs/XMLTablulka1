@@ -19,13 +19,17 @@ namespace XMLTabulka1
         /// ip adresa aktuálního počítače
         /// </summary>
         /// <returns></returns>
-        public string Podminka()
-        { 
-            string Jmeno = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
-            if (Jmeno == "fe80::6521:3e9b:e592:b3df%11")
-                return "10.55.1.108";
-            return @"KANCELAR\SQLEXPRESS";
+        public static string Podminka
+        {
+            get {
+                string Jmeno = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
+                if (Jmeno == "fe80::6521:3e9b:e592:b3df%11")
+                    return "10.55.1.100";
+                return @"KANCELAR\SQLEXPRESS";
+            }
         }
+
+        public static string SQL3DPlant => @"ENCZ12\PLANT3D";
 
         /// <summary>
         /// Vytvoření databaze 
@@ -43,7 +47,7 @@ namespace XMLTabulka1
         /// <param name="Querry"></param>
         public void SQLConection(string Querry)
         {
-            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka() + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
             SqlCommand cmd = new SqlCommand(Querry, ConnectionString);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
@@ -53,21 +57,22 @@ namespace XMLTabulka1
         /// <summary>
         /// Jakýkoli textový dotaz "Querry" na databázi "Database" v SQL server
         /// </summary>
-        /// <param name="Querry"></param>
         public void SQLConection(string Querry, string Database)
         {
-            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka() + ";Initial Catalog="+ Database + ";Integrated Security=True;Pooling=False");
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog=" + Database + ";Integrated Security=True;Pooling=False");
             SqlCommand cmd = new SqlCommand(Querry, ConnectionString);
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
         }
 
-        //Načete data z databaze SQL
+        /// <summary>
+        /// Načete data z databaze SQL
+        /// </summary>
         public DataSet NactiSQL(string Querry)
         {
             DataSet Data = new();
-            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka() + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
             SqlCommand cmd = new SqlCommand(Querry, ConnectionString);
             cmd.Connection.Open();
             SqlDataAdapter sqlda = new SqlDataAdapter(cmd);
@@ -75,6 +80,28 @@ namespace XMLTabulka1
             //cmd.ExecuteNonQuery();
             cmd.Connection.Close();
             return Data;
+        }
+
+        /// <summary>
+        /// Načete jmena databazi z SQL SQL3DPlant
+        /// </summary>
+        public string[] Databaze()
+        {
+            DataSet Data = new();
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + SQL3DPlant + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
+            string Querry = "SELECT name FROM master.dbo.sysdatabases WHERE name NOT IN('master', 'tempdb', 'model', 'msdb')";
+            SqlCommand cmd = new SqlCommand(Querry, ConnectionString);
+            cmd.Connection.Open();
+            SqlDataAdapter sqlda = new SqlDataAdapter(cmd);
+            sqlda.Fill(Data);
+
+            List<string> textlist = new();
+            foreach (DataRow item in Data.Tables[0].Rows)
+            {
+                textlist.Add(item[0].ToString());
+            }
+            
+            return textlist.ToArray();
         }
 
         /// <summary>
@@ -91,7 +118,7 @@ namespace XMLTabulka1
             catch (Exception)
             {            }
 
-            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka() + ";Initial Catalog= " + Database +" ;Integrated Security=True;Pooling=False");
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database +" ;Integrated Security=True;Pooling=False");
             ConnectionString.Open();
             SqlCommand oCommand = new SqlCommand("DROP TABLE [DBFFULL]", ConnectionString);
             try

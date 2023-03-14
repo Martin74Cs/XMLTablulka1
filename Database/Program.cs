@@ -15,6 +15,10 @@ Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
+SQL sql = new SQL();
+sql.Databaze().SaveTXT(Cesty.SQL3DPlant);
+
+
 //funguje odladěno
 //převede databazi dbf na sql
 //SQL databse = new();
@@ -22,7 +26,7 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //return;
 
 DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
-new LibraryAplikace.Acad.Program(tabulka.Rows[0]);
+LibraryAplikace.Acad.Program(tabulka.Rows[0]);
 
 DataTable data1 = new SQLDotazy().HledejVse();
 
@@ -127,7 +131,7 @@ public static class Extension
             {
                 Console.Write(item[col.ColumnName].ToString() + ", ");
             }
-            Console.Writeline();
+            Console.WriteLine();
         }
         Console.WriteLine("Continuos Press Key ....");
         Console.ReadKey(true);

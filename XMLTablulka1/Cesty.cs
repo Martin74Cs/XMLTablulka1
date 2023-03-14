@@ -38,6 +38,8 @@ namespace XMLTabulka1
 
         public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
 
+        public static string SQL3DPlant => Pomoc + @"\SQL3DPlant.txt";
+
 
         //public static string SouborDbf { get => AdresarSpusteni + @"\Tezak.DBF"; }
 
