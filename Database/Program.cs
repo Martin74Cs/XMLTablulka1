@@ -18,7 +18,6 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 SQL sql = new SQL();
 sql.Databaze().SaveTXT(Cesty.SQL3DPlant);
 
-
 //funguje odladěno
 //převede databazi dbf na sql
 //SQL databse = new();
