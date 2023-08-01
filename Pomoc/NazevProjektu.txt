@@ -8,6 +8,8 @@ PJ4 HE Replacement
 ŘÍZENÍ DESTILACE ISOPENTANU A REGENERACE DUSÍKU
 EcoKraft - Etapa 4 - Odparky a Nová chladící věž
 KD-20020 SEPARÁTOR 2417
+LTO horák pro Vápennou pec
+LTO hořák pro vápennou pec
 Obnova výrobny S1
 Posouzení požární bezpečnosti Zámek
 Výroba fumigantu na bázi HCN v recyklovatelných obalech
@@ -22,6 +24,7 @@ i002399a Zvýšení variability skladovacích kapacit SHP
 7822-22: Využití TOEL pro dvoupalivové spalování v plynové parní
 ADM - úpravy objektu Rafinérie
 AGLOMERACE PET
+AMS SAM Cyanco US
 ASSESMENT OF CCR UNIT ABILITY RFG OR LPG
 AZMECO PP - Prefeasibility study
 Actuators of Valves Replacement
@@ -65,6 +68,7 @@ Centrum pro vědu a výzkum Spolchemie, demolice objektů
 Centrum pro vědu a výzkum Spolchemie, dokumentace pro DÚ
 Chladič pro odparku, MONDI
 Chladič sazí U5
+Connecting a flue gas desulphurization
 DOHA EAST & SHUAIBA SOUTH POWER STATION
 DUBGG
 DVP - Rekonstrukce záchytného systému koleje 69 - vany pod kolej
@@ -93,11 +97,14 @@ Ekologický program - 2. etapa
 Ekologická obnova zdroje - 1.Etapa
 Ekologizace teplárny Zelená Louka - Semtín
 Ekologizace zdroje TKY II - mokré odsíření
+Elektrokotel pro závod Kaprolaktam
 Emergency System Implementation
 Enzymatické opracování klihovky na sudu č.4
 Ethylenová propojka mezi PE2 a PE3
 FFHs Tail gas supply
 FS Safety Storage
+FVE M42
+FVE Nopek Hrušová
 FVE TOS Čelákovice
 FVE Žebrák
 Fermentační linka
@@ -137,6 +144,7 @@ Kontrolní výpočty tlakových ztrát VT parní sběrny
 LD 17081 Zvýšení spolehlivosti jednotky CCR - II. fáze
 LD 20018 Výroba HVO na PS 2304 - Míchání tanků C4/C6/C9
 LD 20018 Výroba HVO na PS 2304, Míchání tanků C4/C6/C9
+LTO horáky pro Regenerační kotel 12
 Letiště Ostrava, a.s. - Posudek
 Logistická a montážní hala Solnice
 MONDI - RÁMCOVÁ SMLOUVA
@@ -198,6 +206,7 @@ Náhrada uhelného bloku plynovým zdrojem
 Náhrada uhelného bloku plynovým zdrojem - Alternativní investice
 Náhrada uhelného bloku plynovým zdrojem I
 Náhrada uhelného bloku plynovým zdrojem I - Odstranění koleje
+Náhrada uhelného bloku plynovým zdrojem IV. etapa
 Návrh zařízení na chemické přečištění tantalového koncentrátu
 OP Papírna, LTO zásobník
 OPTIMALIZACE VÝROBY TLAKOVÉHO VZDUCHU DO OXICHLORACE
@@ -240,6 +249,7 @@ PM6 Broke thickener
 PPC EPC OB05-PS07 Vnitřní spojovací potrubí
 PPC EPC OB05-PS08 Vnější spojovací potrubí
 PPC Komořany
+PPCH
 PPG Can Coating Production Facilty
 PROPOJOVACÍ POTRUBÍ ZEMNÍHO PLYNU
 PS 01 Protihluková stěna
@@ -291,6 +301,8 @@ RA FSK Tank S5 Retrofit
 RA3 375 In-line Coil
 RD pro Membránová elektrolýza
 RD2 Daily Tank Replacement
+RECYKLACE ODKALIŠTĚ CHVALETICE / TRNÁVKA - PŘELOŽKY
+RECYKLACE ODKALIŠTĚ CHVALETICE / TRNÁVKA - ZKRÁCENÍ VLEČKY
 REKONSTRUKCE, ROZŠÍŘENÍ A MODERNIZACE ZÁVODU
 RENOVACE RAFINERIE
 RN Otradnenskyi
@@ -326,6 +338,7 @@ Rozšíření povolení IPPC
 Rozšíření technologie pro zpracování strusek
 Rozšíření trafostanice SO-31
 Rozšířená výrobního závodu Becher
+Rubing/Recovera, modernizace SPO Trmice
 SB S5 Tank Pressure Calculation
 SES - Elektrárny Opatovice, a.s.
 SK Biotek P2 Expansion
@@ -378,6 +391,7 @@ Stáčení a skladování chloru
 Sušení zbytkové hmoty z těžby dřeva
 Synthomer, Odtlakování propylenu
 TCM 2015
+TEG, Due Dilligence support HIVE
 TEG, Studie Masdar 4GW Vodík
 TP VM3 Blower
 Tail Gas Line Purging Safety and Automation

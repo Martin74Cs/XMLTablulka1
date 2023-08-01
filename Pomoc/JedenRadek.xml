@@ -1,43 +1,43 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.020837</C_PROJ>
-    <NAZ_PROJ>ZEVO Opatovice</NAZ_PROJ>
-    <INVESTOR>Elektrárny Opatovice a.s.</INVESTOR>
-    <M_STAVBY>Opatovice nad Labem</M_STAVBY>
-    <C_UKOL>0200</C_UKOL>
-    <NAZ_UKOL>Dokumentace pro stavební povolení</NAZ_UKOL>
-    <HIP>Ing. Radomír Špaček</HIP>
-    <DIL>D</DIL>
-    <CAST>2</CAST>
-    <PROFESE>3</PROFESE>
+    <C_PROJ>P.020739</C_PROJ>
+    <NAZ_PROJ>LTO horáky pro Regenerační kotel 12</NAZ_PROJ>
+    <INVESTOR>Mondi Štětí a.s.</INVESTOR>
+    <M_STAVBY>Štětí</M_STAVBY>
+    <C_UKOL>0210</C_UKOL>
+    <NAZ_UKOL>Dokumentace pro vydání spol. povolení</NAZ_UKOL>
+    <HIP>Ing. Pavel Pozděna</HIP>
+    <DIL>D2</DIL>
+    <CAST>03</CAST>
+    <PROFESE>02</PROFESE>
     <PORADI />
     <OR_CISLO>001</OR_CISLO>
-    <NAZEV>Přehledové schéma</NAZEV>
-    <AUTOR>Ing. Radomír Špaček</AUTOR>
-    <PSSO>D.2-3</PSSO>
+    <NAZEV>Schema</NAZEV>
+    <AUTOR />
+    <PSSO>D2.03-02</PSSO>
     <PCC>TP</PCC>
     <TD>G</TD>
-    <PCDOC>1522</PCDOC>
+    <PCDOC>2229</PCDOC>
     <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>10.01.0202 0:00:00</DAT_REV>
+    <DAT_REV>20.06.2023 0:00:00</DAT_REV>
     <C_REV>A</C_REV>
     <AUT_REV>Martin Csato</AUT_REV>
-    <ID_DOC>0132X</ID_DOC>
-    <PATH>G:\Z\P.020837\0200\Výkres\G1522A.Dwg</PATH>
-    <GLOBALID>I1PXB%ELBO@220028</GLOBALID>
+    <ID_DOC>0146U</ID_DOC>
+    <PATH>G:\Z\P.020739\0210\Výkres\G2229A.Dwg</PATH>
+    <GLOBALID>I2J!C3GIUF@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
     <EXT>Dwg</EXT>
-    <APSSO>D 23</APSSO>
-    <FPC>G1522A</FPC>
+    <APSSO>D20302</APSSO>
+    <FPC>G2229A</FPC>
     <ID_DOCR />
-    <OR_CIT>0</OR_CIT>
+    <OR_CIT>1</OR_CIT>
     <POM>Výkres</POM>
-    <PROF_CX />
+    <PROF_CX>E</PROF_CX>
     <C_SUBREV />
     <YES>ANO</YES>
     <NO />
@@ -51,14 +51,14 @@
     <POP_REV>K odsouhlasení</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>0132X</ID_DOCC>
+    <ID_DOCC>0146U</ID_DOCC>
     <ODBOR />
-    <PS_SO />
-    <CISLO />
-    <SPD_LA>DSP</SPD_LA>
-    <SPD_TX>Dok. pro stav. povolení</SPD_TX>
+    <PS_SO>PS</PS_SO>
+    <CISLO>03</CISLO>
+    <SPD_LA>DUS</SPD_LA>
+    <SPD_TX>Dokumentace pro vydání společn</SPD_TX>
     <KONTROL>Ing. Michal Kašpar</KONTROL>
-    <SCHVALIL>Ing. Radomír Špaček</SCHVALIL>
+    <SCHVALIL> Pavel Pozděna</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

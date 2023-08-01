@@ -37,9 +37,11 @@ namespace XMLTabulka1
         /// <param name="Querry"></param>
         public void CreateDatabase(string Querry)
         {
-            Querry = "CREATE DATABASE " + Querry;  //the command that creates New database
-            SQLConection(Querry);
+            string QuerryNew = "CREATE DATABASE " + Querry;  //the command that creates New database
+            SQLConection(QuerryNew);
         }
+
+
 
         /// <summary>
         /// Jakýkoli textový dotaz na databázi v SQL server, není definován nazev tabulky

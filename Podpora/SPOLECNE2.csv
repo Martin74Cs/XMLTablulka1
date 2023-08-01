@@ -60,7 +60,7 @@ ISSUER;PROF_CX;PROF_CX,OR_CIT;KONTROL;name2-1;;58;Autor;ID;prijmeni;;;;;;;;;;;
 OCD;PSSO;DIL,CAST,PROFESE,PORADI,OR_CISLO;SCHVALIL;name3-1;;59;Autor;ID;prijmeni;;;;;;;;;;;
 PROJ_NUM;C_PROJ;;CD_PUV;;;60;;;;;;;;;;;;;;
 INDICATOR;;NEEXISTUJE;NAZEV2;SUBJECT4;už se nepoužívá;61;;;;;;;;;;;;;;
-;;;ISSUER;;;62;;;;;;;;;;;;;;
+TP;PCC;;ISSUER;;;62;;;;;;;;;;;;;;
 ;;;PROJECT;;;63;;;;;;;;;;;;;;
 ;;;TYPE;;;64;;;;;;;;;;;;;;
 ;;;NUMBER;;;65;;;;;;;;;;;;;;

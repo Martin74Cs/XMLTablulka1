@@ -20,10 +20,15 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //sql.Databaze().SaveTXT(Cesty.SQL3DPlant);
 
 //funguje odladěno
-//převede databazi dbf na sql
-//SQL databse = new();
-//databse.DataSql();
-//return;
+Console.WriteLine("Převod dbf na SQL ANO/NE");
+ConsoleKeyInfo k = Console.ReadKey();
+if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
+{ 
+    //převede databazi dbf na sql
+    SQL databse = new();
+    databse.DataSql();
+    //return;
+}
 
 DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
 LibraryAplikace.Acad.Program(tabulka.Rows[0]);
@@ -91,6 +96,7 @@ public class Kontroly
         Nova = linq.Test6(table, VyberSloupec.C_UKOL);
         Nova.DataTabletoCSV(Cesty.Pomoc + "/CSVLinq6.txt");
     }
+
 
     public async void CteniZapisXML()
     {
