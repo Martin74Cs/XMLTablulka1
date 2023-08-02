@@ -13,6 +13,8 @@ Console.WriteLine("Adresar Spusteni " + Cesty.AdresarSpusteni);
 Console.WriteLine("Soubor Exe " + Cesty.SouborExe);
 Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
+Console.WriteLine("Environment.MachineName " + Environment.MachineName);
+
 //Console.ReadKey();
 
 //funguje seznam tabulek SQL3DPlant
@@ -27,7 +29,7 @@ if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
     //převede databazi dbf na sql
     SQL databse = new();
     databse.DataSql();
-    //return;
+    return;
 }
 
 DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);

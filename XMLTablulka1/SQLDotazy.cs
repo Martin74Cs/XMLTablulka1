@@ -7,7 +7,6 @@ namespace XMLTabulka1
 {
     public class SQLDotazy
     {
-
         /// <summary>
         /// Vratí tabulku dle dotazu
         /// </summary>
@@ -20,7 +19,7 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Vratí tabulku celé databaze
+        /// Vratí tabulku celé databaze dbf
         /// </summary>
         public DataTable HledejVse()
         {
