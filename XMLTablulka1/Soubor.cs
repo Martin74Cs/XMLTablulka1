@@ -3,6 +3,7 @@ using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -20,6 +21,15 @@ namespace XMLTabulka1
 
     public static class Soubor
     {
+        public static void Pruzkumnik(string cesta = @"C:\") 
+        {
+            Process process = new Process();
+            process.StartInfo.FileName = "explorer.exe";
+            process.StartInfo.Arguments = cesta;
+            process.Start();
+        }
+
+
         /// <summary>        /// KopieDbf (Cesta, zakaz kopirovani)     /// </summary>
         public static bool KopieDbf(bool VytvorKopii = false)
         {
@@ -265,7 +275,9 @@ namespace XMLTabulka1
 
         public static void SaveJson<T>(this List<T> moje, string cesta)
         {
-            string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
+            //string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
+            string jsonString = JsonConvert.SerializeObject(moje, Newtonsoft.Json.Formatting.Indented);
+            
             File.WriteAllText(cesta, jsonString);
         }
 

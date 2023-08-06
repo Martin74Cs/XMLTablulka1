@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Diagnostics;
 using System.Xml.Linq;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
@@ -23,7 +24,7 @@ Console.WriteLine("Environment.MachineName " + Environment.MachineName);
 
 //funguje odladěno
 Console.WriteLine("Převod dbf na SQL ANO/NE");
-ConsoleKeyInfo k = Console.ReadKey();
+ConsoleKeyInfo k = Console.ReadKey(true);
 if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
 { 
     //převede databazi dbf na sql
@@ -32,10 +33,15 @@ if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
     return;
 }
 
+InfoProjekt.CisloProjektu = "P.018806";
 DataTable tabulka = new SQLDotazy().JedenTezak(Sloupec.C_PROJ, InfoProjekt.CisloProjektu);
-LibraryAplikace.Acad.Program(tabulka.Rows[0]);
+List<TeZak> Txt = tabulka.DataTabletoJson<TeZak>();
+Txt.SaveJson(Cesty.JedenRadekJson);
+Soubor.Pruzkumnik(Cesty.JedenRadekJson);
 
-DataTable data1 = new SQLDotazy().HledejVse();
+//LibraryAplikace.Acad.Program(tabulka.Rows[0]);
+
+DataTable data = new SQLDotazy().HledejVse();
 
 Kontroly kontroly = new();
 kontroly.CteniZapisXML();
@@ -77,11 +83,11 @@ if (table != null)
 
 //Console.WriteLine("Continuos Press Key ....");
 Console.WriteLine("Sucesfully ....");
-Console.ReadKey();
-Console.Clear();
+//Console.ReadKey();
+//Console.Clear();
 Console.WriteLine("Environment.MachineName " + Environment.MachineName);
 Console.WriteLine("Environment.UserName " + Environment.UserName);
-Environment.Exit(0);
+ Environment.Exit(0);
 
 public class Kontroly
 {

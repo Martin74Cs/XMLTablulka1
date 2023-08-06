@@ -34,28 +34,25 @@ namespace XMLTabulka1
         public static string SQL3DPlant => @"ENCZ12\PLANT3D";
 
         /// <summary>
-        /// Vytvoření databaze 
-        /// </summary>
-        /// <param name="Querry"></param>
-        public void CreateDatabase(string Querry)
-        {
-            string QuerryNew = "CREATE DATABASE " + Querry;  //the command that creates New database
-            SQLConection(QuerryNew);
-        }
-
-
-
-        /// <summary>
         /// Jakýkoli textový dotaz na databázi v SQL server, není definován nazev tabulky
         /// </summary>
         /// <param name="Querry"></param>
-        public void SQLConection(string Querry)
+        public bool SQLConection(string Querry)
         {
             SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
             SqlCommand cmd = new SqlCommand(Querry, ConnectionString);
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
+            try
+            {
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                cmd.Connection.Close();
+                return false;
+            }
         }
 
         /// <summary>
@@ -114,26 +111,27 @@ namespace XMLTabulka1
         public async void DataSql()
         {
             //pouze jednou
-            string Database = "DBF";
-            try
-            {
-                CreateDatabase(Database);
-            }
-            catch (Exception)
-            {
-                //try
-                //{
-                //    //smazat tabulku
-                //    SqlConnection ConnectionString2 = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database +" ;Integrated Security=True;Pooling=False");
-                //    SqlCommand oCommand2 = new SqlCommand("DROP TABLE [DBFFULL]", ConnectionString2);
+            string Database = "TractebelTeZak";
+            string Table = "TeZak";
 
-                //    oCommand2.Connection.Open();
-                //    oCommand2.ExecuteNonQuery();
-                //    Console.WriteLine("Table delete -- OK --");
-                //    oCommand2.Connection.Close();
-                //}
-                //catch (Exception)
-                //{  }
+            //Vytvoření databaze
+            string QuerryNew = "CREATE DATABASE " + Database;  //the command that creates New database
+            if (!SQLConection(QuerryNew))
+            {
+                //funguje
+                try
+                {
+                    //smazat tabulku
+                    SqlConnection ConnectionString2 = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
+                    SqlCommand oCommand2 = new SqlCommand("DROP TABLE ["+Table+"]", ConnectionString2);
+
+                    oCommand2.Connection.Open();
+                    oCommand2.ExecuteNonQuery();
+                    Console.WriteLine("Table delete -- OK --");
+                    oCommand2.Connection.Close();
+                }
+                catch (Exception)
+                { Console.WriteLine("CHYBA Table delete -- Pass --"); }
 
                 try
                 {
@@ -147,70 +145,70 @@ namespace XMLTabulka1
                     oCommand1.Connection.Close();
                 }
                 catch (Exception)
-                {   }
-
+                { Console.WriteLine("CHYBA Database delete -- Pass --"); }
                 return;
             }
-                SQLDotazy sql = new();
-                DataTable dt = sql.HledejVse();
 
-                //new Table
-                string strCreateColumns = "";
-                string strColumnList = "";
-                string strQuestionList = "";
-                foreach (DataColumn oColumn in dt.Columns)
+            SQLDotazy sql = new();
+            DataTable dt = sql.HledejVse();
+
+            //new Table
+            string strCreateColumns = "";
+            string strColumnList = "";
+            string strQuestionList = "";
+            foreach (DataColumn oColumn in dt.Columns)
+            {
+                strCreateColumns += "[" + oColumn.ColumnName + "] VarChar(100), ";
+                strColumnList += "[" + oColumn.ColumnName + "],";
+                strQuestionList += "?,";
+            }
+            strCreateColumns = strCreateColumns.Remove(strCreateColumns.Length - 2);
+            strColumnList = strColumnList.Remove(strColumnList.Length - 1);
+            strQuestionList = strQuestionList.Remove(strQuestionList.Length - 1);
+
+            SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
+            SqlCommand oCommand = new SqlCommand("CREATE TABLE "+Table+" (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
+            oCommand.Connection.Open();
+            oCommand.ExecuteNonQuery();
+
+            //Get field names
+            string sqlString = "INSERT INTO "+Table+" (";
+            string valString = "";
+            var sqlParams = new string[dt.Rows[0].ItemArray.Count()];
+            int count = 0;
+            foreach (DataColumn dc in dt.Columns)
+            {
+                sqlString += dc.ColumnName + ", ";
+                valString += "@" + dc.ColumnName + ", ";
+                sqlParams[count] = "@" + dc.ColumnName;
+                count++;
+            }
+            valString = valString.Substring(0, valString.Length - 2);
+            var sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES ('" + valString + "')";
+
+            int pocet = 0;
+            oCommand.CommandText = sqlString1;
+            //vzor 
+            Regex regex = new Regex("'");
+            foreach (DataRow dr in dt.Rows)
+            {
+                sqlString1 = "";
+                valString = "";
+                for (int i = 0; i < dr.ItemArray.Count(); i++)
                 {
-                    strCreateColumns += "[" + oColumn.ColumnName + "] VarChar(100), ";
-                    strColumnList += "[" + oColumn.ColumnName + "],";
-                    strQuestionList += "?,";
-                }
-                strCreateColumns = strCreateColumns.Remove(strCreateColumns.Length - 2);
-                strColumnList = strColumnList.Remove(strColumnList.Length - 1);
-                strQuestionList = strQuestionList.Remove(strQuestionList.Length - 1);
-
-                SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
-                SqlCommand oCommand = new SqlCommand("CREATE TABLE DBFFULL (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
-                oCommand.Connection.Open();
-                oCommand.ExecuteNonQuery();
-
-                //Get field names
-                string sqlString = "INSERT INTO DBFFULL (";
-                string valString = "";
-                var sqlParams = new string[dt.Rows[0].ItemArray.Count()];
-                int count = 0;
-                foreach (DataColumn dc in dt.Columns)
-                {
-                    sqlString += dc.ColumnName + ", ";
-                    valString += "@" + dc.ColumnName + ", ";
-                    sqlParams[count] = "@" + dc.ColumnName;
-                    count++;
+                    //mazaní apostrofů
+                    valString += "'" + regex.Replace(dr.ItemArray[i].ToString(), "") + "', ";
                 }
                 valString = valString.Substring(0, valString.Length - 2);
-                var sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES ('" + valString + "')";
-
-                int pocet = 0;
-                oCommand.CommandText = sqlString1;
-                //vzor 
-                Regex regex = new Regex("'");
-                foreach (DataRow dr in dt.Rows)
-                {
-                    sqlString1 = "";
-                    valString = "";
-                    for (int i = 0; i < dr.ItemArray.Count(); i++)
-                    {
-                        //mazaní apostrofů
-                        valString += "'" + regex.Replace(dr.ItemArray[i].ToString(), "") + "', ";
-                    }
-                    valString = valString.Substring(0, valString.Length - 2);
-                    sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES (" + valString + ")";
-                    if (sqlString1 != null || sqlString1 == "")
-                    { 
-                        oCommand.CommandText = sqlString1;
-                        oCommand.ExecuteNonQuery();
-                        Console.WriteLine(pocet++);
-                    }
+                sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES (" + valString + ")";
+                if (sqlString1 != null || sqlString1 == "")
+                { 
+                    oCommand.CommandText = sqlString1;
+                    oCommand.ExecuteNonQuery();
+                    Console.WriteLine(pocet++);
                 }
-                 ConnectionString.Close();
+            }
+            ConnectionString.Close();
           }
 
     }
