@@ -25,9 +25,12 @@ namespace XMLTabulka1
         public static string PodporaDataXml => Podpora + @"\data.xml";
         public static string PodporaDataJson => Podpora + @"\data.json";
         public static string AktualniAdresar => Environment.CurrentDirectory;
-        
-        public static string SouborExe => System.Reflection.Assembly.GetExecutingAssembly().Location;
 
+        //D:\OneDrive\Databaze\Tezak\XMLTablulka1\Database\bin\Debug\net6.0\Database.exe
+        public static string SouborExe => Environment.ProcessPath.ToString();
+
+        //D:\OneDrive\Databaze\Tezak\XMLTablulka1\Database\bin\Debug\net6.0\XMLTabulka1.dll
+        //public static string SouborExe1 => System.Reflection.Assembly.GetExecutingAssembly().Location;
         //adresar spušteni
         public static string AdresarSpusteni => Path.GetDirectoryName(SouborExe); 
 
