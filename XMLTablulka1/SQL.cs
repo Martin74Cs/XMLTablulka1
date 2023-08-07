@@ -111,7 +111,8 @@ namespace XMLTabulka1
         public async void DataSql()
         {
             //pouze jednou
-            string Database = "DBF";
+            string Database = "TractebelTeZak";
+            string Table = "TeZak";
 
             //Vytvoření databaze
             string QuerryNew = "CREATE DATABASE " + Database;  //the command that creates New database
@@ -122,7 +123,7 @@ namespace XMLTabulka1
                 {
                     //smazat tabulku
                     SqlConnection ConnectionString2 = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
-                    SqlCommand oCommand2 = new SqlCommand("DROP TABLE [DBFFULL]", ConnectionString2);
+                    SqlCommand oCommand2 = new SqlCommand("DROP TABLE ["+Table+"]", ConnectionString2);
 
                     oCommand2.Connection.Open();
                     oCommand2.ExecuteNonQuery();
@@ -166,12 +167,12 @@ namespace XMLTabulka1
             strQuestionList = strQuestionList.Remove(strQuestionList.Length - 1);
 
             SqlConnection ConnectionString = new SqlConnection("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
-            SqlCommand oCommand = new SqlCommand("CREATE TABLE DBFFULL (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
+            SqlCommand oCommand = new SqlCommand("CREATE TABLE "+Table+" (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
             oCommand.Connection.Open();
             oCommand.ExecuteNonQuery();
 
             //Get field names
-            string sqlString = "INSERT INTO DBFFULL (";
+            string sqlString = "INSERT INTO "+Table+" (";
             string valString = "";
             var sqlParams = new string[dt.Rows[0].ItemArray.Count()];
             int count = 0;
