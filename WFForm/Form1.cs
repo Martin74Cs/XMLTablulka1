@@ -52,7 +52,7 @@ namespace WFForm
                 if (sql.HledejPrvek(VyberSloupec.C_PROJ, Arg[1]) != null)
                     CisloProjektu = Arg[1];
             }
-            TreeNode Strom = new("Pokus");
+            //TreeNode Strom = new("Pokus");
 
             TreeView1.Nodes.Clear();
                 foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
@@ -60,24 +60,24 @@ namespace WFForm
             //}
 
             table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
-            dataGridView1.Vypis(table);
-            listView1.VypisMojeZakazky();
+            DataGridView1.Vypis(table);
+            ListView1.VypisMojeZakazky();
 
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("Radek cislo ", dataGridView1.CurrentRow.Index.ToString());
-            MessageBox.Show("Radek cislo ", dataGridView1.CurrentCell.Value.ToString());
+            MessageBox.Show("Radek cislo ", DataGridView1.CurrentRow.Index.ToString());
+            MessageBox.Show("Radek cislo ", DataGridView1.CurrentCell.Value.ToString());
             if (e.RowIndex < -1) return;
 
-            if (dataGridView1.Rows.Count > 0)
+            if (DataGridView1.Rows.Count > 0)
             {
                 MessageBox.Show("Radek cislo ", e.RowIndex.ToString());
                 //DataTable dataTable = new();
-                //dataGridView1.SelectedRows[e.RowIndex];
+                //DataGridView1.SelectedRows[e.RowIndex];
 
-                DataTable dt = (DataTable)dataGridView1.DataSource;
+                //DataTable dt = (DataTable)DataGridView1.DataSource;
                 //new Soubor().SaveXML(dt, Cesty.AdresarSpusteni + @"XML.xml");
 
             }
@@ -85,26 +85,32 @@ namespace WFForm
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            if (dataGridView1.SelectedRows.Count > 0)
+            if (DataGridView1.SelectedRows.Count > 0)
             {
-                foreach (ListViewItem item in dataGridView1.SelectedRows)
+                foreach (ListViewItem item in DataGridView1.SelectedRows)
                 {
                     MessageBox.Show(item.SubItems[0].Text);
 
                 }
             }
-            //dataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
+            //DataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
         }
 
         private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            dataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
+            ///
+            ///
+            //DataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
+            ///
+            ///
+            DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
+
         }
 
         private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            string GlobalID = dataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
+            string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
             DataTable data = SQLDotazy.Hledej("SELECT * FROM TEZAK WHERE GLOBALID='" + GlobalID + "'");
 
             //uložení vybraného øádku do pomocné tøídy
@@ -148,31 +154,31 @@ namespace WFForm
             this.Close();
         }
 
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        private void DataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             new LibraryAplikace.Zakazky().MojeZakazkyAdd();
-            listView1.VypisMojeZakazky();
+            ListView1.VypisMojeZakazky();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        private void GroupBox1_Enter(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void Button2_Click_1(object sender, EventArgs e)
         {
-            listView1.VypisMojeZakazky();
+            ListView1.VypisMojeZakazky();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void Button3_Click(object sender, EventArgs e)
         {
             List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
-            SelectedListViewItemCollection V = listView1.SelectedItems;
+            SelectedListViewItemCollection V = ListView1.SelectedItems;
             foreach (ListViewItem item in V)
             {
                 MojeZakazky del = moje.FirstOrDefault(x => x.CisloProjektu == item.Text);
@@ -181,29 +187,29 @@ namespace WFForm
                 moje.SaveXML(Cesty.PodporaDataXml);
                 moje.SaveJson(Cesty.PodporaDataJson);
             }
-            listView1.VypisMojeZakazky();
+            ListView1.VypisMojeZakazky();
         }
 
-        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        private void ListView1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
             {
-                button3_Click(sender, e);
+                Button3_Click(sender, e);
             }
         }
 
-        private void button2_Click_2(object sender, EventArgs e)
+        private void Button2_Click_2(object sender, EventArgs e)
         {
-            var proc = new System.Diagnostics.Process();
+            //var proc = new System.Diagnostics.Process();
             if (!string.IsNullOrEmpty(InfoProjekt.CisloProjektu) && !string.IsNullOrEmpty(InfoProjekt.Task))
-                proc = Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu + @"\" + InfoProjekt.Task);
+                Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu + @"\" + InfoProjekt.Task);
             else if (!string.IsNullOrEmpty(InfoProjekt.CisloProjektu))
             {
-                proc = Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu);
+                Process.Start("explorer.exe ", @"G:\z\" + InfoProjekt.CisloProjektu);
             }
         }
 
-        private async void button4_Click(object sender, EventArgs e)
+        private async void Button4_Click(object sender, EventArgs e)
         {
             string Cesta = Aktualizuj.OpenDataze();
             Form form = Aktualizuj.Text();
@@ -220,13 +226,13 @@ namespace WFForm
             //}
 
             table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
-            dataGridView1.Vypis(table);
+            DataGridView1.Vypis(table);
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
-            var V = listView1.FocusedItem.SubItems; //
+            var V = ListView1.FocusedItem.SubItems; //
             string Vyber = V[0].Text;
             foreach (TreeNode item in TreeView1.Nodes)
             {
@@ -237,7 +243,7 @@ namespace WFForm
                     TreeView1.TopNode= item;
 
                     table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
-                    dataGridView1.Vypis(table);
+                    DataGridView1.Vypis(table);
                     break;
                 }
             }

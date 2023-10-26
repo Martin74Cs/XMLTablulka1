@@ -14,7 +14,7 @@ namespace WFForm
 {
     public static class Strom
     {
-        public static void ListStrom(this DataGridView dataGridView1, TreeNode N, string Separator )
+        public static void ListStrom(this DataGridView DataGridView1, TreeNode N, string Separator)
         {
             string[] Cesta = N.FullPath.Split(Separator);
             if (N.Nodes.Count <= 0)
@@ -54,25 +54,25 @@ namespace WFForm
                     break;
                 case 1:
                     string querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID,NAZ_PROJ,INVESTOR,M_STAVBY,HIP FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
+                    DataGridView1.DataSource = SQLDotazy.Hledej(querry);
                     break;
                 case 2:
                     querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
+                    DataGridView1.DataSource = SQLDotazy.Hledej(querry);
                     break;
                 case 3:
                     querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND DIL = '" + Cesta[2] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
+                    DataGridView1.DataSource = SQLDotazy.Hledej(querry);
                     break;
                 case 4:
                     querry = "SELECT * FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND [DIL] = '" + Cesta[2] + "' AND [CAST] = '" + Cesta[3] + "' ORDER BY [DIL],[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    dataGridView1.DataSource = SQLDotazy.Hledej(querry);
+                    DataGridView1.DataSource = SQLDotazy.Hledej(querry);
                     break;
                 default:
                     break;
             }
-            dataGridView1.Barvy();
-            dataGridView1.Columns.SloupecSirka();
+            DataGridView1.Barvy();
+            DataGridView1.Columns.SloupecSirka();
         }
 
         public static void Barvy(this DataGridView data)
@@ -121,11 +121,11 @@ namespace WFForm
             }
         }
 
-        public static void Vypis(this DataGridView dataGridView1, DataTable table)
+        public static void Vypis(this DataGridView DataGridView1, DataTable table)
         {
-            dataGridView1.DataSource = table;
-            dataGridView1.Barvy();
-            dataGridView1.Columns.SloupecSirka();
+            DataGridView1.DataSource = table;
+            DataGridView1.Barvy();
+            DataGridView1.Columns.SloupecSirka();
         }
     }
 }

@@ -2,12 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using XMLTabulka1.Trida;
 
 namespace XMLTabulka1.Trida
 {
+    public class Entity 
+    {
+        public int Id { get; set; }
+        public string Apid { get; set; } = string.Empty;
+    }
+
+    public class TeZakHodnota : Entity
+    {
+        //public int Id { get; set; }
+        public string Hodnota { get; set; } = string.Empty;
+        public List<TeZakHodnota> Children { get; set; } = new();
+        public string GlobalID { get; set; } = string.Empty;
+    }
+
     public sealed class TeZak
     {
         public string C_PROJ { get; set; } = string.Empty;

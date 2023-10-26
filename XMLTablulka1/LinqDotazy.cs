@@ -4,7 +4,7 @@ namespace XMLTabulka1
 {
     public class LinqDotazy
     {
-        public DataTable Test(DataTable table)
+        public static DataTable Test(DataTable table)
         {
             IEnumerable<DataRow> xxx = table.Rows.Cast<DataRow>()
                 //.Select(jeden => jeden.Field<string>("C_UKOL"))
@@ -14,7 +14,8 @@ namespace XMLTabulka1
                 .OrderByDescending(d => d.Field<string>("C_UKOL"))
                 //.OrderByDescending(d => d)
                 ;
-            if (xxx.Count() < 1) return null;
+            //if (xxx.Count() < 1) return null;
+            if (!xxx.Any()) return null;
             DataTable data = xxx.CopyToDataTable();
             data.TableName = "cestina";
             return data;
@@ -23,14 +24,14 @@ namespace XMLTabulka1
         /// <summary>
         /// Vybere jeden sloupec
         /// </summary>
-        public string[] Slopec(DataTable table, VyberSloupec vyber)
+        public static string[] Slopec(DataTable table, VyberSloupec vyber)
         {
-            IEnumerable<string?>? xx = table.Rows.Cast<DataRow>()
+            IEnumerable<string> xx = table.Rows.Cast<DataRow>()
             .Select(qwe => qwe.Field<string>(vyber.ToString()))
             .Distinct(); //bez opakovani
             string[] data = xx.ToArray();
 
-            string?[] xxx = table.Rows.Cast<DataRow>()
+            string[] xxx = table.Rows.Cast<DataRow>()
             .Select(qwe => qwe.Field<string>(vyber.ToString()))
             .Distinct() //bez opakovani
             .ToArray();
@@ -41,9 +42,9 @@ namespace XMLTabulka1
         /// <summary>
         /// Vybere jeden sloupec
         /// </summary>
-        public string[] Slopec1(DataTable table, VyberSloupec vyber)
+        public static string[] Slopec1(DataTable table, VyberSloupec vyber)
         {
-            IEnumerable<string?>? xxx = table.AsEnumerable()
+            IEnumerable<string> xxx = table.AsEnumerable()
             .Select(qwe => qwe.Field<string>(vyber.ToString()))
             .Distinct()  //bez opakovani
             .OrderBy(qwe => qwe); //setrideni dle velikosti
@@ -52,7 +53,7 @@ namespace XMLTabulka1
             return data;
         }
 
-        public DataTable Test4(DataTable table)
+        public static DataTable Test4(DataTable table)
         {
             //List<(string, string)> data = new List<(string, string)>();
 
@@ -84,15 +85,14 @@ namespace XMLTabulka1
             Console.WriteLine("Continuos Press Key ....");
             Console.ReadKey(true);
 
-            DataTable zxf = new();
-            zxf.TableName = "POkus";
+            DataTable zxf = new() { TableName = "POkus" };
             return zxf;
         }
 
         /// <summary>
         /// Vybere zadaný sloupec neopakujícíse 
         /// </summary>
-        public DataTable Test5(DataTable table, VyberSloupec vyber)
+        public static DataTable Test5(DataTable table, VyberSloupec vyber)
         {
             IEnumerable<DataRow> xxx = table.Rows.Cast<DataRow>()
                 .GroupBy(dr => dr.Field<string>(vyber.ToString())) //seskupit podle sloupce
@@ -109,7 +109,7 @@ namespace XMLTabulka1
             return data;
         }
 
-        public DataTable Test6(DataTable table, VyberSloupec vyber)
+        public static DataTable Test6(DataTable table, VyberSloupec vyber)
         {
             IEnumerable<DataRow> xxx = table.Rows.Cast<DataRow>()
                 .GroupBy(dr => dr.Field<string>(vyber.ToString()))

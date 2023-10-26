@@ -4,13 +4,13 @@ using System.Xml.Linq;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
-string[] Arg = Environment.GetCommandLineArgs();
-Dictionary<string, string> Pole = Database.Argument.GetArgument(Arg);
+//string[] Arg = Environment.GetCommandLineArgs();
+//Dictionary<string, string> Pole = Database.Argument.GetArgument(Arg);
 
 //Soubor soubor = new();
 Console.Title = "Pokus";
-Console.WriteLine("Aktualni Adresar " + Cesty.AktualniAdresar);
-Console.WriteLine("Adresar Spusteni " + Cesty.AdresarSpusteni);
+Console.WriteLine("Aktuální Adresář " + Cesty.AktualniAdresar);
+Console.WriteLine("Adresář Spuštěni " + Cesty.AdresarSpusteni);
 Console.WriteLine("Soubor Exe " + Cesty.SouborExe);
 Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
@@ -28,8 +28,7 @@ ConsoleKeyInfo k = Console.ReadKey(true);
 if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
 { 
     //převede databazi dbf na sql
-    SQL databse = new();
-    databse.DataSql();
+    SQL.DataSql();
     return;
 }
 
@@ -41,14 +40,14 @@ Soubor.Pruzkumnik(Cesty.JedenRadekJson);
 
 //LibraryAplikace.Acad.Program(tabulka.Rows[0]);
 
-DataTable data = new SQLDotazy().HledejVse();
+//DataTable data = new SQLDotazy().HledejVse();
 
-Kontroly kontroly = new();
-kontroly.CteniZapisXML();
-kontroly.CteniZapisTXT();
-kontroly.Linq();
+//Kontroly kontroly = new();
+Kontroly.CteniZapisXML();
+Kontroly.CteniZapisTXT();
+Kontroly.Linq();
 
-LinqDotazy ld = new();
+//LinqDotazy ld = new();
 
 //DataTable data1 = sql.HledejVse();
 //ld.Test4(data1).Vypis();
@@ -91,22 +90,22 @@ Console.WriteLine("Environment.UserName " + Environment.UserName);
 
 public class Kontroly
 {
-    public async void Linq()
+    public static void Linq()
     {
         SQLDotazy sql = new();
         DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
         if (table == null) return;
-        LinqDotazy linq = new();
-        DataTable Nova = linq.Test5(table,VyberSloupec.C_UKOL);
+        //LinqDotazy linq = new();
+        DataTable Nova = LinqDotazy.Test5(table,VyberSloupec.C_UKOL);
         Nova.DataTabletoCSV(Cesty.Pomoc + "/CSVLinq51.txt");
-        Nova = linq.Test5(table, VyberSloupec.DIL);
+        Nova = LinqDotazy.Test5(table, VyberSloupec.DIL);
         Nova.DataTabletoCSV(Cesty.Pomoc + "/CSVLinq52.txt");
-        Nova = linq.Test6(table, VyberSloupec.C_UKOL);
+        Nova = LinqDotazy.Test6(table, VyberSloupec.C_UKOL);
         Nova.DataTabletoCSV(Cesty.Pomoc + "/CSVLinq6.txt");
     }
 
 
-    public async void CteniZapisXML()
+    public static void CteniZapisXML()
     {
         SQLDotazy sql = new();
         DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
@@ -119,7 +118,7 @@ public class Kontroly
 
     }
 
-    public async void CteniZapisTXT()
+    public static void CteniZapisTXT()
     {
         SQLDotazy sql = new();
         DataTable table = sql.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
@@ -129,13 +128,13 @@ public class Kontroly
         //Soubor.SaveJson(table);
         //table.SaveJson();
 
-        DataTable NewTable = Soubor.CSVtoDataTable(Cesty.Pomoc + "/CSV.txt"); ;
+        //DataTable NewTable = Soubor.CSVtoDataTable(Cesty.Pomoc + "/CSV.txt"); ;
         table.DataTabletoCSV(Cesty.Pomoc + "/CSVNew.txt");
     }
 }
 
 
-public static class Extension
+public static class Rozšíření
 {
     public static void Vypis(this DataTable data)
     {

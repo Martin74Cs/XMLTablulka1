@@ -3,11 +3,8 @@ using Podpora;
 using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics.X86;
-using System.Web;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LibraryAplikace
 {
@@ -34,7 +31,7 @@ namespace LibraryAplikace
 
             //hledání všech souborů které odpovídají názvu výkresu dle poslední 6 znaků.
             string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
-            if (Soubor.Count() > 0)
+            if (Soubor.Length > 0)
                 //muže být nalezeno více souborů
                 acad.Documents.Open(Soubor.First());
             else
@@ -65,7 +62,7 @@ namespace LibraryAplikace
             var acad = OpenAcad();
             if (acad != null) acad.Visible = true;
             string[] Soubor = new Soubor().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString());
-            if (Soubor.Count() > 0)
+            if (Soubor.Length > 0)
                 acad.Documents.Open(Soubor.First());
             return Soubor;
         }
@@ -91,7 +88,8 @@ namespace LibraryAplikace
         /// </summary>
         public static AcadDocument KontrolaOpenDokument(this AcadApplication Acapp ,string Cesta)
         {
-            AcadDocument doc = null;
+            //AcadDocument doc = null;
+            AcadDocument doc = new();
             try
             {
                 foreach (AcadDocument item in Acapp.Documents)
@@ -114,7 +112,8 @@ namespace LibraryAplikace
         /// </summary>
         public static AutoCAD.AcadApplication PripojAcad()
         {
-            AutoCAD.AcadApplication app = null;
+            //AutoCAD.AcadApplication app = null;
+            AutoCAD.AcadApplication app = new();
             try
             {
                 Process[] processlist = Process.GetProcesses();
@@ -123,8 +122,8 @@ namespace LibraryAplikace
                     //Console.WriteLine("item.ProcessName " + item.ProcessName);
                     Console.WriteLine("item.MainWindowTitle \t\t" + item.MainWindowTitle.ToString());
                     if (item.MainWindowTitle.Length < 20) continue;
-                    Console.WriteLine("item.MainWindowTitle \t\t" + item.MainWindowTitle.Substring(0, 16).ToString());
-                    if (item.MainWindowTitle.Substring(0,16) == "Autodesk AutoCAD")
+                    Console.WriteLine("item.MainWindowTitle \t\t" + item.MainWindowTitle[..16].ToString());
+                    if (item.MainWindowTitle[..16] == "Autodesk AutoCAD")
                     {
                         Console.WriteLine("Funguje bylo autodesk autocad 2019");
 
@@ -159,7 +158,7 @@ namespace LibraryAplikace
         {
             if (File.Exists(cesta))
                 return PripojAcad().Documents.Open(cesta);
-            return null;
+            return new();
         }
 
 

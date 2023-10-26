@@ -17,7 +17,7 @@ namespace Podpora
         [System.Security.SecurityCritical]  // auto-generated_required
         public static Object GetActiveObject(String progID)
         {
-            Object obj = null;
+            Object? Obj = null;
             Guid clsid;
 
             // Call CLSIDFromProgIDEx first then fall back on CLSIDFromProgID if
@@ -32,8 +32,8 @@ namespace Podpora
                 CLSIDFromProgID(progID, out clsid);
             }
 
-            GetActiveObject(ref clsid, IntPtr.Zero, out obj);
-            return obj;
+            GetActiveObject(ref clsid, IntPtr.Zero, out Obj);
+            return Obj;
         }
 
         //[DllImport(Microsoft.Win32.Win32Native.OLE32, PreserveSig = false)]

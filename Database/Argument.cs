@@ -5,7 +5,7 @@
         /// <summary>Nacte argumenty do adresare</summary>
         public static Dictionary<string, string> GetArgument(string[] args)
         {
-            Dictionary<string, string> arguments = new Dictionary<string, string>();
+            Dictionary<string, string> arguments = new();
             foreach (var arg in args)
             {
                 string[] roz = arg.Split(':');
