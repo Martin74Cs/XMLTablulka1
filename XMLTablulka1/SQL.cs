@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Diagnostics.Metrics;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using XMLTabulka1.API;
 
 namespace XMLTabulka1
 {
@@ -124,28 +126,28 @@ namespace XMLTabulka1
                     //smazat tabulku
                     SqlConnection ConnectionString2 = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
                     SqlCommand oCommand2 = new("DROP TABLE ["+Table+"]", ConnectionString2);
-
+                    Console.Write("Table delete ...");
                     oCommand2.Connection.Open();
                     oCommand2.ExecuteNonQuery();
-                    Console.WriteLine("Table delete -- OK --");
                     oCommand2.Connection.Close();
+                    Console.WriteLine(" OK --");
                 }
                 catch (Exception)
-                { Console.WriteLine("CHYBA Table delete -- Pass --"); }
+                { Console.WriteLine("CHYBA -- Pass --"); }
 
                 try
                 {
                     //smazat databazi
                     SqlConnection ConnectionString1 = new("Data Source=" + Podminka + ";Integrated Security=True;Pooling=False");
                     SqlCommand oCommand1 = new("DROP DATABASE [" + Database + "]", ConnectionString1);
-
+                    Console.Write("Database delete ...");
                     oCommand1.Connection.Open();
                     oCommand1.ExecuteNonQuery();
-                    Console.WriteLine("Database delete -- OK --");
                     oCommand1.Connection.Close();
+                    Console.WriteLine(" OK --");
                 }
                 catch (Exception)
-                { Console.WriteLine("CHYBA Database delete -- Pass --"); }
+                { Console.WriteLine("CHYBA -- Pass --"); }
                 return;
             }
 
@@ -156,9 +158,11 @@ namespace XMLTabulka1
             //string strCreateColumns = "";
             //string strColumnList = "";
             //string strQuestionList = "";
-            string strCreateColumns = string.Empty;
+            string strCreateColumns = "[APID] VarChar(20), ";// přidání Apid
             string strColumnList = string.Empty;
             string strQuestionList = string.Empty;
+            Console.Write("Table create ...");
+            
             foreach (DataColumn oColumn in dt.Columns)
             {
                 strCreateColumns += "[" + oColumn.ColumnName + "] VarChar(100), ";
@@ -173,7 +177,9 @@ namespace XMLTabulka1
             SqlCommand oCommand = new("CREATE TABLE "+Table+" (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
             oCommand.Connection.Open();
             oCommand.ExecuteNonQuery();
+            Console.WriteLine(" OK --");
 
+            Console.WriteLine("Table Add Data ...");
             //Get field names
             string sqlString = "INSERT INTO "+Table+" (";
             string valString = string.Empty;
@@ -187,12 +193,15 @@ namespace XMLTabulka1
                 count++;
             }
             //valString = valString.Substring(0, valString.Length - 2);
-            valString = valString[..^2];
+            //valString = valString[..^2]; vymazat dva poseldní znaky.
+            valString = valString + "APID";
             //var sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES ('" + valString + "')";
-            var sqlString1 = sqlString[..^2] + ") VALUES ('" + valString + "')";
+            var sqlString1 = sqlString + "APID" + ") VALUES ('" + valString + "')";
 
             int pocet = 0;
             oCommand.CommandText = sqlString1;
+            //asi není dokončeno vložení jmen sloupcu do prvního radku 
+
             //vzor 
             Regex regex = new("'");
             foreach (DataRow dr in dt.Rows)
@@ -205,18 +214,19 @@ namespace XMLTabulka1
                     valString += "'" + regex.Replace(dr.ItemArray[i].ToString(), "") + "', ";
                 }
                 //valString = valString.Substring(0, valString.Length - 2);
-                valString = valString[..^2];
+                valString = valString + Apid.Create();
                 //sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES (" + valString + ")";
-                sqlString1 = sqlString[..^2] + ") VALUES (" + valString + ")";
+                sqlString1 = sqlString + "APID" + ") VALUES (" + valString + ")";
                 if (sqlString1 != null || sqlString1 == "")
                 { 
                     oCommand.CommandText = sqlString1;
                     oCommand.ExecuteNonQuery();
-                    Console.WriteLine(pocet++);
+                    Console.WriteLine("záznam"  + pocet++ + "... vytvořen.");
                 }
             }
             ConnectionString.Close();
-          }
+            Console.WriteLine("............Dokončeno");
+        }
 
     }
 }
