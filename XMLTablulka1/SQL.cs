@@ -38,7 +38,6 @@ namespace XMLTabulka1
         /// <summary>
         /// Jakýkoli textový dotaz na databázi v SQL server, není definován nazev tabulky
         /// </summary>
-        /// <param name="Querry"></param>
         public static bool SQLConection(string Querry)
         {
             SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog=master;Integrated Security=True;Pooling=False");
@@ -133,7 +132,7 @@ namespace XMLTabulka1
                     Console.WriteLine(" OK --");
                 }
                 catch (Exception)
-                { Console.WriteLine("CHYBA -- Pass --"); }
+                { Console.WriteLine("CHYBA -- Pass / Přerušeno --"); }
 
                 try
                 {
@@ -147,16 +146,16 @@ namespace XMLTabulka1
                     Console.WriteLine(" OK --");
                 }
                 catch (Exception)
-                { Console.WriteLine("CHYBA -- Pass --"); }
-                return;
+                { Console.WriteLine("CHYBA -- Pass / Přerušeno --"); }              
             }
 
             SQLDotazy sql = new();
+            Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);     
             DataTable dt = sql.HledejVse();
-
+            Console.WriteLine(" OK --");
             //new Table
             //string strCreateColumns = "";
-            //string strColumnList = "";
+            //string strColumnList = ""; 
             //string strQuestionList = "";
             string strCreateColumns = "[APID] VarChar(20), ";// přidání Apid
             string strColumnList = string.Empty;
@@ -214,14 +213,14 @@ namespace XMLTabulka1
                     valString += "'" + regex.Replace(dr.ItemArray[i].ToString(), "") + "', ";
                 }
                 //valString = valString.Substring(0, valString.Length - 2);
-                valString = valString + Apid.Create();
+                valString = valString + "'" +  Apid.Create() + "'";
                 //sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES (" + valString + ")";
                 sqlString1 = sqlString + "APID" + ") VALUES (" + valString + ")";
                 if (sqlString1 != null || sqlString1 == "")
                 { 
                     oCommand.CommandText = sqlString1;
                     oCommand.ExecuteNonQuery();
-                    Console.WriteLine("záznam"  + pocet++ + "... vytvořen.");
+                    Console.WriteLine("záznam "  + pocet++ + "... vytvořen.");
                 }
             }
             ConnectionString.Close();

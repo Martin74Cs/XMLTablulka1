@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XMLTabulka1
 {
@@ -25,6 +20,7 @@ namespace XMLTabulka1
             //FileInfo InformaceOSouboru = new FileInfo(Cesty.SouborDbf);
             //if (!InformaceOSouboru.Exists) throw new FileNotFoundException($"Soubor {Cesty.SouborDbf} nenalezen");
             //string AdresarDbf = InformaceOSouboru.DirectoryName;
+             
             if (!System.IO.Directory.Exists(Cesty.SouborDbf)) throw new DirectoryNotFoundException($"Adresar {Cesty.SouborDbf} nenalezen");
             if (Querry == null || Querry == "") throw new Exception("Chyba dotaz je prázdný"); ;
 
@@ -48,7 +44,6 @@ namespace XMLTabulka1
                 throw new Exception("Chyba připojení do databaze: ");
             }
         }
-
 
     }
 }
