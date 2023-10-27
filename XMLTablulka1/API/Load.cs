@@ -22,8 +22,8 @@ namespace XMLTabulka1.API
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
 
-            //asynchronní HTTP GET žádost na určenou adresu
-            HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(API);
+            HttpClient client = new ApiHelper();
+            HttpResponseMessage response = await new ApiHelper().GetAsync(API);
             if (response.IsSuccessStatusCode)
             {
                 //obsah odpovědi převede na seznam objektů typu Material
@@ -42,11 +42,13 @@ namespace XMLTabulka1.API
             string Api = "api/" + trida;
             List<T> material = Soubory.LoadJsonList<T>(Path.Combine(Cesty.AdresarSpusteni, trida + ".json"));
             if (material == null && material.Count < 1) return false;
+            HttpClient client = new ApiHelper();
             foreach (T item in material)
             {
                 StringContent textq = item.AsJson();
-                textq.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                HttpResponseMessage result = await ApiHelper.ApiClient.PostAsync(Api, textq);
+                //textq.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                //HttpResponseMessage result = await ApiHelper.ApiClient.PostAsync(Api, textq);
+                HttpResponseMessage result = await client.PostAsync(Api, textq);
             }
             return true;
         }
@@ -60,7 +62,8 @@ namespace XMLTabulka1.API
             string trida = type.ToString().Split('.').Last();
             if (string.IsNullOrEmpty(API)) API = "api/" + trida;
             string soubor = trida + ".json";
-            HttpResponseMessage response = await ApiHelper.ApiClient.GetAsync(API);
+            //HttpClient client = new ApiHelper();
+            HttpResponseMessage response = await new ApiHelper().GetAsync(API);
             if (response.IsSuccessStatusCode)
             {
                 List<T> trubka = await response.Content.ReadFromJsonAsync<List<T>>();
@@ -80,7 +83,7 @@ namespace XMLTabulka1.API
             StringContent textq = tezak.AsJson();
             //textq.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             //var response = await http.PostAsJsonAsync($"api/TeZak/TaskAll", Tezak);
-            var response = await ApiHelper.ApiClient.PostAsync(API, textq);
+            var response = await new ApiHelper().PostAsync(API, textq);
             List<T> dils = await response.Content.ReadFromJsonAsync<List<T>>();
             return dils;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,18 +11,22 @@ namespace XMLTabulka1.API
     /// <summary>
     /// Připojení do restApi na můj server BlazorElektro
     /// </summary>
-    public static class ApiHelper
+    public class ApiHelper : HttpClient
     {
-        public static HttpClient ApiClient { get; set; }
-
-        public static void Init()
+        public ApiHelper()
         {
-            ApiClient = new() { BaseAddress = UriApiBaseIP };
-            ApiClient.DefaultRequestHeaders.Accept.Clear();
-            ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            BaseAddress = new Uri(IP);
+            DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //ApiHelper = new HttpClient();
         }
 
-        public static Uri UriApiBaseIP => new(IP);
+        public static HttpClient ApiClient()
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(IP);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            return httpClient;
+        }
 
         public static string IP
         {

@@ -1,43 +1,43 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.020739</C_PROJ>
-    <NAZ_PROJ>LTO horáky pro Regenerační kotel 12</NAZ_PROJ>
-    <INVESTOR>Mondi Štětí a.s.</INVESTOR>
-    <M_STAVBY>Štětí</M_STAVBY>
-    <C_UKOL>0210</C_UKOL>
-    <NAZ_UKOL>Dokumentace pro vydání spol. povolení</NAZ_UKOL>
+    <C_PROJ>P.013688</C_PROJ>
+    <NAZ_PROJ>Výzkumné centrum</NAZ_PROJ>
+    <INVESTOR>Spolek pro chemickou a hutní výrobu a.s.</INVESTOR>
+    <M_STAVBY>Ústí nad labem</M_STAVBY>
+    <C_UKOL>0000</C_UKOL>
+    <NAZ_UKOL>Studie</NAZ_UKOL>
     <HIP>Ing. Pavel Pozděna</HIP>
-    <DIL>D2</DIL>
-    <CAST>03</CAST>
-    <PROFESE>02</PROFESE>
+    <DIL>C</DIL>
+    <CAST>2</CAST>
+    <PROFESE />
     <PORADI />
     <OR_CISLO>001</OR_CISLO>
-    <NAZEV>Schema</NAZEV>
-    <AUTOR />
-    <PSSO>D2.03-02</PSSO>
+    <NAZEV>Půdorys 1.PP</NAZEV>
+    <AUTOR>Ing. Alexandr Ivančo</AUTOR>
+    <PSSO>C.2</PSSO>
     <PCC>TP</PCC>
-    <TD>G</TD>
-    <PCDOC>2229</PCDOC>
-    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
+    <TD>B</TD>
+    <PCDOC>6257</PCDOC>
+    <TYP_DOC>B= A4 vykres(TP-B-xxxx); Vykres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>20.06.2023 0:00:00</DAT_REV>
-    <C_REV>A</C_REV>
-    <AUT_REV>Martin Csato</AUT_REV>
-    <ID_DOC>0146U</ID_DOC>
-    <PATH>G:\Z\P.020739\0210\Výkres\G2229A.Dwg</PATH>
-    <GLOBALID>I2J!C3GIUF@220028</GLOBALID>
+    <DAT_REV>27.02.0201 0:00:00</DAT_REV>
+    <C_REV>0</C_REV>
+    <AUT_REV>Ivančo</AUT_REV>
+    <ID_DOC>00UZT</ID_DOC>
+    <PATH>G:\Z\P.013688\0000\Vykres\B62570.dwg</PATH>
+    <GLOBALID>IF7!A$DS7D@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>Dwg</EXT>
-    <APSSO>D20302</APSSO>
-    <FPC>G2229A</FPC>
+    <EXT>dwg</EXT>
+    <APSSO>C 2</APSSO>
+    <FPC>B62570</FPC>
     <ID_DOCR />
     <OR_CIT>1</OR_CIT>
-    <POM>Výkres</POM>
-    <PROF_CX>E</PROF_CX>
+    <POM>Vykres</POM>
+    <PROF_CX>WA</PROF_CX>
     <C_SUBREV />
     <YES>ANO</YES>
     <NO />
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>K odsouhlasení</POP_REV>
+    <POP_REV>Konečné vydání</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>0146U</ID_DOCC>
+    <ID_DOCC>00UZT</ID_DOCC>
     <ODBOR />
-    <PS_SO>PS</PS_SO>
-    <CISLO>03</CISLO>
-    <SPD_LA>DUS</SPD_LA>
-    <SPD_TX>Dokumentace pro vydání společn</SPD_TX>
-    <KONTROL>Ing. Michal Kašpar</KONTROL>
-    <SCHVALIL> Pavel Pozděna</SCHVALIL>
+    <PS_SO />
+    <CISLO />
+    <SPD_LA>S</SPD_LA>
+    <SPD_TX>Studie</SPD_TX>
+    <KONTROL>Hejská</KONTROL>
+    <SCHVALIL>Pozděna</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />
