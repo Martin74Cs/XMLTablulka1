@@ -11,6 +11,7 @@ using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using XMLTabulka1.API;
 
 namespace XMLTabulka1
@@ -124,7 +125,7 @@ namespace XMLTabulka1
                 {
                     //smazat tabulku
                     SqlConnection ConnectionString2 = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
-                    SqlCommand oCommand2 = new("DROP TABLE ["+Table+"]", ConnectionString2);
+                    SqlCommand oCommand2 = new("DROP TABLE [" + Table + "]", ConnectionString2);
                     Console.Write("Table delete ...");
                     oCommand2.Connection.Open();
                     oCommand2.ExecuteNonQuery();
@@ -146,7 +147,11 @@ namespace XMLTabulka1
                     Console.WriteLine(" OK --");
                 }
                 catch (Exception)
-                { Console.WriteLine("CHYBA -- Pass / Přerušeno --"); }              
+                { Console.WriteLine("CHYBA -- Pass / Přerušeno --"); }
+            }
+            else 
+            {
+                Console.WriteLine("Databaze je OK");
             }
 
             SQLDotazy sql = new();
@@ -176,6 +181,7 @@ namespace XMLTabulka1
             SqlCommand oCommand = new("CREATE TABLE "+Table+" (ID INT IDENTITY(1,1) NOT NULL," + strCreateColumns + ")", ConnectionString);
             oCommand.Connection.Open();
             oCommand.ExecuteNonQuery();
+            //oCommand.Connection.Close();
             Console.WriteLine(" OK --");
 
             Console.WriteLine("Table Add Data ...");
