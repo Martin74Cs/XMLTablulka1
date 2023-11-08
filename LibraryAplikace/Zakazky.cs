@@ -18,19 +18,19 @@ namespace LibraryAplikace
 {
     public partial class Zakazky
     {
-        public string JmenoProjektuDlePrvniho()
+        public static string JmenoProjektuDlePrvniho()
         {
-           DataTable table = new SQLDotazy().JedenTezak(Sloupec.C_PROJ,InfoProjekt.CisloProjektu);
+           DataTable table = new DbfDotazySQL().JedenTezak(Sloupec.C_PROJ,InfoProjekt.CisloProjektu);
            List<TeZak> teZak = table.DataTabletoJson<TeZak>();
            //var Jeden = teZak.First();
            //InfoProjekt.Projekt = Jeden.NAZEV;
            return teZak.First().NAZ_PROJ;
         }
 
-        public void MojeZakazkyAddJson()
+        public static void MojeZakazkyAddJson()
         {
             List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
-            MojeZakazky nove = new MojeZakazky
+            MojeZakazky nove = new()
             {
                 CisloProjektu = InfoProjekt.CisloProjektu,
                 ProjektNazev = InfoProjekt.Projekt,
@@ -47,18 +47,18 @@ namespace LibraryAplikace
             }
         }
 
-        public void MojeZakazkyAdd()
+        public static void MojeZakazkyAdd()
         {
             InfoProjekt.Projekt = JmenoProjektuDlePrvniho();
             MojeZakazkyAddJson();
 
             if (File.Exists(Cesty.PodporaDataXml) == false)
             {
-                XDocument docnew = new XDocument();
-                XElement xElement = new XElement("SEZNAM");
+                XDocument docnew = new ();
+                XElement xElement = new ("SEZNAM");
                 docnew.Add(xElement);
 
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<MojeZakazky>));
+                XmlSerializer xmlSerializer = new (typeof(List<MojeZakazky>));
                 XmlWriter writer = docnew.CreateWriter();
                 List<MojeZakazky> moje = new();
                 xmlSerializer.Serialize(writer, moje);
@@ -66,7 +66,7 @@ namespace LibraryAplikace
             }
 
             List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
-            MojeZakazky nove = new MojeZakazky
+            MojeZakazky nove = new()
             {
                 CisloProjektu = InfoProjekt.CisloProjektu,
                 ProjektNazev = InfoProjekt.Projekt,
@@ -80,7 +80,7 @@ namespace LibraryAplikace
             }
         }
 
-        public List<MojeZakazky> MojeZakazkyList()
+        public static List<MojeZakazky> MojeZakazkyList()
         {
             List<MojeZakazky> Pole = MojeZakazkyListXML();
             if (File.Exists(Cesty.PodporaDataXml) == false) return new();        
@@ -89,7 +89,7 @@ namespace LibraryAplikace
             return mojelist;
         }
 
-        public List<MojeZakazky> MojeZakazkyListXML()
+        public static List<MojeZakazky> MojeZakazkyListXML()
         {
             if (File.Exists(Cesty.PodporaDataXml) == false) return new();
             XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
@@ -97,12 +97,11 @@ namespace LibraryAplikace
             return Pole;
         }
 
-        public void MojeZakazkyOLD()
+        public static void MojeZakazkyOLD()
         {
             if (File.Exists(Cesty.PodporaDataXml))
-            { 
-                XmlDocument doc = new XmlDocument();
-                doc.XmlResolver = null;
+            {
+                XmlDocument doc = new() { XmlResolver = null };
                 Stream fs = new FileStream(Cesty.PodporaDataXml, FileMode.Open);
                 XmlReader rdr = XmlReader.Create(fs);
                 doc.Load(rdr);

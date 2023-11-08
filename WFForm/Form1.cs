@@ -31,18 +31,18 @@ namespace WFForm
             if (!File.Exists(Cesty.SouborTezakDbf))
             {
                 string Cesta = Aktualizuj.OpenDataze();
-                Form form = Aktualizuj.Text(); 
+                Form form = Aktualizuj.Text();
                 form.Show();
-                form.TopLevel= true;
+                form.TopLevel = true;
                 await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
                 form.Close();
                 form.Dispose();
                 new XMLTabulka1.Aktualizuj().AktualizujData();
-            }  
-            
+            }
+
             new XMLTabulka1.Aktualizuj().AktualizujData();
 
-            SQLDotazy sql = new();
+            DbfDotazySQL sql = new();
             string CisloProjektu = "P.018711";
             //string CisloProjektu = ""; //= "P.002112";
             
@@ -55,11 +55,12 @@ namespace WFForm
             //TreeNode Strom = new("Pokus");
 
             TreeView1.Nodes.Clear();
-                foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
-                    TreeView1.Nodes.Add("C_PROJ", item);
+            foreach (string item in await new XMLTabulka1.Aktualizuj().ListZakazky())
+            //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+                TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
-            table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
+            table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
             DataGridView1.Vypis(table);
             ListView1.VypisMojeZakazky();
 
@@ -90,7 +91,6 @@ namespace WFForm
                 foreach (ListViewItem item in DataGridView1.SelectedRows)
                 {
                     MessageBox.Show(item.SubItems[0].Text);
-
                 }
             }
             //DataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
@@ -111,7 +111,7 @@ namespace WFForm
         {
             if (e.RowIndex < 0) return;
             string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
-            DataTable data = SQLDotazy.Hledej("SELECT * FROM TEZAK WHERE GLOBALID='" + GlobalID + "'");
+            DataTable data = DbfDotazySQL.Hledej("SELECT * FROM TEZAK WHERE GLOBALID='" + GlobalID + "'");
 
             //uložení vybraného øádku do pomocné tøídy
             Sloupec.CelyRadek =  data.Rows[0];
@@ -161,7 +161,7 @@ namespace WFForm
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            new LibraryAplikace.Zakazky().MojeZakazkyAdd();
+            LibraryAplikace.Zakazky.MojeZakazkyAdd();
             ListView1.VypisMojeZakazky();
         }
 
@@ -177,7 +177,7 @@ namespace WFForm
 
         private void Button3_Click(object sender, EventArgs e)
         {
-            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            List<MojeZakazky> moje = LibraryAplikace.Zakazky.MojeZakazkyList();
             SelectedListViewItemCollection V = ListView1.SelectedItems;
             foreach (ListViewItem item in V)
             {
@@ -221,11 +221,12 @@ namespace WFForm
             new XMLTabulka1.Aktualizuj().AktualizujData();
 
             TreeView1.Nodes.Clear();
-            foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+            foreach (string item in await new XMLTabulka1.Aktualizuj().ListZakazky())
+            //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                 TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
-            table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+            table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
             DataGridView1.Vypis(table);
         }
 
@@ -242,7 +243,7 @@ namespace WFForm
                     item.ExpandAll();
                     TreeView1.TopNode= item;
 
-                    table = new SQLDotazy().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+                    table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
                     DataGridView1.Vypis(table);
                     break;
                 }

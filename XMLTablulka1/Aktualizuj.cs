@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
@@ -13,14 +14,14 @@ namespace XMLTabulka1
             //Načti seznam projektů Cesty.CislaProjektuTxt.
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
-                string[] Hromada = new SQLDotazy().SeznamJeden(VyberSloupec.C_PROJ);
+                string[] Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.C_PROJ);
                 Hromada.SaveTXT(Cesty.CislaProjektuTxt);
                 InfoProjekt.CisloProjektu = Hromada.Last();
             }
 
             if (!File.Exists(Cesty.NazevProjektuTxt))
             {
-                string[]  Hromada = new SQLDotazy().SeznamJeden(VyberSloupec.NAZ_PROJ);
+                string[]  Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.NAZ_PROJ);
                 Hromada.SaveTXT(Cesty.NazevProjektuTxt);
             }
 
@@ -32,6 +33,13 @@ namespace XMLTabulka1
                 List<TeZak> teZaks = data.Tables[0].DataTabletoJson<TeZak>();
                 teZaks.SaveJson(Cesty.CislaDokumentuJson);
             }
+        }
+
+        public async Task<string[]> ListZakazky()
+        {
+            List<TeZakHodnota> data = await API.API.LoadAPI<TeZakHodnota>("api/tezak/ListZakazky");
+            string[] Hromada = data.Select(x => x.Hodnota).ToArray();
+            return Hromada;
         }
 
         public string DatumTeZak()

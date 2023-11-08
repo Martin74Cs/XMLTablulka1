@@ -76,7 +76,7 @@ namespace WFForm
         /// </summary>
         public static void VypisMojeZakazky(this ListView listView1)
         {
-            List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
+            List<MojeZakazky> moje = LibraryAplikace.Zakazky.MojeZakazkyList();
             listView1.Clear();
             listView1.View = System.Windows.Forms.View.Details;
             listView1.Columns.Add(Sloupec.C_PROJ);

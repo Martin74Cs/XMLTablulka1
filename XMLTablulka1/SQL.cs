@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
 using System.Text;
@@ -13,6 +15,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using XMLTabulka1.API;
+using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
 {
@@ -108,7 +111,27 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Vytvoření kopie DBF na SQl Serveru
+        /// Kontrola nových záznamů v SQL vůči Dbf
+        /// </summary>
+        public static async Task DataSqlAdd()
+        {
+            DbfDotazySQL sql = new();
+            Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);
+            DataTable dt = sql.HledejVse();
+            Console.WriteLine(" OK --");
+
+            Regex regex = new("'");
+            foreach (DataRow dr in dt.Rows)
+            {
+                var global = dr["GLOBALID"].ToString();
+                //bude použito RestApi
+                var querry = await API.API.LoadAPI<TeZak>("api/TeZak/GLOBALID/" + global);
+     
+            }
+        }
+
+        /// <summary>
+        /// Vytvoření databeze na SQl Serveru z databaze DBF. Podmínka je název počítače převeden na IP Adresu
         /// </summary>
         public static void DataSql()
         {
@@ -154,7 +177,7 @@ namespace XMLTabulka1
                 Console.WriteLine("Databaze je OK");
             }
 
-            SQLDotazy sql = new();
+            DbfDotazySQL sql = new();
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);     
             DataTable dt = sql.HledejVse();
             Console.WriteLine(" OK --");

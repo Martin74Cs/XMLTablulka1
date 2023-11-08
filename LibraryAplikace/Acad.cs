@@ -10,36 +10,41 @@ namespace LibraryAplikace
 {
     public static class Acad
     {
-        public static string[] Program(TeZak teZak)
+        public static string[]? Program(TeZak teZak)
         {
             //Otevři Acad = PripojAcad();
             var acad = OpenAcad();
-            if (acad != null) acad.Visible = true;
-            
-            //hledaní otevřeno dokumentu
-            AcadDocument dokument = acad.KontrolaOpenDokument(teZak.PATH);
-            if (dokument != null)
+            if (acad != null)
             {
-                //dokument.Open(teZak.PATH);
-                return new string[] { teZak.PATH };
-            }
+                acad.Visible = true;
 
-            //ověření existence disků
-            DirectoryInfo disk = new DirectoryInfo(teZak.PATH).Root;
-            if (!Directory.Exists(disk.Name))
-                teZak.PATH = teZak.PATH.Replace(disk.Name, "C:\\");
 
-            //hledání všech souborů které odpovídají názvu výkresu dle poslední 6 znaků.
-            string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
-            if (Soubor.Length > 0)
-                //muže být nalezeno více souborů
-                acad.Documents.Open(Soubor.First());
-            else
-            {
-                VytvoritAcad(teZak.PATH);
-                acad.Documents.Open(teZak.PATH);
+                //hledaní otevřeno dokumentu
+                AcadDocument dokument = acad.KontrolaOpenDokument(teZak.PATH);
+                if (dokument != null)
+                {
+                    //dokument.Open(teZak.PATH);
+                    return new string[] { teZak.PATH };
+                }
+
+                //ověření existence disků
+                DirectoryInfo disk = new DirectoryInfo(teZak.PATH).Root;
+                if (!Directory.Exists(disk.Name))
+                    teZak.PATH = teZak.PATH.Replace(disk.Name, "C:\\");
+
+                //hledání všech souborů které odpovídají názvu výkresu dle poslední 6 znaků.
+                string[] Soubor = new Soubor().HledejZdaExistujeSoubor(teZak.PATH);
+                if (Soubor.Length > 0)
+                    //muže být nalezeno více souborů
+                    acad.Documents.Open(Soubor.First());
+                else
+                {
+                    VytvoritAcad(teZak.PATH);
+                    acad.Documents.Open(teZak.PATH);
+                }
+                return Soubor;
             }
-            return Soubor;
+            return null;
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace LibraryAplikace
         private static void VytvoritAcad(string Cesta)
         {
             if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
-                Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                Directory.CreateDirectory(Path.GetDirectoryName(Cesta) ?? "");
             if (!File.Exists(Cesta))
                 File.Copy(Cesty.SablonaDwg, Cesta);
         }
@@ -56,17 +61,21 @@ namespace LibraryAplikace
         /// <summary>
         /// Hledej soubor dwg pokud existuje otevři ho.
         /// </summary>
-        public static string[] Program(DataRow CelyRadek)
+        public static string[]? Program(DataRow CelyRadek)
         {
             //var acad =  PripojAcad();
             var acad = OpenAcad();
-            if (acad != null) acad.Visible = true;
-            string[] Soubor = new Soubor().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString());
-            if (Soubor.Length > 0)
-                acad.Documents.Open(Soubor.First());
-            return Soubor;
+            if (acad != null)
+            {
+                acad.Visible = true;
+                string[] Soubor = new Soubor().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString() ?? "");
+                if (Soubor.Length > 0)
+                    acad.Documents.Open(Soubor.First() ?? "");
+                return Soubor;
+            }
+            return null;
         }
-         
+
         ///<summary>
         /// Otevří aplikaci Autocad
         /// </summary>
@@ -82,11 +91,11 @@ namespace LibraryAplikace
                 //throw;
             }
         }
-        
+
         /// <summary>
         /// Kontrola otevřeného dokumentu.
         /// </summary>
-        public static AcadDocument KontrolaOpenDokument(this AcadApplication Acapp ,string Cesta)
+        public static AcadDocument KontrolaOpenDokument(this AcadApplication Acapp, string Cesta)
         {
             //AcadDocument doc = null;
             AcadDocument doc = new();
@@ -103,7 +112,7 @@ namespace LibraryAplikace
                 }
             }
             catch (Exception)
-            {   }
+            { }
             return doc;
         }
 
@@ -132,7 +141,7 @@ namespace LibraryAplikace
                         var ttt = Marshal.BindToMoniker(filename);
 
                         AutoCAD.AcadDocument ddd = (AutoCAD.AcadDocument)ttt;
-                        
+
                         var sss = ddd.Name;
                         break;
                     }

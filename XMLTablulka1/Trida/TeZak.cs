@@ -22,7 +22,7 @@ namespace XMLTabulka1.Trida
         //public int Id { get; set; }
         public string Hodnota { get; set; } = string.Empty;
         public List<TeZakHodnota> Children { get; set; } = new();
-        public string GlobalID { get; set; } = string.Empty;
+        //public string GlobalID { get; set; } = string.Empty;
     }
 
     public sealed class TeZak : Entity

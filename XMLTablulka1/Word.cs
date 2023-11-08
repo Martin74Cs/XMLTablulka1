@@ -1,4 +1,4 @@
-﻿using Podpora;
+﻿
 
 namespace XMLTabulka1
 {
@@ -11,8 +11,8 @@ namespace XMLTabulka1
         /// <param name="XML">cesta k XML záznam z databaze</param>
         public static void Doc(string cesta, string XML)
         { 
-            WordPodpora app = new();
-            bool Volba = app.NovyDoc(cesta, XML);
+            //WordPodpora app = new();
+            //bool Volba = app.NovyDoc(cesta, XML);
             return;
         }
     }

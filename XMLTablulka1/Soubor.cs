@@ -112,7 +112,8 @@ namespace XMLTabulka1
             }
             sw.Close();
             //return Pole.Split('\u002C');
-            return Pole.Split(';',StringSplitOptions.RemoveEmptyEntries);
+            string[] Res = Pole.Split(';', StringSplitOptions.RemoveEmptyEntries);
+            return Res;
         }
 
         /// <summary>        /// Nacti XmlDocument ze souboru  /// </summary>

@@ -11,6 +11,8 @@ namespace XMLTabulka1.Trida
         public static string CisloProjektu { get; set; } = string.Empty;
         public static string Projekt { get; set; } = string.Empty;
         public static string CisloTasku { get; set; } = string.Empty;
+        public static string Dil { get; set; } = string.Empty;
+        public static string Cast { get; set; } = string.Empty;
         public static string Task { get; set; } = string.Empty;
         public static string Nazev { get; set; } = string.Empty;
         public static string Misto { get; set; } = string.Empty;
