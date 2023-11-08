@@ -13,6 +13,8 @@ namespace XMLTabulka1.Trida
     {
         public int Id { get; set; }
         public string Apid { get; set; } = string.Empty;
+        public TimeSpan CasVytvoreni { get; set; }
+        public string User { get; set; }
     }
 
     public class TeZakHodnota : Entity
@@ -23,7 +25,7 @@ namespace XMLTabulka1.Trida
         public string GlobalID { get; set; } = string.Empty;
     }
 
-    public sealed class TeZak
+    public sealed class TeZak : Entity
     {
         public string C_PROJ { get; set; } = string.Empty;
         public string CYCOSTATUS { get; set; } = string.Empty;

@@ -24,6 +24,7 @@ i002399a Zvýšení variability skladovacích kapacit SHP
 7822-22: Využití TOEL pro dvoupalivové spalování v plynové parní
 ADM - úpravy objektu Rafinérie
 AGLOMERACE PET
+ALPHACHEM
 AMS SAM Cyanco US
 ASSESMENT OF CCR UNIT ABILITY RFG OR LPG
 AZMECO PP - Prefeasibility study
@@ -74,6 +75,7 @@ DUBGG
 DVP - Rekonstrukce záchytného systému koleje 69 - vany pod kolej
 DeNOx Počerady
 Demivoda
+Demolice N6 vč. přeložek - PD
 Denitrification of power plant boilers
 Doplnění a záměna uzavíracích klapek na systému TVD
 Dusíková stanice pro halu P3
@@ -105,6 +107,7 @@ FFHs Tail gas supply
 FS Safety Storage
 FVE M42
 FVE Nopek Hrušová
+FVE TOS Celákovice
 FVE TOS Čelákovice
 FVE Žebrák
 Fermentační linka
@@ -134,6 +137,7 @@ KEC APR1000: ATEX analysis support
 KEC APR1000: FIRE analysis support
 KO EPR II OB06 - PS20 - Vnější spojovací potrubí
 KOMPLEXNÍ PROJEKT INOVACE VÝROBNÍCH POSTUPŮ - INOVACE JEDNOTKY NA
+KOS WIRE EUROPE s.r.o.
 KPY capacity optimisation for larger crude slate
 KR19022 Výměna čerpadel na bloku 25
 KR19029 Výměna ventilátorů  2534 L01/1,2
@@ -148,6 +152,8 @@ LTO horáky pro Regenerační kotel 12
 Letiště Ostrava, a.s. - Posudek
 Logistická a montážní hala Solnice
 MONDI - RÁMCOVÁ SMLOUVA
+MONDI - Výměna pohonu plnícího ventilu na T103 - analýza rizik
+MONDI ŠTĚTÍ PM 10
 Malé projekty 2015
 Mangan, Ověřovací jednotka
 Mletí HAPI produktů v obj. č. 95
@@ -174,10 +180,12 @@ NOVÝ KYSELÍCÍ SUD č.2
 NOVÝ KYSELÍCÍ SUD č.3
 NOVÝ KYSELÍCÍ SUD č.5
 NOVÝ KYSELÍCÍ SUD č.6
+NSE Turgine
 Napojení jednotky SO 3 na alternativní zdroj páry
 Napojení na obslužnou komunikaci a rozšíření parkoviště
 Navýšení výroby EDN
 Navýšení výroby EDN - Výstavba EDN III
+Nestle, Heat pupm
 New Amonium Sulphate unit
 New CNCG incinerator
 New Electrical steam boiler & integration to existing plant
@@ -260,6 +268,7 @@ Parkovací dům
 Paroplynový zdroj-Považská Bystrica, PC1-Elektráreň
 Pasport budovy čp. 168, Pernerova ulice, Pardubice
 Pevnostní výpočty potrubí
+Plastigram obnovení a rozšíření vrat
 Plastigram separační linka
 Plastigram separation line
 Plynofikace - I. etapa
@@ -278,12 +287,14 @@ Požární prostupy a uzávěry
 Požárně bezpečnostní řešení
 Požárně bezpečnostního řešení
 Prevention of Burn - Through
+Project Kona
 Projekt demolice HF a Kryolitu + protivýbuchový val
 Projektová dokumentace odstranění staveb skladů v EOP
 Propojení energetických mostů
 Propylenové hospodářství
 Protokol o určení vnějších vlivů
 Protokol o určení vnějších vlivů Lihovar Hrobice
+Protokol o určení vnějších vlivů a stanovení zón výbuchu
 Prunéřov, OB61 - Vnitřní spojovací potrubí
 Prášková lakovna Suchánek a Walraven s.r.o.
 Přeložka plynu
@@ -403,6 +414,7 @@ Teplený napáječ Střekov
 Teplárna Zelená louka
 Testovací projekt pro vytvoření nové šablony Workflow
 The Safety in the Resin Synthesis Department, Building 201
+Trasy čerpání OCVD a HCVD
 Turbína T1
 U4 TGB 66
 UMÍSTĚNÍ PLNICÍ LINKY HCN
@@ -468,6 +480,7 @@ Vrácení EPS materiálu do procesu
 Vstřikolisovna
 Vybudování nového skladu čpavku s cílem snížení bezp. rizika
 Vybudování nového stáčení a skladování čpavku
+Vypouštění zařízení do slopu
 Vyvedení výkonu z rozvodny R 110 kV
 Waste heat boiler
 ZEBRA
@@ -479,6 +492,7 @@ ZEVO Opatovice
 ZMĚNA CHLAZENÍ VÝROBNÍHO PROUDU (ILB)
 Zabezpečení areálu SZT Pardubice proti úniku ropných látek
 Zabezpečení styrenu pro EPS v případě odstavení ETB v Litvínově
+Zajištění logistiky modernizované SPO Trmice
 Zajištění nového ST potrubí páry
 Zastávkové práce výroby epichlorhydrinu z glycerinu
 Zauhlování - stabilní hasící zařízení
@@ -498,7 +512,9 @@ Změna užívání objektu CTP
 Zpracování dokumentace HAZOP pro KD6 a LAV3
 Zpracování dokumentace HAZOP pro stáčení a skladování TMA
 Zpracování kalů
+Zpracování koncepce dávkování sulfidu sodného
 Zvýšení energetické účinnosti teplárny instalací TBG
+Zvýšení tlaku zemního plynu z 2,2 MPa na 3,8 MPa
 Zámečnická dílna Borovnička - stavební úpravy Změna A
 Zásobník dehtu 201F
 Čištění OV z výroby epoxidů a ECH

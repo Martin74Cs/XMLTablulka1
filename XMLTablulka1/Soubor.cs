@@ -91,7 +91,7 @@ namespace XMLTabulka1
             zak.Close();
         }
 
-        /// <summary>        /// Uloži string[] do txt        /// </summary>
+        /// <summary>        /// Uloži string[] do txt do jednotlivých řádků      /// </summary>
         public static void SaveTXT(this string[] data, string Cesta)
         {
             using var zak = new System.IO.StreamWriter(Cesta);

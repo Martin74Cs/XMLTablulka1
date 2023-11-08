@@ -90,7 +90,7 @@ namespace XMLTabulka1
         }
 
         /// <summary>
-        /// Vybere zadaný sloupec neopakujícíse 
+        /// Vybere zadaný sloupec neopakující se 
         /// </summary>
         public static DataTable Test5(DataTable table, VyberSloupec vyber)
         {

@@ -1,43 +1,43 @@
 <DocumentElement>
   <cestina>
     <CYCOSTATUS />
-    <C_PROJ>P.013688</C_PROJ>
-    <NAZ_PROJ>Výzkumné centrum</NAZ_PROJ>
-    <INVESTOR>Spolek pro chemickou a hutní výrobu a.s.</INVESTOR>
-    <M_STAVBY>Ústí nad labem</M_STAVBY>
-    <C_UKOL>0000</C_UKOL>
-    <NAZ_UKOL>Studie</NAZ_UKOL>
-    <HIP>Ing. Pavel Pozděna</HIP>
+    <C_PROJ>W.000717</C_PROJ>
+    <NAZ_PROJ>Obnova zdroje - Teplárna</NAZ_PROJ>
+    <INVESTOR>Plzeňská Teplárenská, a.s.</INVESTOR>
+    <M_STAVBY>Chvaletice</M_STAVBY>
+    <C_UKOL>0201</C_UKOL>
+    <NAZ_UKOL>Dokumentace bouracích prací</NAZ_UKOL>
+    <HIP>Ing. Radomír Špaček</HIP>
     <DIL>C</DIL>
-    <CAST>2</CAST>
+    <CAST />
     <PROFESE />
     <PORADI />
     <OR_CISLO>001</OR_CISLO>
-    <NAZEV>Půdorys 1.PP</NAZEV>
-    <AUTOR>Ing. Alexandr Ivančo</AUTOR>
-    <PSSO>C.2</PSSO>
+    <NAZEV>Situační výkres širších vztahů</NAZEV>
+    <AUTOR />
+    <PSSO>C</PSSO>
     <PCC>TP</PCC>
-    <TD>B</TD>
-    <PCDOC>6257</PCDOC>
-    <TYP_DOC>B= A4 vykres(TP-B-xxxx); Vykres</TYP_DOC>
+    <TD>G</TD>
+    <PCDOC>2146</PCDOC>
+    <TYP_DOC>G= (TP-G-xxxx); Výkres</TYP_DOC>
     <VYBAVENI />
     <P_STR>0</P_STR>
     <POV>0</POV>
-    <DAT_REV>27.02.0201 0:00:00</DAT_REV>
-    <C_REV>0</C_REV>
-    <AUT_REV>Ivančo</AUT_REV>
-    <ID_DOC>00UZT</ID_DOC>
-    <PATH>G:\Z\P.013688\0000\Vykres\B62570.dwg</PATH>
-    <GLOBALID>IF7!A$DS7D@220028</GLOBALID>
+    <DAT_REV>17.05.2023 0:00:00</DAT_REV>
+    <C_REV>A</C_REV>
+    <AUT_REV>Ing. Veronika Litošová</AUT_REV>
+    <ID_DOC>013ZV</ID_DOC>
+    <PATH>G:\Z\W.000717\0201\Výkres\G2146A.Dwg</PATH>
+    <GLOBALID>I2Q9C2ETLP@220028</GLOBALID>
     <LOCKFLAG />
     <REVFLAG>H</REVFLAG>
-    <EXT>dwg</EXT>
-    <APSSO>C 2</APSSO>
-    <FPC>B62570</FPC>
+    <EXT>Dwg</EXT>
+    <APSSO>C</APSSO>
+    <FPC>G2146A</FPC>
     <ID_DOCR />
-    <OR_CIT>1</OR_CIT>
-    <POM>Vykres</POM>
-    <PROF_CX>WA</PROF_CX>
+    <OR_CIT>0</OR_CIT>
+    <POM>Výkres</POM>
+    <PROF_CX />
     <C_SUBREV />
     <YES>ANO</YES>
     <NO />
@@ -48,17 +48,17 @@
     <TITLESCALE />
     <TITLESHEET />
     <FLGN_E />
-    <POP_REV>Konečné vydání</POP_REV>
+    <POP_REV>K odsouhlasení</POP_REV>
     <SIG />
     <ID_DOCD />
-    <ID_DOCC>00UZT</ID_DOCC>
+    <ID_DOCC>013ZV</ID_DOCC>
     <ODBOR />
     <PS_SO />
     <CISLO />
-    <SPD_LA>S</SPD_LA>
-    <SPD_TX>Studie</SPD_TX>
-    <KONTROL>Hejská</KONTROL>
-    <SCHVALIL>Pozděna</SCHVALIL>
+    <SPD_LA>DSP</SPD_LA>
+    <SPD_TX>Dok. pro stav. povolení</SPD_TX>
+    <KONTROL>Ing. Pavel Titze</KONTROL>
+    <SCHVALIL>Ing. Radomír Špaček</SCHVALIL>
     <CD_PUV />
     <NAZEV2 />
     <ISSUER />

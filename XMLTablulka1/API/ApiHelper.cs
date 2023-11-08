@@ -20,13 +20,13 @@ namespace XMLTabulka1.API
             //ApiHelper = new HttpClient();
         }
 
-        public static HttpClient ApiClient()
-        {
-            HttpClient httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri(IP);
-            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            return httpClient;
-        }
+        //public static HttpClient ApiClient()
+        //{
+        //    HttpClient httpClient = new HttpClient();
+        //    httpClient.BaseAddress = new Uri(IP);
+        //    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    return httpClient;
+        //}
 
         public static string IP
         {
