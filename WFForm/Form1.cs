@@ -116,16 +116,40 @@ namespace WFForm
 
         }
 
-        private void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
             string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
-
+            string Apid = DataGridView1.Rows[e.RowIndex].Cells["Apid"].Value.ToString();
             if (true)
-            { 
+            {
                 //plat9 pro restAPI
-                var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
-                
+                //var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
+                TeZak teZak = await API.LoadJsonAPIJeden<TeZak>($"/api/tezak/Apid/{Apid}");
+                teZak.SaveJson(Cesty.JedenRadekJson);
+                switch (teZak.EXT.ToUpperInvariant())
+                {
+                    case "DWG":
+                        DialogResult result = MessageBox.Show("Byl vybrán soubor typu DWG. \nNázev vybraného souboru je: " + teZak.NAZEV
+                            + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                        //pokraèuje v komponentì Autocad
+                        //la.Program(Sloupec.CelyRadek);
+                        if (result == DialogResult.Yes)
+                            Acad.Program(teZak);
+                        break;
+                    case "XLS":
+                        MessageBox.Show("Byl vybrán soubor typu XLS " + teZak.NAZEV);
+                        break;
+                    case "DOC":
+                        DialogResult result1 = MessageBox.Show("Byl vybrán soubor typu DOC. \nNázev vybraného souboru je: " + teZak.NAZEV 
+                            + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                        if (result1 == DialogResult.Yes)
+                            Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                        break;
+                    default:
+                        MessageBox.Show("Bylo XXX " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
+                        break;
+                }
             }
             else 
             { 

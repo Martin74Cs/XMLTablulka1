@@ -17,8 +17,6 @@ namespace LibraryAplikace
             if (acad != null)
             {
                 acad.Visible = true;
-
-
                 //hledaní otevřeno dokumentu
                 AcadDocument dokument = acad.KontrolaOpenDokument(teZak.PATH);
                 if (dokument != null)

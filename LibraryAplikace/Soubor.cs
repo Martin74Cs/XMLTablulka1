@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using XMLTabulka1;
 
@@ -27,9 +28,7 @@ namespace LibraryAplikace
             List<string> list = new List<string>();
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
             if (Directory.Exists(AdresarJedna) == false)
-            {
-                return list.ToArray();
-            }
+                return null;
                 
             var Soubor = Path.GetFileNameWithoutExtension(JmenoSouboru);
             int Delka;
@@ -38,6 +37,14 @@ namespace LibraryAplikace
             else
                 Delka = Soubor.Length;
             var Soubor6 = Soubor.Substring(0, Delka).ToUpper();
+
+            //Open AI Hledáme soubory v aktuálním adresáři a jeho podadresářích
+            //string[] files = Directory.GetFiles(AdresarJedna, fileName, SearchOption.AllDirectories);
+
+            //Open AI Hledáme soubory v aktuálním adresáři a jeho podadresářích s použitím regulárního výrazu
+            string[] files = Directory.GetFiles(AdresarJedna)
+                .Where(filePath => Regex.IsMatch(Path.GetFileNameWithoutExtension(filePath), Soubor6, RegexOptions.IgnoreCase))
+                .ToArray();
 
             //Procházení souboru
             foreach (var SouborJedna in Directory.GetFiles(AdresarJedna))
