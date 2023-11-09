@@ -27,8 +27,16 @@ Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
-//Kontrola zanam v SQL vuci DBF
-await SQL.DataSqlAdd();
+//Kontrola zaznamů v SQL vůči DBF
+Console.WriteLine("Kontrola zaznamů v SQL vůči DBF ANO/NE");
+ConsoleKeyInfo k = Console.ReadKey(true);
+if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
+{
+    //převede databazi dbf na sql
+    await SQL.DataSqlAdd();
+    return;
+}
+
 
 //funguje seznam tabulek SQL3DPlant
 //

@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +29,6 @@ namespace XMLTabulka1
             process.StartInfo.Arguments = cesta;
             process.Start();
         }
-
 
         /// <summary>        /// KopieDbf (Cesta, zakaz kopirovani)     /// </summary>
         public static bool KopieDbf(bool VytvorKopii = false)
@@ -230,6 +230,7 @@ namespace XMLTabulka1
             return null;
         }
 
+        /// <summary>Načte soubor z cesta a deserializuje dle T třídy. Pozor třída nemsmí mýt vnořené třídy asi generika </summary>
         public static List<T> LoadJsonList<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
@@ -274,6 +275,7 @@ namespace XMLTabulka1
             File.WriteAllText(cesta, jsonString);
         }
 
+        ///<summary> serializace třídy a uložení trídy do souboru dle cesty</summary>
         public static void SaveJson<T>(this List<T> moje, string cesta)
         {
             //string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
@@ -281,6 +283,7 @@ namespace XMLTabulka1
             
             File.WriteAllText(cesta, jsonString);
         }
+
 
         /// <summary>
         /// Převod DataTable na Json definovany <T>
@@ -329,6 +332,23 @@ namespace XMLTabulka1
             var declaration = doc.Declaration ?? _defaultDeclaration;
             return $"{declaration}{Environment.NewLine}{doc}";
         }
+
+        //od umělé inteligence
+        public static string JsonToXmlAI(string json)
+        {
+            // Parsuje JSON řetězec na objekt JObject
+            JObject jObject = JsonConvert.DeserializeObject<JObject>(json);
+
+            // Vytvoří se kořenový element XML dokumentu
+            var xmlRoot = new XElement("Root");
+
+            // Rekurzivně projde objekt JObject a přidá jeho prvky do XML
+            AddJsonToXml(jObject, xmlRoot);
+
+            // Vrátí se XML řetězec
+            return xmlRoot.ToString();
+        }
+
         public static string JsonToXmlWithExplicitRoot(string json, string rootName)
         {
             var doc = JsonConvert.DeserializeXNode(json, rootName);
@@ -394,6 +414,51 @@ namespace XMLTabulka1
                         Pole += item[col].ToString() + ";";
                 }
                 sw.WriteLine(Pole.Substring(0, Pole.Length-1));
+            }
+        }
+
+        private static void AddJsonToXml(JObject jObject, XElement parent)
+        {
+            foreach (var property in jObject.Properties())
+            {
+                var name = property.Name;
+                var value = property.Value;
+
+                var element = new XElement(name);
+
+                if (value.Type == JTokenType.Object)
+                {
+                    // Pokud je hodnota objekt, rekurzivně se volá AddJsonToXml
+                    AddJsonToXml((JObject)value, element);
+                }
+                else if (value.Type == JTokenType.Array)
+                {
+                    // Pokud je hodnota pole, rekurzivně se volá AddJsonToXml pro každý prvek v poli
+                    foreach (var arrayValue in value.Children())
+                    {
+                        var arrayElement = new XElement("item");
+                        AddJsonToXml((JObject)arrayValue, arrayElement);
+                        element.Add(arrayElement);
+                    }
+                }
+                else
+                {
+                    // Jinak se přidá hodnota jako textový element
+                    element.Value = value.ToString();
+                }
+
+                parent.Add(element);
+            }
+        }
+        public static void Pruzkumnik()
+        {
+            try
+            {
+                Process.Start("explorer.exe", Cesty.AdresarSpusteni);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Došlo k chybě: " + ex.Message);
             }
         }
     }

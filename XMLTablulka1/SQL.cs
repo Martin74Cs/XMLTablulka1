@@ -127,7 +127,10 @@ namespace XMLTabulka1
             {
                 var global = dr["GLOBALID"].ToString();
                 Console.WriteLine("GLOBALID ..... " + global);
-                global = Uri.EscapeDataString(global);
+
+                //Převod na bezpečné URL znaky asi pro předání do webu
+                //global = Uri.EscapeDataString(global);
+
                 //bude použito RestApi
                 //GLOBALID asi nejsou jedinenčná čísla
                 var querry = await API.API.LoadJsonAPIJeden<TeZak>($"api/TeZak/GLOBALID/{global}");
@@ -136,11 +139,13 @@ namespace XMLTabulka1
 
                 //NĚJAK ULOŽIT TABULKU DO JSON
 
+                //Převedení DataRow na Třídu
                 TeZak moje = dr.DataRowToObject<TeZak>();
-                //TeZak moje = System.Text.Json.JsonSerializer.Deserialize<TeZak>(dr)!;
+
 
                 //nebyl nalezen schodný záznam zázman musí být přidán
-                var result = new ApiHelper().PostAsJsonAsync("api/TeZak", moje);
+                //přídání záznamu přes RestAPI
+                //var result = new ApiHelper().PostAsJsonAsync("api/TeZak", moje);
 
                 Console.WriteLine("GLOBALID ..... " + moje.GLOBALID + "  " + moje.NAZ_PROJ);
                 Console.ReadKey(false);
