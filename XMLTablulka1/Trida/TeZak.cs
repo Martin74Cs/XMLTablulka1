@@ -13,7 +13,8 @@ namespace XMLTabulka1.Trida
     {
         public int Id { get; set; }
         public string Apid { get; set; } = string.Empty;
-        public TimeSpan CasVytvoreni { get; set; }
+        public DateTime CasVytvoreni { get; set; }
+        public DateTime CasUpravy { get; set; }
         public string User { get; set; }
     }
 

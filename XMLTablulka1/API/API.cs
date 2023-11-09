@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text;
@@ -14,12 +15,28 @@ namespace XMLTabulka1.API
         /// <summary> Načte Data tridy T z adresy api/T a provede serializaci </summary>
         /// 
 
+        public static async Task<T> LoadJsonAPIJeden<T>(string API = "") where T : class
+        {
+            //vytvožení RestAPI z nazvu třidy
+            if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
+            HttpClient client = new ApiHelper();
+            
+            HttpResponseMessage response = await client.GetAsync(API);
+            if (response.IsSuccessStatusCode)
+            {
+                //obsah odpovědi převede na seznam objektů typu Trida
+                var result = await response.Content.ReadFromJsonAsync<T>();
+                return result;
+            }
+            return null;
+        }
+
         public static async Task<List<T>> LoadJsonAPI<T>(string API = "") where T : class
         {
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
             HttpClient client = new ApiHelper();
-            var response = await new ApiHelper().GetFromJsonAsync<List<T>>(API);
+            var response = await  client.GetFromJsonAsync<List<T>>(API);
             return response;
         }
 
@@ -29,7 +46,7 @@ namespace XMLTabulka1.API
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
 
             HttpClient client = new ApiHelper();
-            HttpResponseMessage response = await new ApiHelper().GetAsync(API);
+            HttpResponseMessage response = await client.GetAsync(API);
             if (response.IsSuccessStatusCode)
             {
                 //obsah odpovědi převede na seznam objektů typu Trida
@@ -101,7 +118,32 @@ namespace XMLTabulka1.API
     {
         public static StringContent AsJson(this object o)
             => new(JsonConvert.SerializeObject(o), Encoding.UTF8, "application/json");
+
+        public static T DataRowToObject<T>(this DataRow dataRow) where T : new()
+        {
+            T obj = new T();
+
+            foreach (DataColumn column in dataRow.Table.Columns)
+            {
+                string columnName = column.ColumnName;
+                object value = dataRow[columnName];
+
+                var property = typeof(T).GetProperty(columnName);
+                if (property != null && property.PropertyType == typeof(string))
+                {
+                    property.SetValue(obj, value.ToString());
+                }
+                if (property != null && property.PropertyType == typeof(int))
+                {
+                    property.SetValue(obj, (int)value);
+                }
+            }
+            return obj;
+        }
     }
+
+
+
 
     public static class Soubory
     {

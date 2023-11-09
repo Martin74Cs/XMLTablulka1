@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Runtime.Intrinsics.X86;
@@ -16,6 +17,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
+using static System.Net.WebRequestMethods;
 
 namespace XMLTabulka1
 {
@@ -120,13 +122,28 @@ namespace XMLTabulka1
             DataTable dt = sql.HledejVse();
             Console.WriteLine(" OK --");
 
-            Regex regex = new("'");
+            //Regex regex = new("'");
             foreach (DataRow dr in dt.Rows)
             {
                 var global = dr["GLOBALID"].ToString();
+                Console.WriteLine("GLOBALID ..... " + global);
+                global = Uri.EscapeDataString(global);
                 //bude použito RestApi
-                var querry = await API.API.LoadAPI<TeZak>("api/TeZak/GLOBALID/" + global);
-     
+                //GLOBALID asi nejsou jedinenčná čísla
+                var querry = await API.API.LoadJsonAPIJeden<TeZak>($"api/TeZak/GLOBALID/{global}");
+                //v Sql datech byl nalezen shodný záznam s dbf daty.
+                if (querry != null) continue;
+
+                //NĚJAK ULOŽIT TABULKU DO JSON
+
+                TeZak moje = dr.DataRowToObject<TeZak>();
+                //TeZak moje = System.Text.Json.JsonSerializer.Deserialize<TeZak>(dr)!;
+
+                //nebyl nalezen schodný záznam zázman musí být přidán
+                var result = new ApiHelper().PostAsJsonAsync("api/TeZak", moje);
+
+                Console.WriteLine("GLOBALID ..... " + moje.GLOBALID + "  " + moje.NAZ_PROJ);
+                Console.ReadKey(false);
             }
         }
 
@@ -186,6 +203,9 @@ namespace XMLTabulka1
             //string strColumnList = ""; 
             //string strQuestionList = "";
             string strCreateColumns = "[APID] VarChar(20), ";// přidání Apid
+            //
+            //ješte přídat čas, časupravy, user.
+            //
             string strColumnList = string.Empty;
             string strQuestionList = string.Empty;
             Console.Write("Table create ...");
