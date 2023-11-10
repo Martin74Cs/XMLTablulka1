@@ -17,4 +17,10 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Interop.AutoCAD">
+      <HintPath>..\LibraryAplikace\obj\Debug\net6.0\Interop.AutoCAD.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

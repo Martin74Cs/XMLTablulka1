@@ -263,19 +263,21 @@ namespace XMLTabulka1
             return new();
         }
 
+        /// <summary> serializace List<MojeZakazky> a uložení do souboru. </summary>
         public static void SaveJson(this List<MojeZakazky> moje, string cesta)
         {
             string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
             File.WriteAllText(cesta, jsonString);
         }
 
+        /// <summary> serializace obecné jedné tridy a uložení do souboru. </summary>
         public static void SaveJson<T>(this T moje, string cesta)
         {
             string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
             File.WriteAllText(cesta, jsonString);
         }
 
-        ///<summary> serializace třídy a uložení trídy do souboru dle cesty</summary>
+        ///<summary> serializace třídy List<trida> a uložení trídy do souboru dle cesty</summary>
         public static void SaveJson<T>(this List<T> moje, string cesta)
         {
             //string jsonString = System.Text.Json.JsonSerializer.Serialize(moje);
@@ -284,10 +286,7 @@ namespace XMLTabulka1
             File.WriteAllText(cesta, jsonString);
         }
 
-
-        /// <summary>
-        /// Převod DataTable na Json definovany <T>
-        /// </summary>
+        /// <summary> Převod DataTable na Json definovany <T>  </summary>
         public static List<T> DataTabletoJson<T>(this DataTable table)
         {
             List<T> teZaks = new List<T>();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication.ExtendedProtection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,14 +19,14 @@ namespace LibraryAplikace
                 Soubor.Add(Cesta);
                 return Soubor.ToArray();
             }
-            string[] Pole = HledejZdaExistujeSoubor(Cesta);
+            List<string> Pole = HledejZdaExistujeSoubor(Cesta);
             Soubor.AddRange(Pole);
             return Soubor.ToArray();
         }
 
-        public string[] HledejZdaExistujeSoubor(string JmenoSouboru)
+        public List<string> HledejZdaExistujeSoubor(string JmenoSouboru)
         {
-            List<string> list = new List<string>();
+            List<string> listSouboru = new();
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
             if (Directory.Exists(AdresarJedna) == false)
                 return null;
@@ -42,18 +43,18 @@ namespace LibraryAplikace
             //string[] files = Directory.GetFiles(AdresarJedna, fileName, SearchOption.AllDirectories);
 
             //Open AI Hledáme soubory v aktuálním adresáři a jeho podadresářích s použitím regulárního výrazu
-            string[] files = Directory.GetFiles(AdresarJedna)
-                .Where(filePath => Regex.IsMatch(Path.GetFileNameWithoutExtension(filePath), Soubor6, RegexOptions.IgnoreCase))
-                .ToArray();
+            //string[] files = Directory.GetFiles(AdresarJedna)
+            //.Where(filePath => Regex.IsMatch(Path.GetFileNameWithoutExtension(filePath), Soubor6, RegexOptions.IgnoreCase))
+            //.ToArray();
 
             //Procházení souboru
             foreach (var SouborJedna in Directory.GetFiles(AdresarJedna))
             {
-                string test = Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper();
-                if (Path.GetFileNameWithoutExtension(SouborJedna).Substring(0, Delka).ToUpper() == Soubor6)
+                string test = Path.GetFileNameWithoutExtension(SouborJedna).ToUpper();
+                if(test.Length>6) test = test.Substring(0, Delka);
+                if (test == Soubor6)
                 {
-                    list.Add(SouborJedna);
-                    list.ToArray();
+                    listSouboru.Add(SouborJedna);
                 }
             }
 
@@ -61,33 +62,37 @@ namespace LibraryAplikace
             var Adresar = Directory.GetDirectories(AdresarJedna);
             foreach ( var item in Adresar) 
             {
-                string[] Pom = ProjdiSoubory(item, Delka, Soubor6, Adresar);
+                List<string> Pom = ProjdiSoubory(item, Delka, Soubor6, Adresar, listSouboru);
                 if (Pom.Count() < 1)
                     break;
                 else
-                    list.AddRange(Pom);
+                { 
+                    listSouboru.AddRange(Pom);
+                }
             }
-            return list.ToArray();
+            return listSouboru;
         }
 
-        public string[] ProjdiSoubory(string Adresar, int Delka, string Soubor6, string[] Pole)
+        public List<string> ProjdiSoubory(string Adresar, int Delka, string Soubor6, string[] Pole, List<string> PoleSouboru)
         {
             foreach (var item in Pole)
             {
-                var pom = ProjdiSoubory(item, Delka, Soubor6, Pole);
+                var pom = ProjdiSoubory(item, Delka, Soubor6, Directory.GetDirectories(item), PoleSouboru);
                 if (pom.Count() <= 0)
                     break;
             }
 
+            //projdi soubory v daném adresáři a hldej zadaný soubor a přidej ho do seznamu
             foreach (var Soubor in Directory.GetFiles(Adresar))
             {
-                if (Path.GetFileNameWithoutExtension(Soubor).Substring(0, Delka).ToUpper() == Soubor6)
-                { 
-                    Pole.ToList().Add(Soubor);
-                    Pole.ToArray();
+                string pom = Path.GetFileNameWithoutExtension(Soubor).ToUpper();
+                if (pom.Length > 6) pom = pom.Substring(0, Delka);
+                if (pom == Soubor6)
+                {
+                    PoleSouboru.Add(Soubor);
                 }
             }
-            return Pole;
+            return PoleSouboru;
         }
 
         public void PriladyPraceSeSouboryAresari()

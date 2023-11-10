@@ -89,7 +89,6 @@ if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
 //    Dictionary<string, string> Deleni = razitko.Prenos(Sloupec.CelyRadek);
 //    Deleni.Vypis();
 
-
 //    Soubor.SaveXML(table, Cesty.Pomoc + "/XML.xml");
 //    //table.WriteXml(Cesty.SouborDbf);
 //    //table = ld.Test(table);

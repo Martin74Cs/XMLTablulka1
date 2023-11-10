@@ -2,15 +2,10 @@ using LibraryAplikace;
 using System.Collections.Specialized;
 using System.Data;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 using static System.Windows.Forms.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WFForm
 {
@@ -24,7 +19,7 @@ namespace WFForm
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-         
+
         }
 
 
@@ -35,8 +30,9 @@ namespace WFForm
                 TreeView1.Nodes.Clear();
                 foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
                     TreeView1.Nodes.Add("C_PROJ", item);
+                ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
             }
-            else 
+            else
             {
                 if (!File.Exists(Cesty.SouborTezakDbf))
                 {
@@ -55,7 +51,7 @@ namespace WFForm
                 DbfDotazySQL sql = new();
                 string CisloProjektu = "P.018711";
                 //string CisloProjektu = ""; //= "P.002112";
-            
+
                 string[] Arg = Environment.GetCommandLineArgs();
                 if (Arg.Length > 1)
                 {
@@ -71,7 +67,7 @@ namespace WFForm
 
                 table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
                 DataGridView1.Vypis(table);
-                ListView1.VypisMojeZakazky();
+                ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
             }
         }
 
@@ -135,29 +131,40 @@ namespace WFForm
                         //pokraèuje v komponentì Autocad
                         //la.Program(Sloupec.CelyRadek);
                         if (result == DialogResult.Yes)
-                            Acad.Program(teZak);
+                        {
+                            //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
+                            //V seznamu jsou všechny typy souboru dwg, pdf, atd.
+                            List<string> ListSoubor = new LibraryAplikace.Soubor().HledejZdaExistujeSoubor(teZak.PATH);
+                            List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).ToUpperInvariant() == ".DWG").ToList();
+                            //doplnit dialog výbìru souboru
+ 
+                            //pokud nexistuje bude vytvoøen
+                            string Cesta = SouborDwg.FirstOrDefault();
+                            Acad.Prace(teZak, Cesta);
+                            
+                        }
                         break;
                     case "XLS":
                         MessageBox.Show("Byl vybrán soubor typu XLS " + teZak.NAZEV);
                         break;
                     case "DOC":
-                        DialogResult result1 = MessageBox.Show("Byl vybrán soubor typu DOC. \nNázev vybraného souboru je: " + teZak.NAZEV 
+                        DialogResult result1 = MessageBox.Show("Byl vybrán soubor typu DOC. \nNázev vybraného souboru je: " + teZak.NAZEV
                             + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
                         if (result1 == DialogResult.Yes)
                             Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
                         break;
                     default:
-                        MessageBox.Show("Bylo XXX " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
+                        MessageBox.Show("Bylo XXX " + teZak.NAZEV.ToString());
                         break;
                 }
             }
-            else 
-            { 
+            else
+            {
                 //platí pro soubor
                 DataTable data = DbfDotazySQL.Hledej("SELECT * FROM TEZAK WHERE GLOBALID='" + GlobalID + "'");
 
                 //uložení vybraného øádku do pomocné tøídy
-                Sloupec.CelyRadek =  data.Rows[0];
+                Sloupec.CelyRadek = data.Rows[0];
 
                 //Pøípona souboru uvedená v databázi
                 Sloupec.Pripona = Sloupec.CelyRadek[Sloupec.EXT].ToString().ToUpper();
@@ -168,7 +175,7 @@ namespace WFForm
 
                 List<TeZak> json = data.DataTabletoJson<TeZak>();
                 json.SaveJson(Cesty.JedenRadekJson);
-            
+
                 switch (Sloupec.Pripona)
                 {
                     case "DWG":
@@ -176,7 +183,7 @@ namespace WFForm
                         //pokraèuje v komponentì Autocad
                         //la.Program(Sloupec.CelyRadek);
                         if (result == DialogResult.Yes)
-                            Acad.Program(json.First());
+                            Acad.Prace(json.First(),json.First().PATH);
                         break;
                     case "XLS":
                         MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
@@ -203,10 +210,11 @@ namespace WFForm
 
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private async void Button2_Click(object sender, EventArgs e)
         {
-            LibraryAplikace.Zakazky.MojeZakazkyAdd();
-            ListView1.VypisMojeZakazky();
+            //pøidat položku do zakazky
+            var VlastniZakazky = await LibraryAplikace.Zakazky.MojeZakazkyAdd();
+            ListView1.VypisMojeZakazky(VlastniZakazky);
         }
 
         private void GroupBox1_Enter(object sender, EventArgs e)
@@ -216,7 +224,7 @@ namespace WFForm
 
         private void Button2_Click_1(object sender, EventArgs e)
         {
-            ListView1.VypisMojeZakazky();
+            ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
         }
 
         private void Button3_Click(object sender, EventArgs e)
@@ -228,10 +236,10 @@ namespace WFForm
                 MojeZakazky del = moje.FirstOrDefault(x => x.CisloProjektu == item.Text);
                 if (del != null)
                     moje.Remove(del);
-                moje.SaveXML(Cesty.PodporaDataXml);
+                //moje.SaveXML(Cesty.PodporaDataXml);
                 moje.SaveJson(Cesty.PodporaDataJson);
             }
-            ListView1.VypisMojeZakazky();
+            ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
         }
 
         private void ListView1_KeyDown(object sender, KeyEventArgs e)
@@ -266,7 +274,7 @@ namespace WFForm
 
             TreeView1.Nodes.Clear();
             foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
-            //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
+                //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                 TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
@@ -274,7 +282,7 @@ namespace WFForm
             DataGridView1.Vypis(table);
         }
 
-        private void ListView1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void ListView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //List<MojeZakazky> moje = new LibraryAplikace.Zakazky().MojeZakazkyList();
             var V = ListView1.FocusedItem.SubItems; //
@@ -285,11 +293,19 @@ namespace WFForm
                 {
                     InfoProjekt.CisloProjektu = Vyber;
                     item.ExpandAll();
-                    TreeView1.TopNode= item;
-
-                    table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
-                    DataGridView1.Vypis(table);
-                    break;
+                    TreeView1.TopNode = item;
+                    if (true)
+                    {
+                        List<TeZak> TableJson = await API.LoadAPI<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                        DataGridView1.Vypis(TableJson);
+                        break;
+                    }
+                    else
+                    {
+                        table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+                        DataGridView1.Vypis(table);
+                        break;
+                    }
                 }
             }
         }

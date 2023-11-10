@@ -77,7 +77,7 @@ namespace WFForm
 
         public static void Barvy(this DataGridView data)
         {
-            for (int Radek = 0; Radek < data.Rows.Count - 1; Radek++)
+            for (int Radek = 0; Radek < data.Rows.Count; Radek++)
             {
                 switch (data.Rows[Radek].Cells[VyberSloupec.EXT.ToString()].Value.ToString().ToUpper())
                 {
@@ -119,6 +119,13 @@ namespace WFForm
                     continue;
                 Columns[ABC[i]].Width = Cisla[i];
             }
+        }
+
+        public static void Vypis(this DataGridView DataGridView1, List<TeZak> table)
+        {
+            DataGridView1.DataSource = table;
+            DataGridView1.Barvy();
+            DataGridView1.Columns.SloupecSirka();
         }
 
         public static void Vypis(this DataGridView DataGridView1, DataTable table)

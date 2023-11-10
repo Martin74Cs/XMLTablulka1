@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using XMLTabulka1;
+using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 
 namespace LibraryAplikace
@@ -27,8 +28,29 @@ namespace LibraryAplikace
            return teZak.First().NAZ_PROJ;
         }
 
-        public static void MojeZakazkyAddJson()
+        /// <summary>
+        /// Uložení dat do vlasního seznamu zakáze
+        /// </summary>
+        public static async Task<List<MojeZakazky>> MojeZakazkyAddJson()
         {
+            if (!File.Exists(Cesty.PodporaDataJson))
+            {
+                List<MojeZakazky> moje = new();
+                moje.SaveJson(Cesty.PodporaDataJson);
+            }
+            //if (!File.Exists(Cesty.PodporaDataXml))
+            //{
+            //    XDocument docnew = new("SEZNAM");
+            //    XElement xElement = new("SEZNAM");
+            //    docnew.Add(xElement);
+
+            //    XmlSerializer xmlSerializer = new(typeof(List<MojeZakazky>));
+            //    XmlWriter writer = docnew.CreateWriter();
+            //    List<MojeZakazky> moje = new();
+            //    xmlSerializer.Serialize(writer, moje);
+            //    docnew.Save(Cesty.PodporaDataXml);
+            //}
+
             List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
             MojeZakazky nove = new()
             {
@@ -45,50 +67,44 @@ namespace LibraryAplikace
 
                 mojelist.SaveJson(Cesty.PodporaDataJson);
             }
-        }
-
-        public static void MojeZakazkyAdd()
-        {
-            InfoProjekt.Projekt = JmenoProjektuDlePrvniho();
-            MojeZakazkyAddJson();
-
-            if (File.Exists(Cesty.PodporaDataXml) == false)
-            {
-                XDocument docnew = new ();
-                XElement xElement = new ("SEZNAM");
-                docnew.Add(xElement);
-
-                XmlSerializer xmlSerializer = new (typeof(List<MojeZakazky>));
-                XmlWriter writer = docnew.CreateWriter();
-                List<MojeZakazky> moje = new();
-                xmlSerializer.Serialize(writer, moje);
-                docnew.Save(Cesty.PodporaDataXml);
-            }
-
-            List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
-            MojeZakazky nove = new()
-            {
-                CisloProjektu = InfoProjekt.CisloProjektu,
-                ProjektNazev = InfoProjekt.Projekt,
-            };
-            var kontrola = mojelist.FirstOrDefault(x => x == nove);
-            if (kontrola == null)
-            {
-                //pokud není bude přidán a ulozen
-                mojelist.Add(nove);
-                mojelist.SaveXML(Cesty.PodporaDataXml);
-            }
-        }
-
-        public static List<MojeZakazky> MojeZakazkyList()
-        {
-            List<MojeZakazky> Pole = MojeZakazkyListXML();
-            if (File.Exists(Cesty.PodporaDataXml) == false) return new();        
-            List<MojeZakazky> mojelist = new();
-            mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
+            Task.Delay(1);
             return mojelist;
         }
 
+        /// <summary>
+        /// Přidání položky do souboru moje zakázky a s navratem upraveného seznamu
+        /// </summary>
+        public static async Task<List<MojeZakazky>> MojeZakazkyAdd()
+        {
+            if (true)
+            {
+                var tezak = await API.LoadJsonAPIJeden<TeZak>($"api/Tezak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
+                if (tezak == null) return null;
+                InfoProjekt.CisloProjektu = tezak.C_PROJ;
+                InfoProjekt.Projekt = tezak.NAZ_PROJ;
+            }
+            else
+            { 
+                InfoProjekt.Projekt = JmenoProjektuDlePrvniho();
+            }
+            return await MojeZakazkyAddJson();
+        }
+
+        /// <summary>
+        /// Načtení souboru Cesty.PodporaDataJson do List<MojeZakazky>
+        /// </summary>
+        public static List<MojeZakazky> MojeZakazkyList()
+        {
+            //if (File.Exists(Cesty.PodporaDataXml) == false) return new();
+            //List<MojeZakazky> Pole = MojeZakazkyListXML();
+            //List<MojeZakazky> mojelist = new();
+            var mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
+            return mojelist;
+        }
+
+        /// <summary>
+        /// Načtení List<MojeZakazky> ze soboru Cesty.PodporaDataXml
+        /// </summary>
         public static List<MojeZakazky> MojeZakazkyListXML()
         {
             if (File.Exists(Cesty.PodporaDataXml) == false) return new();
