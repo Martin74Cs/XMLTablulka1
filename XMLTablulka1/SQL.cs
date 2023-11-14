@@ -135,14 +135,15 @@ namespace XMLTabulka1
                 if (!await ExistujeZaznam("GLOBALID", global))
                 {
                     //data je null nebyl nalezen schodný záznam musí být přidán
-                    Console.WriteLine("ZÁZNAM NENALEZEN");
-                    Console.ReadKey(false);
+                    //Console.WriteLine("ZÁZNAM NENALEZEN");
+                    //Console.ReadKey(false);
                     //var teZaks = data.DataTabletoJson<TeZak>().FirstOrDefault();
 
                     //Převedení DataRow na Třídu
                     TeZak teZaks = dr.DataRowToObject<TeZak>();
                     //přídání záznamu přes RestAPI
                     var result = new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
+                    Console.WriteLine("ZÁZNAM Přidán Zakázka " + teZaks.C_PROJ  + "  Název: " + teZaks.NAZ_PROJ + "GLOBALID  " + teZaks.GLOBALID);
                 }
                 else
                     Console.WriteLine("Záznam číslo : " + i++ + " GLOBALID " + global);
