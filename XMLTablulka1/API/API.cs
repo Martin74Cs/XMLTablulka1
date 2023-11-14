@@ -11,7 +11,7 @@ using XMLTabulka1.Trida;
 namespace XMLTabulka1.API
 {
     public static class API
-    {
+    { 
         /// <summary> Načte Data tridy T z adresy api/T a provede serializaci </summary>
         /// 
 
@@ -20,12 +20,20 @@ namespace XMLTabulka1.API
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
             HttpClient client = new ApiHelper();
-            
+            T result = null;
             HttpResponseMessage response = await client.GetAsync(API);
             if (response.IsSuccessStatusCode)
             {
-                //obsah odpovědi převede na seznam objektů typu Trida
-                var result = await response.Content.ReadFromJsonAsync<T>();
+                try
+                {
+                    //obsah odpovědi převede na seznam objektů typu Trida
+                    result = await response.Content.ReadFromJsonAsync<T>();
+                }
+                catch (Exception)
+                {
+                    result = null;
+                    //throw;
+                }
                 return result;
             }
             return null;

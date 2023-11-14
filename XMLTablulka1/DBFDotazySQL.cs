@@ -23,7 +23,8 @@ namespace XMLTabulka1
         /// </summary>
         public DataTable HledejVse()
         {
-            string Dotaz = "SELECT * FROM TEZAK";
+            //string Dotaz = "SELECT * FROM TEZAK";
+            string Dotaz = "SELECT * FROM TEZAK ORDER BY GLOBALID ASC";
             //DbfXml dbf = new();
             DataSet Data = Dbf.Pripoj(Dotaz);
             if (Data == null) throw new ArgumentNullException($"Podle {Data} krytérii nebyly nenalezeny záznamy");
