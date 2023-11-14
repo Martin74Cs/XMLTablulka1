@@ -124,79 +124,28 @@ namespace XMLTabulka1
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);
             DataTable dt = sql.HledejVse();
             Console.WriteLine(" OK --");
-
-            string globus = "I2KVC309I%@220028";
-            var test = await API.API.LoadJsonAPIJeden<TeZak>($"api/TeZak/GLOBALID/{globus}");
-            Console.WriteLine("Číslo zmeny 0000  " + "GLOBALID ..... " + test.GLOBALID + "  " + test.NAZ_PROJ);
-
-            DataTable data = await Dotaz("GLOBALID", globus);
-            if (data.Rows.Count > 1)
-            {
-                Console.WriteLine("Nikdy by nemělo nastat");
-                Console.ReadKey();
-            }
-            DataRow row = data.Rows[0];
             //var teZaks = data.DataTabletoJson<TeZak>();
-            Console.WriteLine("Číslo zmeny 0000  " + "GLOBALID ..... " + row["GLOBALID"].ToString() + "  " + row["NAZ_PROJ"].ToString());
 
             int i=0;
             //Regex regex = new("'");
             foreach (DataRow dr in dt.Rows)
              {
                 var global = dr["GLOBALID"].ToString();
-                //Console.WriteLine("GLOBALID ..... " + global);
 
-                //Převod na bezpečné URL znaky asi pro předání do webu
-                //global = Uri.EscapeDataString(global);
-
-                //bude použito RestApi
-                //GLOBALID jedinenčná čísla - asi nejsou
-                //var querry = await API.API.LoadJsonAPIJeden<TeZak>($"api/TeZak/GLOBALID/{global}");
-
-                //přímé připojení do databáze
-                data = await Dotaz("GLOBALID", global);
-                //if (data.Rows.Count > 1)
-                //{
-                //    Console.WriteLine("Nikdy by nemělo nastat");
-                //    Console.ReadKey();
-                //}
-                //row = data.Rows[0];
-                
-                //v Sql datech byl nalezen shodný záznam s dbf daty.
-                if (data.Rows.Count < 1)
+                if (!await ExistujeZaznam("GLOBALID", global))
                 {
+                    //data je null nebyl nalezen schodný záznam musí být přidán
                     Console.WriteLine("ZÁZNAM NENALEZEN");
-                    //Console.WriteLine("Číslo zmeny " + i++ + " GLOBALID ..... " + global + "  " + dr["NAZ_PROJ"].ToString());
                     Console.ReadKey(false);
+                    //var teZaks = data.DataTabletoJson<TeZak>().FirstOrDefault();
+
+                    //Převedení DataRow na Třídu
+                    TeZak teZaks = dr.DataRowToObject<TeZak>();
+                    //přídání záznamu přes RestAPI
+                    var result = new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
                 }
                 else
-                {
-                    row = data.Rows[0];
-                    var querry = row["GLOBALID"].ToString().Trim();
-                    Console.WriteLine("Záznam číslo : " + i++ + " GLOBALID " + querry);
-                    //Console.WriteLine("Záznam číslo : " + i++ + "  " + querry.FPC + "  " + querry.Apid + "  " + global + "  " + querry.GLOBALID);
-                }
-
-                //NĚJAK ULOŽIT TABULKU DO JSON
-
-                //Převedení DataRow na Třídu
-                //TeZak moje = dr.DataRowToObject<TeZak>();
-                //if (string.IsNullOrEmpty(moje.GLOBALID))
-                //    continue;
-                //if (global != querry.GLOBALID)
-                //{
-                //    Console.WriteLine("Shoda " + global + "=" + querry.GLOBALID);
-                //    Console.WriteLine("GLOBALID ..... " + querry.GLOBALID + "  " + querry.NAZ_PROJ);
-                //    Console.ReadKey(false);
-                //}
-                //else 
-                //{ 
-                //    Console.WriteLine("Záznam číslo : " + i++ + "  " + querry.FPC + "  " + querry.Apid + "  " + global + "  " + querry.GLOBALID); 
-                //} 
-                //nebyl nalezen schodný záznam zázman musí být přidán
-                //přídání záznamu přes RestAPI
-                //var result = new ApiHelper().PostAsJsonAsync("api/TeZak", moje);
-
+                    Console.WriteLine("Záznam číslo : " + i++ + " GLOBALID " + global);
             }
         }
         public static async Task<DataTable> Dotaz(string Hledej, string Polozka)
@@ -205,19 +154,38 @@ namespace XMLTabulka1
             string Table = "TeZak";
 
             SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
-            ConnectionString.Open();
+            await ConnectionString.OpenAsync();
             //Console.WriteLine("Aplikace se úspěšně připojila k databázi.");
 
-            //string querry = $"SELECT TOP 1 * FROM TEZAK WHERE {Hledej} = '{Polozka}'";
-            string querry = $"SELECT * FROM {Table}  WHERE {Hledej} = '{Polozka}'";
+            string querry = $"SELECT TOP 1 * FROM {Table} WHERE {Hledej} = '{Polozka}'";
+            //string querry = $"SELECT * FROM {Table}  WHERE {Hledej} = '{Polozka}'";
 
             using DataSet dbase = new();
-            SqlCommand cmd = new(querry, ConnectionString);
+            SqlCommand cmd = new (querry, ConnectionString);
             //cmd.Connection.Open();
             SqlDataAdapter sqlda = new(cmd);
             sqlda.Fill(dbase);
 
             return dbase.Tables[0];
+        }
+
+        /// <summary>
+        ///  Pokud záznam existuje, bude vráceno true; v opačném případě bude vráceno false
+        /// </summary>
+
+        public static async Task<bool> ExistujeZaznam(string Hledej, string Polozka)
+        {
+            string Database = "TractebelTeZak";
+            string Table = "TeZak";
+
+            SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
+            ConnectionString.Open();
+
+            string querry = $"SELECT TOP 1 {Hledej} FROM {Table} WHERE {Hledej} = '{Polozka}'";
+            SqlCommand cmd = new(querry, ConnectionString);
+            object result = await cmd.ExecuteScalarAsync();
+
+            return result != null && result != DBNull.Value;
         }
 
         /// <summary>
