@@ -131,6 +131,9 @@ namespace XMLTabulka1
             foreach (DataRow dr in dt.Rows)
              {
                 var global = dr["GLOBALID"].ToString();
+                i++;
+                if((i % 1000) == 0) 
+                    Console.WriteLine("Záznam číslo : " + i + " GLOBALID " + global); 
 
                 if (!await ExistujeZaznam("GLOBALID", global))
                 {
@@ -142,11 +145,13 @@ namespace XMLTabulka1
                     //Převedení DataRow na Třídu
                     TeZak teZaks = dr.DataRowToObject<TeZak>();
                     //přídání záznamu přes RestAPI
-                    var result = new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
-                    Console.WriteLine("ZÁZNAM Přidán Zakázka " + teZaks.C_PROJ  + "  Název: " + teZaks.NAZ_PROJ + "GLOBALID  " + teZaks.GLOBALID);
+                    var result = await new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
+                    Console.WriteLine("ZÁZNAM Přidán Zakázka " + teZaks.C_PROJ + "  Název: " + teZaks.NAZ_PROJ + "  GLOBALID  " + teZaks.GLOBALID);
                 }
                 else
-                    Console.WriteLine("Záznam číslo : " + i++ + " GLOBALID " + global);
+                { 
+                    //Console.WriteLine("Záznam číslo : " + i + " GLOBALID " + global);
+                }
             }
         }
         public static async Task<DataTable> Dotaz(string Hledej, string Polozka)

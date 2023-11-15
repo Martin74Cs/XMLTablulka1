@@ -118,7 +118,6 @@ namespace XMLTabulka1.API
             List<T> dils = await response.Content.ReadFromJsonAsync<List<T>>();
             return dils;
         }
-
     }
 
     /// <summary> Rozšíření </summary>
