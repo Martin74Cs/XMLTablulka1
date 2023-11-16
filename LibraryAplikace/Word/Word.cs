@@ -24,21 +24,23 @@ namespace XMLTabulka1.Word
         {
             List<string> SouboryList = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
             //hledej souborz doc a docx.
-            string[] cestas = SouboryList.Where(x => Path.GetExtension(x).ToLowerInvariant() == "doc" || Path.GetExtension(x).ToLowerInvariant() == "docx").ToArray();
+            var cestas = SouboryList.Where(x => Path.GetExtension(x).ToLowerInvariant() == ".doc" || Path.GetExtension(x).ToLowerInvariant() == ".docx").ToList();
+            if (cestas == null || cestas.Count() < 1) cestas.Add(teZak.PATH) ;
             //kontrola navayných cesta a jiné umístění souboru v podsložkách
             if (File.Exists(cestas.First()))
             {
                 //musí být provedena kontrola souborů
                 var WordApp = WordPodpora.WordApp1();
+                WordApp.Visible = true;
                 foreach (W.Document item in WordApp.Documents)
                 {
-                    if (item.FullName == teZak.PATH)
+                    if (item.FullName == cestas.First())
                     {
                         item.Activate();
                         return;
                     }
                 }
-                WordApp.Documents.Open(teZak.PATH);
+                WordApp.Documents.Open(cestas.First());
             }
             else 
             {
@@ -48,7 +50,7 @@ namespace XMLTabulka1.Word
 
                 string Adresar = Path.GetDirectoryName(teZak.PATH);
                 string Pripona = teZak.EXT;
-                string JmenoSouboru = teZak.EXT;
+                string JmenoSouboru = teZak.FPC;
                 string cesta = string.Empty;
                 //Soubor neexistuje
                 if (Pripona.ToLowerInvariant() == "doc")
