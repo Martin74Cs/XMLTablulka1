@@ -126,34 +126,8 @@ namespace XMLTabulka1.API
         public static StringContent AsJson(this object o)
             => new(JsonConvert.SerializeObject(o), Encoding.UTF8, "application/json");
 
-        /// <summary>
-        /// Převedení DataRow na Třídu
-        /// </summary>
-        public static T DataRowToObject<T>(this DataRow dataRow) where T : new()
-        {
-            T obj = new T();
 
-            foreach (DataColumn column in dataRow.Table.Columns)
-            {
-                string columnName = column.ColumnName;
-                object value = dataRow[columnName];
-
-                var property = typeof(T).GetProperty(columnName);
-                if (property != null && property.PropertyType == typeof(string))
-                {
-                    property.SetValue(obj, value.ToString());
-                }
-                if (property != null && property.PropertyType == typeof(int))
-                {
-                    property.SetValue(obj, (int)value);
-                }
-            }
-            return obj;
-        }
     }
-
-
-
 
     public static class Soubory
     {

@@ -1,12 +1,11 @@
 ﻿using AutoCAD;
-using Podpora;
 using System.Data;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
-namespace LibraryAplikace
+namespace LibraryAplikace.Acad
 {
     public static class Acad
     {
@@ -23,15 +22,14 @@ namespace LibraryAplikace
             }
             else
             {
-                //soubor určite existuje a může být otevřen
-                document = Acad.Program(Cesta);
+                //soubor existuje a může být otevřen
+                document = Program(Cesta);
             }
             //možná další práce se souborem dwg
             var raz = new Razitko().Prenos(teZak);
             List<DataRazítka> datas = new();
             Razitko.VyberRazitkaAcad(document, datas);
         }
-
 
         /// <summary>
         /// Kontrola otevřeného souboru. Pokud soubor neexistuje bude vytvořen ze šablony.
@@ -50,7 +48,7 @@ namespace LibraryAplikace
                     foreach (AcadDocument item in acad.Documents)
                     {
                         if (item.Name == Path.GetFileName(Cesta))
-                        { 
+                        {
                             dokument = acad.Documents.Item(item.Name);
                             dokument.Activate();
                             break;
@@ -124,7 +122,7 @@ namespace LibraryAplikace
             if (acad != null)
             {
                 acad.Visible = true;
-                List<string> Soubor = new Soubor().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString() ?? "");
+                List<string> Soubor = new SouborApp().HledejZdaExistujeSoubor(CelyRadek[Sloupec.PATH].ToString() ?? "");
                 if (Soubor.Count > 0)
                     acad.Documents.Open(Soubor.First() ?? "");
                 return Soubor;
@@ -135,15 +133,15 @@ namespace LibraryAplikace
         ///<summary>
         /// Otevří aplikaci Autocad
         /// </summary>
-        public static AutoCAD.AcadApplication OpenAcad()
+        public static AcadApplication OpenAcad()
         {
             try
             {
-                return (AutoCAD.AcadApplication)Marshal2.GetActiveObject("Autocad.Application");
+                return (AcadApplication)Marshal2.GetActiveObject("Autocad.Application");
             }
             catch (Exception)
             {
-                return new AutoCAD.AcadApplication();
+                return new AcadApplication();
                 //throw;
             }
         }
@@ -175,10 +173,10 @@ namespace LibraryAplikace
         /// <summary>
         /// Pripojení Aplikace Autocad
         /// </summary>
-        public static AutoCAD.AcadApplication PripojAcad()
+        public static AcadApplication PripojAcad()
         {
             //AutoCAD.AcadApplication app = null;
-            AutoCAD.AcadApplication app = new();
+            AcadApplication app = new();
             try
             {
                 Process[] processlist = Process.GetProcesses();
@@ -196,7 +194,7 @@ namespace LibraryAplikace
                         string filename = @"C:\Users\Martin\Documents\rr.dwg";
                         var ttt = Marshal.BindToMoniker(filename);
 
-                        AutoCAD.AcadDocument ddd = (AutoCAD.AcadDocument)ttt;
+                        AcadDocument ddd = (AcadDocument)ttt;
 
                         var sss = ddd.Name;
                         break;
@@ -204,13 +202,13 @@ namespace LibraryAplikace
                 }
                 if (app == null)
                 {
-                    return new AutoCAD.AcadApplication();
+                    return new AcadApplication();
                 }
                 return app;
             }
             catch (Exception)
             {
-                app = new AutoCAD.AcadApplication();
+                app = new AcadApplication();
                 return app;
             }
 

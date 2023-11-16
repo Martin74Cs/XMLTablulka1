@@ -7,8 +7,12 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Podpora
+namespace LibraryAplikace
 {
+
+
+
+
     public static class Marshal2
     {
         internal const String OLEAUT32 = "oleaut32.dll";

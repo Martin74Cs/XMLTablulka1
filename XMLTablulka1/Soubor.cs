@@ -28,6 +28,7 @@ namespace XMLTabulka1
             process.StartInfo.FileName = "explorer.exe";
             process.StartInfo.Arguments = cesta;
             process.Start();
+            return;
         }
 
         /// <summary>        /// KopieDbf (Cesta, zakaz kopirovani)     /// </summary>
@@ -127,6 +128,21 @@ namespace XMLTabulka1
         }
 
         /// <summary>
+        /// Načte jeden radek XML
+        /// </summary>
+        /// <param name="cesta">cesta k dokuemtu xml</param>
+        /// <returns>DataRow</returns>
+        public static DataRow NactiXML(string cesta)
+        {
+            if (System.IO.File.Exists(cesta) == false)
+                return null;
+            DataSet data = new DataSet();
+            data.ReadXml(cesta);
+            //XDocument doc = XDocument.Load(cesta);
+            return data.Tables[0].Rows[0];
+        }
+
+        /// <summary>
         /// Uložení xml dokumentu do souboru Cesta
         /// </summary>       
         public static void SaveXML(this XDocument doc, string Cesta)
@@ -200,6 +216,41 @@ namespace XMLTabulka1
                 throw new Exception("Chyba cteni DataXML Soubor ");
             }
         }
+
+        /// <summary>
+        /// Načti CSV
+        /// </summary>
+        /// <param name="cesta">cesta k převodní tabulce</param>
+        /// <returns>DataSet v tabulce(0)</returns>
+        public static DataSet NactiCSV(string cesta)
+        {
+            if (!File.Exists(cesta)) return null;
+            //načte pole odeleno ; do tabulky
+            var Soubor = new System.IO.StreamReader(cesta);
+            DataTable data12 = new DataTable();
+            string[] b;
+            //DataColumn col = new DataColumn();
+            b = Soubor.ReadLine().Split(';');
+
+            foreach (string slo in b)
+            {
+                //nazvy sloupců v tabulce
+                data12.Columns.Add(slo, typeof(string));
+            }
+
+            while (Soubor.EndOfStream == false)
+            {
+                //jednoltlivé řádky tabulky
+                b = Soubor.ReadLine().Split(';');
+                data12.Rows.Add(b);
+            }
+            Soubor.Close();
+
+            DataSet Nacti = new DataSet();
+            Nacti.Tables.Add(data12);
+            return Nacti;
+        }
+
 
         public static bool LoadSaveJson(this DataTable Table)
         {
@@ -414,6 +465,57 @@ namespace XMLTabulka1
                 }
                 sw.WriteLine(Pole.Substring(0, Pole.Length-1));
             }
+        }
+
+        /// <summary>
+        /// Převedení DataRow na Třídu
+        /// </summary>
+        public static T DataRowToObject<T>(this DataRow dataRow) where T : new()
+        {
+            T obj = new T();
+
+            foreach (DataColumn column in dataRow.Table.Columns)
+            {
+                string columnName = column.ColumnName;
+                object value = dataRow[columnName];
+
+                var property = typeof(T).GetProperty(columnName);
+                if (property != null && property.PropertyType == typeof(string))
+                {
+                    property.SetValue(obj, value.ToString());
+                }
+                if (property != null && property.PropertyType == typeof(int))
+                {
+                    property.SetValue(obj, (int)value);
+                }
+            }
+            return obj;
+        }
+
+        public static DataRow ObjectToDataRow<T>(this T obj) where T : class
+        {
+            // Vytvoříme DataTable pro uchování hodnot třídy
+            DataTable dataTable = new DataTable();
+
+            // Získáme vlastnosti třídy
+            PropertyInfo[] properties = obj.GetType().GetProperties();
+
+            // Přidáme sloupce do DataTable pro každou vlastnost
+            foreach (PropertyInfo property in properties)
+            {
+                dataTable.Columns.Add(property.Name, property.PropertyType);
+            }
+
+            // Vytvoříme nový řádek pro DataTable
+            DataRow dataRow = dataTable.NewRow();
+
+            // Naplníme řádek hodnotami z vlastností objektu
+            foreach (PropertyInfo property in properties)
+            {
+                dataRow[property.Name] = property.GetValue(obj);
+            }
+
+            return dataRow;
         }
 
         private static void AddJsonToXml(JObject jObject, XElement parent)

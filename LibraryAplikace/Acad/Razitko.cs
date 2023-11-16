@@ -1,13 +1,9 @@
 ﻿using AutoCAD;
-using System.Collections.Generic;
 using System.Data;
-using System.Reflection;
-using System.Xml.Linq;
-using XMLTabulka1.API;
+using XMLTabulka1;
 using XMLTabulka1.Trida;
-using static System.Net.Mime.MediaTypeNames;
 
-namespace XMLTabulka1
+namespace LibraryAplikace.Acad
 {
     public class Razitko
     {
@@ -172,7 +168,7 @@ namespace XMLTabulka1
                         break;
 
                     default:
-                        if (!String.IsNullOrEmpty(Sloupec.CelyRadek[Pomoc].ToString()))
+                        if (!string.IsNullOrEmpty(Sloupec.CelyRadek[Pomoc].ToString()))
                             Deleni[i] = Sloupec.CelyRadek[Pomoc].ToString().Trim();
                         break;
                 }
@@ -206,7 +202,7 @@ namespace XMLTabulka1
             var myFilterData = new object[] { "INSERT", "*v03_CZ" };
 
             var mySel = app.SelectionSets.Add("SS1");
-            var mode = AutoCAD.AcSelect.acSelectionSetAll;
+            var mode = AcSelect.acSelectionSetAll;
             //myFiltertypeArray[0] = 0;
             //myfilterdataArray[0] = "INSERT";
             //myFiltertypeArray[1] = 2;
@@ -217,13 +213,13 @@ namespace XMLTabulka1
             if (mySel == null) return false;
 
             // mySel contains the selection of all objects in the stamp
-            foreach (AutoCAD.AcadBlockReference sel in mySel)
+            foreach (AcadBlockReference sel in mySel)
             {
-                string name1 = (string)sel.EffectiveName;
+                string name1 = sel.EffectiveName;
                 if (name1.EndsWith("_v03_CZ"))
                 {
                     VyplnBlokyAcad(sel, razítkas);
-                    
+
                 }
             }
 
@@ -234,7 +230,7 @@ namespace XMLTabulka1
             return true;
         }
 
-        public static void VyplnBlokyAcad(AutoCAD.AcadBlockReference returnobj, List<DataRazítka> razítkas)
+        public static void VyplnBlokyAcad(AcadBlockReference returnobj, List<DataRazítka> razítkas)
         {
             razítkas = new();
             foreach (var item in typeof(JedenRadek).GetProperties())
@@ -246,9 +242,9 @@ namespace XMLTabulka1
             object[] pole = (object[])returnobj.GetAttributes();
             for (int j = 0; j <= pole.GetUpperBound(0); j++)
             {
-                string hledej = ((AutoCAD.AcadAttributeReference)pole[j]).TagString;
+                string hledej = ((AcadAttributeReference)pole[j]).TagString;
                 //for (int i = 0; i <= tag.GetUpperBound(0); i++)
-                for (int i = 0; i <= razítkas.Count -1; i++)
+                for (int i = 0; i <= razítkas.Count - 1; i++)
                 {
                     //if (tag == null) return;
                     if (hledej.ToUpper() == razítkas[i].TagString.ToUpper())
@@ -256,11 +252,11 @@ namespace XMLTabulka1
                         //if (info == null) return;
                         if (razítkas[i].TextString == "")
                         {
-                            ((AutoCAD.AcadAttributeReference)pole[j]).TextString = " ";
+                            ((AcadAttributeReference)pole[j]).TextString = " ";
                         }
                         else
                         {
-                            ((AutoCAD.AcadAttributeReference)pole[j]).TextString = razítkas[i].TextString;
+                            ((AcadAttributeReference)pole[j]).TextString = razítkas[i].TextString;
                             //int adf = razítkas[i].TextString.Length;
                             int delka = razítkas[i].TextString.Length;
                             double A = 1;
@@ -272,14 +268,14 @@ namespace XMLTabulka1
                                     {
                                         A = 65 / (delka * 2);
                                     }
-                                    ((AutoCAD.AcadAttributeReference)pole[j]).ScaleFactor = A;
+                                    ((AcadAttributeReference)pole[j]).ScaleFactor = A;
                                     break;
                                 case "OCD":
                                     if (delka > 7)
                                     {
                                         A = 18 / (delka * 2);
                                     }
-                                    ((AutoCAD.AcadAttributeReference)pole[j]).ScaleFactor = A;
+                                    ((AcadAttributeReference)pole[j]).ScaleFactor = A;
                                     break;
                             }
                         }

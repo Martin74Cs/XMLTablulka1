@@ -6,10 +6,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using XMLTabulka1;
+using XMLTabulka1.Word;
 
 namespace LibraryAplikace
 {
-    public class Soubor
+    public class SouborApp
     {
         public string[] Existuje(string Cesta)
         {
@@ -132,5 +133,43 @@ namespace LibraryAplikace
             string pripona1 = Path.GetExtension(Cesta);
         }
 
+
+        /// <summary>
+        /// Kopie šablony
+        /// </summary>
+        /// <param name="CestaCil">Cesta a nazev kde bude kopie šablony</param>
+        /// <example>Nezapomen pri kopírování na změnu názvu souboru</example>
+        /// <returns>bool</returns>
+        public static bool KopieDoc(string CestaCil)
+        {
+            try
+            {
+                WordPodpora word = new WordPodpora();
+                //string CestaZdroj = word.CestaAdresar() + "\\Sablony\\titlist1.doc";
+
+                string CestaZdroj = WordPodpora.Word + @"/VZOR.docx";
+                if (System.IO.File.Exists(CestaCil))
+                {
+                    Console.WriteLine("\nCesta : " + CestaCil);
+                    Console.WriteLine("\nSoubor existuje: smazat [y/n]");
+                    ConsoleKey klavesa = Console.ReadKey(false).Key;
+
+                    if (klavesa == ConsoleKey.Y || klavesa == ConsoleKey.A)
+                    {
+                        System.IO.File.Delete(CestaCil);
+                        Console.WriteLine("Soubor {0} byl smazan.", CestaCil);
+                    }
+                    else
+                        return false;
+                }
+                System.IO.File.Copy(CestaZdroj, CestaCil);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                //throw;
+            }
+        }
     }
 }

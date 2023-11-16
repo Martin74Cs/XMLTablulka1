@@ -1,10 +1,11 @@
 using LibraryAplikace;
-using System.Collections.Specialized;
+using LibraryAplikace.Acad;
 using System.Data;
 using System.Diagnostics;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
+using XMLTabulka1.Word;
 using static System.Windows.Forms.ListView;
 
 namespace WFForm
@@ -134,7 +135,7 @@ namespace WFForm
                         {
                             //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
                             //V seznamu jsou všechny typy souboru dwg, pdf, atd.
-                            List<string> ListSoubor = new LibraryAplikace.Soubor().HledejZdaExistujeSoubor(teZak.PATH);
+                            List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
                             List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).ToUpperInvariant() == ".DWG").ToList();
                             //doplnit dialog výbìru souboru
  
@@ -151,7 +152,10 @@ namespace WFForm
                         DialogResult result1 = MessageBox.Show("Byl vybrán soubor typu DOC. \nNázev vybraného souboru je: " + teZak.NAZEV
                             + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
                         if (result1 == DialogResult.Yes)
-                            Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                        {
+                            //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                            Word.Doc(teZak);
+                        }
                         break;
                     default:
                         MessageBox.Show("Bylo XXX " + teZak.NAZEV.ToString());
