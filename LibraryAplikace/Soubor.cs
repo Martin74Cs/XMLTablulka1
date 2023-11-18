@@ -162,6 +162,11 @@ namespace LibraryAplikace
                     else
                         return false;
                 }
+                //kontorla existence adrsáře
+                if (!Directory.Exists(CestaCil))
+                    Directory.CreateDirectory(Path.GetDirectoryName(CestaCil));
+
+                //kopirování souborů;
                 System.IO.File.Copy(CestaZdroj, CestaCil);
                 return true;
             }
@@ -171,5 +176,6 @@ namespace LibraryAplikace
                 //throw;
             }
         }
+
     }
 }

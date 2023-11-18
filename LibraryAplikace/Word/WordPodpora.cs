@@ -1,4 +1,5 @@
 ﻿using LibraryAplikace;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace XMLTabulka1.Word
 {
@@ -281,9 +283,12 @@ namespace XMLTabulka1.Word
                 //this.WordApplication.Quit(ref saveOptionsObject, ref Missing.Value, ref Missing.Value);
 
                 Console.WriteLine("Uložení dokumentu");
-                Console.WriteLine("");
                 Doc.Save();
+                Console.WriteLine("Uzavření dokumentu");
                 Doc.Close(false);
+
+                //uvolnění z paměnti
+                Marshal.ReleaseComObject(Doc);
 
                 //object saveOptionsObject = Doc.Saved ? Microsoft.Office.Interop.Word.WdSaveOptions.wdSaveChanges : Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges;
                 //Doc.Close(ref saveOptionsObject, ref Missing.Value, ref Missing.Value);
@@ -293,8 +298,9 @@ namespace XMLTabulka1.Word
 
                 Console.WriteLine("Ukončení aplikace Word");
                 WordApp.Quit(false);
-                Console.WriteLine("WordApp: " + WordApp.ToString());
-                WordApp = null;
+
+                //uvolnění z paměnti
+                Marshal.ReleaseComObject(WordApp);
 
                 //if (Doc != null)
                 //    System.Runtime.InteropServices.Marshal.ReleaseComObject(Doc);
@@ -302,11 +308,12 @@ namespace XMLTabulka1.Word
                 //    System.Runtime.InteropServices.Marshal.ReleaseComObject(WordApp);
                 //Console.WriteLine("Marshal.ReleaseComObject");
 
-                Doc = null;
-                WordApp = null;
+                // Manuální spuštění garbage collectoru
+                //Garbage collector automatické spravování paměti, který je schopen detekovat a uvolnit nepoužívané objekty,
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 Console.WriteLine("GC.Collect();");
+
                 return true;
             }
             catch (Exception)
@@ -650,9 +657,6 @@ namespace XMLTabulka1.Word
         /// <summary>
         /// Vyplnění Formu ve wordu
         /// </summary>
-        /// <param name="BookmarkToUpdate"></param>
-        /// <param name="TextToUse"></param>
-        /// <returns></returns>
         bool UpdateForm(string BookmarkToUpdate, string TextToUse)
         {
             if (Doc is null)
@@ -663,10 +667,24 @@ namespace XMLTabulka1.Word
                 //Microsoft.Office.Interop.Word.FormField adf;
                 //adf = doc.FormFields[BookmarkToUpdate];
 
-                if (Doc.FormFields[BookmarkToUpdate] is null)
-                    return false;
-                Doc.FormFields[BookmarkToUpdate].Result = TextToUse;
+                foreach (FormField Form in Doc.FormFields)
+                {
+                    if (Form.Name == BookmarkToUpdate)
+                    {
+                        Form.TextInput.Default= TextToUse;
+                        //Form.Range.Text = TextToUse;
+                        Form.Result = TextToUse;
+                        
+                        break;
+                    }
+                }
+
+                //if (Doc.FormFields[BookmarkToUpdate] is null)
+                //    return false;
+                //Doc.FormFields[BookmarkToUpdate].Result = TextToUse;
+                //Doc.FormFields[BookmarkToUpdate].Range.Text = TextToUse;
                 return true;
+
             }
             catch (Exception)
             {

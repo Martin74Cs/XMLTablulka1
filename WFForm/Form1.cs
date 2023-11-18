@@ -28,6 +28,20 @@ namespace WFForm
         {
             if (true)
             {
+                ProgressBar bar = new ProgressBar
+                {
+                    Minimum = 0,
+                    Maximum = 100,
+                    Style = ProgressBarStyle.Continuous,
+                    Height = 25
+
+                };
+                this.Controls.Add(bar);
+                bar.Show();
+
+                IProgress<int> progress = new Progress<int>(x => { bar.Value = x; });
+                
+
                 TreeView1.Nodes.Clear();
                 foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
                     TreeView1.Nodes.Add("C_PROJ", item);
@@ -123,7 +137,8 @@ namespace WFForm
                 //plat9 pro restAPI
                 //var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
                 TeZak teZak = await API.LoadJsonAPIJeden<TeZak>($"/api/tezak/Apid/{Apid}");
-                teZak.SaveJson(Cesty.JedenRadekJson);
+                if (teZak == null) return;
+                //teZak.SaveJson(Cesty.JedenRadekJson);
                 switch (teZak.EXT.ToUpperInvariant())
                 {
                     case "DWG":
@@ -154,7 +169,7 @@ namespace WFForm
                         if (result1 == DialogResult.Yes)
                         {
                             //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                            Word.Doc(teZak);
+                            await Word.Doc(teZak);
                         }
                         break;
                     default:
