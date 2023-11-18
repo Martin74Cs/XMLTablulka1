@@ -26,6 +26,8 @@ namespace WFForm
 
         private async void Form1_Load(object sender, EventArgs e)
         {
+            XMLTabulka1.Cesty.Nastavit();
+
             if (true)
             {
                 ProgressBar bar = new ProgressBar
@@ -169,7 +171,8 @@ namespace WFForm
                         if (result1 == DialogResult.Yes)
                         {
                             //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                            await Word.Doc(teZak);
+                            if(!await Word.Doc(teZak))
+                                MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                         break;
                     default:
