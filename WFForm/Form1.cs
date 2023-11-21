@@ -30,7 +30,7 @@ namespace WFForm
 
             if (true)
             {
-                var Akt = Aktualizuj.Text();
+                var Akt = Menu.Aktualizuj();
                 TreeView1.Nodes.Clear();
                 foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
                     TreeView1.Nodes.Add("C_PROJ", item);
@@ -43,13 +43,11 @@ namespace WFForm
                 if (!File.Exists(Cesty.SouborTezakDbf))
                 {
                     string Cesta = Aktualizuj.OpenDataze();
-                    Form form = Aktualizuj.Text();
-                    form.Show();
-                    form.TopLevel = true;
+                    var Akt = Menu.Aktualizuj();
                     await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
-                    form.Close();
-                    form.Dispose();
                     new XMLTabulka1.Aktualizuj().AktualizujData();
+                    Akt.Close();
+                    //Akt.Dispose();
                 }
 
                 new XMLTabulka1.Aktualizuj().AktualizujData();
@@ -114,8 +112,8 @@ namespace WFForm
             //DataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
             ///
             ///
-            DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
-
+             DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
+ 
         }
 
         private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -142,7 +140,7 @@ namespace WFForm
                             //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
                             //V seznamu jsou všechny typy souboru dwg, pdf, atd.
                             List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
-                            List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).ToUpperInvariant() == ".DWG").ToList();
+                            List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).Equals(".DWG", StringComparison.InvariantCultureIgnoreCase)).ToList();
                             //doplnit dialog výbìru souboru
  
                             //pokud nexistuje bude vytvoøen
@@ -275,11 +273,10 @@ namespace WFForm
         private async void Button4_Click(object sender, EventArgs e)
         {
             string Cesta = Aktualizuj.OpenDataze();
-            Form form = Aktualizuj.Text();
-            form.Show();
+            var Aktu = Menu.Aktualizuj();
             await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
-            form.Close();
-            form.Dispose();
+            Aktu.Close();
+            //Aktu.Dispose();
 
             new XMLTabulka1.Aktualizuj().AktualizujData();
 

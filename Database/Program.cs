@@ -27,32 +27,33 @@ Console.WriteLine("Soubor Dbf " + Cesty.SouborDbf);
 Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 //Console.ReadKey();
 
-//Kontrola zaznamů v SQL vůči DBF
-Console.WriteLine("Kontrola zaznamů v SQL vůči DBF ANO/NE");
+//funguje seznam tabulek SQL3DPlant
+//
+SQL.Databaze().SaveTXT(Cesty.SQL3DPlant);
+
+Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine("PODÍVEJ SE JAKÉ POLE CHCEŠ ABY OBSAHOVALA NOVÁ DATABÁZE ");
+Console.WriteLine("-------------------- T E Z A K -------------------------");
+Console.WriteLine("--------------------------------------------------------");
+Console.WriteLine("Převod dbf na SQL ANO/NE");
 ConsoleKeyInfo k = Console.ReadKey(true);
 if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
+{
+    //převede databazi dbf na sql
+    SQL.DataSql();
+    return;
+}
+
+
+//Kontrola zaznamů v SQL vůči DBF
+Console.WriteLine("Kontrola zaznamů v SQL vůči DBF ANO/NE");
+ConsoleKeyInfo Klavesa = Console.ReadKey(true);
+if (Klavesa.Key == ConsoleKey.A || Klavesa.Key == ConsoleKey.Z)
 {
     //převede databazi dbf na sql
     await SQL.DataSqlAdd();
     return;
 }
-
-
-//funguje seznam tabulek SQL3DPlant
-//
-//SQL sql = new SQL();
-//sql.Databaze().SaveTXT(Cesty.SQL3DPlant);
-
-//funguje odladěno
-//
-//Console.WriteLine("Převod dbf na SQL ANO/NE");
-//ConsoleKeyInfo k = Console.ReadKey(true);
-//if (k.Key == ConsoleKey.A || k.Key == ConsoleKey.Z)
-//{ 
-//    //převede databazi dbf na sql
-//    SQL.DataSql();
-//    return;
-//}
 
 
 //InfoProjekt.CisloProjektu = "P.018806";

@@ -11,19 +11,26 @@ namespace WFForm
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static async void Main()
+        static void Main()
         {
             //Kontrola nové verze programu pøes RestAPI
-            if (await Aktualizuj.NováVerze())
-            {
-                Soubor.StartAplikace("explorer.exe");     
-            }
+            Kontrola();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
             //Application.Exit();
+        }
+
+        public async static void Kontrola()
+        {
+            //Kontrola nové verze programu pøes RestAPI
+            if (await Aktualizuj.NováVerze())
+            {
+                Soubor.StartAplikace("explorer.exe");
+                Environment.Exit(0);
+            }
         }
     }
 }

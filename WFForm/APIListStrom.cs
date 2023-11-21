@@ -14,6 +14,7 @@ namespace WFForm
     {
         public static async void ListStromAPI(this DataGridView dataGridView1, TreeNode N, string Separator)
         {
+            var Akt = Aktualizuj.Text();
             string[] Cesta = N.FullPath.Split(Separator);
             List<TeZakHodnota> querry;
             TeZak teZak = null;
@@ -68,6 +69,8 @@ namespace WFForm
                 dataGridView1.DataSource = data;
                 dataGridView1.Barvy();
                 dataGridView1.Columns.SloupecSirka();
+
+                Akt.Close();
             }
         }
     }
