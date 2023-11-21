@@ -33,6 +33,7 @@ namespace LibraryAplikace
         /// </summary>
         public static async Task<List<MojeZakazky>> MojeZakazkyAddJson()
         {
+            await Task.Delay(1);
             if (!File.Exists(Cesty.PodporaDataJson))
             {
                 List<MojeZakazky> moje = [];
@@ -76,17 +77,11 @@ namespace LibraryAplikace
         /// </summary>
         public static async Task<List<MojeZakazky>> MojeZakazkyAdd()
         {
-            if (true)
-            {
+
                 var tezak = await API.APIJson<TeZak>($"api/Tezak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
                 if (tezak == null) return [];
                 InfoProjekt.CisloProjektu = tezak.C_PROJ;
                 InfoProjekt.Projekt = tezak.NAZ_PROJ;
-            }
-            else
-            { 
-                InfoProjekt.Projekt = JmenoProjektuDlePrvniho();
-            }
             return await MojeZakazkyAddJson();
         }
 
@@ -107,7 +102,7 @@ namespace LibraryAplikace
         /// </summary>
         public static List<MojeZakazky> MojeZakazkyListXML()
         {
-            if (File.Exists(Cesty.PodporaDataXml) == false) return new();
+            if (File.Exists(Cesty.PodporaDataXml) == false) return [];
             XDocument doc = XDocument.Load(Cesty.PodporaDataXml);
             List<MojeZakazky> Pole = XMLTabulka1.Soubor.LoadXML<MojeZakazky>(Cesty.PodporaDataXml);
             return Pole;

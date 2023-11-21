@@ -27,52 +27,14 @@ namespace WFForm
         private async void Form1_Load(object sender, EventArgs e)
         {
             //XMLTabulka1.Cesty.Nastavit();
+            var Akt = Menu.Aktualizuj();
+            TreeView1.Nodes.Clear();
+            foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
+                TreeView1.Nodes.Add("C_PROJ", item);
+            ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
+            Akt.Visible = false;
+            Akt.Close();
 
-            if (true)
-            {
-                var Akt = Menu.Aktualizuj();
-                TreeView1.Nodes.Clear();
-                foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
-                    TreeView1.Nodes.Add("C_PROJ", item);
-                ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
-                Akt.Visible = false;
-                Akt.Close();
-            }
-            else
-            {
-                if (!File.Exists(Cesty.SouborTezakDbf))
-                {
-                    string Cesta = Aktualizuj.OpenDataze();
-                    var Akt = Menu.Aktualizuj();
-                    await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
-                    new XMLTabulka1.Aktualizuj().AktualizujData();
-                    Akt.Close();
-                    //Akt.Dispose();
-                }
-
-                new XMLTabulka1.Aktualizuj().AktualizujData();
-
-                DbfDotazySQL sql = new();
-                string CisloProjektu = "P.018711";
-                //string CisloProjektu = ""; //= "P.002112";
-
-                string[] Arg = Environment.GetCommandLineArgs();
-                if (Arg.Length > 1)
-                {
-                    if (sql.HledejPrvek(VyberSloupec.C_PROJ, Arg[1]) != null)
-                        CisloProjektu = Arg[1];
-                }
-                //TreeNode Strom = new("Pokus");
-
-                TreeView1.Nodes.Clear();
-                foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
-                    TreeView1.Nodes.Add("C_PROJ", item);
-                //}
-
-                table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, CisloProjektu);
-                DataGridView1.Vypis(table);
-                ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
-            }
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -167,46 +129,7 @@ namespace WFForm
                         break;
                 }
             }
-            else
-            {
-                //platí pro soubor
-                DataTable data = DbfDotazySQL.Hledej("SELECT * FROM TEZAK WHERE GLOBALID='" + GlobalID + "'");
-
-                //uložení vybraného øádku do pomocné tøídy
-                Sloupec.CelyRadek = data.Rows[0];
-
-                //Pøípona souboru uvedená v databázi
-                Sloupec.Pripona = Sloupec.CelyRadek[Sloupec.EXT].ToString().ToUpper();
-                Sloupec.CestaDatabaze = Cesty.Pomoc + @"\pokus.docx";
-
-                //Uložení vybraného øádu v databázi do souboru xml
-                XMLTabulka1.Soubor.SaveXML(data, Cesty.JedenRadekXml);
-
-                List<TeZak> json = data.DataTabletoJson<TeZak>();
-                json.SaveJson(Cesty.JedenRadekJson);
-
-                switch (Sloupec.Pripona)
-                {
-                    case "DWG":
-                        DialogResult result = MessageBox.Show("Byl vybrán soubor DWG. \nNázev vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString() + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
-                        //pokraèuje v komponentì Autocad
-                        //la.Program(Sloupec.CelyRadek);
-                        if (result == DialogResult.Yes)
-                            Acad.Prace(json.First(),json.First().PATH);
-                        break;
-                    case "XLS":
-                        MessageBox.Show("Bylo XLS " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
-                        break;
-                    case "DOC":
-                        DialogResult result1 = MessageBox.Show("Byl vybrán soubor DOC. \nNázev vybraného souboru je: " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString() + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
-                        if (result1 == DialogResult.Yes)
-                            Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                        break;
-                    default:
-                        MessageBox.Show("Bylo XXX " + Sloupec.CelyRadek[Sloupec.NAZEV].ToString());
-                        break;
-                }
-            }
+ 
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -302,18 +225,10 @@ namespace WFForm
                     InfoProjekt.CisloProjektu = Vyber;
                     item.ExpandAll();
                     TreeView1.TopNode = item;
-                    if (true)
-                    {
+
                         List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
                         DataGridView1.Vypis(TableJson);
                         break;
-                    }
-                    else
-                    {
-                        table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
-                        DataGridView1.Vypis(table);
-                        break;
-                    }
                 }
             }
         }

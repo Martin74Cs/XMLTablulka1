@@ -14,7 +14,7 @@ namespace WFForm
     {
         public static async void ListStromAPI(this DataGridView dataGridView1, TreeNode N, string Separator)
         {
-            var Akt = Aktualizuj.Text();
+            var Akt = Menu.Aktualizuj();
             string[] Cesta = N.FullPath.Split(Separator);
             List<TeZakHodnota> querry;
             TeZak teZak = null;

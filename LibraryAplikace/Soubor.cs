@@ -105,7 +105,7 @@ namespace LibraryAplikace
             string Cesta = "";
             
             //Ve Adresár je aktuální adresář z cesty pokus
-            string Adresar = new FileInfo(Cesta).DirectoryName;
+            string? Adresar = new FileInfo(Cesta).DirectoryName;
             Adresar = Path.GetDirectoryName(Cesta);
 
             //V disk je název disku např G:\ z cesty pokus
@@ -168,6 +168,7 @@ namespace LibraryAplikace
                 }
                 //kontorla existence adrsáře
                 if (!Directory.Exists(CestaCil))
+                    //Directory.CreateDirectory(Path.GetDirectoryName(CestaCil)??"");
                     Directory.CreateDirectory(Path.GetDirectoryName(CestaCil));
 
                 //kopirování souborů;
