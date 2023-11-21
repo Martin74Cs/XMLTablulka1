@@ -4,6 +4,10 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <Title>Databaze Tezak</Title>
+    <PackageReleaseNotes>První vydaní</PackageReleaseNotes>
+    <PackAsTool>False</PackAsTool>
 
   </PropertyGroup>
 
@@ -22,12 +26,22 @@
     <Reference Include="Interop.AutoCAD">
       <HintPath>..\LibraryAplikace\obj\Debug\net6.0\Interop.AutoCAD.dll</HintPath>
     </Reference>
+	  
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

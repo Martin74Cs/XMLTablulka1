@@ -26,11 +26,16 @@ namespace WFForm
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            XMLTabulka1.Cesty.Nastavit();
+            //XMLTabulka1.Cesty.Nastavit();
 
             if (true)
             {
-                ProgressBar bar = new ProgressBar
+                Form form = new() 
+                {
+
+                };
+
+                ProgressBar bar = new()
                 {
                     Minimum = 0,
                     Maximum = 100,
@@ -38,6 +43,7 @@ namespace WFForm
                     Height = 25
 
                 };
+                
                 this.Controls.Add(bar);
                 bar.Show();
 

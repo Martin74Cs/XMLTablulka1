@@ -14,20 +14,22 @@ namespace LibraryAplikace
     {
         public string[] Existuje(string Cesta)
         {
-            List<string> Soubor = new();
+            List<string> Soubor = [];
             if (File.Exists(Cesta))
             { 
                 Soubor.Add(Cesta);
-                return Soubor.ToArray();
+                //return Soubor.ToArray();
+                return [.. Soubor];
             }
             List<string> Pole = HledejZdaExistujeSoubor(Cesta);
             Soubor.AddRange(Pole);
-            return Soubor.ToArray();
+            //return Soubor.ToArray();
+            return [.. Soubor];
         }
 
         public List<string> HledejZdaExistujeSoubor(string JmenoSouboru)
         {
-            List<string> listSouboru = new();
+            List<string> listSouboru = [];
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
             if (Directory.Exists(AdresarJedna) == false)
                 return null;
@@ -38,7 +40,7 @@ namespace LibraryAplikace
                 Delka = 6;
             else
                 Delka = Soubor.Length;
-            var Soubor6 = Soubor.Substring(0, Delka).ToUpper();
+            var Soubor6 = Soubor[..Delka].ToUpper();
 
             //Open AI Hledáme soubory v aktuálním adresáři a jeho podadresářích
             //string[] files = Directory.GetFiles(AdresarJedna, fileName, SearchOption.AllDirectories);
@@ -79,7 +81,7 @@ namespace LibraryAplikace
             foreach (var item in Pole)
             {
                 var pom = ProjdiSoubory(item, Delka, Soubor6, Directory.GetDirectories(item), PoleSouboru);
-                if (pom.Count() <= 0)
+                if (pom.Count <= 0)
                     break;
             }
 

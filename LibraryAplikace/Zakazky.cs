@@ -36,8 +36,6 @@ namespace LibraryAplikace
             if (!File.Exists(Cesty.PodporaDataJson))
             {
                 List<MojeZakazky> moje = new();
-                if (Directory.Exists(Path.GetDirectoryName(Cesty.PodporaDataJson)))
-                    Directory.CreateDirectory(Cesty.PodporaDataJson);
                 moje.SaveJson(Cesty.PodporaDataJson);
             }
             //if (!File.Exists(Cesty.PodporaDataXml))

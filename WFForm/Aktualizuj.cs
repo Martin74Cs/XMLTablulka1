@@ -18,8 +18,8 @@ namespace WFForm
         /// <returns></returns>
         public static string OpenDataze()
         {
-            string cesta = string.Empty;
-            OpenFileDialog dialog = new OpenFileDialog
+            //string cesta = string.Empty;
+            OpenFileDialog dialog = new()
             {
                 Title = "Vyper databázi Dbf",
                 InitialDirectory = @"G:\env",
@@ -53,7 +53,7 @@ namespace WFForm
                 Text = "Aktualizuje se....",
             };
 
-            Form form = new Form()
+            Form form = new()
             {
                 AutoScaleDimensions = new System.Drawing.SizeF(6, 13),
                 AutoScaleMode = AutoScaleMode.Font,
@@ -76,6 +76,7 @@ namespace WFForm
         /// </summary>
         public static async void VypisMojeZakazky(this ListView listView1, List<MojeZakazky> VlastniZakazky)
         {
+            await Task.Delay(1);
             //List<MojeZakazky> moje = LibraryAplikace.Zakazky.MojeZakazkyList();
             listView1.Clear();
             listView1.View = System.Windows.Forms.View.Details;

@@ -32,4 +32,23 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+	  <None Update="appsettings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Podpora\Acad\Sablona.dwg">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Podpora\SPOLECNE2.csv">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Podpora\Word\VZOR.docx">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>	  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Podpora\" />
+  </ItemGroup>
+
 </Project>

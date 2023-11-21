@@ -38,10 +38,33 @@ namespace XMLTabulka1
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
-        public static string Pomoc => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Pomoc"));
+//#if DEBUG
+        //public static string Pomoc => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Pomoc"));
 
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
-        public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
+        //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
+//#else
+        public static string Pomoc  
+        {
+            get {
+                string Cesta = Path.Combine(AdresarSpusteni, @"Pomoc");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                return Path.GetFullPath(Cesta);
+            }
+        }
+
+        public static string Podpora
+        {
+            get {
+                string Cesta = Path.Combine(AdresarSpusteni, @"Podpora");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                return Path.GetFullPath(Cesta);            }
+        }
+
+
+//#endif
 
         public static string SQL3DPlant => Pomoc + @"\SQL3DPlant.txt";
 

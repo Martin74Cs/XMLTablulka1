@@ -28,206 +28,199 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DataGridView1 = new System.Windows.Forms.DataGridView();
-            this.TreeView1 = new System.Windows.Forms.TreeView();
-            this.Button1 = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.GroupBox1 = new System.Windows.Forms.GroupBox();
-            this.Button3 = new System.Windows.Forms.Button();
-            this.BAdd = new System.Windows.Forms.Button();
-            this.ListView1 = new System.Windows.Forms.ListView();
-            this.GroupBox2 = new System.Windows.Forms.GroupBox();
-            this.Button4 = new System.Windows.Forms.Button();
-            this.Button5 = new System.Windows.Forms.Button();
-            this.Button6 = new System.Windows.Forms.Button();
-            this.Button2 = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView1)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.GroupBox1.SuspendLayout();
-            this.GroupBox2.SuspendLayout();
-            this.SuspendLayout();
+            DataGridView1 = new DataGridView();
+            TreeView1 = new TreeView();
+            Button1 = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            GroupBox1 = new GroupBox();
+            Button3 = new Button();
+            BAdd = new Button();
+            ListView1 = new ListView();
+            GroupBox2 = new GroupBox();
+            Button4 = new Button();
+            Button5 = new Button();
+            Button6 = new Button();
+            Button2 = new Button();
+            ((System.ComponentModel.ISupportInitialize)DataGridView1).BeginInit();
+            tableLayoutPanel1.SuspendLayout();
+            GroupBox1.SuspendLayout();
+            GroupBox2.SuspendLayout();
+            SuspendLayout();
             // 
             // DataGridView1
             // 
-            this.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableLayoutPanel1.SetColumnSpan(this.DataGridView1, 2);
-            this.DataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridView1.Location = new System.Drawing.Point(153, 191);
-            this.DataGridView1.Name = "DataGridView1";
-            this.DataGridView1.RowHeadersWidth = 51;
-            this.tableLayoutPanel1.SetRowSpan(this.DataGridView1, 2);
-            this.DataGridView1.RowTemplate.Height = 25;
-            this.DataGridView1.Size = new System.Drawing.Size(926, 278);
-            this.DataGridView1.TabIndex = 0;
-            this.DataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
-            this.DataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick_1);
+            DataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tableLayoutPanel1.SetColumnSpan(DataGridView1, 2);
+            DataGridView1.Dock = DockStyle.Fill;
+            DataGridView1.Location = new Point(153, 191);
+            DataGridView1.Name = "DataGridView1";
+            DataGridView1.RowHeadersWidth = 51;
+            tableLayoutPanel1.SetRowSpan(DataGridView1, 2);
+            DataGridView1.Size = new Size(926, 278);
+            DataGridView1.TabIndex = 0;
+            DataGridView1.CellClick += DataGridView1_CellClick;
+            DataGridView1.CellContentClick += DataGridView1_CellContentClick_1;
             // 
             // TreeView1
             // 
-            this.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TreeView1.Location = new System.Drawing.Point(3, 191);
-            this.TreeView1.Name = "TreeView1";
-            this.tableLayoutPanel1.SetRowSpan(this.TreeView1, 2);
-            this.TreeView1.Size = new System.Drawing.Size(144, 278);
-            this.TreeView1.TabIndex = 1;
-            this.TreeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView1_AfterSelect);
+            TreeView1.Dock = DockStyle.Fill;
+            TreeView1.Location = new Point(3, 191);
+            TreeView1.Name = "TreeView1";
+            tableLayoutPanel1.SetRowSpan(TreeView1, 2);
+            TreeView1.Size = new Size(144, 278);
+            TreeView1.TabIndex = 1;
+            TreeView1.AfterSelect += TreeView1_AfterSelect;
             // 
             // Button1
             // 
-            this.Button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button1.Location = new System.Drawing.Point(364, 152);
-            this.Button1.Name = "Button1";
-            this.Button1.Size = new System.Drawing.Size(75, 24);
-            this.Button1.TabIndex = 2;
-            this.Button1.Text = "Konec";
-            this.Button1.UseVisualStyleBackColor = true;
-            this.Button1.Click += new System.EventHandler(this.Button1_Click);
+            Button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button1.Location = new Point(364, 152);
+            Button1.Name = "Button1";
+            Button1.Size = new Size(75, 24);
+            Button1.TabIndex = 2;
+            Button1.Text = "Konec";
+            Button1.UseVisualStyleBackColor = true;
+            Button1.Click += Button1_Click;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.30072F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.69928F));
-            this.tableLayoutPanel1.Controls.Add(this.DataGridView1, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.TreeView1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.GroupBox1, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.GroupBox2, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 188F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1082, 492);
-            this.tableLayoutPanel1.TabIndex = 5;
+            tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.30072F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.69928F));
+            tableLayoutPanel1.Controls.Add(DataGridView1, 1, 1);
+            tableLayoutPanel1.Controls.Add(TreeView1, 0, 1);
+            tableLayoutPanel1.Controls.Add(GroupBox1, 2, 0);
+            tableLayoutPanel1.Controls.Add(GroupBox2, 1, 0);
+            tableLayoutPanel1.Location = new Point(1, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 4;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 188F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Size = new Size(1082, 492);
+            tableLayoutPanel1.TabIndex = 5;
             // 
-            // groupBox1
+            // GroupBox1
             // 
-            this.GroupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroupBox1.Controls.Add(this.Button3);
-            this.GroupBox1.Controls.Add(this.BAdd);
-            this.GroupBox1.Controls.Add(this.ListView1);
-            this.GroupBox1.Location = new System.Drawing.Point(603, 3);
-            this.GroupBox1.Name = "groupBox1";
-            this.GroupBox1.Size = new System.Drawing.Size(476, 182);
-            this.GroupBox1.TabIndex = 2;
-            this.GroupBox1.TabStop = false;
-            this.GroupBox1.Text = "Funkce";
+            GroupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBox1.Controls.Add(Button3);
+            GroupBox1.Controls.Add(BAdd);
+            GroupBox1.Controls.Add(ListView1);
+            GroupBox1.Location = new Point(603, 3);
+            GroupBox1.Name = "GroupBox1";
+            GroupBox1.Size = new Size(476, 182);
+            GroupBox1.TabIndex = 2;
+            GroupBox1.TabStop = false;
+            GroupBox1.Text = "Funkce";
             // 
             // Button3
             // 
-            this.Button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button3.Location = new System.Drawing.Point(370, -2);
-            this.Button3.Name = "Button3";
-            this.Button3.Size = new System.Drawing.Size(54, 23);
-            this.Button3.TabIndex = 6;
-            this.Button3.Text = "Delete";
-            this.Button3.UseVisualStyleBackColor = true;
-            this.Button3.Click += new System.EventHandler(this.Button3_Click);
+            Button3.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button3.Location = new Point(370, -2);
+            Button3.Name = "Button3";
+            Button3.Size = new Size(54, 23);
+            Button3.TabIndex = 6;
+            Button3.Text = "Delete";
+            Button3.UseVisualStyleBackColor = true;
+            Button3.Click += Button3_Click;
             // 
-            // bAdd
+            // BAdd
             // 
-            this.BAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BAdd.Location = new System.Drawing.Point(427, -2);
-            this.BAdd.Name = "bAdd";
-            this.BAdd.Size = new System.Drawing.Size(45, 23);
-            this.BAdd.TabIndex = 4;
-            this.BAdd.Text = "Add";
-            this.BAdd.UseVisualStyleBackColor = true;
-            this.BAdd.Click += new System.EventHandler(this.Button2_Click);
+            BAdd.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            BAdd.Location = new Point(427, -2);
+            BAdd.Name = "BAdd";
+            BAdd.Size = new Size(45, 23);
+            BAdd.TabIndex = 4;
+            BAdd.Text = "Add";
+            BAdd.UseVisualStyleBackColor = true;
+            BAdd.Click += Button2_Click;
             // 
             // ListView1
             // 
-            this.ListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListView1.Location = new System.Drawing.Point(3, 19);
-            this.ListView1.Name = "listView1";
-            this.ListView1.Size = new System.Drawing.Size(470, 160);
-            this.ListView1.TabIndex = 3;
-            this.ListView1.UseCompatibleStateImageBehavior = false;
-            this.ListView1.SelectedIndexChanged += new System.EventHandler(this.ListView1_SelectedIndexChanged);
-            this.ListView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListView1_KeyDown);
+            ListView1.Dock = DockStyle.Fill;
+            ListView1.Location = new Point(3, 19);
+            ListView1.Name = "ListView1";
+            ListView1.Size = new Size(470, 160);
+            ListView1.TabIndex = 3;
+            ListView1.UseCompatibleStateImageBehavior = false;
+            ListView1.SelectedIndexChanged += ListView1_SelectedIndexChanged;
+            ListView1.KeyDown += ListView1_KeyDown;
             // 
-            // groupBox2
+            // GroupBox2
             // 
-            this.GroupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.GroupBox2.Controls.Add(this.Button4);
-            this.GroupBox2.Controls.Add(this.Button5);
-            this.GroupBox2.Controls.Add(this.Button6);
-            this.GroupBox2.Controls.Add(this.Button2);
-            this.GroupBox2.Controls.Add(this.Button1);
-            this.GroupBox2.Location = new System.Drawing.Point(153, 3);
-            this.GroupBox2.Name = "groupBox2";
-            this.GroupBox2.Size = new System.Drawing.Size(444, 182);
-            this.GroupBox2.TabIndex = 5;
-            this.GroupBox2.TabStop = false;
-            this.GroupBox2.Text = "Funkce";
+            GroupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBox2.Controls.Add(Button4);
+            GroupBox2.Controls.Add(Button5);
+            GroupBox2.Controls.Add(Button6);
+            GroupBox2.Controls.Add(Button2);
+            GroupBox2.Controls.Add(Button1);
+            GroupBox2.Location = new Point(153, 3);
+            GroupBox2.Name = "GroupBox2";
+            GroupBox2.Size = new Size(444, 182);
+            GroupBox2.TabIndex = 5;
+            GroupBox2.TabStop = false;
+            GroupBox2.Text = "Funkce";
             // 
             // Button4
             // 
-            this.Button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button4.Location = new System.Drawing.Point(6, 152);
-            this.Button4.Name = "Button4";
-            this.Button4.Size = new System.Drawing.Size(75, 23);
-            this.Button4.TabIndex = 4;
-            this.Button4.Text = "Load Data";
-            this.Button4.UseVisualStyleBackColor = true;
-            this.Button4.Click += new System.EventHandler(this.Button4_Click);
+            Button4.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button4.Location = new Point(6, 152);
+            Button4.Name = "Button4";
+            Button4.Size = new Size(75, 23);
+            Button4.TabIndex = 4;
+            Button4.Text = "Load Data";
+            Button4.UseVisualStyleBackColor = true;
+            Button4.Visible = false;
+            Button4.Click += Button4_Click;
             // 
             // Button5
             // 
-            this.Button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button5.Location = new System.Drawing.Point(641, 104);
-            this.Button5.Name = "Button5";
-            this.Button5.Size = new System.Drawing.Size(54, 23);
-            this.Button5.TabIndex = 6;
-            this.Button5.Text = "Delete";
-            this.Button5.UseVisualStyleBackColor = true;
+            Button5.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button5.Location = new Point(641, 104);
+            Button5.Name = "Button5";
+            Button5.Size = new Size(54, 23);
+            Button5.TabIndex = 6;
+            Button5.Text = "Delete";
+            Button5.UseVisualStyleBackColor = true;
             // 
             // Button6
             // 
-            this.Button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button6.Location = new System.Drawing.Point(698, 104);
-            this.Button6.Name = "Button6";
-            this.Button6.Size = new System.Drawing.Size(45, 23);
-            this.Button6.TabIndex = 4;
-            this.Button6.Text = "Add";
-            this.Button6.UseVisualStyleBackColor = true;
+            Button6.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button6.Location = new Point(698, 104);
+            Button6.Name = "Button6";
+            Button6.Size = new Size(45, 23);
+            Button6.TabIndex = 4;
+            Button6.Text = "Add";
+            Button6.UseVisualStyleBackColor = true;
             // 
             // Button2
             // 
-            this.Button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Button2.Location = new System.Drawing.Point(356, 18);
-            this.Button2.Name = "Button2";
-            this.Button2.Size = new System.Drawing.Size(83, 28);
-            this.Button2.TabIndex = 3;
-            this.Button2.Text = "Průzkumník";
-            this.Button2.UseVisualStyleBackColor = true;
-            this.Button2.Click += new System.EventHandler(this.Button2_Click_2);
+            Button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            Button2.Location = new Point(356, 18);
+            Button2.Name = "Button2";
+            Button2.Size = new Size(83, 28);
+            Button2.TabIndex = 3;
+            Button2.Text = "Průzkumník";
+            Button2.UseVisualStyleBackColor = true;
+            Button2.Click += Button2_Click_2;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1084, 500);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridView1)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.GroupBox1.ResumeLayout(false);
-            this.GroupBox2.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1084, 500);
+            Controls.Add(tableLayoutPanel1);
+            Name = "Form1";
+            Load += Form1_Load;
+            Shown += Form1_Shown;
+            ((System.ComponentModel.ISupportInitialize)DataGridView1).EndInit();
+            tableLayoutPanel1.ResumeLayout(false);
+            GroupBox1.ResumeLayout(false);
+            GroupBox2.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
