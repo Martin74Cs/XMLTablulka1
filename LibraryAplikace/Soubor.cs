@@ -32,7 +32,7 @@ namespace LibraryAplikace
             List<string> listSouboru = [];
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
             if (Directory.Exists(AdresarJedna) == false)
-                return null;
+                return [];
                 
             var Soubor = Path.GetFileNameWithoutExtension(JmenoSouboru);
             int Delka;
@@ -54,7 +54,8 @@ namespace LibraryAplikace
             foreach (var SouborJedna in Directory.GetFiles(AdresarJedna))
             {
                 string test = Path.GetFileNameWithoutExtension(SouborJedna).ToUpper();
-                if(test.Length>6) test = test.Substring(0, Delka);
+                //if(test.Length>6) test = test.Substring(0, Delka);
+                if (test.Length > 6) test = test[..Delka];
                 if (test == Soubor6)
                 {
                     listSouboru.Add(SouborJedna);
@@ -66,7 +67,7 @@ namespace LibraryAplikace
             foreach ( var item in Adresar) 
             {
                 List<string> Pom = ProjdiSoubory(item, Delka, Soubor6, Adresar, listSouboru);
-                if (Pom.Count() < 1)
+                if (Pom.Count < 1)
                     break;
                 else
                 { 
@@ -76,7 +77,7 @@ namespace LibraryAplikace
             return listSouboru;
         }
 
-        public List<string> ProjdiSoubory(string Adresar, int Delka, string Soubor6, string[] Pole, List<string> PoleSouboru)
+        public static List<string> ProjdiSoubory(string Adresar, int Delka, string Soubor6, string[] Pole, List<string> PoleSouboru)
         {
             foreach (var item in Pole)
             {
@@ -89,7 +90,8 @@ namespace LibraryAplikace
             foreach (var Soubor in Directory.GetFiles(Adresar))
             {
                 string pom = Path.GetFileNameWithoutExtension(Soubor).ToUpper();
-                if (pom.Length > 6) pom = pom.Substring(0, Delka);
+                //if (pom.Length > 6) pom = pom.Substring(0, Delka);
+                if (pom.Length > 6) pom = pom[..Delka];
                 if (pom == Soubor6)
                 {
                     PoleSouboru.Add(Soubor);
@@ -98,12 +100,12 @@ namespace LibraryAplikace
             return PoleSouboru;
         }
 
-        public void PriladyPraceSeSouboryAresari()
+        public static void PriladyPraceSeSouboryAresari()
         {
             string Cesta = "";
             
             //Ve Adresár je aktuální adresář z cesty pokus
-            string? Adresar = new FileInfo(Cesta).DirectoryName;
+            string Adresar = new FileInfo(Cesta).DirectoryName;
             Adresar = Path.GetDirectoryName(Cesta);
 
             //V disk je název disku např G:\ z cesty pokus
@@ -146,7 +148,7 @@ namespace LibraryAplikace
         {
             try
             {
-                WordPodpora word = new WordPodpora();
+                WordPodpora word = new();
                 //string CestaZdroj = word.CestaAdresar() + "\\Sablony\\titlist1.doc";
 
                 string CestaZdroj = WordPodpora.Word + @"/VZOR.docx";

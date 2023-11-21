@@ -25,6 +25,7 @@ namespace XMLTabulka1
         public static string PodporaSpolecneCsv => Podpora + @"\SPOLECNE2.csv";
         public static string PodporaDataXml => Podpora + @"\data.xml";
         public static string PodporaDataJson => Podpora + @"\data.json";
+        public static string Manifest => Podpora + @"\Manifest.json";       
         public static string AktualniAdresar => Environment.CurrentDirectory;
 
         //D:\OneDrive\Databaze\Tezak\XMLTablulka1\Database\bin\Debug\net6.0\Database.exe

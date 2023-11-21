@@ -6,6 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using XMLTabulka1;
+using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 
 namespace WFForm
@@ -33,7 +34,6 @@ namespace WFForm
             }
             return dialog.FileName;
         }
-
 
         public static Form Text()
         {
@@ -67,6 +67,11 @@ namespace WFForm
             //form.ShowDialog();
 
             bar.Value = bar.Maximum;
+
+            form.Visible = true;
+            form.Show();
+            form.TopMost = true;
+
             return form;
         }
 
@@ -89,6 +94,49 @@ namespace WFForm
                 listView1.Items.Add(new ListViewItem(new string[] { item.CisloProjektu, item.ProjektNazev }));
             }
         }
+
+        /// <summary>
+        /// Kontrola nove verze true - nova verze, false - nejaká chyba
+        /// </summary>
+        public static async Task<bool> NováVerze()
+        {
+            //načtení manifestu z restApi
+            ProgramInfo Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
+            if (Nova == null) return false;
+
+            //načtení z manifestu ze souboru
+            ProgramInfo Aktulni = Soubor.LoadJson<ProgramInfo>(Cesty.Manifest);
+            if (Aktulni == null)
+            {
+                Nova.SaveJson(Cesty.Manifest);
+                return false;
+            }
+
+            var n = new Version(Nova.Version);
+            var a = new Version(Aktulni.Version);
+
+            // Porovnání verzí
+            int result = n.CompareTo(a);
+
+            if (result < 0)
+            {
+                //starší
+                return false;
+            }
+            else if (result > 0)
+            {
+                //novejší
+                return true;
+            }
+            else
+            {
+                //stejné
+                return false;
+            }
+               
+
+        }
+
     }
 
 }

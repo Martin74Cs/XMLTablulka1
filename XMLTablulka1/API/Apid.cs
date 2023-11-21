@@ -18,8 +18,8 @@ namespace XMLTabulka1.API
         public static string Create(int length = 9)
         {
             int max = Chars.Length;
-            Random random = Random.Shared;
-            StringBuilder stringBuilder = new StringBuilder();
+            var random = Random.Shared;
+            var stringBuilder = new StringBuilder();
             for (int i = 0; i < length; i++)
             {
                 stringBuilder.Append(Chars[random.Next(0, max)]);

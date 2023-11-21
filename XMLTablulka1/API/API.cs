@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http.Json;
 using System.Text;
 using System.Xml.Linq;
@@ -10,45 +11,85 @@ using XMLTabulka1.Trida;
 
 namespace XMLTabulka1.API
 {
-    public static class API
-    { 
+    public class API
+    {
         /// <summary> Načte Data tridy T z adresy api/T a provede serializaci </summary>
         /// 
 
-        public static async Task<T> LoadJsonAPIJeden<T>(string API = "") where T : class
+        //public static async Task<T> LoadJsonAPIJeden<T>(string API = "") where T : class
+        //{
+        //    //vytvožení RestAPI z nazvu třidy
+        //    if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
+        //    HttpClient client = new ApiHelper();
+        //    HttpResponseMessage response = await client.GetAsync(API);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        T result;
+        //        try
+        //        {
+        //            //obsah odpovědi převede na seznam objektů typu Trida
+        //            result = await response.Content.ReadFromJsonAsync<T>();
+        //        }
+        //        catch (Exception)
+        //        {
+        //            result = null;
+        //            //throw;
+        //        }
+        //        return result;
+        //    }
+        //    return null;
+        //}
+
+        //public static async Task<T> LoadGetAPIPokus<T>(string APIstr) where T : new()
+        //{
+        //    //vytvožení RestAPI z nazvu třidy
+        //    if (string.IsNullOrEmpty(APIstr)) APIstr = "api/" + typeof(T).ToString().Split('.').Last();
+        //    HttpClient client = new ApiHelper();
+        //    var response = await client.GetAsync(APIstr);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        var fileStream = response.Content.ReadAsStream();
+        //        var myData = System.Text.Json.JsonSerializer.Deserialize<T>(fileStream);
+        //        return myData;
+        //    }
+        //    else
+        //    {
+        //        return new T();
+        //    }
+        //}
+        public static async Task<T> APIJson<T>(string API = "") where T : class
         {
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
             HttpClient client = new ApiHelper();
-            T result = null;
-            HttpResponseMessage response = await client.GetAsync(API);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                try
-                {
-                    //obsah odpovědi převede na seznam objektů typu Trida
-                    result = await response.Content.ReadFromJsonAsync<T>();
-                }
-                catch (Exception)
-                {
-                    result = null;
-                    //throw;
-                }
-                return result;
+                var response = await client.GetFromJsonAsync<T>(API);
+                return response;
             }
-            return null;
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
-        public static async Task<List<T>> LoadJsonAPI<T>(string API = "") where T : class
+        public static async Task<List<T>> APIJsonList<T>(string API = "") where T : class
         {
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
             HttpClient client = new ApiHelper();
-            var response = await  client.GetFromJsonAsync<List<T>>(API);
-            return response;
+            try
+            {
+                var response = await  client.GetFromJsonAsync<List<T>>(API);
+                return response;
+            }
+            catch (Exception)
+            {
+                return  null;
+            }
         }
 
-        public static async Task<List<T>> LoadAPI<T>(string API = "") where T : class
+        public static async Task<T> APIDownloadFile<T>(string API = "") where T : class
         {
             //vytvožení RestAPI z nazvu třidy
             if (string.IsNullOrEmpty(API)) API = "api/" + typeof(T).ToString().Split('.').Last();
@@ -58,10 +99,11 @@ namespace XMLTabulka1.API
             if (response.IsSuccessStatusCode)
             {
                 //obsah odpovědi převede na seznam objektů typu Trida
-                var result = await response.Content.ReadFromJsonAsync<List<T>>();
-                return result;
+                var result = await response.Content.ReadAsStringAsync();
+                T myData = System.Text.Json.JsonSerializer.Deserialize<T>(result);
+                return myData;
             }
-            return new List<T>();
+            return null;
         }
 
         /// <summary>
@@ -71,7 +113,7 @@ namespace XMLTabulka1.API
         {
             string trida = typeof(T).ToString().Split('.').Last();
             string Api = "api/" + trida;
-            List<T> material = Soubor.LoadJsonList<T>(Path.Combine(Cesty.AdresarSpusteni, trida + ".json"));
+            List<T> material = Soubor.LoadFileJsonList<T>(Path.Combine(Cesty.AdresarSpusteni, trida + ".json"));
             if (material == null && material.Count < 1) return false;
             HttpClient client = new ApiHelper();
             foreach (T item in material)
@@ -129,8 +171,8 @@ namespace XMLTabulka1.API
 
     }
 
-    public static class Soubory
-    {
+    //public static class Soubory
+    //{
         // <summary> serializace třídy a uložení trídy do souboru dle cesty</summary>
         //public static void SaveJson<T>(this List<T> moje, string cesta)
         //{
@@ -211,7 +253,7 @@ namespace XMLTabulka1.API
         //        Console.WriteLine("Došlo k chybě: " + ex.Message);
         //    }
         //}
-    }
+    //}
 
     //public static class Cesty
     //{

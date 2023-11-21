@@ -24,7 +24,7 @@ namespace XMLTabulka1
     {
         public static void Pruzkumnik(string cesta = @"C:\") 
         {
-            Process process = new Process();
+            Process process = new();
             process.StartInfo.FileName = "explorer.exe";
             process.StartInfo.Arguments = cesta;
             process.Start();
@@ -78,7 +78,7 @@ namespace XMLTabulka1
             {
                 pom += item.ColumnName + ";";
             }
-            zak.WriteLine(pom.Substring(0, pom.Length - 1));
+            zak.WriteLine(pom[..^1]);
 
             foreach (DataRow item in data.Rows)
             { 
@@ -87,7 +87,7 @@ namespace XMLTabulka1
                 {
                     pom += item[i].ToString() + ";";
                 }
-                zak.WriteLine(pom.Substring(0,pom.Length-1));
+                zak.WriteLine(pom[..^1]);
             }
             zak.Close();
         }
@@ -105,7 +105,7 @@ namespace XMLTabulka1
         public static string[] LoadTXT(string Cesta)
         {
             string Pole = "";
-            using FileStream fs = new FileStream(Cesta, FileMode.Open, FileAccess.Read);
+            using var fs = new FileStream(Cesta, FileMode.Open, FileAccess.Read);
             using StreamReader sw = new(fs);
             while (!sw.EndOfStream)
             {
@@ -136,7 +136,7 @@ namespace XMLTabulka1
         {
             if (System.IO.File.Exists(cesta) == false)
                 return null;
-            DataSet data = new DataSet();
+            var data = new DataSet();
             data.ReadXml(cesta);
             //XDocument doc = XDocument.Load(cesta);
             return data.Tables[0].Rows[0];
@@ -154,8 +154,8 @@ namespace XMLTabulka1
         public static void SaveXML<T>(this List<T> moje, string Cesta)
         {
             //File.Delete(Cesta);
-            FileStream writer = new(Cesta, FileMode.Create);
-            XmlSerializer ser = new XmlSerializer(typeof(List<T>),
+            var writer = new FileStream(Cesta, FileMode.Create);
+            var ser = new XmlSerializer(typeof(List<T>),
                 new XmlRootAttribute("SEZNAM"));
             ser.Serialize(writer, moje);
             writer.Close();
@@ -227,7 +227,7 @@ namespace XMLTabulka1
             if (!File.Exists(cesta)) return null;
             //načte pole odeleno ; do tabulky
             var Soubor = new System.IO.StreamReader(cesta);
-            DataTable data12 = new DataTable();
+            var data12 = new DataTable();
             string[] b;
             //DataColumn col = new DataColumn();
             b = Soubor.ReadLine().Split(';');
@@ -246,7 +246,7 @@ namespace XMLTabulka1
             }
             Soubor.Close();
 
-            DataSet Nacti = new DataSet();
+            var Nacti = new DataSet();
             Nacti.Tables.Add(data12);
             return Nacti;
         }
@@ -261,16 +261,16 @@ namespace XMLTabulka1
              return true;
         }
 
-        public static void LoadJson(this List<MojeZakazky> moje, string cesta)
+        public static void LoadJsonMoje(this List<MojeZakazky> moje, string cesta)
         {
             if (File.Exists(cesta))
             {
                 string jsonString = File.ReadAllText(cesta);
-                moje = System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString)!;
+                moje = System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString);
             }
         }
 
-        public static T LoadJson<T>(string cesta) where T : class
+        public static T LoadFileJson<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
             {
@@ -282,7 +282,7 @@ namespace XMLTabulka1
         }
 
         /// <summary>Načte soubor z cesta a deserializuje dle T třídy. Pozor třída nemsmí mýt vnořené třídy asi generika </summary>
-        public static List<T> LoadJsonList<T>(string cesta) where T : class
+        public static List<T> LoadFileJsonList<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
             {
@@ -290,14 +290,26 @@ namespace XMLTabulka1
                 List<T> moje = System.Text.Json.JsonSerializer.Deserialize<List<T>>(jsonString)!;
                 return moje;
             }
-            return new();
+            return [];
+        }
+
+        /// <summary>Načte soubor z cesta a deserializuje dle T třídy. Pozor třída nemsmí mýt vnořené třídy asi generika </summary>
+        public static T LoadJson<T>(string cesta) where T : class
+        {
+            if (File.Exists(cesta))
+            {
+                string jsonString = File.ReadAllText(cesta);
+                T moje = System.Text.Json.JsonSerializer.Deserialize<T>(jsonString)!;
+                return moje;
+            }
+            return null;
         }
 
         public static List<T> LoadXML<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
             {
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<T>),
+                var xmlSerializer = new XmlSerializer(typeof(List<T>),
                 new XmlRootAttribute("SEZNAM"));
                 var reader = new StreamReader(cesta);
                 List<T> Pole = (List<T>)xmlSerializer.Deserialize(reader);
@@ -311,7 +323,7 @@ namespace XMLTabulka1
                 //xmlSerializer.Deserialize(reader);  
 
             }
-            return new();
+            return [];
         }
 
         /// <summary> serializace List<MojeZakazky> a uložení do souboru. </summary>
@@ -340,7 +352,7 @@ namespace XMLTabulka1
         /// <summary> Převod DataTable na Json definovany <T>  </summary>
         public static List<T> DataTabletoJson<T>(this DataTable table)
         {
-            List<T> teZaks = new List<T>();
+            var teZaks = new List<T>();
 
             foreach (DataRow row in table.Rows)
             {
@@ -445,7 +457,7 @@ namespace XMLTabulka1
             {
                 Pole += item.ColumnName + ";";
             }
-            sw.WriteLine(Pole.Substring(0,Pole.Length-1));
+            sw.WriteLine(Pole[..^1]);
 
             foreach (DataRow item in Table.Rows)
             {
@@ -463,7 +475,7 @@ namespace XMLTabulka1
                     else
                         Pole += item[col].ToString() + ";";
                 }
-                sw.WriteLine(Pole.Substring(0, Pole.Length-1));
+                sw.WriteLine(Pole[..^1]);
             }
         }
 
@@ -472,7 +484,7 @@ namespace XMLTabulka1
         /// </summary>
         public static T DataRowToObject<T>(this DataRow dataRow) where T : new()
         {
-            T obj = new T();
+            var obj = new T();
 
             foreach (DataColumn column in dataRow.Table.Columns)
             {
@@ -495,7 +507,7 @@ namespace XMLTabulka1
         public static DataRow ObjectToDataRow<T>(this T obj) where T : class
         {
             // Vytvoříme DataTable pro uchování hodnot třídy
-            DataTable dataTable = new DataTable();
+            var dataTable = new DataTable();
 
             // Získáme vlastnosti třídy
             PropertyInfo[] properties = obj.GetType().GetProperties();
@@ -551,11 +563,12 @@ namespace XMLTabulka1
                 parent.Add(element);
             }
         }
-        public static void Pruzkumnik()
+        public static void StartAplikace(string Aplikace)
         {
             try
             {
-                Process.Start("explorer.exe", Cesty.AdresarSpusteni);
+                //Process.Start("explorer.exe", Cesty.AdresarSpusteni);
+                Process.Start(Aplikace);
             }
             catch (Exception ex)
             {

@@ -35,7 +35,7 @@ namespace LibraryAplikace
         {
             if (!File.Exists(Cesty.PodporaDataJson))
             {
-                List<MojeZakazky> moje = new();
+                List<MojeZakazky> moje = [];
                 moje.SaveJson(Cesty.PodporaDataJson);
             }
             //if (!File.Exists(Cesty.PodporaDataXml))
@@ -51,7 +51,7 @@ namespace LibraryAplikace
             //    docnew.Save(Cesty.PodporaDataXml);
             //}
 
-            List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
+            List<MojeZakazky> mojelist = XMLTabulka1.Soubor.LoadFileJsonList<MojeZakazky>(Cesty.PodporaDataJson);
             MojeZakazky nove = new()
             {
                 CisloProjektu = InfoProjekt.CisloProjektu,
@@ -78,8 +78,8 @@ namespace LibraryAplikace
         {
             if (true)
             {
-                var tezak = await API.LoadJsonAPIJeden<TeZak>($"api/Tezak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
-                if (tezak == null) return null;
+                var tezak = await API.APIJson<TeZak>($"api/Tezak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
+                if (tezak == null) return [];
                 InfoProjekt.CisloProjektu = tezak.C_PROJ;
                 InfoProjekt.Projekt = tezak.NAZ_PROJ;
             }
@@ -98,7 +98,7 @@ namespace LibraryAplikace
             //if (File.Exists(Cesty.PodporaDataXml) == false) return new();
             //List<MojeZakazky> Pole = MojeZakazkyListXML();
             //List<MojeZakazky> mojelist = new();
-            var mojelist = XMLTabulka1.Soubor.LoadJsonList<MojeZakazky>(Cesty.PodporaDataJson);
+            var mojelist = XMLTabulka1.Soubor.LoadFileJsonList<MojeZakazky>(Cesty.PodporaDataJson);
             return mojelist;
         }
 
@@ -124,7 +124,7 @@ namespace LibraryAplikace
                 rdr.Close();
                 fs.Close();
 
-                Dictionary<string, string> ListZak = new();
+                Dictionary<string, string> ListZak = [];
                 XmlElement? room = doc.DocumentElement;
                 if (room == null) return;
                 foreach (XmlNode sd in room.ChildNodes)

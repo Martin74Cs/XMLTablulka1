@@ -26,7 +26,7 @@ namespace WFForm
                         break;
                     case 1:
                         teZak = new TeZak() { C_PROJ = N.Text };
-                        querry = await API.LoadJsonAPI<TeZakHodnota>($"api/TeZak/Projekt/{N.Text}");
+                        querry = await API.APIJsonList<TeZakHodnota>($"api/TeZak/Projekt/{N.Text}");
                         foreach (TeZakHodnota item in querry)
                             N.Nodes.Add(Sloupec.C_UKOL, item.Hodnota);
                         N.Expand();

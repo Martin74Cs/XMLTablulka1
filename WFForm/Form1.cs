@@ -30,30 +30,13 @@ namespace WFForm
 
             if (true)
             {
-                Form form = new() 
-                {
-
-                };
-
-                ProgressBar bar = new()
-                {
-                    Minimum = 0,
-                    Maximum = 100,
-                    Style = ProgressBarStyle.Continuous,
-                    Height = 25
-
-                };
-                
-                this.Controls.Add(bar);
-                bar.Show();
-
-                IProgress<int> progress = new Progress<int>(x => { bar.Value = x; });
-                
-
+                var Akt = Aktualizuj.Text();
                 TreeView1.Nodes.Clear();
                 foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
                     TreeView1.Nodes.Add("C_PROJ", item);
                 ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
+                Akt.Visible = false;
+                Akt.Close();
             }
             else
             {
@@ -144,7 +127,7 @@ namespace WFForm
             {
                 //plat9 pro restAPI
                 //var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
-                TeZak teZak = await API.LoadJsonAPIJeden<TeZak>($"/api/tezak/Apid/{Apid}");
+                TeZak teZak = await API.APIJson<TeZak>($"/api/tezak/Apid/{Apid}");
                 if (teZak == null) return;
                 //teZak.SaveJson(Cesty.JedenRadekJson);
                 switch (teZak.EXT.ToUpperInvariant())
@@ -324,7 +307,7 @@ namespace WFForm
                     TreeView1.TopNode = item;
                     if (true)
                     {
-                        List<TeZak> TableJson = await API.LoadAPI<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                        List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
                         DataGridView1.Vypis(TableJson);
                         break;
                     }

@@ -37,7 +37,7 @@ namespace XMLTabulka1
 
         public async Task<string[]> RestApiListZakazky()
         {
-            List<TeZakHodnota> data = await API.API.LoadAPI<TeZakHodnota>("api/tezak/ListZakazky");
+            List<TeZakHodnota> data = await API.API.APIJsonList<TeZakHodnota>("api/tezak/ListZakazky");
             string[] Hromada = data.Select(x => x.Hodnota).ToArray();
             return Hromada;
         }
