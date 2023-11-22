@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XMLTabulka1
+namespace XMLTabulka1.Trida
 {
     [Flags]
     public enum VyberSloupec

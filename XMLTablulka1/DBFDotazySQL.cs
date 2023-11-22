@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Text;
 using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
+using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
 {

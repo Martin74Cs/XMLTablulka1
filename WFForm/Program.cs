@@ -15,7 +15,7 @@ namespace WFForm
         static void Main()
         {
             //Kontrola nové verze programu pøes RestAPI
-            Kontrola();
+            Kontrola().Wait();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
@@ -24,30 +24,35 @@ namespace WFForm
             //Application.Exit();
         }
 
-        public async static void Kontrola()
+        public static async Task Kontrola()
         {
+            var aktualizuj = new Aktualizuj();
             //Kontrola nové verze programu pøes RestAPI
-            if (await Aktualizuj.NováVerze())
+            if (await aktualizuj.KontrolaVerze())
             {
-                var nova = Menu.NovaVerze();
-                if(nova = nova.bu)
-                var configuration = LoadKonfigurace();
-                // Pøíklad ètení hodnot
-                string CestaProInstal = configuration["CestaProInstal"];
-                if(File.Exists(CestaProInstal))
-                    Soubor.StartAplikace(CestaProInstal);
-                //Soubor.StartAplikace("explorer.exe");
-                Environment.Exit(0);
+                var menu = new Menu();
+                var Vyber =  menu.NováVerze(aktualizuj.Aktulni);
+                Vyber.Close();
+                if (menu.Dialog == DialogResult.OK)
+                { 
+                    // Pøíklad ètení hodnot
+                    var configuration = LoadKonfigurace(".appsettings.json");
+                    string CestaProInstal = configuration["CestaProInstal"];
+                    if(File.Exists(CestaProInstal))
+                        Soubor.StartAplikace(CestaProInstal);
+
+                    //Soubor.StartAplikace("explorer.exe");
+                    Environment.Exit(0);
+                }
+                //pokraèuje bez Aktualizace
             }
         }
 
-
-
-        public static IConfigurationRoot LoadKonfigurace()
+        public static IConfigurationRoot LoadKonfigurace(string Cesta)
         {
             IConfigurationRoot configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile(".appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
                 .Build();
 
             return configuration;

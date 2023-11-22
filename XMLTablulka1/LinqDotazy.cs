@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using XMLTabulka1.Trida;
 
 namespace XMLTabulka1
 {
