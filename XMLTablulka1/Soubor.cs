@@ -563,12 +563,13 @@ namespace XMLTabulka1
                 parent.Add(element);
             }
         }
-        public static void StartAplikace(string Aplikace)
+        public static void StartAplikace(string Aplikace, string Cesta)
         {
+            //Process.Start(Aplikace, Cesta);
             try
             {
                 //Process.Start("explorer.exe", Cesty.AdresarSpusteni);
-                Process.Start(Aplikace);
+                Process.Start(Aplikace, Cesta);
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ namespace XMLTabulka1.Trida
     public class ProgramInfo
     {
         public string Version { get; set; } = string.Empty;
-        public string ReleaseDate { get; set; } = string.Empty;
-        public string DownloadUrl { get; set; } = string.Empty;
+        public DateTime ReleaseDate { get; set; } = DateTime.Now;
+        public Uri DownloadUrl { get; set; } 
     }
 }

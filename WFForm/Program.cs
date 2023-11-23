@@ -31,15 +31,17 @@ namespace WFForm
             if (await aktualizuj.KontrolaVerze())
             {
                 var menu = new Menu();
-                var Vyber =  menu.NováVerze(aktualizuj.Aktulni);
-                Vyber.Close();
+                var Vyber =  menu.NováVerze(aktualizuj.Nova);
+                //Vyber.Close();
                 if (menu.Dialog == DialogResult.OK)
-                { 
+                {
                     // Pøíklad ètení hodnot
-                    var configuration = LoadKonfigurace(".appsettings.json");
-                    string CestaProInstal = configuration["CestaProInstal"];
-                    if(File.Exists(CestaProInstal))
-                        Soubor.StartAplikace(CestaProInstal);
+                    var configuration = LoadKonfigurace("appsettings.json");//.GetConnectionString("CestaProInstal");
+                    var test = configuration.GetConnectionString("AdresaRestApi");
+                    string AplikaceInstal = configuration["ConnectionStrings:AplikaceInstal"];
+                    string AdresarCestaSpuštìní = Cesty.AdresarSpusteni;
+                    if(File.Exists(AplikaceInstal))
+                        Soubor.StartAplikace(AplikaceInstal, AdresarCestaSpuštìní);
 
                     //Soubor.StartAplikace("explorer.exe");
                     Environment.Exit(0);
@@ -54,6 +56,11 @@ namespace WFForm
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
                 .Build();
+
+            //IConfigurationRoot configuration = new ConfigurationBuilder()
+            //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            //    .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
+            //    .Build();
 
             return configuration;
         }

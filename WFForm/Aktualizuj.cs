@@ -13,7 +13,7 @@ namespace WFForm
 {
     public class Aktualizuj
     {
-        public ProgramInfo Aktulni { get; set; }
+        public ProgramInfo Nova { get; set; }
 
         /// <summary>
         /// Otevri umístění databaze pro vytvoření kopie
@@ -43,11 +43,11 @@ namespace WFForm
         public async Task<bool> KontrolaVerze()
         {
             //načtení manifestu z restApi
-            ProgramInfo Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
+            Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
             if (Nova == null) return false;
 
             //načtení z manifestu ze souboru
-            Aktulni = Soubor.LoadJson<ProgramInfo>(Cesty.Manifest);
+            ProgramInfo Aktulni = Soubor.LoadJson<ProgramInfo>(Cesty.Manifest);
             if (Aktulni == null)
             {
                 Nova.SaveJson(Cesty.Manifest);

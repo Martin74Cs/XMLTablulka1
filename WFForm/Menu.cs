@@ -61,7 +61,9 @@ namespace WFForm
                 Location = new Point(13, 60),
                 Name = "Aktualizace",
                 Font = new Font("Segoe UI", 12F),
-                Text = "Byla vydána nová verze " + info.Version.ToString() + "\n" + "Ze dne " + info.ReleaseDate.ToString(),
+                Text = "Byla vydána nová verze " + info.Version.ToString() + "\n" +
+                "Ze dne " + info.ReleaseDate.ToString("dd.MM.yyyy") + "\n" +
+                "v " + info.ReleaseDate.ToString("HH:mm:ss"),
                 Size = new Size(300, 100),
             };
 
@@ -73,7 +75,6 @@ namespace WFForm
                 Size = new Size(100, 30),
                 Text = "Aktualizuj",
             };
-            Aktualizuj.Click += Aktualizuj_klik;
 
             System.Windows.Forms.Button Přeskočit = new()
             {
@@ -83,7 +84,6 @@ namespace WFForm
                 Size = new Size(100, 30),
                 Text = "Přeskočit",
             };
-            Přeskočit.Click += Přeskočit_klik;
 
             Form form = new()
             {
@@ -98,10 +98,12 @@ namespace WFForm
             form.Controls.Add(Aktualizuj);
             form.Controls.Add(Přeskočit);
 
-            //form.ShowDialog();
+            Aktualizuj.Click += Aktualizuj_klik;
+            Přeskočit.Click += Přeskočit_klik;
 
             //form.Visible = true;
             //form.TopMost = true;
+            Okno = form;
             form.ShowDialog();
             return form;
         }
@@ -110,12 +112,14 @@ namespace WFForm
         {
             Console.WriteLine("Tlačítko bylo stisknuto!");
             Dialog = DialogResult.OK;
+            Okno.Close();
         }
 
         public void Přeskočit_klik(object sender, EventArgs e)
         {
             Console.WriteLine("Tlačítko bylo stisknuto!");
             Dialog = DialogResult.Cancel;
+            Okno.Close();
         }
 
     }
