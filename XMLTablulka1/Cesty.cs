@@ -46,8 +46,16 @@ namespace XMLTabulka1
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
         //#else
 
-        public static string AdresarDebugWFForm = @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
-
+        public static string AdresarDebugWFForm
+        {
+            get 
+            {
+                if(Environment.MachineName == "KANCELAR")
+                    return @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+                else
+                   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+            }
+        }
 
         public static string ZIP
         {

@@ -34,10 +34,14 @@ namespace Instal
            
 #if DEBUG
             //Spuštení programu TeZak
-            Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
+            if(Environment.MachineName == "KANCELAR")
+                Cesta = @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\WFForm.exe";
+            else
+                Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
 #else
             string soubor = "WFForm.exe";
-            Cesta = Path.Combine(Cesty.AdresarSpusteni, soubor);
+            string nadrazen = Path.GetDirectoryName(Cesty.AdresarSpusteni)
+            Cesta = Path.Combine(nadrazen, soubor);
 #endif
             if (File.Exists(Cesta))
                 Soubor.StartAplikace(Cesta, "");
