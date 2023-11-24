@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Xml.Linq;
 using XMLTabulka1;
+using XMLTabulka1.Trida;
 
 public class Kontroly
 {

@@ -9,10 +9,11 @@ using XMLTabulka1.Trida;
 
 namespace WFForm
 {
-    public class Menu
+    public partial class Menu
     {
         public DialogResult Dialog { get; set; }
         public Form Okno { get; set; }
+        public string Tlacitko { get; set; } = string.Empty;
         public static Form Aktualizuj()
         {
             System.Windows.Forms.ProgressBar bar = new()
@@ -44,16 +45,16 @@ namespace WFForm
             };
             form.Controls.Add(bar);
             form.Controls.Add(label);
-            //form.ShowDialog();
-
             bar.Value = bar.Maximum;
-
             form.Visible = true;
             form.Show();
             form.TopMost = true;
-
             return form;
         }
+    }
+
+    public partial class Menu
+    {
         public Form NováVerze(ProgramInfo info)
         {
             System.Windows.Forms.Label Label = new()
@@ -122,5 +123,101 @@ namespace WFForm
             Okno.Close();
         }
 
+    }
+
+    public partial class Menu
+    {
+        public Form Instalace(ProgramInfo info)
+        {
+            Form form = new()
+            {
+                AutoScaleDimensions = new SizeF(7F, 15F),
+                AutoScaleMode = AutoScaleMode.Font,
+                ClientSize = new Size(614, 178),
+                BackgroundImageLayout = ImageLayout.Center,
+                FormBorderStyle = FormBorderStyle.FixedSingle,
+                StartPosition = FormStartPosition.CenterScreen,
+            };
+
+            System.Windows.Forms.Label LCesta = new()
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+                Location = new Point(12, 97),
+                Name = "Cesta",
+                Size = new Size(122, 21),
+                Text = "Cesta programu",
+            };
+
+
+            System.Windows.Forms.TextBox TCesta = new()
+            {
+                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
+                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+                Location = new Point(138, 94),
+                Name = "Text",
+                Size = new Size(427, 29),
+                Text = "Cesta není nastavena",
+            };
+
+            System.Windows.Forms.Label LVerze = new()
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+                Location = new Point(12, 65),
+                Name = "label3",
+                Size = new Size(84, 21),
+                Text = "Verze",
+            };
+
+            System.Windows.Forms.Button BInstalovat = new()
+            {
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+                Location = new Point(509, 135),
+                Name = "Instalovat",
+                Size = new Size(102, 31),
+                Text = "Instalovat",
+                UseVisualStyleBackColor = true,
+            };
+
+            System.Windows.Forms.Button BProchazet = new()
+            {
+                Anchor = AnchorStyles.Top | AnchorStyles.Right,
+                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+                Location = new Point(577, 93),
+                Name = "Prochazet",
+                Size = new Size(34, 31),
+                Text = "...",
+                UseVisualStyleBackColor = true,
+            };
+
+            BInstalovat.Click += BInstalovat_klik;
+            BProchazet.Click += BProchazet_klik;
+
+            form.Controls.Add(LVerze);
+            form.Controls.Add(LCesta);
+            form.Controls.Add(TCesta);
+            form.Controls.Add(BInstalovat);
+            form.Controls.Add(BProchazet);
+
+            Okno = form;
+            form.ShowDialog();
+            return form;
+        }
+
+        public void BInstalovat_klik(object sender, EventArgs e)
+        {
+            //Console.WriteLine("Tlačítko bylo stisknuto!");
+            Dialog = DialogResult.OK;
+            Okno.Close();
+        }
+
+        public void BProchazet_klik(object sender, EventArgs e)
+        {
+            //Console.WriteLine("Tlačítko bylo stisknuto!");
+            Dialog = DialogResult.OK;
+            Okno.Close();
+        }
     }
 }

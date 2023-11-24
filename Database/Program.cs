@@ -32,7 +32,7 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 SQL.Databaze().SaveTXT(Cesty.SQL3DPlant);
 
 Console.WriteLine("--------------------------------------------------------");
-Console.WriteLine("PODÍVEJ SE JAKÉ POLE CHCEŠ ABY OBSAHOVALA NOVÁ DATABÁZE ");
+Console.WriteLine("PODÍVEJ SE JAKÉ POLE (SLoupce) CHCEŠ ABY OBSAHOVALA NOVÁ DATABÁZE ");
 Console.WriteLine("-------------------- T E Z A K -------------------------");
 Console.WriteLine("--------------------------------------------------------");
 Console.WriteLine("Převod dbf na SQL ANO/NE");

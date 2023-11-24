@@ -68,6 +68,7 @@ namespace WFForm
             else if (result > 0)
             {
                 //novejší
+                Nova.SaveJson(Cesty.Manifest);
                 return true;
             }
             else
