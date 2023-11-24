@@ -39,12 +39,28 @@ namespace XMLTabulka1
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
-//#if DEBUG
+        //#if DEBUG
         //public static string Pomoc => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Pomoc"));
 
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
-//#else
+        //#else
+
+        public static string AdresarDebugWFForm = @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+
+
+        public static string ZIP
+        {
+            get
+            {
+                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "Zip.zip");
+                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+
+
         public static string Pomoc  
         {
             get {

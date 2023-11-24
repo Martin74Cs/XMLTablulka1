@@ -31,18 +31,26 @@ namespace WFForm
             if (await aktualizuj.KontrolaVerze())
             {
                 var menu = new Menu();
-                var Vyber =  menu.NováVerze(aktualizuj.Nova);
+                var Vyber = menu.NováVerze(aktualizuj.Nova);
                 //Vyber.Close();
                 if (menu.Dialog == DialogResult.OK)
                 {
                     // Pøíklad ètení hodnot
                     var configuration = LoadKonfigurace("appsettings.json");//.GetConnectionString("CestaProInstal");
-                    var test = configuration.GetConnectionString("AdresaRestApi");
+                    var test = configuration.GetConnectionString("RestApi");
                     string AplikaceInstal = configuration["ConnectionStrings:AplikaceInstal"];
                     string AdresarCestaSpuštìní = Cesty.AdresarSpusteni;
-                    if(File.Exists(AplikaceInstal))
-                        Soubor.StartAplikace(AplikaceInstal, AdresarCestaSpuštìní);
 
+#if DEBUG
+                    //Spuštení instalaènímu programu
+                    string Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Instal\bin\Debug\net8.0-windows\Instal.exe";
+#else
+                    string soubor = "Instal.exe";
+                    string Cesta = Path.Combine(Cesty.AdresarSpusteni,"Instal", soubor);
+#endif
+
+                    if (File.Exists(Cesta))
+                        Soubor.StartAplikace(Cesta, "");
                     //Soubor.StartAplikace("explorer.exe");
                     Environment.Exit(0);
                 }
