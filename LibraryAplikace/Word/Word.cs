@@ -120,13 +120,12 @@ namespace XMLTabulka1.Word
             WordPodpora app = new();
 
             string Adresar = Path.GetDirectoryName(teZak.PATH);
-            string Pripona = teZak.EXT;
+            //string Pripona = teZak.EXT;
             string JmenoSouboru = teZak.FPC;
+
             string cesta = string.Empty;
-
-
             //ZMĚNA PŘÍPONY
-            if (Pripona.ToLowerInvariant() == "doc")
+            if (teZak.EXT.ToLowerInvariant() == "doc")
                 cesta = Path.Combine(Adresar, JmenoSouboru + ".docx");
 
             //možná ješte jednou kontrola existence pokud došlo ke změně písmena

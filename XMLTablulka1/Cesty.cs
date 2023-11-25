@@ -10,7 +10,8 @@ namespace XMLTabulka1
     public static class Cesty
     {
         //Cesty k souborum Acad
-        public static string Acad => Podpora + @"\Acad";
+        public static string Acad => Path.Combine(Podpora, "Acad"); // Podpora + @"\Acad";
+        public static string Word => Path.Combine(Podpora, "Word");
         public static string SablonaDwg => Acad + @"\Sablona.dwg";
 
         //Cesty k podpůrným souborum

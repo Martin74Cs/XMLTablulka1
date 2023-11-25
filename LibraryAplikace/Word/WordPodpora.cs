@@ -17,16 +17,17 @@ namespace XMLTabulka1.Word
         public string UTAJENI { set; get; } = string.Empty;
         public string STUPEN { set; get; } = string.Empty;
         public string STATUS { set; get; } = string.Empty;
-        public static string SouborExe => System.Reflection.Assembly.GetExecutingAssembly().Location??string.Empty;
-        public static string AdresarSpusteni => Path.GetDirectoryName(SouborExe);
-        public static string? AktualniAdresar => Environment.CurrentDirectory;
-        public static string? Word => Path.Combine(AdresarSpusteni, @"Word");
-        public static string CestaAdresar()
-        {
-            //cesta k projektu
-            string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            return System.IO.Path.GetDirectoryName(path);
-        }
+
+        //public static string SouborExe => System.Reflection.Assembly.GetExecutingAssembly().Location??string.Empty;
+        //public static string AdresarSpusteni => Path.GetDirectoryName(SouborExe);
+        //public static string? AktualniAdresar => Environment.CurrentDirectory;
+        //public static string? Word => Path.Combine(AdresarSpusteni, @"Word");
+        //public static string CestaAdresar()
+        //{
+        //    //cesta k projektu
+        //    string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        //    return System.IO.Path.GetDirectoryName(path);
+        //}
 
         /// <summary>
         /// Nový dokumet word vyplnění razítka
@@ -110,7 +111,7 @@ namespace XMLTabulka1.Word
                     return false;
                 }
 
-                string csv = Word + @"\word_data1.csv";
+                string csv = Path.Combine(Cesty.Word , "word_data1.csv");
                 Hlas = Soubor.NactiCSV(csv);
                 if (Hlas == null) return false;
 

@@ -151,7 +151,7 @@ namespace LibraryAplikace
                 WordPodpora word = new();
                 //string CestaZdroj = word.CestaAdresar() + "\\Sablony\\titlist1.doc";
 
-                string CestaZdroj = WordPodpora.Word + @"/VZOR.docx";
+                string CestaZdroj = Path.Combine(Cesty.Word, "VZOR.docx");
                 if (System.IO.File.Exists(CestaCil))
                 {
                     Console.WriteLine("\nCesta : " + CestaCil);
