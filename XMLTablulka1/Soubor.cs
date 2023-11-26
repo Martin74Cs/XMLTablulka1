@@ -255,10 +255,11 @@ namespace XMLTabulka1
         public static bool LoadSaveJson(this DataTable Table)
         {
             string temp = JsonConvert.SerializeObject(Table);
-            Soubor.SaveTXT(Table, Cesty.Pomoc + @"\Json.txt");
+            Table.SaveTXT(Path.Combine(Cesty.Pomoc, "Json.txt"));
             DataTable Nove = (DataTable)JsonConvert.DeserializeObject(temp, typeof(DataTable) );
-            Soubor.SaveTXT(Nove, Cesty.Pomoc + @"\JsonnNew.txt");
-             return true;
+            Nove.SaveTXT(Path.Combine(Cesty.Pomoc , "JsonnNew.txt"));
+            //Soubor.SaveTXT(Nove, Cesty.Pomoc + @"\JsonnNew.txt");
+            return true;
         }
 
         public static void LoadJsonMoje(this List<MojeZakazky> moje, string cesta)
@@ -266,7 +267,7 @@ namespace XMLTabulka1
             if (File.Exists(cesta))
             {
                 string jsonString = File.ReadAllText(cesta);
-                moje = System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString);
+                System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString);
             }
         }
 

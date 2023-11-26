@@ -30,7 +30,7 @@ namespace WFForm
             //XMLTabulka1.Cesty.Nastavit();
             var Akt = Menu.Aktualizuj();
             TreeView1.Nodes.Clear();
-            foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
+            foreach (string item in await XMLTabulka1.Aktualizuj.RestApiListZakazky())
                 TreeView1.Nodes.Add("C_PROJ", item);
             ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
             Akt.Visible = false;
@@ -197,19 +197,19 @@ namespace WFForm
         {
             string Cesta = Aktualizuj.OpenDataze();
             var Aktu = Menu.Aktualizuj();
-            await new XMLTabulka1.Aktualizuj().SmazatSoubory(Cesta);
+            await XMLTabulka1.Aktualizuj.SmazatSoubory(Cesta);
             Aktu.Close();
             //Aktu.Dispose();
 
-            new XMLTabulka1.Aktualizuj().AktualizujData();
+            XMLTabulka1.Aktualizuj.AktualizujData();
 
             TreeView1.Nodes.Clear();
-            foreach (string item in await new XMLTabulka1.Aktualizuj().RestApiListZakazky())
+            foreach (string item in await XMLTabulka1.Aktualizuj.RestApiListZakazky())
                 //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                 TreeView1.Nodes.Add("C_PROJ", item);
             //}
 
-            table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+            table = DbfDotazySQL.HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
             DataGridView1.Vypis(table);
         }
 

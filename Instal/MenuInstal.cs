@@ -9,7 +9,7 @@ namespace Instal
     public  class MenuInstal
     {
         public DialogResult Dialog { get; set; }
-        public Form Okno { get; set; }
+        public Form Okno { get; set; } = new Form();
         public string Tlacitko { get; set; } = string.Empty;
         public static Form Aktualizuj()
         {

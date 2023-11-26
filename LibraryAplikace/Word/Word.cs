@@ -17,7 +17,8 @@ namespace XMLTabulka1.Word
         public static async void Doc(string cesta, string XML)
         {
             WordPodpora app = new();
-            bool Volba = await app.NovyDoc(cesta, XML);
+            //bool Volba = await app.NovyDoc(cesta, XML);
+            await app.NovyDoc(cesta, XML);
             return;
         }
 
@@ -34,22 +35,22 @@ namespace XMLTabulka1.Word
             //kontrola navayných cesta a jiné umístění souboru v podsložkách
             List<string> SouboryList = new SouborApp().HledejZdaExistujeSoubor(Cesta);
             if (SouboryList == null || SouboryList.Count() < 1) { return null; }
-            List<string> result = new();
+            List<string> result = [];
             string[] Pripona = null;
             switch (dokument)
             {
                 case Dokument.Word:
-                    Pripona = new string[] { ".doc", ".docx" };
+                    Pripona = [".doc", ".docx"];
 
                     break;
                 case Dokument.Exel:
-                    Pripona = new string[] { ".xls", ".xlsx" };
+                    Pripona = [".xls", ".xlsx"];
                     break;
                 case Dokument.Autocad:
-                    Pripona = new string[] { ".dwg" };
+                    Pripona = [".dwg"];
                     break;
                 case Dokument.Pdf:
-                    Pripona = new string[] { ".dwg" };
+                    Pripona = [".dwg"];
                     break;
                 default:
                     break;
@@ -73,7 +74,7 @@ namespace XMLTabulka1.Word
             [System.Runtime.InteropServices.DllImport("user32.dll")]
             static extern bool SetForegroundWindow(IntPtr hWnd);
 
-            Process[] proce = Process.GetProcesses();
+            //Process[] proce = Process.GetProcesses();
             Process[] processes = Process.GetProcessesByName(NazevProcesu);
             if (processes.Length > 0)
             {
@@ -149,7 +150,7 @@ namespace XMLTabulka1.Word
             string kořenovýAdresář = Path.GetPathRoot(cesta);
 
             // Získání zbytku cesty bez kořenového adresáře
-            string zbytekCesty = cesta.Substring(kořenovýAdresář.Length);
+            string zbytekCesty = cesta[kořenovýAdresář.Length..];
 
             // Vytvoření nové cesty s novým diskovým písmenem
             return Path.Combine("C:", zbytekCesty);

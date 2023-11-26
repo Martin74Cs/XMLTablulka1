@@ -120,9 +120,9 @@ namespace XMLTabulka1
         /// </summary>
         public static async Task DataSqlAdd()
         {
-            DbfDotazySQL sql = new();
+            //DbfDotazySQL sql = new();
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);
-            DataTable dt = sql.HledejVse();
+            DataTable dt = DbfDotazySQL.HledejVse();
             Console.WriteLine(" OK --");
             //var teZaks = data.DataTabletoJson<TeZak>();
 
@@ -241,9 +241,9 @@ namespace XMLTabulka1
                 Console.WriteLine("Databaze je OK");
             }
 
-            DbfDotazySQL sql = new();
+            //DbfDotazySQL sql = new();
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);     
-            DataTable dt = sql.HledejVse();
+            DataTable dt = DbfDotazySQL.HledejVse();
             Console.WriteLine(" OK --");
             //new Table
             //string strCreateColumns = "";
@@ -298,7 +298,7 @@ namespace XMLTabulka1
             //asi není dokončeno vložení jmen sloupcu do prvního radku 
 
             //vzor 
-            Regex regex = new("'");
+            var regex = new Regex("'");
             foreach (DataRow dr in dt.Rows)
             {
                 sqlString1 = "";
