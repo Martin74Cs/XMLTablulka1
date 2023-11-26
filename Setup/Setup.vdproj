@@ -21,13 +21,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_51169BF205224678A38D9CB9DCB3BC0E"
+        "MsmKey" = "8:_8EE7AA27287B4B07A83296F28DCBA45D"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_8EE7AA27287B4B07A83296F28DCBA45D"
+        "MsmKey" = "8:_9FE6CD25D6874C289CC2BBE1280C07ED"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -212,7 +212,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Database"
         "ProductCode" = "8:{E12E3BC0-67B2-4A26-9DB5-22D6582E8A7D}"
-        "PackageCode" = "8:{DF3E3202-F0C5-4979-AE99-F6EABFA0513C}"
+        "PackageCode" = "8:{013293EB-2CB8-430C-A11B-AAA58E9CA4DB}"
         "UpgradeCode" = "8:{70C26A01-A828-4996-987F-6AA649297B73}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -332,6 +332,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9FD45B0737DA49019E312D5BB63DE823"
+            {
+            "Name" = "8:Shortcut to %sPoložky publikování from ProgramFiles (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_9FE6CD25D6874C289CC2BBE1280C07ED"
+            "Folder" = "8:_155B6134DC0D43FAAE5D2E692D4B85C1"
+            "WorkingFolder" = "8:_C8E5498367904F4ABE09AA9574D1DEA3"
+            "Icon" = "8:_32FA8976CA6A4AFE96D0CEB0D1FC3CDE"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -731,34 +745,6 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_51169BF205224678A38D9CB9DCB3BC0E"
-            {
-            "SourcePath" = "8:..\\WFForm\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_C8E5498367904F4ABE09AA9574D1DEA3"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{3393136D-ED91-4C07-BC29-07C34B4DCBB8}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_8EE7AA27287B4B07A83296F28DCBA45D"
             {
             "SourcePath" = "8:..\\Instal\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
@@ -782,6 +768,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{E4D193CD-4855-4ACB-9758-33BC1B26F5D9}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9FE6CD25D6874C289CC2BBE1280C07ED"
+            {
+            "SourcePath" = "8:..\\ProgramFiles\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_C8E5498367904F4ABE09AA9574D1DEA3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{6FD0B051-41FB-49CA-9CD0-1920F46C8E30}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
