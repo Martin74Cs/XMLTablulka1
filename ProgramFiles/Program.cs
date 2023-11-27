@@ -1,18 +1,27 @@
 ﻿using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
-[DllImport("kernel32.dll")]
-static extern IntPtr GetConsoleWindow();
 
-[DllImport("user32.dll")]
-static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+//[DllImport("kernel32.dll")]
+//static extern IntPtr GetConsoleWindow();
 
-const int SW_HIDE = 0;
-const int SW_SHOW = 5;
+//[DllImport("user32.dll")]
+//static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-var handle = GetConsoleWindow();
-// Hide
-ShowWindow(handle, SW_HIDE);
+//const int SW_HIDE = 0;
+//const int SW_SHOW = 5;
 
-Process.Start(@"c:\Users\Martin\AppData\Roaming\TeZak\WFForm.exe");
-Environment.Exit(0);
+//var handle = GetConsoleWindow();
+//// Hide
+//ShowWindow(handle, SW_HIDE);
+try
+{
+	string AppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+	string StartSoubor = Path.Combine(AppData, "TeZak", @"WFForm.exe");
+	Process.Start(StartSoubor);
+	Environment.Exit(0);
+}
+catch (Exception)
+{
+    Environment.Exit(0);
+}
