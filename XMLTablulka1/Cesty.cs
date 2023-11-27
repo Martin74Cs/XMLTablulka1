@@ -48,7 +48,6 @@ namespace XMLTabulka1
 
         public static string AdresarDebugWFForm = @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
 
-
         public static string ZIP
         {
             get
