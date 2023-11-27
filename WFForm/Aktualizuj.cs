@@ -50,6 +50,7 @@ namespace WFForm
             ProgramInfo Aktulni = Soubor.LoadJson<ProgramInfo>(Cesty.Manifest);
             if (Aktulni == null)
             {
+                //pokud Manifest není vytvořit
                 Nova.SaveJson(Cesty.Manifest);
                 return false;
             }
@@ -68,7 +69,6 @@ namespace WFForm
             else if (result > 0)
             {
                 //novejší
-                Nova.SaveJson(Cesty.Manifest);
                 return true;
             }
             else

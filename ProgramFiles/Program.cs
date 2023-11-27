@@ -2,23 +2,27 @@
 using System.Reflection.Metadata;
 using System.Runtime.InteropServices;
 
-//[DllImport("kernel32.dll")]
-//static extern IntPtr GetConsoleWindow();
+Console.WriteLine("xxxxxxxxxxx");
 
-//[DllImport("user32.dll")]
-//static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+[DllImport("kernel32.dll")]
+static extern IntPtr GetConsoleWindow();
 
-//const int SW_HIDE = 0;
-//const int SW_SHOW = 5;
+[DllImport("user32.dll")]
+static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-//var handle = GetConsoleWindow();
-//// Hide
-//ShowWindow(handle, SW_HIDE);
+const int SW_HIDE = 0;
+const int SW_SHOW = 5;
+
+var handle = GetConsoleWindow();
+// Hide
+ShowWindow(handle, SW_HIDE);
 try
 {
-	string AppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+    //cesta nastavena podle uživatele do AppData/roaming
+	string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 	string StartSoubor = Path.Combine(AppData, "TeZak", @"WFForm.exe");
-	Process.Start(StartSoubor);
+    Console.WriteLine(StartSoubor);
+    Process.Start(StartSoubor);
 	Environment.Exit(0);
 }
 catch (Exception)

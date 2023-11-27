@@ -70,8 +70,8 @@ namespace Instal
                 //vytvoření souboru z proudu dat
                 File.WriteAllBytes(zipFilePath, fileBytes);
 
-                //Extrahování souborů z archivu přepsání souborů
-                System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit);
+                //Extrahování souborů z archivu, true - přepsání souborů,
+                System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
 
                 //Smazaní dočasného uložení
                 File.Delete(zipFilePath);

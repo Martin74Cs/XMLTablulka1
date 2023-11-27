@@ -29,7 +29,7 @@ Console.WriteLine("Soubor Pomoc " + Cesty.Pomoc);
 
 //funguje seznam tabulek SQL3DPlant
 //
-SQL.Databaze().SaveTXT(Cesty.SQL3DPlant);
+//SQL.Databaze().SaveTXT(Cesty.SQL3DPlant);
 
 Console.WriteLine("--------------------------------------------------------");
 Console.WriteLine("PODÍVEJ SE JAKÉ POLE (SLoupce) CHCEŠ ABY OBSAHOVALA NOVÁ DATABÁZE ");

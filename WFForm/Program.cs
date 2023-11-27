@@ -36,18 +36,22 @@ namespace WFForm
                 if (menu.Dialog == DialogResult.OK)
                 {
                     // Pøíklad ètení hodnot
-                    var configuration = LoadKonfigurace("appsettings.json");//.GetConnectionString("CestaProInstal");
-                    var test = configuration.GetConnectionString("RestApi");
-                    string AplikaceInstal = configuration["ConnectionStrings:AplikaceInstal"];
+                    //var configuration = LoadKonfigurace("appsettings.json");//.GetConnectionString("CestaProInstal");
+                    //var test = configuration.GetConnectionString("RestApi");
+                    //string AplikaceInstal = configuration["ConnectionStrings:AplikaceInstal"];
                     string AdresarCestaSpuštìní = Cesty.AdresarSpusteni;
 
 #if DEBUG
                     //Spuštení instalaènímu programu
-                    string Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Instal\bin\Debug\net8.0-windows\Instal.exe";
+                    //string Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Instal\bin\Debug\net8.0-windows\Instal.exe";
+                    string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    string Cesta = Path.Combine(AppData, "TeZak", "Instal", @"Instal.exe");
 #else
                     string soubor = "Instal.exe";
                     string Cesta = Path.Combine(Cesty.AdresarSpusteni,"Instal", soubor);
 #endif
+                    //Uložit nová verze Manifest
+                    aktualizuj.Nova.SaveJson(Cesty.Manifest);
 
                     if (File.Exists(Cesta))
                         Soubor.StartAplikace(Cesta, "");

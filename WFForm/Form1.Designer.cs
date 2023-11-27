@@ -115,7 +115,7 @@
             GroupBox1.Size = new Size(472, 184);
             GroupBox1.TabIndex = 2;
             GroupBox1.TabStop = false;
-            GroupBox1.Text = "Funkce";
+            GroupBox1.Text = "Vlastní zakázky :";
             // 
             // Button3
             // 
