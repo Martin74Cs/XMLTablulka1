@@ -105,8 +105,8 @@ namespace LibraryAplikace
             string Cesta = "";
             
             //Ve Adresár je aktuální adresář z cesty pokus
-            string? Adresar = new FileInfo(Cesta).DirectoryName;
-            Adresar = Path.GetDirectoryName(Cesta);
+            //string? Adresar = new FileInfo(Cesta).DirectoryName;
+            //Adresar = Path.GetDirectoryName(Cesta);
 
             //V disk je název disku např G:\ z cesty pokus
             DirectoryInfo disk = new DirectoryInfo(Cesta).Root;
@@ -151,7 +151,7 @@ namespace LibraryAplikace
                 WordPodpora word = new();
                 //string CestaZdroj = word.CestaAdresar() + "\\Sablony\\titlist1.doc";
 
-                string CestaZdroj = WordPodpora.Word + @"/VZOR.docx";
+                string CestaZdroj = Path.Combine(Cesty.Word, "VZOR.docx");
                 if (System.IO.File.Exists(CestaCil))
                 {
                     Console.WriteLine("\nCesta : " + CestaCil);

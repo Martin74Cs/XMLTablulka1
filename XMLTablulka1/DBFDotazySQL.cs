@@ -21,7 +21,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí tabulku celé databaze dbf
         /// </summary>
-        public DataTable HledejVse()
+        public static DataTable HledejVse()
         {
             string Dotaz = "SELECT * FROM TEZAK";
             //string Dotaz = "SELECT * FROM TEZAK ORDER BY GLOBALID ASC";
@@ -35,12 +35,12 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí Pole stringů názvy sloupců Databaze Tezek
         /// </summary>
-        public string[] SloupceTezak()
+        public static string[] SloupceTezak()
         {
             string Dotaz = "SELECT TOP 1 * FROM TEZAK";
             DataSet Data = Dbf.Pripoj(Dotaz);
             if (Data == null) throw new ArgumentNullException($"Podle {Data} krytérii nebyly nenalezeny záznamy");
-            List<string> Pole = new();
+            List<string> Pole = [];
             foreach (DataColumn item in Data.Tables[0].Columns)
             {
                 Pole.Add(item.ColumnName);
@@ -51,7 +51,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrati jeden radek dle podmínky SELECT TOP 1 *
         /// </summary>
-        public DataTable JedenTezak(string Hledej, string Polozka)
+        public static DataTable JedenTezak(string Hledej, string Polozka)
         {
             string Dotaz = $"SELECT TOP 1 * FROM TEZAK WHERE {Hledej} = '{Polozka}'";
             DataSet Data = Dbf.Pripoj(Dotaz);
@@ -62,7 +62,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium
         /// </summary>
-        public DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
+        public static DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
         {
             if (CisloProjektu == "") throw new Exception($"Číslo {CisloProjektu} nexistuje"); // return null;
             //string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY PCDOC";
@@ -76,7 +76,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium, 3.nazev sloupce, 4.kriterium
         /// </summary>
-        public DataTable HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
+        public static DataTable HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
         {
             if (PrvekText1 == "") throw new ArgumentNullException($"Číslo {PrvekText1} nexistuje");
             if (PrvekText2 == "") throw new ArgumentNullException($"Číslo {PrvekText2} nexistuje");
@@ -92,14 +92,14 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí neopakující se obsah zadaného nazvu sloupce. Řazení sestupně DESC.
         /// </summary>
-        public string[] SeznamJeden(VyberSloupec Prvek)
+        public static string[] SeznamJeden(VyberSloupec Prvek)
         {
             string Dotaz = $"SELECT DISTINCT {Prvek} FROM tezak  ORDER BY {Prvek} DESC";
-            DataSet data = Dbf.Pripoj(Dotaz);
+            var data = Dbf.Pripoj(Dotaz);
             if (data == null) throw new ArgumentNullException($"Podle {data} krytérii nebyl v databázi nenalezen žádný záznam");
             DataTable Table = new Cestina().Tabulka(data.Tables[0]);
 
-            Stack<string> Nazev = new Stack<string>();
+            var Nazev = new Stack<string>();
             foreach (DataRow item in Table.Rows)
             {
                 Nazev.Push(item[Prvek.ToString()].ToString().Trim());
@@ -113,7 +113,7 @@ namespace XMLTabulka1
         /// <summary>
         /// Hledej číslo dokumentu ve formatu T1234, N9876 
         /// </summary>
-        public DataTable HledejCislo(string HledejCislo)
+        public static DataTable HledejCislo(string HledejCislo)
         {
             if (HledejCislo == "") throw new ArgumentNullException($"Číslo {HledejCislo} nexistuje", HledejCislo); // return null;
             string TD = HledejCislo.First().ToString().ToUpper(); //první znak retezce

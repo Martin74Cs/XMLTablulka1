@@ -9,19 +9,19 @@ namespace XMLTabulka1
         /// <summary>
         /// Aktualizuje podpůrné soubory pro databazi
         /// </summary>
-        public void AktualizujData()
+        public static void AktualizujData()
         {
             //Načti seznam projektů Cesty.CislaProjektuTxt.
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
-                string[] Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.C_PROJ);
+                string[] Hromada = DbfDotazySQL.SeznamJeden(VyberSloupec.C_PROJ);
                 Hromada.SaveTXT(Cesty.CislaProjektuTxt);
                 InfoProjekt.CisloProjektu = Hromada.Last();
             }
 
             if (!File.Exists(Cesty.NazevProjektuTxt))
             {
-                string[]  Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.NAZ_PROJ);
+                string[]  Hromada = DbfDotazySQL.SeznamJeden(VyberSloupec.NAZ_PROJ);
                 Hromada.SaveTXT(Cesty.NazevProjektuTxt);
             }
 
@@ -35,14 +35,14 @@ namespace XMLTabulka1
             }
         }
 
-        public async Task<string[]> RestApiListZakazky()
+        public static async Task<string[]> RestApiListZakazky()
         {
             List<TeZakHodnota> data = await API.API.APIJsonList<TeZakHodnota>("api/tezak/ListZakazky");
             string[] Hromada = data.Select(x => x.Hodnota).ToArray();
             return Hromada;
         }
 
-        public string DatumTeZak()
+        public static string DatumTeZak()
         {
             if (File.Exists(Cesty.SouborTezakDbf))
             {
@@ -52,7 +52,7 @@ namespace XMLTabulka1
             return "Databaze v PC neexistuje.";
         }
 
-        public async Task SmazatSoubory(string Cesta)
+        public static async Task SmazatSoubory(string Cesta)
         {
             if (File.Exists(Cesta))
             {
@@ -72,7 +72,7 @@ namespace XMLTabulka1
             Console.WriteLine("pokracuj");
         }
 
-        public async Task Kopie()
+        public static async Task Kopie()
         {
             await Task.Delay(TimeSpan.FromSeconds(2));
             File.Copy(Cesty.ZdrojDbf, Cesty.SouborTezakDbf);
