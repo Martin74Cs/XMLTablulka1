@@ -180,7 +180,7 @@ namespace LibraryAplikace.Acad
             return Pole;
         }
 
-        public static bool VyberRazitkaAcad(AcadDocument app, List<DataRazítka> razítkas)
+        public static async Task<bool> VyberRazitkaAcad(AcadDocument app, List<DataRazítka> razítkas)
         {
             // Add tag info to the lists
             if (razítkas == null) return false;
@@ -196,6 +196,7 @@ namespace LibraryAplikace.Acad
             catch { }
 
             // Commands for ACAD
+
             if (app == null) return false;
 
             var myFilterType = new short[] { 0, 2 };

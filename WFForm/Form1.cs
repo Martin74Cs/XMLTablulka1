@@ -100,23 +100,73 @@ namespace WFForm
             switch (teZak.EXT.ToUpperInvariant())
             {
                 case "DWG":
-                    DialogResult result = MessageBox.Show("Byl vybrán soubor typu DWG. \nNázev vybraného souboru je: " + teZak.NAZEV
-                        + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
-                    //pokraèuje v komponentì Autocad
-                    //la.Program(Sloupec.CelyRadek);
-                    if (result == DialogResult.Yes)
-                    {
-                        //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
-                        //V seznamu jsou všechny typy souboru dwg, pdf, atd.
-                        List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
-                        List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).Equals(".DWG", StringComparison.InvariantCultureIgnoreCase)).ToList();
-                        //doplnit dialog výbìru souboru
 
-                        //pokud nexistuje bude vytvoøen
-                        string Cesta = SouborDwg.FirstOrDefault();
-                        Acad.Prace(teZak, Cesta);
+                    List<string> ListSouboraCAD = Word.ExistujeSouborPriponou(teZak.PATH, Word.Dokument.Autocad);
+                    if (ListSouboraCAD != null && ListSouboraCAD.Count > 0)
+                    {
+                        var FormAcad = new FormWord();
+                        FormAcad.listView1.AddListString(ListSouboraCAD);
+                        FormAcad.ShowDialog();
+                        switch (FormAcad.Volba)
+                        {
+                            case FormWord.Vyber.Vyvorit:
+                                if (File.Exists(teZak.PATH))
+                                {
+                                    var result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                    if (result == DialogResult.Yes)
+                                    {
+                                        //kontrola otevøeného souboru
+                                        if (File.Exists(teZak.PATH))
+                                        {
+                                            try { File.Delete(teZak.PATH); }
+                                            catch  {   MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); return; }
+                                        }
+                                    }
+                                    else
+                                    { return; }
+                                }
+                                //soubor neexistuje a bude vytvoøen
+                                Acad.Prace(teZak, teZak.PATH);
+                                break;
+                            case FormWord.Vyber.Cesta:
+                                //Soubor existuje a mùže být otevøen
+                                Acad.OtevøitExistujícíSouborAcad(teZak.PATH);
+                                break;
+                            default:
+                                break;
+                        }
+
 
                     }
+                    else
+                    {
+                        //soubor neexistuje
+                        DialogResult result1 = MessageBox.Show("SOUBOR NE-EXISTUJE \n Byl vybrán soubor " + teZak.NAZEV
+                            + "\nChceš vytvoøit dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                        //vytvoøit z databázové cesty
+                        if (result1 == DialogResult.Yes)
+                        {
+                            //soubor neexistuje a bude vytvoøen
+                            Acad.Prace(teZak, teZak.PATH);
+                        }
+                    }
+                    //DialogResult result = MessageBox.Show("Byl vybrán soubor typu DWG. \nNázev vybraného souboru je: " + teZak.NAZEV
+                    //    + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                    //pokraèuje v komponentì Autocad
+                    //la.Program(Sloupec.CelyRadek);
+                    //    if (result == DialogResult.Yes)
+                    //{
+                    //    //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
+                    //    //V seznamu jsou všechny typy souboru dwg, pdf, atd.
+                    //    List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
+                    //    List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).Equals(".DWG", StringComparison.InvariantCultureIgnoreCase)).ToList();
+                    //    //doplnit dialog výbìru souboru
+
+                    //    //pokud nexistuje bude vytvoøen
+                    //    string Cesta = SouborDwg.FirstOrDefault();
+                    //    Acad.Prace(teZak, Cesta);
+
+                    //}
                     break;
                 case "XLS":
                     MessageBox.Show("Byl vybrán soubor typu XLS " + teZak.NAZEV);
@@ -130,10 +180,37 @@ namespace WFForm
                         FormWord.ShowDialog();
                         if (FormWord.DialogResult == DialogResult.OK)
                         {
-                            teZak.PATH = FormWord.Cesta;
-                            //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                            if (!await Word.Doc(teZak))
-                                MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                            switch (FormWord.Volba)
+                            {
+                                case WFForm.FormWord.Vyber.Vyvorit:
+                                    //teZak.PATH = Path.ChangeExtension(teZak.PATH, ".docx");
+                                    //Kotrola existence dokumnetu
+                                    if (File.Exists(teZak.PATH) || File.Exists(Path.ChangeExtension(teZak.PATH, ".docx")))
+                                    {
+                                        var result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                        if (result == DialogResult.Yes)
+                                        {
+                                            if (File.Exists(teZak.PATH))
+                                                File.Delete(teZak.PATH);
+                                            if (File.Exists(Path.ChangeExtension(teZak.PATH, ".docx")))
+                                                File.Delete(Path.ChangeExtension(teZak.PATH, ".docx"));
+                                        }
+                                        else
+                                        { return; }
+                                    }
+                                    if (!await Word.VytvoøitDokumentDoc(teZak))
+                                        MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                    break;
+                                case WFForm.FormWord.Vyber.Cesta:
+                                    //Pokud byla zvolena cesta pro otevøení souboru
+                                    teZak.PATH = FormWord.Cesta;
+                                    //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                                    if (!await Word.OtevøiDokument(teZak))
+                                        MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                     else
@@ -144,7 +221,7 @@ namespace WFForm
                         //vytvoøit z databázové cesty
                         if (result1 == DialogResult.Yes)
                         { 
-                            if (!await Word.Doc(teZak))
+                            if (!await Word.OtevøiDokument(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                     }

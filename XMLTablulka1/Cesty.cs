@@ -8,7 +8,7 @@ namespace XMLTabulka1
         //Cesty k souborum Acad
         public static string Acad => Path.Combine(Podpora, "Acad"); // Podpora + @"\Acad";
         public static string Word => Path.Combine(Podpora, "Word");
-        public static string SablonaDwg => Acad + @"\Sablona.dwg";
+        public static string SablonaDwg => Path.Combine(Acad, @"Sablona.dwg");
 
         //Cesty k podpůrným souborum
         public static string CislaProjektuTxt => Pomoc + @"\CislaProjektů.txt";
@@ -22,8 +22,18 @@ namespace XMLTabulka1
         public static string PodporaSpolecneCsv => Podpora + @"\SPOLECNE2.csv";
         public static string PodporaDataXml => Podpora + @"\data.xml";
         public static string PodporaDataJson => Podpora + @"\data.json";
-        public static string Manifest => Podpora + @"\Manifest.json";       
+        public static string Manifest => Podpora + @"\Manifest.json";
+
+        public static string AdresarSpusteniNarazen => Path.GetFullPath(Path.Combine(AdresarSpusteni, ".."));
+
+        public static string ManifestInstal => Path.Combine(AdresarSpusteniNarazen, "Podpora", @"Manifest.json");
         public static string AktualniAdresar => Environment.CurrentDirectory;
+
+        public static string AppData => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        public static string AppDataTezak => Path.Combine(AppData, "TeZak");
+
+        public static string AppDataTezakWFForm => Path.Combine(AppDataTezak, "WFForm.exe");
 
         //D:\OneDrive\Databaze\Tezak\XMLTablulka1\Database\bin\Debug\net6.0\Database.exe
         public static string SouborExe => Environment.ProcessPath.ToString();

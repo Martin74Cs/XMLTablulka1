@@ -30,15 +30,16 @@
         {
             listView1 = new ListView();
             button1 = new Button();
+            label1 = new Label();
             SuspendLayout();
             // 
             // listView1
             // 
             listView1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            listView1.Location = new Point(14, 20);
+            listView1.Location = new Point(14, 36);
             listView1.Margin = new Padding(4);
             listView1.Name = "listView1";
-            listView1.Size = new Size(750, 171);
+            listView1.Size = new Size(750, 155);
             listView1.TabIndex = 0;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
@@ -53,11 +54,21 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(14, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(135, 21);
+            label1.TabIndex = 2;
+            label1.Text = "Nalezené soubory";
+            // 
             // FormWord
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(777, 259);
+            Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(listView1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
@@ -66,11 +77,13 @@
             Text = "Word";
             Load += FormWord_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         public ListView listView1;
         public Button button1;
+        private Label label1;
     }
 }

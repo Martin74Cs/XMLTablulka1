@@ -40,31 +40,42 @@ namespace LibraryAplikace
                 Delka = Soubor.Length;
             var Soubor6 = Soubor[..Delka].ToUpper();
 
-            //Procházení souboru
             string AktualniAdresar = Path.GetDirectoryName(JmenoSouboru);
             if (Directory.Exists(AktualniAdresar))
-            { 
-                foreach (var SouborJedna in Directory.GetFileSystemEntries(AktualniAdresar))
+            {
+                return Procházenísouboru(Soubor6, AktualniAdresar);
+            }
+            return [];
+        }
+
+        public List<string> Procházenísouboru(string Hledane, string JmenoSouboru)
+        {
+            List<string> listSouboru = [];
+            //Procházení souboru
+
+            foreach (var SouborJedna in Directory.GetFileSystemEntries(JmenoSouboru))
+            {
+                if (Directory.Exists(SouborJedna))
                 {
-                    if (Directory.Exists(SouborJedna))
-                    {
-                        List<string> listpomc = HledejZdaExistujeSoubor(SouborJedna);
-                        listSouboru.AddRange(listpomc);
-                    }
-                    else
-                    { 
-                        string test = Path.GetFileNameWithoutExtension(SouborJedna).ToUpper();
-                        if (test.Length > 6) 
-                            test = test[..Delka];
-                        if (test == Soubor6)
-                            listSouboru.Add(SouborJedna);
-                    }
+                    List<string> listpomc = Procházenísouboru(Hledane, SouborJedna);
+                    listSouboru.AddRange(listpomc);
+                }
+                else
+                {
+                    string test = Path.GetFileNameWithoutExtension(SouborJedna).ToUpper();
+                    int Delka = 6;
+                    if (test.Length > 6)
+                        test = test[..Delka];
+                    if (test == Hledane)
+                        listSouboru.Add(SouborJedna);
                 }
             }
+            
             return listSouboru;
         }
 
-        public List<string> HledejZdaExistujeSouborOld(string JmenoSouboru)
+
+            public List<string> HledejZdaExistujeSouborOld(string JmenoSouboru)
         {
             List<string> listSouboru = [];
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
