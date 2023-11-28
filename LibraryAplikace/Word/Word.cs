@@ -93,7 +93,7 @@ namespace XMLTabulka1.Word
             if (teZak == null) return false;
 
             //Kotrola existence dokumnetu
-            if (!File.Exists(teZak.PATH)) return false;
+            if (File.Exists(teZak.PATH)) return false;
 
             //Otevření aplikace Word
             //var WordApp = WordPodpora.WordApp1();
@@ -127,11 +127,15 @@ namespace XMLTabulka1.Word
         {
             await Task.Delay(1);
 
-            //ZMĚNA PŘÍPONY
-            string Adresar = Path.GetDirectoryName(teZak.PATH);
-            string JmenoSouboru = teZak.FPC;
-            if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
-                teZak.PATH = Path.Combine(Adresar, JmenoSouboru + ".docx");
+            //ZMĚNA NE UŽ BYL VYBRÁN SOUBOR
+            //POKUD NENÍ ZMĚNA PŘÍPONY
+            //if (!Path.GetExtension(teZak.PATH).Equals(".docx", StringComparison.InvariantCultureIgnoreCase))
+            //{ 
+            //    string Adresar = Path.GetDirectoryName(teZak.PATH);
+            //    string JmenoSouboru = teZak.FPC;
+            //    if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
+            //        teZak.PATH = Path.Combine(Adresar, JmenoSouboru + ".docx");
+            //}
 
             if (File.Exists(teZak.PATH))
             {

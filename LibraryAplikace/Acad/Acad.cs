@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
+using XMLTabulka1.Word;
 
 namespace LibraryAplikace.Acad
 {
@@ -12,23 +13,49 @@ namespace LibraryAplikace.Acad
         /// <summary>
         /// všechna prace s autocadem. Pokud soubor na cesta nexistuje bude vytvořen nový dokument dle šablony z dat teZak
         /// </summary>
-        public static void Prace(TeZak teZak, string Cesta)
+        public static void OtevřitExistujícíSouborAcad(string Cesta)
+        {
+            if (!File.Exists(Cesta)) return;
+            //soubor existuje a může být otevřen
+            //AcadDocument document = null;
+            //var AcadApp = OpenAcad();
+
+            ////hledej otevřený soubor
+            //foreach (AcadDocument item in AcadApp.Documents)
+            //{
+            //    if (item.FullName == Cesta)
+            //    {
+            //        item.Activate();
+            //        Word.Zobrazit("ACAD");
+            //        return;
+            //    }
+            //}
+            //Sooubor bude otevřen 
+            //AcadDocument document = Program(Cesta);
+            Program(Cesta);
+        }
+
+
+        /// <summary>
+        /// všechna prace s autocadem. Pokud soubor na cesta nexistuje bude vytvořen nový dokument dle šablony z dat teZak
+        /// </summary>
+        public static async void Prace(TeZak teZak, string Cesta)
         {
             AcadDocument document = null;
-            if (string.IsNullOrEmpty(Cesta))
+            if (!File.Exists(Cesta)) 
             {
                 document = VytvoritAcad(teZak.PATH);
                 //vyplnění razítka
             }
-            else
-            {
-                //soubor existuje a může být otevřen
-                document = Program(Cesta);
-            }
+            //else
+            //{
+            //    //soubor existuje a může být otevřen
+            //    document = Program(Cesta);
+            //}
             //možná další práce se souborem dwg
-            Razitko.Prenos(teZak);
+            //Razitko.Prenos(teZak);
             List<DataRazítka> datas = [];
-            Razitko.VyberRazitkaAcad(document, datas);
+            await Razitko.VyberRazitkaAcad(document, datas);
         }
 
         /// <summary>
@@ -51,6 +78,7 @@ namespace LibraryAplikace.Acad
                         {
                             dokument = acad.Documents.Item(item.Name);
                             dokument.Activate();
+                            Word.Zobrazit("ACAD");
                             break;
                         }
                     }

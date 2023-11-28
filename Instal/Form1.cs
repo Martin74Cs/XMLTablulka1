@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Windows.Forms;
 using XMLTabulka1;
+using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 
 namespace Instal
@@ -30,18 +31,24 @@ namespace Instal
                 Directory.CreateDirectory(Cesta);
 
             await Install.Download(RandomFilename, Cesta);
-
+            //naètení manifestu z restApi
+            var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
+            Nova.SaveJson(Cesty.ManifestInstal);
             Akt.Close();
-           
+
 #if DEBUG
             //Spuštení programu TeZak
-            Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
+            //Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
+            //Cesta = Path.Combine( Cesty.AppData, "TeZak","WFForm.exe");
+            Cesta = Cesty.AppDataTezakWFForm;
+            //Cesty.PodporaDataJson
 #else
+
             string soubor = "WFForm.exe";
             Cesta = Path.Combine(Cesty.AdresarSpusteni, soubor);
 #endif
-            if (File.Exists(Cesta))
-                Soubor.StartAplikace(Cesta, "");
+            if (File.Exists(Cesty.AppDataTezakWFForm))
+                Soubor.StartAplikace(Cesty.AppDataTezakWFForm, "");
 
             //KOnec programu instalace
             Environment.Exit(0);
