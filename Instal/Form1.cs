@@ -30,6 +30,7 @@ namespace Instal
                 Directory.CreateDirectory(Cesta);
 
             await Install.Download(RandomFilename, Cesta);
+
             Akt.Close();
            
 #if DEBUG

@@ -82,56 +82,100 @@ namespace XMLTabulka1.Word
 
         }
 
-        public static async Task<bool> Doc(TeZak teZak)
+        /// <summary>
+        /// Dokumenet neexistuje
+        /// </summary>
+        public static async Task<bool> VytvořitDokumentDoc(TeZak teZak)
         {
             await Task.Delay(1);
 
-            //hledej souborz doc a docx.
-            var cestas = ExistujeSouborPriponou(teZak.PATH, Dokument.Word);
-            if(cestas !=  null )
-            { 
-                if (File.Exists(cestas.First()))
-                {
-                    //musí být provedena kontrola souborů
-                    var WordApp = WordPodpora.WordApp1();
-                    WordApp.Visible = true;
-
-                    foreach (W.Document item in WordApp.Documents)
-                    {
-                        if (item.FullName == cestas.First())
-                        {
-                            item.Activate();
-                            Zobrazit("WINWORD");
-                            return true;
-                        }
-                    }
-                    WordApp.Documents.Open(cestas.First());
-                    return true;
-                }
-            }
-            //soubor neexistuje
+            //neexistují data pro vytvoření dokumetu
             if (teZak == null) return false;
-            WordPodpora app = new();
 
+            //Kotrola existence dokumnetu
+            if (!File.Exists(teZak.PATH)) return false;
+
+            //Otevření aplikace Word
+            //var WordApp = WordPodpora.WordApp1();
+            //WordApp.Visible = true;
+            
+            //kontrola existence adresaře a jeho vytvoření
             string Adresar = Path.GetDirectoryName(teZak.PATH);
-            //string Pripona = teZak.EXT;
+            if(!Directory.Exists(Adresar))
+                Directory.CreateDirectory(Adresar);
             string JmenoSouboru = teZak.FPC;
-
-            string cesta = string.Empty;
+            
             //ZMĚNA PŘÍPONY
             if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
-                cesta = Path.Combine(Adresar, JmenoSouboru + ".docx");
+                teZak.PATH = Path.Combine(Adresar, JmenoSouboru + ".docx");
 
             //možná ješte jednou kontrola existence pokud došlo ke změně písmena
 
-            if (SouborApp.KopieSablonyDoc(cesta) == false)
+            if (SouborApp.KopieSablonyDoc(teZak.PATH) == false)
             {
                 Console.WriteLine("kopie šablony uspěšně vytvořena");
             }
 
-            app.CelyRadek  = teZak.ObjectToDataRow();
-            app.Prenos(cesta);
+            WordPodpora app = new();
+            app.CelyRadek = teZak.ObjectToDataRow();
+            app.Prenos(teZak.PATH);
             return true;
+        }
+
+
+        public static async Task<bool> OtevřiDokument(TeZak teZak)
+        {
+            await Task.Delay(1);
+
+            //ZMĚNA PŘÍPONY
+            string Adresar = Path.GetDirectoryName(teZak.PATH);
+            string JmenoSouboru = teZak.FPC;
+            if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
+                teZak.PATH = Path.Combine(Adresar, JmenoSouboru + ".docx");
+
+            if (File.Exists(teZak.PATH))
+            {
+                //musí být provedena kontrola souborů
+                var WordApp = WordPodpora.WordApp1();
+                WordApp.Visible = true;
+
+                foreach (W.Document item in WordApp.Documents)
+                {
+                    if (item.FullName == teZak.PATH)
+                    {
+                        item.Activate();
+                        Zobrazit("WINWORD");
+                        return true;
+                    }
+                }
+                WordApp.Documents.Open(teZak.PATH);
+                return true;
+            }
+            
+
+            //soubor neexistuje
+            //if (teZak == null) return false;
+            ////WordPodpora app = new();
+
+            //string Adresar = Path.GetDirectoryName(teZak.PATH);
+            ////string Pripona = teZak.EXT;
+            //string JmenoSouboru = teZak.FPC;
+
+            //string cesta = string.Empty;
+            ////ZMĚNA PŘÍPONY
+            //if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
+            //    cesta = Path.Combine(Adresar, JmenoSouboru + ".docx");
+
+            //možná ješte jednou kontrola existence pokud došlo ke změně písmena
+
+            //if (SouborApp.KopieSablonyDoc(cesta) == false)
+            //{
+            //    Console.WriteLine("kopie šablony uspěšně vytvořena");
+            //}
+
+            //app.CelyRadek  = teZak.ObjectToDataRow();
+            //app.Prenos(cesta);
+            return false;
         }
 
         public static string ZmenaDisku(string cesta)
@@ -141,7 +185,7 @@ namespace XMLTabulka1.Word
             //zmena disku vždy na C
             // Získání kořenového adresáře
             string kořenovýAdresář = Path.GetPathRoot(cesta);
-
+            
             // Získání zbytku cesty bez kořenového adresáře
             string zbytekCesty = cesta[kořenovýAdresář.Length..];
 

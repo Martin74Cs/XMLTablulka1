@@ -81,7 +81,6 @@ namespace XMLTabulka1.Word
         /// Přenos dat do Wordu
         /// </summary>
         /// <param name="SouborWord">Cesta dokumentu DOC kam se mají data přenést</param>
-        /// <returns></returns>
         public bool Prenos(string SouborWord)
         {
             if (!File.Exists(SouborWord)) return false;

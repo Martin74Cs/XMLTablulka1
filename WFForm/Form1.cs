@@ -130,10 +130,35 @@ namespace WFForm
                         FormWord.ShowDialog();
                         if (FormWord.DialogResult == DialogResult.OK)
                         {
-                            teZak.PATH = FormWord.Cesta;
-                            //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                            if (!await Word.Doc(teZak))
-                                MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                            switch (FormWord.Volba)
+                            {
+                                case WFForm.FormWord.Vyber.Vyvorit:
+                                    //teZak.PATH = Path.ChangeExtension(teZak.PATH, ".docx");
+                                    //Kotrola existence dokumnetu
+                                    if (File.Exists(teZak.PATH) || File.Exists(Path.ChangeExtension(teZak.PATH, ".docx")))
+                                    {
+                                        result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                        if (result == DialogResult.Yes)
+                                        {
+                                            if (File.Exists(teZak.PATH))
+                                                File.Delete(teZak.PATH);
+                                            if (File.Exists(Path.ChangeExtension(teZak.PATH, ".docx")))
+                                                File.Delete(Path.ChangeExtension(teZak.PATH, ".docx"));
+                                        }
+                                    }
+                                    if (!await Word.VytvoøitDokumentDoc(teZak))
+                                        MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                    break;
+                                case WFForm.FormWord.Vyber.Cesta:
+                                    //Pokud byla zvolena cesta pro otevøení souboru
+                                    teZak.PATH = FormWord.Cesta;
+                                    //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
+                                    if (!await Word.OtevøiDokument(teZak))
+                                        MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                     }
                     else
@@ -144,7 +169,7 @@ namespace WFForm
                         //vytvoøit z databázové cesty
                         if (result1 == DialogResult.Yes)
                         { 
-                            if (!await Word.Doc(teZak))
+                            if (!await Word.OtevøiDokument(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                     }

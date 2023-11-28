@@ -5,6 +5,14 @@ namespace WFForm
     public partial class FormWord : Form
     {
         public string Cesta { get; set; }
+
+        public Vyber Volba { get; set; }
+        public enum Vyber
+        { 
+            Vyvorit,
+            Cesta
+        }
+
         public FormWord()
         {
             InitializeComponent();
@@ -12,7 +20,8 @@ namespace WFForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Volba = Vyber.Vyvorit;
+            DialogResult = DialogResult.OK;
         }
 
         private async void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -24,7 +33,7 @@ namespace WFForm
 
                 // Příklad: Získání hodnoty prvního sloupce
                 Cesta = selectedRow.SubItems[0].Text;
-
+                Volba = Vyber.Cesta;
                 DialogResult = DialogResult.OK;
                 Close();
 
