@@ -219,7 +219,6 @@ namespace LibraryAplikace.Acad
                 if (name1.EndsWith("_v03_CZ"))
                 {
                     VyplnBlokyAcad(sel, razítkas);
-
                 }
             }
 
@@ -237,17 +236,21 @@ namespace LibraryAplikace.Acad
             }
 
             if (returnobj == null) return;
+
+            //seznam atributu vybraného bloku
             object[] pole = (object[])returnobj.GetAttributes();
             for (int j = 0; j <= pole.GetUpperBound(0); j++)
             {
+                //nazvy atributů vybranhé bloku
                 string hledej = ((AcadAttributeReference)pole[j]).TagString;
-                //for (int i = 0; i <= tag.GetUpperBound(0); i++)
+
+                //procházení listu razitkas
                 for (int i = 0; i <= razítkas.Count - 1; i++)
                 {
-                    //if (tag == null) return;
+                    //hledání shody atributu bloku a razitkas
                     if (hledej.Equals(razítkas[i].TagString, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        //if (info == null) return;
+                        //vyplnění hodnoty razíkta
                         if (razítkas[i].TextString == "")
                         {
                             ((AcadAttributeReference)pole[j]).TextString = " ";
