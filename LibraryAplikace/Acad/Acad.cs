@@ -26,8 +26,8 @@ namespace LibraryAplikace.Acad
                 document = Program(Cesta);
             }
             //možná další práce se souborem dwg
-            var raz = new Razitko().Prenos(teZak);
-            List<DataRazítka> datas = new();
+            Razitko.Prenos(teZak);
+            List<DataRazítka> datas = [];
             Razitko.VyberRazitkaAcad(document, datas);
         }
 
@@ -36,7 +36,7 @@ namespace LibraryAplikace.Acad
         /// </summary>
         public static AcadDocument Program(string Cesta)
         {
-            if (Path.GetExtension(Cesta).ToUpper() != ".DWG") return null;
+            if (!Path.GetExtension(Cesta).Equals(".DWG", StringComparison.CurrentCultureIgnoreCase)) return null;
             //Otevři Acad = PripojAcad();
             var acad = OpenAcad();
             if (acad != null)

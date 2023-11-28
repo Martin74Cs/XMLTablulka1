@@ -244,7 +244,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Databaze"
         "ProductCode" = "8:{E23805B0-5388-4F76-9325-F0EDD85B966E}"
-        "PackageCode" = "8:{2E95083B-66AB-41C9-AD3A-7F71D319D9D2}"
+        "PackageCode" = "8:{20F40604-96C9-4F88-B272-3EAAE6EED5A0}"
         "UpgradeCode" = "8:{67EC3EFF-CA3A-4E58-B729-0942A2B478F2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -366,7 +366,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FF02F159C9CF40728010A771A6C9F2E4"
             {
-            "Name" = "8:Shortcut to %sPoložky publikování from ProgramFiles (Active)"
+            "Name" = "8:TeZak"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

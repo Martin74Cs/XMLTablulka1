@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+
 using System.Diagnostics;
 using XMLTabulka1;
 using XMLTabulka1.API;
@@ -45,7 +45,7 @@ namespace WFForm
                     //Spuštení instalaènímu programu
                     //string Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Instal\bin\Debug\net8.0-windows\Instal.exe";
                     string AppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                    string Cesta = Path.Combine(AppData, "TeZak", "Instal", @"Instal.exe");
+                    string Cesta = Path.Combine(AppData, "TeZak", "Instal", "Instal.exe");
 #else
                     string soubor = "Instal.exe";
                     string Cesta = Path.Combine(Cesty.AdresarSpusteni,"Instal", soubor);
@@ -62,19 +62,19 @@ namespace WFForm
             }
         }
 
-        public static IConfigurationRoot LoadKonfigurace(string Cesta)
-        {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
-                .Build();
+        //public static IConfigurationRoot LoadKonfigurace(string Cesta)
+        //{
+        //    IConfigurationRoot configuration = new ConfigurationBuilder()
+        //        .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+        //        .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
+        //        .Build();
 
-            //IConfigurationRoot configuration = new ConfigurationBuilder()
-            //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            //    .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
-            //    .Build();
+        //    //IConfigurationRoot configuration = new ConfigurationBuilder()
+        //    //    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+        //    //    .AddJsonFile(Cesta, optional: true, reloadOnChange: true)
+        //    //    .Build();
 
-            return configuration;
-        }
+        //    return configuration;
+        //}
     }
 }

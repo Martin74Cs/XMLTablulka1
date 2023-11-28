@@ -3,6 +3,7 @@ using LibraryAplikace;
 using LibraryAplikace.Acad;
 using System.Data;
 using System.Diagnostics;
+using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
@@ -75,8 +76,8 @@ namespace WFForm
             //DataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
             ///
             ///
-             DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
- 
+            DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
+
         }
 
         private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -84,53 +85,77 @@ namespace WFForm
             if (e.RowIndex < 0) return;
             string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
             string Apid = DataGridView1.Rows[e.RowIndex].Cells["Apid"].Value.ToString();
-            if (true)
+
+            //plat9 pro restAPI
+            //var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
+            var Aktualizace = Menu.Aktualizuj();
+            TeZak teZak = await API.APIJson<TeZak>($"/api/tezak/Apid/{Apid}");
+            Aktualizace.Close();
+            if (teZak == null) return;
+            //teZak.SaveJson(Cesty.JedenRadekJson);
+
+            //Pøípadná zmìna disku na C pokud není disk neexistuje.
+            teZak.PATH = Word.ZmenaDisku(teZak.PATH);
+
+            switch (teZak.EXT.ToUpperInvariant())
             {
-                //plat9 pro restAPI
-                //var teZak = API.LoadJsonAPIJeden<TeZak>($"/api/tezak/globalid/{GlobalID}");
-                TeZak teZak = await API.APIJson<TeZak>($"/api/tezak/Apid/{Apid}");
-                if (teZak == null) return;
-                //teZak.SaveJson(Cesty.JedenRadekJson);
-                switch (teZak.EXT.ToUpperInvariant())
-                {
-                    case "DWG":
-                        DialogResult result = MessageBox.Show("Byl vybrán soubor typu DWG. \nNázev vybraného souboru je: " + teZak.NAZEV
-                            + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
-                        //pokraèuje v komponentì Autocad
-                        //la.Program(Sloupec.CelyRadek);
-                        if (result == DialogResult.Yes)
+                case "DWG":
+                    DialogResult result = MessageBox.Show("Byl vybrán soubor typu DWG. \nNázev vybraného souboru je: " + teZak.NAZEV
+                        + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                    //pokraèuje v komponentì Autocad
+                    //la.Program(Sloupec.CelyRadek);
+                    if (result == DialogResult.Yes)
+                    {
+                        //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
+                        //V seznamu jsou všechny typy souboru dwg, pdf, atd.
+                        List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
+                        List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).Equals(".DWG", StringComparison.InvariantCultureIgnoreCase)).ToList();
+                        //doplnit dialog výbìru souboru
+
+                        //pokud nexistuje bude vytvoøen
+                        string Cesta = SouborDwg.FirstOrDefault();
+                        Acad.Prace(teZak, Cesta);
+
+                    }
+                    break;
+                case "XLS":
+                    MessageBox.Show("Byl vybrán soubor typu XLS " + teZak.NAZEV);
+                    break;
+                case "DOC":
+                    List<string> ListSouborWord = Word.ExistujeSouborPriponou(teZak.PATH, Word.Dokument.Word);
+                    if (ListSouborWord != null && ListSouborWord.Count > 0)
+                    {
+                        var FormWord = new FormWord();
+                        FormWord.listView1.AddListString(ListSouborWord);
+                        FormWord.ShowDialog();
+                        if (FormWord.DialogResult == DialogResult.OK)
                         {
-                            //hledání všech souborù které odpovídají názvu výkresu dle poslední 6 znakù.
-                            //V seznamu jsou všechny typy souboru dwg, pdf, atd.
-                            List<string> ListSoubor = new SouborApp().HledejZdaExistujeSoubor(teZak.PATH);
-                            List<string> SouborDwg = ListSoubor.Where(x => Path.GetExtension(x).Equals(".DWG", StringComparison.InvariantCultureIgnoreCase)).ToList();
-                            //doplnit dialog výbìru souboru
- 
-                            //pokud nexistuje bude vytvoøen
-                            string Cesta = SouborDwg.FirstOrDefault();
-                            Acad.Prace(teZak, Cesta);
-                            
-                        }
-                        break;
-                    case "XLS":
-                        MessageBox.Show("Byl vybrán soubor typu XLS " + teZak.NAZEV);
-                        break;
-                    case "DOC":
-                        DialogResult result1 = MessageBox.Show("Byl vybrán soubor typu DOC. \nNázev vybraného souboru je: " + teZak.NAZEV
-                            + "\nChceš pokraèovat ve vytváøení dokumentu", "Vyber", MessageBoxButtons.YesNo);
-                        if (result1 == DialogResult.Yes)
-                        {
+                            teZak.PATH = FormWord.Cesta;
                             //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                            if(!await Word.Doc(teZak))
+                            if (!await Word.Doc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
-                        break;
-                    default:
-                        MessageBox.Show("Bylo XXX " + teZak.NAZEV.ToString());
-                        break;
-                }
+                    }
+                    else
+                    {
+                        //soubor neexistuje
+                        DialogResult result1 = MessageBox.Show("SOUBOR NE-EXISTUJE \n Byl vybrán soubor " + teZak.NAZEV
+                            + "\nChceš vytvoøit dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                        //vytvoøit z databázové cesty
+                        if (result1 == DialogResult.Yes)
+                        { 
+                            if (!await Word.Doc(teZak))
+                                MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                        }
+                    }
+
+                    break;
+                default:
+                    MessageBox.Show("Bylo XXX " + teZak.NAZEV.ToString());
+                    break;
             }
- 
+
+
         }
 
         private void Button1_Click(object sender, EventArgs e)
@@ -227,9 +252,9 @@ namespace WFForm
                     item.ExpandAll();
                     TreeView1.TopNode = item;
 
-                        List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
-                        DataGridView1.Vypis(TableJson);
-                        break;
+                    List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                    DataGridView1.Vypis(TableJson);
+                    break;
                 }
             }
         }

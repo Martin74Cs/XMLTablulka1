@@ -1,9 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Diagnostics;
 
 namespace XMLTabulka1
 {
@@ -51,10 +47,13 @@ namespace XMLTabulka1
         {
             get 
             {
-                if(Environment.MachineName == "KANCELAR")
-                    return @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
-                else
-                   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "WFForm","bin","Debug","net8.0-windows8.0"));
+                return cesta;
+
+                //if (Environment.MachineName == "KANCELAR")
+                //    return @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+                //else
+                //   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
             }
         }
 
@@ -100,13 +99,12 @@ namespace XMLTabulka1
         //public static string ZdrojDbf { get; set; } = @"\\encz04\am\env\Tezak.DBF";
         public static string ZdrojDbf { get; set; } = @"D:\OneDrive\Databaze\Tezak\Tezaknew2.DBF";
 
-        public static void Nastavit()
-        {
-            var configuration = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json")
-            .Build();
-
-        }
+        //public static void Nastavit()
+        //{
+        //    var configuration = new ConfigurationBuilder()
+        //    .SetBasePath(Directory.GetCurrentDirectory())
+        //    .AddJsonFile("appsettings.json")
+        //    .Build();
+        //}
     }
 }

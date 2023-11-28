@@ -11,8 +11,6 @@ namespace LibraryAplikace
 {
 
 
-
-
     public static class Marshal2
     {
         internal const String OLEAUT32 = "oleaut32.dll";
@@ -21,7 +19,6 @@ namespace LibraryAplikace
         [System.Security.SecurityCritical]  // auto-generated_required
         public static Object GetActiveObject(String progID)
         {
-            Object? Obj = null;
             Guid clsid;
 
             // Call CLSIDFromProgIDEx first then fall back on CLSIDFromProgID if
@@ -36,7 +33,7 @@ namespace LibraryAplikace
                 CLSIDFromProgID(progID, out clsid);
             }
 
-            GetActiveObject(ref clsid, IntPtr.Zero, out Obj);
+            GetActiveObject(ref clsid, IntPtr.Zero, out object Obj);
             return Obj;
         }
 

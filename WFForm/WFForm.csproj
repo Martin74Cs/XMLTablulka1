@@ -37,9 +37,6 @@
 	  <None Update=".filenesting.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="appsettings.json">
-		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </None>
 	  <None Update="Podpora\Acad\Sablona.dwg">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

@@ -6,14 +6,12 @@ using XMLTabulka1.Trida;
 using W = Microsoft.Office.Interop.Word;
 namespace XMLTabulka1.Word
 {
-    public class Word
+    public static class Word
     {
         /// <summary>
         /// volani dynamické knihovny c:\Users\Martin\OneDrive\Word\NewWord1\Podpora\
         /// práce D:\OneDrive\Word\NewWord1
         /// </summary>
-        /// <param name="cesta">cesta kde umístěn soubor</param>
-        /// <param name="XML">cesta k XML záznam z databaze</param>
         public static async void Doc(string cesta, string XML)
         {
             WordPodpora app = new();
@@ -30,11 +28,11 @@ namespace XMLTabulka1.Word
             Pdf
         }
 
-        public List<string> ExistujeSouborPriponou(string Cesta, Dokument dokument)
+        public static List<string> ExistujeSouborPriponou(string Cesta, Dokument dokument)
         {
             //kontrola navayných cesta a jiné umístění souboru v podsložkách
             List<string> SouboryList = new SouborApp().HledejZdaExistujeSoubor(Cesta);
-            if (SouboryList == null || SouboryList.Count() < 1) { return null; }
+            if (SouboryList == null || SouboryList.Count < 1) { return null; }
             List<string> result = [];
             string[] Pripona = null;
             switch (dokument)
@@ -59,8 +57,6 @@ namespace XMLTabulka1.Word
             result = SouboryList.Where(x => Pripona.Any(ext => x.EndsWith(ext, StringComparison.OrdinalIgnoreCase))).ToList();
             return result;
         }
-
-
 
         public static void Zobrazit(string NazevProcesu)
         {
@@ -90,11 +86,8 @@ namespace XMLTabulka1.Word
         {
             await Task.Delay(1);
 
-            //Případná změna disku na C pokud není disk neexistuje.
-            teZak.PATH = ZmenaDisku(teZak.PATH);
-
             //hledej souborz doc a docx.
-            var cestas = new Word().ExistujeSouborPriponou(teZak.PATH, Dokument.Word);
+            var cestas = ExistujeSouborPriponou(teZak.PATH, Dokument.Word);
             if(cestas !=  null )
             { 
                 if (File.Exists(cestas.First()))
@@ -126,12 +119,12 @@ namespace XMLTabulka1.Word
 
             string cesta = string.Empty;
             //ZMĚNA PŘÍPONY
-            if (teZak.EXT.ToLowerInvariant() == "doc")
+            if (teZak.EXT.Equals("doc", StringComparison.InvariantCultureIgnoreCase))
                 cesta = Path.Combine(Adresar, JmenoSouboru + ".docx");
 
             //možná ješte jednou kontrola existence pokud došlo ke změně písmena
 
-            if (SouborApp.KopieDoc(cesta) == false)
+            if (SouborApp.KopieSablonyDoc(cesta) == false)
             {
                 Console.WriteLine("kopie šablony uspěšně vytvořena");
             }

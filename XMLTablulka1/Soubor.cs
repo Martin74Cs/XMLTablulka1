@@ -262,12 +262,12 @@ namespace XMLTabulka1
             return true;
         }
 
-        public static void LoadJsonMoje(this List<MojeZakazky> moje, string cesta)
+        public static void LoadJsonMoje<T>(string cesta) where T : class
         {
             if (File.Exists(cesta))
             {
                 string jsonString = File.ReadAllText(cesta);
-                System.Text.Json.JsonSerializer.Deserialize<List<MojeZakazky>>(jsonString);
+                System.Text.Json.JsonSerializer.Deserialize<List<T>>(jsonString);
             }
         }
 

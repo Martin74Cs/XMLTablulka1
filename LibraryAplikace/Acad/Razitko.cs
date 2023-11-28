@@ -7,15 +7,15 @@ namespace LibraryAplikace.Acad
 {
     public class Razitko
     {
-        public List<DataRazítka> Prenos(TeZak teZak)
-        {
+        public static List<DataRazítka> Prenos(TeZak teZak)
+        { 
             JedenRadek Razitko = new();
-            DataTable Hlas = Soubor.CSVtoDataTable(Cesty.PodporaSpolecneCsv);
+            var Hlas = Soubor.CSVtoDataTable(Cesty.PodporaSpolecneCsv);
             if (Hlas == null) return null;
             int i = 1;
             string[] Deleni = new string[70];
             //Dictionary<string, string> Pole = new Dictionary<string, string>();
-            List<DataRazítka> Pole = new();
+            List<DataRazítka> Pole = [];
             //procházení vazeb souboru Podpora a hledání vazeb na razítko
             foreach (DataRow item in Hlas.Rows)
             {
@@ -30,7 +30,7 @@ namespace LibraryAplikace.Acad
                     case "C_PROJ":
                         string[] dfg = teZak.C_PROJ.Split('.');
                         Deleni[i] = dfg[0];
-                        Deleni[60] = dfg[dfg.Length - 1];
+                        Deleni[60] = dfg[^1];
 
                         break;
                     case "AUT_REV":
@@ -56,8 +56,8 @@ namespace LibraryAplikace.Acad
                         break;
 
                     case "APSSO":
-                        string[] s = { "DIL", "CAST", "PROFESE", "PORADI", "OR_CISLO" };
-                        string[] o = { "", ".", "-", ".", "-" };
+                        string[] s = ["DIL", "CAST", "PROFESE", "PORADI", "OR_CISLO"];
+                        string[] o = ["", ".", "-", ".", "-"];
                         string pom = "";
                         for (int rs = 0; rs < s.Length; rs++)
                         {
@@ -100,13 +100,13 @@ namespace LibraryAplikace.Acad
             return Pole;
         }
 
-        public Dictionary<string, string> Prenos(DataRow row)
+        public static Dictionary<string, string> Prenos(DataRow row)
         {
             DataTable Hlas = Soubor.CSVtoDataTable(Cesty.PodporaSpolecneCsv);
             if (Hlas == null) return null;
             int i = 1;
             string[] Deleni = new string[70];
-            Dictionary<string, string> Pole = new Dictionary<string, string>();
+            Dictionary<string, string> Pole = [];
             foreach (DataRow item in Hlas.Rows)
             {
                 string Pomoc = item[1].ToString().Trim();
@@ -118,14 +118,14 @@ namespace LibraryAplikace.Acad
                     case "C_PROJ":
                         string[] dfg = row[Pomoc].ToString().Split('.');
                         Deleni[i] = dfg[0];
-                        Deleni[60] = dfg[dfg.Length - 1];
+                        Deleni[60] = dfg[^1];
 
                         break;
                     case "AUT_REV":
                     case "KONTROL":
                     case "SCHVALIL":
                         string[] dfg1 = row[Pomoc].ToString().Split(' ');
-                        Deleni[i] = dfg1[dfg1.Length - 1].ToUpper().Trim();
+                        Deleni[i] = dfg1[^1].ToUpper().Trim();
                         break;
 
                     case "DAT_REV":
@@ -144,8 +144,8 @@ namespace LibraryAplikace.Acad
                         break;
 
                     case "APSSO":
-                        string[] s = { "DIL", "CAST", "PROFESE", "PORADI", "OR_CISLO" };
-                        string[] o = { "", ".", "-", ".", "-" };
+                        string[] s = ["DIL", "CAST", "PROFESE", "PORADI", "OR_CISLO"];
+                        string[] o = ["", ".", "-", ".", "-"];
                         string pom = "";
                         for (int rs = 0; rs < s.Length; rs++)
                         {
@@ -193,7 +193,7 @@ namespace LibraryAplikace.Acad
             //object[] myfilterdataArray = new object[2];
 
             try { app.SelectionSets.Item("SS1").Delete(); }
-            catch (Exception ex) { }
+            catch { }
 
             // Commands for ACAD
             if (app == null) return false;
@@ -223,16 +223,14 @@ namespace LibraryAplikace.Acad
                 }
             }
 
-            if (app != null)
-            {
-                app.SelectionSets.Item("SS1").Delete();
-            }
+            //zkracení ověření hodnoty null
+            app?.SelectionSets.Item("SS1").Delete();
             return true;
         }
 
         public static void VyplnBlokyAcad(AcadBlockReference returnobj, List<DataRazítka> razítkas)
         {
-            razítkas = new();
+            razítkas = [];
             foreach (var item in typeof(JedenRadek).GetProperties())
             {
                 razítkas.Add(new DataRazítka { TagString = item.Name, TagDatabaze = item.Name, TextString = "100" });
@@ -247,7 +245,7 @@ namespace LibraryAplikace.Acad
                 for (int i = 0; i <= razítkas.Count - 1; i++)
                 {
                     //if (tag == null) return;
-                    if (hledej.ToUpper() == razítkas[i].TagString.ToUpper())
+                    if (hledej.Equals(razítkas[i].TagString, StringComparison.CurrentCultureIgnoreCase))
                     {
                         //if (info == null) return;
                         if (razítkas[i].TextString == "")

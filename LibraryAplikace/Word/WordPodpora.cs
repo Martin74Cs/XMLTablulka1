@@ -12,8 +12,8 @@ namespace XMLTabulka1.Word
 {
     public class WordPodpora
     {
-        public DataRow? CelyRadek { set; get; }
-        public Microsoft.Office.Interop.Word.Document? Doc { set; get; }
+        public DataRow CelyRadek { set; get; }
+        public Microsoft.Office.Interop.Word.Document Doc { set; get; }
         public string UTAJENI { set; get; } = string.Empty;
         public string STUPEN { set; get; } = string.Empty;
         public string STATUS { set; get; } = string.Empty;
@@ -67,7 +67,7 @@ namespace XMLTabulka1.Word
                 if (Pripona.Equals("doc", StringComparison.CurrentCultureIgnoreCase))
                     //ZMĚNA PŘÍPONY
                     cesta = Path.Combine(Adresar, JmenoSouboru + ".docx");
-                if (SouborApp.KopieDoc(cesta) == false)
+                if (SouborApp.KopieSablonyDoc(cesta) == false)
                 {
                     //throw new Exception("Chyba kopírování šablony");
                     Console.WriteLine("kopie šablony uspěšně vytvořena");

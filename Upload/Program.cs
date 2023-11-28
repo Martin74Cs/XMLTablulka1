@@ -9,11 +9,11 @@ using XMLTabulka1.Trida;
 Console.WriteLine("Poslat instalační soubor na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
-    string cesta = string.Empty;
+    //nefunguje y jiného umsátění
+    string cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
     if (Environment.MachineName == "KANCELAR")
         cesta = @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
-    else
-        cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
+
     if (File.Exists(cesta)) 
     {
         string Target = Path.Combine(Path.GetDirectoryName(cesta), "Instal.msi");
@@ -67,7 +67,7 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     {
         Cislo++;
         string Uprava = result.Version[..^1] + Cislo.ToString();
-        var qwe = await Install.ManifestUploadAsync(Uprava);
+        await Install.ManifestUploadAsync(Uprava);
         var Vysledek = await Install.ManifestDownloadAsync();
         Console.WriteLine($"Manifes nový : {Vysledek.Version}");
     }

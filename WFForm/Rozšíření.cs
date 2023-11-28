@@ -30,5 +30,29 @@ namespace WFForm
             }
         }
 
+        /// <summary>
+        /// přidat list<string> do listwiew
+        /// </summary>
+        public static void AddListString(this ListView listView, List<string> items)
+        {
+            listView.Clear();
+            listView.View = System.Windows.Forms.View.Details;
+            listView.Columns.Add("Cesta");
+            listView.Columns[0].Width = 700;
+
+            foreach (string item in items)
+            {
+                //varianta1
+                var listViewItem1 = new ListViewItem(item);
+                listView.Items.Add(listViewItem1);
+
+                //varianta2
+                //ListViewItem listViewItem2 = new ListViewItem();
+                //listViewItem2.SubItems.Add(item);
+                //listView.Items.Add(listViewItem2);
+
+            }
+        }
+
     }
 }

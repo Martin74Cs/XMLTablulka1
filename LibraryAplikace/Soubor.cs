@@ -27,7 +27,44 @@ namespace LibraryAplikace
             return [.. Soubor];
         }
 
+        /// <summary>
+        /// Nový verze hledej soubor
+        /// </summary>
         public List<string> HledejZdaExistujeSoubor(string JmenoSouboru)
+        {
+            List<string> listSouboru = [];
+
+            var Soubor = Path.GetFileNameWithoutExtension(JmenoSouboru);
+            int Delka = 6;
+            if (Soubor.Length <= 6)
+                Delka = Soubor.Length;
+            var Soubor6 = Soubor[..Delka].ToUpper();
+
+            //Procházení souboru
+            string AktualniAdresar = Path.GetDirectoryName(JmenoSouboru);
+            if (Directory.Exists(AktualniAdresar))
+            { 
+                foreach (var SouborJedna in Directory.GetFileSystemEntries(AktualniAdresar))
+                {
+                    if (Directory.Exists(SouborJedna))
+                    {
+                        List<string> listpomc = HledejZdaExistujeSoubor(SouborJedna);
+                        listSouboru.AddRange(listpomc);
+                    }
+                    else
+                    { 
+                        string test = Path.GetFileNameWithoutExtension(SouborJedna).ToUpper();
+                        if (test.Length > 6) 
+                            test = test[..Delka];
+                        if (test == Soubor6)
+                            listSouboru.Add(SouborJedna);
+                    }
+                }
+            }
+            return listSouboru;
+        }
+
+        public List<string> HledejZdaExistujeSouborOld(string JmenoSouboru)
         {
             List<string> listSouboru = [];
             var AdresarJedna = new FileInfo(JmenoSouboru).DirectoryName;
@@ -93,86 +130,87 @@ namespace LibraryAplikace
                 //if (pom.Length > 6) pom = pom.Substring(0, Delka);
                 if (pom.Length > 6) pom = pom[..Delka];
                 if (pom == Soubor6)
-                {
                     PoleSouboru.Add(Soubor);
-                }
             }
             return PoleSouboru;
         }
 
-        public static void PriladyPraceSeSouboryAresari()
-        {
-            string Cesta = "";
+        //public static void PriladyPraceSeSouboryAresari()
+        //{
+        //    string Cesta = "";
             
-            //Ve Adresár je aktuální adresář z cesty pokus
-            //string? Adresar = new FileInfo(Cesta).DirectoryName;
-            //Adresar = Path.GetDirectoryName(Cesta);
+        //    //Ve Adresár je aktuální adresář z cesty pokus
+        //    //string? Adresar = new FileInfo(Cesta).DirectoryName;
+        //    //Adresar = Path.GetDirectoryName(Cesta);
 
-            //V disk je název disku např G:\ z cesty pokus
-            DirectoryInfo disk = new DirectoryInfo(Cesta).Root;
+        //    //V disk je název disku např G:\ z cesty pokus
+        //    DirectoryInfo disk = new DirectoryInfo(Cesta).Root;
 
-            //SEZNAM SÍTOVÝCH JEDNOTEK IO.DriveInfo.GetDrives()
-            DriveInfo[] drive = DriveInfo.GetDrives();
-            foreach (var driveItem in drive) 
-            {
-                Console.WriteLine(driveItem.Name);
-            }
+        //    //SEZNAM SÍTOVÝCH JEDNOTEK IO.DriveInfo.GetDrives()
+        //    DriveInfo[] drive = DriveInfo.GetDrives();
+        //    foreach (var driveItem in drive) 
+        //    {
+        //        Console.WriteLine(driveItem.Name);
+        //    }
 
-            //ZJIŠTĚNÍ DISKU G: KTERÝ NEEXISTUJE TRVÁ DLOUHO -PROHLÉM ASI WINDOWS
-            if (Directory.Exists(drive[0].Name))
-            {
-                Console.WriteLine($"Přístup na disk {disk.Name} - Neexistuje \n Bude použit disk D:");
-            }
+        //    //ZJIŠTĚNÍ DISKU G: KTERÝ NEEXISTUJE TRVÁ DLOUHO -PROHLÉM ASI WINDOWS
+        //    if (Directory.Exists(drive[0].Name))
+        //    {
+        //        Console.WriteLine($"Přístup na disk {disk.Name} - Neexistuje \n Bude použit disk D:");
+        //    }
 
-            //Záměna části řetezce na jinou hodnotu 
-            string Asus = Cesta.Replace("Měneno", "Změna");
+        //    //Záměna části řetezce na jinou hodnotu 
+        //    string Asus = Cesta.Replace("Měneno", "Změna");
 
-            //Uprava pro "Notebook_ASUS"
-            string JmenoPočítače = System.Net.Dns.GetHostName();
+        //    //Uprava pro "Notebook_ASUS"
+        //    string JmenoPočítače = System.Net.Dns.GetHostName();
 
-            //Název souboru bez přípony
-            string JmenoSouboru = Path.GetFileNameWithoutExtension(Cesta);
+        //    //Název souboru bez přípony
+        //    string JmenoSouboru = Path.GetFileNameWithoutExtension(Cesta);
 
-            //Název přípony
-            string pripona1 = Path.GetExtension(Cesta);
-        }
+        //    //Název přípony
+        //    string pripona1 = Path.GetExtension(Cesta);
+        //}
 
 
         /// <summary>
         /// Kopie šablony
         /// </summary>
-        /// <param name="CestaCil">Cesta a nazev kde bude kopie šablony</param>
-        /// <example>Nezapomen pri kopírování na změnu názvu souboru</example>
-        /// <returns>bool</returns>
-        public static bool KopieDoc(string CestaCil)
+        public static bool KopieSablonyDoc(string CestaCil)
         {
             try
             {
-                WordPodpora word = new();
+                //WordPodpora word = new();
                 //string CestaZdroj = word.CestaAdresar() + "\\Sablony\\titlist1.doc";
 
                 string CestaZdroj = Path.Combine(Cesty.Word, "VZOR.docx");
+
+                //ověření existence šablony 
+                if (!File.Exists(CestaZdroj)) return false;
+
                 if (System.IO.File.Exists(CestaCil))
                 {
-                    Console.WriteLine("\nCesta : " + CestaCil);
-                    Console.WriteLine("\nSoubor existuje: smazat [y/n]");
-                    ConsoleKey klavesa = Console.ReadKey(false).Key;
+                    //Console.WriteLine("\nCesta : " + CestaCil);
+                    //Console.WriteLine("\nSoubor existuje: smazat [y/n]");
+                    //ConsoleKey klavesa = Console.ReadKey(false).Key;
 
-                    if (klavesa == ConsoleKey.Y || klavesa == ConsoleKey.A)
-                    {
+                    //if (klavesa == ConsoleKey.Y || klavesa == ConsoleKey.A)
+                    //{
                         System.IO.File.Delete(CestaCil);
-                        Console.WriteLine("Soubor {0} byl smazan.", CestaCil);
-                    }
-                    else
+                        //Console.WriteLine("Soubor {0} byl smazan.", CestaCil);
+                    //}
+                    //else
                         return false;
                 }
-                //kontorla existence adrsáře
-                if (!Directory.Exists(CestaCil))
+                else
+                { 
+                    //kontorla existence adrsáře
                     //Directory.CreateDirectory(Path.GetDirectoryName(CestaCil)??"");
                     Directory.CreateDirectory(Path.GetDirectoryName(CestaCil));
 
-                //kopirování souborů;
-                System.IO.File.Copy(CestaZdroj, CestaCil);
+                    //kopirování souborů s přepsnáním;
+                    System.IO.File.Copy(CestaZdroj, CestaCil, true);
+                }
                 return true;
             }
             catch (Exception)
