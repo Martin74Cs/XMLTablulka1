@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using LibraryAplikace.Word;
+using System.Data;
 using System.Diagnostics;
 using System.Xml.Linq;
 using XMLTabulka1;
@@ -17,6 +18,8 @@ Console.WriteLine("Sucesfully ....");
 Console.WriteLine("Continuos Press Key ....");
 //Console.ReadKey();
 //Environment.Exit(0);
+
+//Blokovani.TestBlokování();
 
 //Soubor soubor = new();
 Console.Title = "Pokus";

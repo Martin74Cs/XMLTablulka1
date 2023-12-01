@@ -7,8 +7,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using XMLTabulka1;
 
-namespace XMLTabulka1.Word
+namespace LibraryAplikace.Word
 {
     public class WordPodpora
     {
@@ -97,7 +98,8 @@ namespace XMLTabulka1.Word
                 //Bude otevřena aplikace WORD
                 Console.WriteLine("Bude otevřena aplikace WORD");
                 WordApp = WordApp1();  //Bude otevřen WORD
-                WordApp.Visible = true; //WORD bude zobrazen
+                WordApp.Visible = false; //WORD NEbude zobrazen
+                //WordApp.Visible = true; //WORD bude zobrazen
 
                 if (System.IO.File.Exists(SouborWord))
                 {
