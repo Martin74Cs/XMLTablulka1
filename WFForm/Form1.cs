@@ -1,13 +1,11 @@
 
-using LibraryAplikace;
 using LibraryAplikace.Acad;
+using LibraryAplikace.Word;
 using System.Data;
 using System.Diagnostics;
-using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
-using XMLTabulka1.Word;
 using static System.Windows.Forms.ListView;
 
 namespace WFForm
@@ -198,8 +196,20 @@ namespace WFForm
                                         else
                                         { return; }
                                     }
+                                    //Blokovani.Zapnuto();
                                     if (!await Word.VytvoøitDokumentDoc(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                    else
+                                    { 
+                                       var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
+                                        if (result == DialogResult.Yes)
+                                        {
+                                            if (!await Word.OtevøiDokument(teZak))
+                                                MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                        }
+                                    }
+
+                                    //Blokovani.Vypnuto();
                                     break;
                                 case WFForm.FormWord.Vyber.Cesta:
                                     //Pokud byla zvolena cesta pro otevøení souboru

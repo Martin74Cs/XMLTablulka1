@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
-using XMLTabulka1.Word;
 
 namespace LibraryAplikace.Acad
 {
@@ -46,6 +45,8 @@ namespace LibraryAplikace.Acad
             {
                 document = VytvoritAcad(teZak.PATH);
                 //vyplnění razítka
+                List<DataRazítka> datas = [];
+                await Razitko.VyberRazitkaAcad(document, datas);
             }
             //else
             //{
@@ -54,8 +55,6 @@ namespace LibraryAplikace.Acad
             //}
             //možná další práce se souborem dwg
             //Razitko.Prenos(teZak);
-            List<DataRazítka> datas = [];
-            await Razitko.VyberRazitkaAcad(document, datas);
         }
 
         /// <summary>
@@ -78,7 +77,7 @@ namespace LibraryAplikace.Acad
                         {
                             dokument = acad.Documents.Item(item.Name);
                             dokument.Activate();
-                            Word.Zobrazit("ACAD");
+                            Word.Word.Zobrazit("ACAD");
                             break;
                         }
                     }
@@ -137,6 +136,8 @@ namespace LibraryAplikace.Acad
             if (!File.Exists(Cesta))
                 File.Copy(Cesty.SablonaDwg, Cesta);
             var acad = OpenAcad();
+            //nezobrazovat acad
+            acad.Visible = false;
             return acad.Documents.Open(Cesta);
         }
 

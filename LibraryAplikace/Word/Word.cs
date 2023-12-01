@@ -1,10 +1,12 @@
 ﻿using LibraryAplikace;
 using System.Data;
 using System.Diagnostics;
+using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 using W = Microsoft.Office.Interop.Word;
-namespace XMLTabulka1.Word
+
+namespace LibraryAplikace.Word
 {
     public static class Word
     {
