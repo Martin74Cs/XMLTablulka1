@@ -105,36 +105,38 @@ namespace WFForm
                         var FormAcad = new FormWord();
                         FormAcad.listView1.AddListString(ListSouboraCAD);
                         FormAcad.ShowDialog();
-                        switch (FormAcad.Volba)
-                        {
-                            case FormWord.Vyber.Vyvorit:
-                                if (File.Exists(teZak.PATH))
-                                {
-                                    var result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
-                                    if (result == DialogResult.Yes)
+                        if (FormAcad.DialogResult == DialogResult.OK)
+                        { 
+                            switch (FormAcad.Volba)
+                            {
+                                case FormWord.Vyber.Vyvorit:
+                                    if (File.Exists(teZak.PATH))
                                     {
-                                        //kontrola otevøeného souboru
-                                        if (File.Exists(teZak.PATH))
+                                        var result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                        if (result == DialogResult.Yes)
                                         {
-                                            try { File.Delete(teZak.PATH); }
-                                            catch  {   MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); return; }
+                                            //kontrola otevøeného souboru
+                                            if (File.Exists(teZak.PATH))
+                                            {
+                                                try { File.Delete(teZak.PATH); }
+                                                catch  {   MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); return; }
+                                            }
                                         }
+                                        else
+                                        { return; }
                                     }
-                                    else
-                                    { return; }
-                                }
-                                //soubor neexistuje a bude vytvoøen
-                                Acad.Prace(teZak, teZak.PATH);
-                                break;
-                            case FormWord.Vyber.Cesta:
-                                //Soubor existuje a mùže být otevøen
-                                Acad.OtevøitExistujícíSouborAcad(teZak.PATH);
-                                break;
-                            default:
-                                break;
+                                    //soubor neexistuje a bude vytvoøen
+                                    Acad.Prace(teZak, teZak.PATH);
+                                    break;
+                                case FormWord.Vyber.Cesta:
+                                    //Soubor existuje a mùže být otevøen
+                                    Acad.OtevøitExistujícíSouborAcad(teZak.PATH);
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
-
-
+                        else { return; }
                     }
                     else
                     {
@@ -222,8 +224,10 @@ namespace WFForm
                                     break;
                             }
                         }
+                        else
+                        { return; }
                     }
-                    else
+                    else 
                     {
                         //soubor neexistuje
                         DialogResult result1 = MessageBox.Show("SOUBOR NE-EXISTUJE \n Byl vybrán soubor " + teZak.NAZEV
