@@ -64,7 +64,8 @@ namespace WFForm
                         break;
                 }
 
-                var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
+                //var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
+                var data = await API.APISaveDatabase<TeZakDělení>("api/TeZak/kriteria", teZak);
                 if (data == null || data.Count < 1) return;
                 dataGridView1.DataSource = data;
                 dataGridView1.Barvy();

@@ -9,7 +9,7 @@ using XMLTabulka1.Trida;
 
 namespace XMLTabulka1.Trida
 {
-    public class Entity 
+    public class Entity
     {
         public int Id { get; set; }
         public string Apid { get; set; } = string.Empty;
@@ -22,7 +22,7 @@ namespace XMLTabulka1.Trida
     {
         //public int Id { get; set; }
         public string Hodnota { get; set; } = string.Empty;
-        public List<TeZakHodnota> Children { get; set; } = new();
+        public List<TeZakHodnota> Children { get; set; } = [];
         //public string GlobalID { get; set; } = string.Empty;
     }
 
@@ -94,5 +94,26 @@ namespace XMLTabulka1.Trida
         public string TYPE { get; set; } = string.Empty;
         public string NUMBER { get; set; } = string.Empty;
         public string FOLIO { get; set; } = string.Empty;
-    } 
+    }
+
+    public  class TeZakPoviné : Entity
+    {
+        public string EXT { get; set; } = string.Empty;
+
+    }
+
+
+    public sealed class TeZakDělení : TeZakPoviné
+    {
+        public string C_UKOL { get; set; } = string.Empty;
+        public string DIL { get; set; } = string.Empty;
+        public string CAST { get; set; } = string.Empty;
+        public string PROFESE { get; set; } = string.Empty;
+        public string PORADI { get; set; } = string.Empty;
+        public string OR_CISLO { get; set; } = string.Empty;
+        public string NAZEV { get; set; } = string.Empty;
+        public string PCC { get; set; } = string.Empty;
+        public string TD { get; set; } = string.Empty;
+        public string PCDOC { get; set; } = string.Empty;
+    }
 }

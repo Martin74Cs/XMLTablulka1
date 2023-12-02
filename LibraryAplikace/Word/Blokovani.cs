@@ -5,15 +5,18 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
-using WindowsInput;
 
 namespace LibraryAplikace.Word
 {
-    public class Blokovani
+    public partial class Blokovani
     {
-        [DllImport("user32.dll", SetLastError = true)]
+        [LibraryImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool BlockInput([MarshalAs(UnmanagedType.Bool)] bool fBlockIt);
+        public static partial bool BlockInput([MarshalAs(UnmanagedType.Bool)] bool fBlockIt);
+
+        //[DllImport("user32.dll", SetLastError = true)]
+        //[return: MarshalAs(UnmanagedType.Bool)]
+        //static extern bool BlockInput([MarshalAs(UnmanagedType.Bool)] bool fBlockIt);
 
         public static void TestBlokování()
         {

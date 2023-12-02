@@ -3,6 +3,7 @@ using LibraryAplikace.Acad;
 using LibraryAplikace.Word;
 using System.Data;
 using System.Diagnostics;
+using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
@@ -81,7 +82,7 @@ namespace WFForm
         private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
-            string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
+            //string GlobalID = DataGridView1.Rows[e.RowIndex].Cells["GLOBALID"].Value.ToString();
             string Apid = DataGridView1.Rows[e.RowIndex].Cells["Apid"].Value.ToString();
 
             //plat9 pro restAPI
@@ -112,14 +113,15 @@ namespace WFForm
                                 case FormWord.Vyber.Vyvorit:
                                     if (File.Exists(teZak.PATH))
                                     {
-                                        var result = MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                        //MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
+                                        var result = Menu.UkazANONE("Soubor existuje,\nChceš ho smazat a znovu vytvoøit");
                                         if (result == DialogResult.Yes)
                                         {
                                             //kontrola otevøeného souboru
                                             if (File.Exists(teZak.PATH))
                                             {
                                                 try { File.Delete(teZak.PATH); }
-                                                catch  {   MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); return; }
+                                                catch  { MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); Word.Zobrazit("ACAD"); return; }
                                             }
                                         }
                                         else
@@ -230,12 +232,13 @@ namespace WFForm
                     else 
                     {
                         //soubor neexistuje
-                        DialogResult result1 = MessageBox.Show("SOUBOR NE-EXISTUJE \n Byl vybrán soubor " + teZak.NAZEV
-                            + "\nChceš vytvoøit dokumentu", "Vyber", MessageBoxButtons.YesNo);
+                        var ANONE = new Menu().VyberANONE("SOUBOR NE-EXISTUJE\nvybrán soubor : " + teZak.NAZEV + "\nChceš dokument vytvoøit");
+                        //DialogResult result1 = MessageBox.Show("SOUBOR NE-EXISTUJE\nByl vybrán soubor " + teZak.NAZEV
+                        //    + "\nChceš vytvoøit dokumentu", "Vyber", MessageBoxButtons.YesNo);
                         //vytvoøit z databázové cesty
-                        if (result1 == DialogResult.Yes)
+                        if (ANONE.DialogResult == DialogResult.Yes)
                         { 
-                            if (!await Word.OtevøiDokument(teZak))
+                            if (!await Word.VytvoøitDokumentDoc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                     }
