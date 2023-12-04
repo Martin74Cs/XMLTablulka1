@@ -41,6 +41,8 @@
             Button5 = new Button();
             Button6 = new Button();
             Button2 = new Button();
+            ComboBox1 = new ComboBox();
+            comboBox2 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView1).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             GroupBox1.SuspendLayout();
@@ -155,6 +157,7 @@
             // GroupBox2
             // 
             GroupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GroupBox2.Controls.Add(comboBox2);
             GroupBox2.Controls.Add(Button4);
             GroupBox2.Controls.Add(Button5);
             GroupBox2.Controls.Add(Button6);
@@ -212,6 +215,22 @@
             Button2.UseVisualStyleBackColor = true;
             Button2.Click += Button2_Click_2;
             // 
+            // ComboBox1
+            // 
+            ComboBox1.Location = new Point(0, 0);
+            ComboBox1.Name = "ComboBox1";
+            ComboBox1.Size = new Size(121, 23);
+            ComboBox1.TabIndex = 0;
+            // 
+            // comboBox2
+            // 
+            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(6, 26);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(307, 29);
+            comboBox2.TabIndex = 7;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -243,5 +262,7 @@
         private Button Button5;
         private Button Button6;
         private Button Button2;
+        private ComboBox ComboBox1;
+        private ComboBox comboBox2;
     }
 }
