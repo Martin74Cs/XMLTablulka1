@@ -5,13 +5,13 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using XMLTabulka1.Trida;
 
 namespace WFForm
 {
     public partial class Menu
     {
-        public DialogResult Dialog { get; set; }
         public Form Okno { get; set; }
         public string Tlacitko { get; set; } = string.Empty;
         public static Form Aktualizuj()
@@ -55,6 +55,7 @@ namespace WFForm
 
     public partial class Menu
     {
+        public DialogResult Dialog { get; set; }
         public Form NováVerze(ProgramInfo info)
         {
             System.Windows.Forms.Label Label = new()
@@ -109,16 +110,16 @@ namespace WFForm
             return form;
         }
 
-        public void Aktualizuj_klik(object sender, EventArgs e)
+        void Aktualizuj_klik(object sender, EventArgs e)
         {
-            Console.WriteLine("Tlačítko bylo stisknuto!");
+            //Console.WriteLine("Tlačítko bylo stisknuto!");
             Dialog = DialogResult.OK;
             Okno.Close();
         }
 
-        public void Přeskočit_klik(object sender, EventArgs e)
+        void Přeskočit_klik(object sender, EventArgs e)
         {
-            Console.WriteLine("Tlačítko bylo stisknuto!");
+            //Console.WriteLine("Tlačítko bylo stisknuto!");
             Dialog = DialogResult.Cancel;
             Okno.Close();
         }
@@ -127,96 +128,177 @@ namespace WFForm
 
     public partial class Menu
     {
-        public Form Instalace(ProgramInfo info)
+        //public Form Instalace(ProgramInfo info)
+        //{
+        //    Form form = new()
+        //    {
+        //        AutoScaleDimensions = new SizeF(7F, 15F),
+        //        AutoScaleMode = AutoScaleMode.Font,
+        //        ClientSize = new Size(614, 178),
+        //        BackgroundImageLayout = ImageLayout.Center,
+        //        FormBorderStyle = FormBorderStyle.FixedSingle,
+        //        StartPosition = FormStartPosition.CenterScreen,
+        //    };
+
+        //    System.Windows.Forms.Label LCesta = new()
+        //    {
+        //        AutoSize = true,
+        //        Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+        //        Location = new Point(12, 97),
+        //        Name = "Cesta",
+        //        Size = new Size(122, 21),
+        //        Text = "Cesta programu",
+        //    };
+
+
+        //    System.Windows.Forms.TextBox TCesta = new()
+        //    {
+        //        Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
+        //        Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+        //        Location = new Point(138, 94),
+        //        Name = "Text",
+        //        Size = new Size(427, 29),
+        //        Text = "Cesta není nastavena",
+        //    };
+
+        //    System.Windows.Forms.Label LVerze = new()
+        //    {
+        //        AutoSize = true,
+        //        Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+        //        Location = new Point(12, 65),
+        //        Name = "label3",
+        //        Size = new Size(84, 21),
+        //        Text = "Verze",
+        //    };
+
+        //    System.Windows.Forms.Button BInstalovat = new()
+        //    {
+        //        Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
+        //        Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+        //        Location = new Point(509, 135),
+        //        Name = "Instalovat",
+        //        Size = new Size(102, 31),
+        //        Text = "Instalovat",
+        //        UseVisualStyleBackColor = true,
+        //    };
+
+        //    System.Windows.Forms.Button BProchazet = new()
+        //    {
+        //        Anchor = AnchorStyles.Top | AnchorStyles.Right,
+        //        Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
+        //        Location = new Point(577, 93),
+        //        Name = "Prochazet",
+        //        Size = new Size(34, 31),
+        //        Text = "...",
+        //        UseVisualStyleBackColor = true,
+        //    };
+
+        //    BInstalovat.Click += BInstalovat_klik;
+        //    BProchazet.Click += BProchazet_klik;
+
+        //    form.Controls.Add(LVerze);
+        //    form.Controls.Add(LCesta);
+        //    form.Controls.Add(TCesta);
+        //    form.Controls.Add(BInstalovat);
+        //    form.Controls.Add(BProchazet);
+
+        //    Okno = form;
+        //    form.ShowDialog();
+        //    return form;
+        //}
+
+        //public void BInstalovat_klik(object sender, EventArgs e)
+        //{
+        //    //Console.WriteLine("Tlačítko bylo stisknuto!");
+        //    Dialog = DialogResult.OK;
+        //    Okno.Close();
+        //}
+
+        //public void BProchazet_klik(object sender, EventArgs e)
+        //{
+        //    //Console.WriteLine("Tlačítko bylo stisknuto!");
+        //    Dialog = DialogResult.OK;
+        //    Okno.Close();
+        //}
+    }
+
+    public partial class Menu
+    {
+        public Form VyberANONE(string Text)
         {
             Form form = new()
             {
                 AutoScaleDimensions = new SizeF(7F, 15F),
                 AutoScaleMode = AutoScaleMode.Font,
-                ClientSize = new Size(614, 178),
+                ClientSize = new Size(400, 150),
                 BackgroundImageLayout = ImageLayout.Center,
                 FormBorderStyle = FormBorderStyle.FixedSingle,
                 StartPosition = FormStartPosition.CenterScreen,
             };
 
-            System.Windows.Forms.Label LCesta = new()
+            System.Windows.Forms.Label Popis =  new()
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
-                Location = new Point(12, 97),
-                Name = "Cesta",
-                Size = new Size(122, 21),
-                Text = "Cesta programu",
-            };
-
-
-            System.Windows.Forms.TextBox TCesta = new()
-            {
-                Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
-                Location = new Point(138, 94),
+                Location = new Point(15, 15),
                 Name = "Text",
-                Size = new Size(427, 29),
-                Text = "Cesta není nastavena",
+                Size = new Size(150, 100),
+                Text = Text,
             };
 
-            System.Windows.Forms.Label LVerze = new()
-            {
-                AutoSize = true,
-                Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
-                Location = new Point(12, 65),
-                Name = "label3",
-                Size = new Size(84, 21),
-                Text = "Verze",
-            };
 
-            System.Windows.Forms.Button BInstalovat = new()
+            System.Windows.Forms.Button ANO = new()
             {
                 Anchor = AnchorStyles.Bottom | AnchorStyles.Right,
                 Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
-                Location = new Point(509, 135),
-                Name = "Instalovat",
-                Size = new Size(102, 31),
-                Text = "Instalovat",
+                Location = new Point(50, 100),
+                Name = "ANO",
+                Size = new Size(100, 30),
+                Text = "ANO",
                 UseVisualStyleBackColor = true,
             };
 
-            System.Windows.Forms.Button BProchazet = new()
+            System.Windows.Forms.Button NE = new()
             {
                 Anchor = AnchorStyles.Top | AnchorStyles.Right,
                 Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238),
-                Location = new Point(577, 93),
-                Name = "Prochazet",
-                Size = new Size(34, 31),
-                Text = "...",
+                Location = new Point(150, 100),
+                Name = "NE",
+                Size = new Size(100, 30),
+                Text = "NE",
                 UseVisualStyleBackColor = true,
             };
 
-            BInstalovat.Click += BInstalovat_klik;
-            BProchazet.Click += BProchazet_klik;
+            ANO.Click += BANO_klik;
+            NE.Click += BNE_klik;
 
-            form.Controls.Add(LVerze);
-            form.Controls.Add(LCesta);
-            form.Controls.Add(TCesta);
-            form.Controls.Add(BInstalovat);
-            form.Controls.Add(BProchazet);
+            form.Controls.Add(Popis);
+            form.Controls.Add(ANO);
+            form.Controls.Add(NE);
 
             Okno = form;
             form.ShowDialog();
+            form.DialogResult = Dialog;
             return form;
         }
 
-        public void BInstalovat_klik(object sender, EventArgs e)
+        public static DialogResult UkazANONE(string Text)
+        {
+            var xxx = new Menu().VyberANONE(Text);
+            return xxx.DialogResult;
+        }
+
+        void BANO_klik(object sender, EventArgs e)
         {
             //Console.WriteLine("Tlačítko bylo stisknuto!");
-            Dialog = DialogResult.OK;
+            Dialog = DialogResult.Yes;
             Okno.Close();
         }
 
-        public void BProchazet_klik(object sender, EventArgs e)
+        void BNE_klik(object sender, EventArgs e)
         {
             //Console.WriteLine("Tlačítko bylo stisknuto!");
-            Dialog = DialogResult.OK;
+            Dialog = DialogResult.No;
             Okno.Close();
         }
     }

@@ -43,10 +43,11 @@ namespace LibraryAplikace.Acad
             AcadDocument document = null;
             if (!File.Exists(Cesta)) 
             {
+                List<DataRazítka> datas = Razitko.Prenos(teZak);
                 document = VytvoritAcad(teZak.PATH);
                 //vyplnění razítka
-                List<DataRazítka> datas = [];
-                await Razitko.VyberRazitkaAcad(document, datas);
+                //List<DataRazítka> datas = [];
+                Razitko.VyberRazitkaAcad(document, datas);
             }
             //else
             //{
@@ -137,7 +138,8 @@ namespace LibraryAplikace.Acad
                 File.Copy(Cesty.SablonaDwg, Cesta);
             var acad = OpenAcad();
             //nezobrazovat acad
-            acad.Visible = false;
+            //acad.Visible = false;
+            //acad.Visible = true;
             return acad.Documents.Open(Cesta);
         }
 

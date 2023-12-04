@@ -118,8 +118,7 @@ namespace LibraryAplikace.Word
                 Console.WriteLine("kopie šablony uspěšně vytvořena");
             }
 
-            WordPodpora app = new();
-            app.CelyRadek = teZak.ObjectToDataRow();
+            WordPodpora app = new() { CelyRadek = teZak.ObjectToDataRow() };
             app.Prenos(teZak.PATH);
             return true;
         }
