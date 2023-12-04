@@ -14,19 +14,19 @@ namespace WFForm
     {
         public static async void ListStromAPI(this DataGridView dataGridView1, TreeNode N, string Separator)
         {
-            var Akt = Menu.Aktualizuj();
             string[] Cesta = N.FullPath.Split(Separator);
             List<TeZakHodnota> querry;
             TeZak teZak = null;
-            if (N.Nodes.Count >= 0)
+            var Akt = Menu.Aktualizuj();
+            //SELECT C_UKOL,DIL,[CAST], PROFESE, PORADI
+            switch (Cesta.Length)
             {
-                //SELECT C_UKOL,DIL,[CAST], PROFESE, PORADI
-                switch (Cesta.Length)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        teZak = new TeZak() { C_PROJ = N.Text };
+                case 0:
+                    break;
+                case 1:
+                    teZak = new TeZak() { C_PROJ = N.Text };
+                    if (N.Nodes.Count <= 0)
+                    {
                         querry = await API.APIJsonList<TeZakHodnota>($"api/TeZak/Projekt/{N.Text}");
                         foreach (TeZakHodnota item in querry)
                             N.Nodes.Add(Sloupec.C_UKOL, item.Hodnota);
@@ -35,20 +35,28 @@ namespace WFForm
                         InfoProjekt.CisloProjektu = Cesta[0].ToString();
                         InfoProjekt.CisloTasku = string.Empty;
                         InfoProjekt.Dil = string.Empty;
-                        break;
-                    case 2:
-                        //querry = "SELECT DISTINCT DIL FROM TEZAK WHERE " + N.Parent.Name + "='" + N.Parent.Text + "' AND " + N.Name + "='" + N.Text + "' AND (NOT (DIL IS NULL))";
-                        teZak = new TeZak() { C_PROJ = N.Parent.Text, C_UKOL = N.Text };
+                    }
+                    break;
+                case 2:
+                    //querry = "SELECT DISTINCT DIL FROM TEZAK WHERE " + N.Parent.Name + "='" + N.Parent.Text + "' AND " + N.Name + "='" + N.Text + "' AND (NOT (DIL IS NULL))";
+                    //if (N.Nodes.Count < 0) return;
+                    teZak = new TeZak() { C_PROJ = N.Parent.Text, C_UKOL = N.Text };
+                    if (N.Nodes.Count <= 0)
+                    {
                         querry = await API.APISaveDatabase<TeZakHodnota>("api/TeZak/Task", teZak);
                         foreach (TeZakHodnota item in querry)
                             N.Nodes.Add(Sloupec.DIL, item.Hodnota);
                         N.Expand();
                         InfoProjekt.CisloTasku = Cesta[1].ToString();
                         InfoProjekt.Dil = string.Empty;
-                        break;
-                    case 3:
-                        //    querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
-                        teZak = new TeZak() { C_PROJ = N.Parent.Parent.Text, C_UKOL = N.Parent.Text, DIL = N.Text };
+                    }
+                    break;
+                case 3:
+                    //    querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
+                    //if (N.Nodes.Count < 0) 
+                    teZak = new TeZak() { C_PROJ = N.Parent.Parent.Text, C_UKOL = N.Parent.Text, DIL = N.Text };
+                    if (N.Nodes.Count <= 0)
+                    {
                         querry = await API.APISaveDatabase<TeZakHodnota>("api/TeZak/dil", teZak);
                         foreach (TeZakHodnota item in querry)
                             N.Nodes.Add(Sloupec.CAST, item.Hodnota);
@@ -56,22 +64,21 @@ namespace WFForm
                         //        N.Nodes.Add("CAST", item["CAST"].ToString());
                         N.Expand();
                         InfoProjekt.Dil = Cesta[2].ToString();
-                        break;
-                    case 4:
-                        teZak = new TeZak() { C_PROJ = N.Parent.Parent.Parent.Text, C_UKOL = N.Parent.Parent.Text, DIL = N.Parent.Text, CAST = N.Text };
-                        break;
-                    default:
-                        break;
-                }
-
-                var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
-                if (data == null || data.Count < 1) return;
-                dataGridView1.DataSource = data;
-                dataGridView1.Barvy();
-                dataGridView1.Columns.SloupecSirka();
-
-                Akt.Close();
+                    }
+                    break;
+                case 4:
+                    teZak = new TeZak() { C_PROJ = N.Parent.Parent.Parent.Text, C_UKOL = N.Parent.Parent.Text, DIL = N.Parent.Text, CAST = N.Text };
+                    break;
+                default:
+                    break;
             }
+
+            var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
+            if (data == null || data.Count < 1) return;
+            dataGridView1.DataSource = data;
+            dataGridView1.Barvy();
+            dataGridView1.Columns.SloupecSirka();
+            Akt.Close();
         }
     }
 }
