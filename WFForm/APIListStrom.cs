@@ -72,8 +72,9 @@ namespace WFForm
                 default:
                     break;
             }
-
-            var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
+            //funguje ruzný počet sloupců
+            var data = await API.APISaveDatabase<TeZakDělení>("api/tezak/kriteria", teZak);
+            //var data = await API.APISaveDatabase<TeZak>("api/TeZak/kriteria", teZak);
             if (data == null || data.Count < 1) return;
             dataGridView1.DataSource = data;
             dataGridView1.Barvy();
