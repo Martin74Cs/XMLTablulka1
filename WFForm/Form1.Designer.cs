@@ -177,6 +177,7 @@
             ComboBox1.Name = "ComboBox1";
             ComboBox1.Size = new Size(433, 29);
             ComboBox1.TabIndex = 0;
+            ComboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             ComboBox1.TextChanged += ComboBox1_TextChanged;
             ComboBox1.KeyPress += ComboBox1_KeyPress;
             // 

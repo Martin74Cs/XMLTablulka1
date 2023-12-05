@@ -66,7 +66,10 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     if (int.TryParse(Verze.Last(), out int Cislo))
     {
         Cislo++;
-        string Uprava = result.Version[..^1] + Cislo.ToString();
+        string Uprava = string.Empty;
+        for (int i = 0; i < Verze.Length-1; i++)
+            Uprava += Verze[i] + ".";
+        Uprava += Cislo.ToString();
         await Install.ManifestUploadAsync(Uprava);
         var Vysledek = await Install.ManifestDownloadAsync();
         Console.WriteLine($"Manifes nový : {Vysledek.Version}");

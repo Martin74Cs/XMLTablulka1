@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http.Json;
 using System.Net.Mime;
@@ -71,10 +72,15 @@ namespace Instal
                 File.WriteAllBytes(zipFilePath, fileBytes);
 
                 //Extrahování souborů z archivu, true - přepsání souborů,
-                System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
+                //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
+
+                //sleduj zipování 
+                if(!SledujZip(zipFilePath, Uložit))
+                    return false;
 
                 //Smazaní dočasného uložení
-                File.Delete(zipFilePath);
+                if(File.Exists(zipFilePath))
+                    File.Delete(zipFilePath);
                 return true;
             }
             else
@@ -82,6 +88,35 @@ namespace Instal
                 return false;
             }
         }
+
+        public static bool SledujZip(string zipFilePath, string Uložit)
+        {
+            //try
+            //{
+                using ZipArchive archive = ZipFile.OpenRead(zipFilePath);
+                int totalCount = archive.Entries.Count;
+                //int currentCount = 0;
+
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    // Aktualizace ProgressBar
+                    //currentCount++;
+                    //double progress = (double)currentCount / totalCount * 100;
+                    //UpdateProgressBar(progress);
+
+                    // Extrahování každé položky
+                    entry.ExtractToFile(Path.Combine(Uložit, entry.FullName), true);
+                }
+                return true;
+                //Console.WriteLine("Extrakce dokončena.");
+            //}
+            //catch 
+            //{
+            //    return false;
+            //    //Console.WriteLine($"Chyba při extrakci: {ex.Message}");
+            //}
+        }
+
 
         public static async Task<ProgramInfo> ManifestDownloadAsync()
         {

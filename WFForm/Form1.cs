@@ -355,12 +355,12 @@ namespace WFForm
             }
         }
 
-        public bool ANO { get; set; } = true;      
+        public bool ANO { get; set; } = true;
 
         private async void ComboBox1_TextChanged(object sender, EventArgs e)
         {
             const int mindelka = 3;
-            if (ComboBox1.SelectedIndex > 0)
+            if (ComboBox1.SelectedIndex > -1)
             {
                 ANO = false;
                 ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
@@ -374,6 +374,7 @@ namespace WFForm
             if (Hodnota.Length >= mindelka)
             {
                 if (ANO == false) return;
+                ComboBox1.TextChanged -= ComboBox1_TextChanged;
                 var result = await API.APIJsonList<TeZak>($"api/tezak/search/{Hodnota}");
                 if (result.Count != 0)
                 {
@@ -389,9 +390,12 @@ namespace WFForm
                     ComboBox1.Text = Hodnota;
                     ComboBox1.Select(Hodnota.Length, 0);
                 }
+                ComboBox1.TextChanged += ComboBox1_TextChanged;
             }
             else
                 ANO = true;
+            if (Hodnota.Length < 1)
+                ComboBox1.Items.Clear();
         }
 
         private async void ComboBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -408,6 +412,11 @@ namespace WFForm
                     DataGridView1.Vypis(TableJson);
                 }
             }
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 
