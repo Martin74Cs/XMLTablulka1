@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Library
 {
@@ -26,13 +27,39 @@ namespace Library
                 // Zazipujte obsah složky
                 if(File.Exists(zipSoubor))
                        File.Delete(zipSoubor);
-                ZipFile.CreateFromDirectory(DirZip, zipSoubor);
+
+                // Vytvoření archivu ZIP //výjimkou nebude souboru data.json
+                ZipArchiveZip(DirZip, zipSoubor);
+
+                //ZipFile.CreateFromDirectory(DirZip, zipSoubor);
             }
             else
             {
                 Console.WriteLine("Zadaná složka neexistuje.");
             }
         }
+
+        public static void ZipArchiveZip(string DirZip, string zipSoubor)
+        {
+            // Otevření souboru ZIP pro zápis
+            using var zipFileStream = new FileStream(zipSoubor, FileMode.Create);
+            using var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create);
+            // Přidání všech souborů z adresáře do archivu
+            foreach (string soubor in Directory.GetFiles(DirZip))
+            {
+                //výjimkou souboru data.json
+                if (Path.GetFileName(soubor) != "data.json")
+                {
+                    // Přidání souboru do archivu
+                    ZipArchiveEntry entry = archive.CreateEntry(Path.GetFileName(soubor));
+                    using Stream entryStream = entry.Open();
+                    using var fileStream = new FileStream(soubor, FileMode.Open, FileAccess.Read);
+                    fileStream.CopyTo(entryStream);
+                }
+            }
+        }
+
+
 
         /// <summary>
         /// Rozipování zadaného souboru do vygenerované složkdy tem

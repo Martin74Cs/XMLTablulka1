@@ -7,7 +7,9 @@ using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WFForm
 {
@@ -107,7 +109,7 @@ namespace WFForm
                         FormAcad.listView1.AddListString(ListSouboraCAD);
                         FormAcad.ShowDialog();
                         if (FormAcad.DialogResult == DialogResult.OK)
-                        { 
+                        {
                             switch (FormAcad.Volba)
                             {
                                 case FormWord.Vyber.Vyvorit:
@@ -121,7 +123,7 @@ namespace WFForm
                                             if (File.Exists(teZak.PATH))
                                             {
                                                 try { File.Delete(teZak.PATH); }
-                                                catch  { MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); Word.Zobrazit("ACAD"); return; }
+                                                catch { MessageBox.Show("Soubor je ASI otevøen, NELZE SMAZAT", "Info"); Word.Zobrazit("ACAD"); return; }
                                             }
                                         }
                                         else
@@ -204,8 +206,8 @@ namespace WFForm
                                     if (!await Word.VytvoøitDokumentDoc(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     else
-                                    { 
-                                       var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
+                                    {
+                                        var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
                                         if (result == DialogResult.Yes)
                                         {
                                             if (!await Word.OtevøiDokument(teZak))
@@ -229,7 +231,7 @@ namespace WFForm
                         else
                         { return; }
                     }
-                    else 
+                    else
                     {
                         //soubor neexistuje
                         var ANONE = new Menu().VyberANONE("SOUBOR NE-EXISTUJE\nvybrán soubor : " + teZak.NAZEV + "\nChceš dokument vytvoøit");
@@ -237,7 +239,7 @@ namespace WFForm
                         //    + "\nChceš vytvoøit dokumentu", "Vyber", MessageBoxButtons.YesNo);
                         //vytvoøit z databázové cesty
                         if (ANONE.DialogResult == DialogResult.Yes)
-                        { 
+                        {
                             if (!await Word.VytvoøitDokumentDoc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
@@ -353,5 +355,70 @@ namespace WFForm
             }
         }
 
+        public bool ANO { get; set; } = true;      
+
+        private async void ComboBox1_TextChanged(object sender, EventArgs e)
+        {
+            const int mindelka = 3;
+            if (ComboBox1.SelectedIndex > 0)
+            {
+                ANO = false;
+                ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
+                InfoProjekt.CisloProjektu = selected.Tag.ToString();
+                List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                DataGridView1.Vypis(TableJson);
+                return;
+
+            }
+            string Hodnota = ComboBox1.Text;
+            if (Hodnota.Length >= mindelka)
+            {
+                if (ANO == false) return;
+                var result = await API.APIJsonList<TeZak>($"api/tezak/search/{Hodnota}");
+                if (result.Count != 0)
+                {
+                    InfoProjekt.CisloProjektu = result.First().C_PROJ;
+                    //comboBox1.Items.Clear(); // Clear existing items before adding new ones
+                    ComboBox1.Items.Clear();
+                    foreach (var teZak in result)
+                    {
+                        var polozky = new ComboBoxItem(teZak.C_PROJ + " " + teZak.NAZ_PROJ, teZak.C_PROJ);
+                        ComboBox1.Items.Add(polozky);
+                    }
+                    ComboBox1.DroppedDown = true;
+                    ComboBox1.Text = Hodnota;
+                    ComboBox1.Select(Hodnota.Length, 0);
+                }
+            }
+            else
+                ANO = true;
+        }
+
+        private async void ComboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                if (ComboBox1.SelectedItem != null)
+                {
+                    ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
+                    InfoProjekt.CisloProjektu = selected.Tag.ToString();
+                    if (ComboBox1.DroppedDown == true)
+                        ComboBox1.DroppedDown = false;
+                    List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                    DataGridView1.Vypis(TableJson);
+                }
+            }
+        }
+    }
+
+    public class ComboBoxItem(string displayText, object tag)
+    {
+        public string DisplayText { get; set; } = displayText;
+        public object Tag { get; set; } = tag;
+
+        public override string ToString()
+        {
+            return DisplayText;
+        }
     }
 }

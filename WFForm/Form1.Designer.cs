@@ -37,12 +37,11 @@
             BAdd = new Button();
             ListView1 = new ListView();
             GroupBox2 = new GroupBox();
+            ComboBox1 = new ComboBox();
             Button4 = new Button();
             Button5 = new Button();
             Button6 = new Button();
             Button2 = new Button();
-            ComboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView1).BeginInit();
             tableLayoutPanel1.SuspendLayout();
             GroupBox1.SuspendLayout();
@@ -77,9 +76,9 @@
             // 
             Button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             Button1.Font = new Font("Segoe UI", 12F);
-            Button1.Location = new Point(359, 146);
+            Button1.Location = new Point(358, 148);
             Button1.Name = "Button1";
-            Button1.Size = new Size(75, 32);
+            Button1.Size = new Size(75, 28);
             Button1.TabIndex = 2;
             Button1.Text = "Konec";
             Button1.UseVisualStyleBackColor = true;
@@ -157,18 +156,29 @@
             // GroupBox2
             // 
             GroupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            GroupBox2.Controls.Add(comboBox2);
+            GroupBox2.Controls.Add(ComboBox1);
             GroupBox2.Controls.Add(Button4);
             GroupBox2.Controls.Add(Button5);
             GroupBox2.Controls.Add(Button6);
-            GroupBox2.Controls.Add(Button2);
             GroupBox2.Controls.Add(Button1);
+            GroupBox2.Controls.Add(Button2);
             GroupBox2.Location = new Point(153, 3);
             GroupBox2.Name = "GroupBox2";
             GroupBox2.Size = new Size(439, 184);
             GroupBox2.TabIndex = 5;
             GroupBox2.TabStop = false;
             GroupBox2.Text = "Funkce";
+            // 
+            // ComboBox1
+            // 
+            ComboBox1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
+            ComboBox1.FormattingEnabled = true;
+            ComboBox1.Location = new Point(0, 0);
+            ComboBox1.Name = "ComboBox1";
+            ComboBox1.Size = new Size(433, 29);
+            ComboBox1.TabIndex = 0;
+            ComboBox1.TextChanged += ComboBox1_TextChanged;
+            ComboBox1.KeyPress += ComboBox1_KeyPress;
             // 
             // Button4
             // 
@@ -207,29 +217,13 @@
             // 
             Button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             Button2.Font = new Font("Segoe UI", 12F);
-            Button2.Location = new Point(328, 20);
+            Button2.Location = new Point(247, 148);
             Button2.Name = "Button2";
             Button2.Size = new Size(106, 28);
             Button2.TabIndex = 3;
             Button2.Text = "Průzkumník";
             Button2.UseVisualStyleBackColor = true;
             Button2.Click += Button2_Click_2;
-            // 
-            // ComboBox1
-            // 
-            ComboBox1.Location = new Point(0, 0);
-            ComboBox1.Name = "ComboBox1";
-            ComboBox1.Size = new Size(121, 23);
-            ComboBox1.TabIndex = 0;
-            // 
-            // comboBox2
-            // 
-            comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(6, 26);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(307, 29);
-            comboBox2.TabIndex = 7;
             // 
             // Form1
             // 
@@ -263,6 +257,5 @@
         private Button Button6;
         private Button Button2;
         private ComboBox ComboBox1;
-        private ComboBox comboBox2;
     }
 }

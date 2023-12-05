@@ -94,6 +94,9 @@ namespace XMLTabulka1.Trida
         public string TYPE { get; set; } = string.Empty;
         public string NUMBER { get; set; } = string.Empty;
         public string FOLIO { get; set; } = string.Empty;
+
+        ///<summary> Pomocné hodnoty pro vyplnování razítek. </summary>
+        public string OZNAČENÍPROJEKTU => C_PROJ.FirstOrDefault().ToString();
     }
 
     public  class TeZakPoviné : Entity
