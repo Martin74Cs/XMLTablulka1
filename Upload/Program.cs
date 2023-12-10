@@ -26,7 +26,6 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     }
 }
 
-
 Console.WriteLine("Poslat novou verzi ZIP na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {

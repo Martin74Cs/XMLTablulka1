@@ -26,12 +26,19 @@ namespace XMLTabulka1
 
         public static string AdresarSpusteniNarazen => Path.GetFullPath(Path.Combine(AdresarSpusteni, ".."));
 
-        public static string ManifestInstal => Path.Combine(AdresarSpusteniNarazen, "Podpora", @"Manifest.json");
+        //public static string ManifestInstal => Path.Combine(AdresarSpusteniNarazen, "Podpora", @"Manifest.json");
+        public static string ManifestInstal => Path.Combine(Podpora, "Podpora", @"Manifest.json");
         public static string AktualniAdresar => Environment.CurrentDirectory;
 
         public static string AppData => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public static string AppDataTezak => Path.Combine(AppData, "TeZak");
+
+        public static string AppDataInstal { get {
+                string AppDataInstal = Path.Combine(AppData, "Instal");
+                if (!Directory.Exists(AppDataInstal))
+                    Directory.CreateDirectory(AppDataInstal);
+                return AppDataInstal; } }
 
         public static string AppDataTezakWFForm => Path.Combine(AppDataTezak, "WFForm.exe");
 
@@ -92,7 +99,7 @@ namespace XMLTabulka1
         public static string Podpora
         {
             get {
-                string Cesta = Path.Combine(AdresarSpusteni, @"Podpora");
+                string Cesta = Path.Combine(AppData, @"Podpora");
                 if (!Directory.Exists(Cesta))
                     Directory.CreateDirectory(Cesta);
                 return Path.GetFullPath(Cesta);            }

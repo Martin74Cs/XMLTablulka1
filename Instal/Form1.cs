@@ -15,7 +15,9 @@ namespace Instal
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            textBox1.Text = Path.GetDirectoryName(Cesty.AdresarSpusteni);
+            //textBox1.Text = Path.GetDirectoryName(Cesty.AdresarSpusteni);
+            //textBox1.Text = Path.GetDirectoryName(Cesty.AppDataInstal);
+            textBox1.Text = Cesty.AppDataTezak;
         }
 
         private async void Instalace_ClickAsync(object sender, EventArgs e)
@@ -23,6 +25,7 @@ namespace Instal
             var Akt = MenuInstal.Aktualizuj();
             //provedení instalace na zadanou cestu
             var zip = await Install.GetSearchAsync("zip.zip");
+
             string RandomFilename = zip.Last().StoredFileName ?? "";
             string Cesta = textBox1.Text;
 
@@ -36,17 +39,15 @@ namespace Instal
             Nova.SaveJson(Cesty.ManifestInstal);
             Akt.Close();
 
-#if DEBUG
             //Spuštení programu TeZak
             //Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
             //Cesta = Path.Combine( Cesty.AppData, "TeZak","WFForm.exe");
-            Cesta = Cesty.AppDataTezakWFForm;
+            //Cesta = Cesty.AppDataTezakWFForm;
             //Cesty.PodporaDataJson
-#else
 
             string soubor = "WFForm.exe";
             Cesta = Path.Combine(Cesty.AdresarSpusteni, soubor);
-#endif
+
             if (File.Exists(Cesty.AppDataTezakWFForm))
                 Soubor.StartAplikace(Cesty.AppDataTezakWFForm, "");
 
