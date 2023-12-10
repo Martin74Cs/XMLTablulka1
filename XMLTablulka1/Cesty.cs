@@ -60,6 +60,20 @@ namespace XMLTabulka1
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
         //#else
 
+        public static string AdresarDebugInstal
+        {
+            get
+            {
+                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "Instal", "bin", "Debug", "net8.0-windows8.0"));
+                return cesta;
+
+                //if (Environment.MachineName == "KANCELAR")
+                //    return @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+                //else
+                //   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
+            }
+        }
+
         public static string AdresarDebugWFForm
         {
             get 
@@ -79,6 +93,17 @@ namespace XMLTabulka1
             get
             {
                 var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "Zip.zip");
+                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+
+        public static string SevenZIP
+        {
+            get
+            {
+                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "7Zip.zip");
                 if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                     Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
                 return Cesta;

@@ -31,6 +31,7 @@ namespace Library
                 // Vytvoření archivu ZIP //výjimkou nebude souboru data.json
                 ZipArchiveZip(DirZip, zipSoubor);
 
+                //staré řešení
                 //ZipFile.CreateFromDirectory(DirZip, zipSoubor);
             }
             else
