@@ -47,7 +47,7 @@
         "IsReleaseOnly" = "11:FALSE"
         "OutputFilename" = "8:Debug\\Setup.msi"
         "PackageFilesAs" = "3:2"
-        "PackageFileSize" = "3:-2147483648"
+        "PackageFileSize" = "3:0"
         "CabType" = "3:1"
         "Compression" = "3:2"
         "SignOutput" = "11:FALSE"
@@ -64,10 +64,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Modul runtime .NET 8.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x64"
                     }
                 }
             }
@@ -244,7 +244,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Databaze"
         "ProductCode" = "8:{E23805B0-5388-4F76-9325-F0EDD85B966E}"
-        "PackageCode" = "8:{20F40604-96C9-4F88-B272-3EAAE6EED5A0}"
+        "PackageCode" = "8:{E9915375-9699-440C-A2FD-234DE3522E40}"
         "UpgradeCode" = "8:{67EC3EFF-CA3A-4E58-B729-0942A2B478F2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -253,7 +253,7 @@
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
         "Manufacturer" = "8:TeZak"
-        "ARPHELPTELEPHONE" = "8:"
+        "ARPHELPTELEPHONE" = "8:732483165"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Instal"
         "Subject" = "8:"
@@ -779,7 +779,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2D5712E21DD242628C3BF1E07E93C34E"
             {
-            "SourcePath" = "8:..\\Instal\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "SourcePath" = "8:..\\Instal\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5756ED7B96274FB195D51CB28811004D"
@@ -807,7 +807,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_817327559F634D21837B7097F80C8DAE"
             {
-            "SourcePath" = "8:..\\WFForm\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "SourcePath" = "8:..\\WFForm\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_D2326442D33B43009C025E1AD973A569"
@@ -835,7 +835,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B2A077315BC5435F93A3533F5B108FEF"
             {
-            "SourcePath" = "8:..\\ProgramFiles\\obj\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "SourcePath" = "8:..\\ProgramFiles\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C67D424EF36C4E1CBFAF22964C6CEFB8"

@@ -32,6 +32,7 @@ namespace LibraryAplikace.Acad
                 {
                     case "C_PROJ":
                         string[] dfg = teZak.C_PROJ.Split('.');
+                        TeZAkValue = dfg.Last();
                         //Deleni[i] = dfg[0];
                         //Deleni[60] = dfg[^1];
 

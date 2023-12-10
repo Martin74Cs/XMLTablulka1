@@ -25,7 +25,13 @@ namespace Instal
             var Akt = MenuInstal.Aktualizuj();
             //provedení instalace na zadanou cestu
             var zip = await Install.GetSearchAsync("zip.zip");
-
+            if(zip.Count < 1)
+            {
+                MessageBox.Show($"Chyba hledání souboru v RestApi\nSoubor pravdìpodobnì nìní nahrán");
+                Akt.Close();
+                Close();
+                return;
+            }
             string RandomFilename = zip.Last().StoredFileName ?? "";
             string Cesta = textBox1.Text;
 
@@ -33,7 +39,13 @@ namespace Instal
             if (!Directory.Exists(Cesta))
                 Directory.CreateDirectory(Cesta);
 
-            await Install.Download(RandomFilename, Cesta);
+            if (!await Install.Download(RandomFilename, Cesta))
+            {
+                MessageBox.Show($"Chyba pøi extrakci souboru: {RandomFilename}");
+                Akt.Close();
+                Close();
+                return;
+            }
             //naètení manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
             Nova.SaveJson(Cesty.ManifestInstal);
