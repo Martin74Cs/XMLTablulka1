@@ -124,7 +124,7 @@ namespace XMLTabulka1
         public static string Podpora
         {
             get {
-                string Cesta = Path.Combine(AppData, @"Podpora");
+                string Cesta = Path.Combine(AppDataTezak, @"Podpora");
                 if (!Directory.Exists(Cesta))
                     Directory.CreateDirectory(Cesta);
                 return Path.GetFullPath(Cesta);            }

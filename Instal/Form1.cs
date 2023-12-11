@@ -37,7 +37,12 @@ namespace Instal
 
             //mìlo by vždy existovat
             if (!Directory.Exists(Cesta))
+            { 
                 Directory.CreateDirectory(Cesta);
+                //Directory.CreateDirectory(Cesty.Podpora);
+                //Directory.CreateDirectory(Cesty.Acad);
+                //Directory.CreateDirectory(Cesty.Word);
+            }
 
             if (!await Install.Download(RandomFilename, Cesta))
             {
@@ -49,6 +54,8 @@ namespace Instal
 
             //naètení manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
+            //if (!Directory.Exists(Cesty.Podpora))
+            //    Directory.CreateDirectory(Cesty.Podpora);
             Nova.SaveJson(Cesty.ManifestInstal);
             Akt.Close();
 

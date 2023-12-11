@@ -72,11 +72,11 @@ namespace Instal
                 File.WriteAllBytes(zipFilePath, fileBytes);
 
                 //Extrahování souborů z archivu, true - přepsání souborů,
-                //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
+                System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
 
                 //sleduj zipování 
-                if(!SledujZip(zipFilePath, Uložit))
-                    return false;
+                //if(!SledujZip(zipFilePath, Uložit))
+                //    return false;
 
                 //Smazaní dočasného uložení
                 if(File.Exists(zipFilePath))
@@ -99,11 +99,15 @@ namespace Instal
 
                 foreach (ZipArchiveEntry entry in archive.Entries)
                 {
-                    // Aktualizace ProgressBar
-                    //currentCount++;
-                    //double progress = (double)currentCount / totalCount * 100;
-                    //UpdateProgressBar(progress);
+                // Aktualizace ProgressBar
+                //currentCount++;
+                //double progress = (double)currentCount / totalCount * 100;
+                //UpdateProgressBar(progress);
+                string tre = Path.GetDirectoryName(Path.Combine(Uložit, entry.FullName));
+                    if (!Directory.Exists(tre))
+                        Directory.CreateDirectory(tre);
 
+                    // nevytváži adresáře
                     // Extrahování každé položky
                     entry.ExtractToFile(Path.Combine(Uložit, entry.FullName), true);
                 }
