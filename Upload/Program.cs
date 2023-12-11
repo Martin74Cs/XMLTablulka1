@@ -15,12 +15,12 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
         cesta = @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
 
     Console.Write("Zip .....");
-    //Zip.Start(Cesty.AdresarDebugInstal, Cesty.ZIP);
-    SevenZIP.Start(Cesty.AdresarDebugInstal, Cesty.ZIP);
+    Zip.Start(Cesty.AdresarDebugInstal, Cesty.ZIP);
+    //SevenZIP.Start(Cesty.AdresarDebugInstal, Cesty.SevenZIP);
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");
-    string SoubourZip = await Install.Upload(Cesty.ZIP);
+    string SoubourZip = await Install.Upload(Cesty.SevenZIP);
     if (string.IsNullOrEmpty(SoubourZip))
         Console.WriteLine("Chyba nahrání souboru");
     else
@@ -32,7 +32,7 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
         if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIP)))
         {
             //adresar zip někdo používá možná nahrávání na web 
-            Directory.Delete(Path.GetDirectoryName(Cesty.ZIP), true);
+            //Directory.Delete(Path.GetDirectoryName(Cesty.ZIP), true);
         }
     }
 

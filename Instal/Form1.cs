@@ -46,6 +46,7 @@ namespace Instal
                 Close();
                 return;
             }
+
             //naètení manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
             Nova.SaveJson(Cesty.ManifestInstal);

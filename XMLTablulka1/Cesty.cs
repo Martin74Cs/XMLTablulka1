@@ -27,7 +27,7 @@ namespace XMLTabulka1
         public static string AdresarSpusteniNarazen => Path.GetFullPath(Path.Combine(AdresarSpusteni, ".."));
 
         //public static string ManifestInstal => Path.Combine(AdresarSpusteniNarazen, "Podpora", @"Manifest.json");
-        public static string ManifestInstal => Path.Combine(Podpora, "Podpora", @"Manifest.json");
+        public static string ManifestInstal => Path.Combine(Podpora, @"Manifest.json");
         public static string AktualniAdresar => Environment.CurrentDirectory;
 
         public static string AppData => Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -103,7 +103,7 @@ namespace XMLTabulka1
         {
             get
             {
-                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "7Zip.zip");
+                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "Zip.7z");
                 if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                     Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
                 return Cesta;

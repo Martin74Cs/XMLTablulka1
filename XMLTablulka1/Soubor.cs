@@ -590,7 +590,8 @@ namespace XMLTabulka1
                 }
                 else
                 {
-                    listSouboru.Add(SouborJedna);
+                    if(File.Exists(SouborJedna)) 
+                        listSouboru.Add(SouborJedna);
                 }
             }
             return listSouboru;
