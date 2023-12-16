@@ -32,6 +32,7 @@ namespace Instal
                 Close();
                 return;
             }
+
             string RandomFilename = zip.Last().StoredFileName ?? "";
             string Cesta = textBox1.Text;
 
@@ -54,8 +55,7 @@ namespace Instal
 
             //naètení manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
-            //if (!Directory.Exists(Cesty.Podpora))
-            //    Directory.CreateDirectory(Cesty.Podpora);
+            //uložení manifestu
             Nova.SaveJson(Cesty.ManifestInstal);
             Akt.Close();
 

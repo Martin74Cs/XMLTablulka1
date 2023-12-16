@@ -53,6 +53,45 @@ namespace XMLTabulka1
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
+
+        public static string Priprava
+        {
+            get
+            {
+                string Priprava = @"c:\Users\Martin\OneDriveKopie\Databaze\Tezak\";
+                var Cesta = Path.Combine(Priprava, "Priprava");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                //Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+
+
+        public static string PripravaTeZak
+        {
+            get
+            {
+                string Cesta = Path.Combine(Priprava, "TeZak");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                    //Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+        public static string PripravaTeZakInstal
+        {
+            get
+            {
+                //string Priprava = @"c:\Users\Martin\OneDriveKopie\Databaze\Tezak\";
+                var Cesta = Path.Combine(PripravaTeZak, "Instal");
+                //if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                return Cesta;
+            }
+        }
+
         //#if DEBUG
         //public static string Pomoc => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Pomoc"));
 
@@ -92,7 +131,7 @@ namespace XMLTabulka1
         {
             get
             {
-                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "Zip.zip");
+                var Cesta = Path.Combine(Priprava, "ZIP", "Zip.zip");
                 if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                     Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
                 return Cesta;

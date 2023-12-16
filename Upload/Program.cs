@@ -6,21 +6,29 @@ using System.Diagnostics;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
-Console.WriteLine("Poslat instalační soubor na WEB .....[Ano/Ne]");
+Console.WriteLine("Poslat zip  na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
-    //nefunguje y jiného umsátění
-    string cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
-    if (Environment.MachineName == "KANCELAR")
-        cesta = @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
+    ////nefunguje z jiného umsátění
+    //string cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
+    //if (Environment.MachineName == "KANCELAR")
+    //    cesta = @"c:\Users\Martin\OneDrive\Databaze\Tezak\XMLTablulka1\Setup\Debug\Setup.msi";
+
+    Console.Write("Vytvožení kopie TeZak pro instalaci......");
+    Zip.KopirovatSlozku(Cesty.AdresarDebugWFForm, Cesty.PripravaTeZak);
+    Console.WriteLine("Ok");
+
+    Console.Write("Vytvožení kopie Instlal pro instalaci......");
+    Zip.KopirovatSlozku(Cesty.AdresarDebugInstal, Cesty.PripravaTeZakInstal);
+    Console.WriteLine("Ok");
 
     Console.Write("Zip .....");
-    Zip.Start(Cesty.AdresarDebugInstal, Cesty.ZIP);
+    Zip.Start(Cesty.PripravaTeZak, Cesty.ZIP);
     //SevenZIP.Start(Cesty.AdresarDebugInstal, Cesty.SevenZIP);
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");
-    string SoubourZip = await Install.Upload(Cesty.SevenZIP);
+    string SoubourZip = await Install.Upload(Cesty.ZIP);
     if (string.IsNullOrEmpty(SoubourZip))
         Console.WriteLine("Chyba nahrání souboru");
     else

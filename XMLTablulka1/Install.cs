@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
@@ -54,7 +55,7 @@ namespace Instal
         }
 
         /// <summary>
-        /// Download zadaného souboru
+        /// Download zadaného souboru u unzip
         /// </summary>
         public static async Task<bool> Download(string StoredFileName, string Uložit)
         {
@@ -68,18 +69,22 @@ namespace Instal
                 //Stažení proudu dat jako soubor zip
                 byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
 
+                //vytvožení memory stream
+                var memoryStream = new MemoryStream(fileBytes);
+                //z stream unzip na zadanou cestu
+                System.IO.Compression.ZipFile.ExtractToDirectory(memoryStream, Uložit, true);
+
                 //vytvoření souboru z proudu dat
                 File.WriteAllBytes(zipFilePath, fileBytes);
-
                 //Extrahování souborů z archivu, true - přepsání souborů,
-                System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
+                //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
 
                 //sleduj zipování 
                 //if(!SledujZip(zipFilePath, Uložit))
                 //    return false;
 
                 //Smazaní dočasného uložení
-                if(File.Exists(zipFilePath))
+                if (File.Exists(zipFilePath))
                     File.Delete(zipFilePath);
                 return true;
             }

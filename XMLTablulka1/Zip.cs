@@ -24,7 +24,7 @@ namespace Library
                     return;
                     //zipSoubor = @"c:\Z\Zip.zip";
 
-                // Zazipujte obsah složky
+                //Smazaní původního ZIP soboru
                 if(File.Exists(zipSoubor))
                        File.Delete(zipSoubor);
 
@@ -52,6 +52,7 @@ namespace Library
                 if (Path.GetFileName(soubor) != "data.json")
                 {
                     // Přidání souboru do archivu
+                    //nrpřídává adresáře
                     ZipArchiveEntry entry = archive.CreateEntry(Path.GetFileName(soubor));
                     using Stream entryStream = entry.Open();
                     using var fileStream = new FileStream(soubor, FileMode.Open, FileAccess.Read);
