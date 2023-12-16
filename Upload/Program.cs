@@ -6,7 +6,7 @@ using System.Diagnostics;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
-Console.WriteLine("Poslat zip  na WEB .....[Ano/Ne]");
+Console.WriteLine("Poslat kompletní intalaci zip na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
     ////nefunguje z jiného umsátění

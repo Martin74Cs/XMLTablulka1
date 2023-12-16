@@ -131,7 +131,7 @@ namespace XMLTabulka1
         {
             get
             {
-                var Cesta = Path.Combine(Priprava, "ZIP", "Zip.zip");
+                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.zip");
                 if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                     Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
                 return Cesta;

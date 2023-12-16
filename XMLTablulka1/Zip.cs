@@ -4,6 +4,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using XMLTabulka1;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Library
@@ -40,28 +41,60 @@ namespace Library
             }
         }
 
-        public static void ZipArchiveZip(string DirZip, string zipSoubor)
+        //public static void ZipArchiveZip(string DirZip, string zipSoubor)
+        //{
+        //    // Otevření souboru ZIP pro zápis
+        //    using var zipFileStream = new FileStream(zipSoubor, FileMode.Create);
+        //    using var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create);
+        //    // Přidání všech souborů z adresáře do archivu
+        //    //foreach (string soubor in Directory.GetFiles(DirZip))
+        //    //foreach (string soubor in Directory.GetFiles(DirZip).Where(file => Path.GetFileName(file) != "data.json"))
+        //    foreach (string soubor in Soubor.SeznamSouboruAdresarioPod(DirZip).Where(file => Path.GetFileName(file) != "data.json"))
+        //    {
+        //        //výjimkou souboru data.json
+        //        //if (Path.GetFileName(soubor) != "data.json")
+        //        //{
+        //            // Přidání souboru do archivu
+        //            // Nepřídává adresáře
+        //            ZipArchiveEntry entry = archive.CreateEntry(Path.GetFileName(soubor));
+        //            using Stream entryStream = entry.Open();
+        //            using var fileStream = new FileStream(soubor, FileMode.Open, FileAccess.Read);
+        //            fileStream.CopyTo(entryStream);
+        //        //}
+        //    }
+
+        //}
+
+
+        public static void ZipArchiveZip(string sourceDirectory, string zipFileName)
         {
-            // Otevření souboru ZIP pro zápis
-            using var zipFileStream = new FileStream(zipSoubor, FileMode.Create);
-            using var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create);
-            // Přidání všech souborů z adresáře do archivu
-            foreach (string soubor in Directory.GetFiles(DirZip))
+            using (var zipFileStream = new FileStream(zipFileName, FileMode.Create))
+            using (var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create))
             {
-                //výjimkou souboru data.json
-                if (Path.GetFileName(soubor) != "data.json")
+                AddFilesToZip(archive, sourceDirectory, "");
+            }
+        }
+        private static void AddFilesToZip(ZipArchive archive, string sourceDirectory, string relativePath)
+        {
+            string[] files = Directory.GetFiles(Path.Combine(sourceDirectory, relativePath));
+            foreach (string filePath in files.Where(file => Path.GetFileName(file) != "data.json"))
+            {
+                string entryName = Path.Combine(relativePath, Path.GetFileName(filePath));
+                ZipArchiveEntry entry = archive.CreateEntry(entryName);
+                using (Stream entryStream = entry.Open())
+                using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
                 {
-                    // Přidání souboru do archivu
-                    //nrpřídává adresáře
-                    ZipArchiveEntry entry = archive.CreateEntry(Path.GetFileName(soubor));
-                    using Stream entryStream = entry.Open();
-                    using var fileStream = new FileStream(soubor, FileMode.Open, FileAccess.Read);
                     fileStream.CopyTo(entryStream);
                 }
             }
+
+            string[] subdirectories = Directory.GetDirectories(Path.Combine(sourceDirectory, relativePath));
+            foreach (string subdirectory in subdirectories)
+            {
+                string relativeSubdirectory = Path.Combine(relativePath, Path.GetFileName(subdirectory));
+                AddFilesToZip(archive, sourceDirectory, relativeSubdirectory);
+            }
         }
-
-
 
         /// <summary>
         /// Rozipování zadaného souboru do vygenerované složkdy tem
