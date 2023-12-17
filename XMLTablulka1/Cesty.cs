@@ -126,8 +126,18 @@ namespace XMLTabulka1
                 //   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
             }
         }
+        public static string InstalZIP
+        {
+            get
+            {
+                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.zip");
+                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
 
-        public static string ZIP
+        public static string ZIPzip
         {
             get
             {

@@ -2,7 +2,7 @@
 
 namespace WFForm
 {
-    public partial class FormWord : Form
+    public partial class FormSoubor : Form
     {
         public string Cesta { get; set; }
 
@@ -13,7 +13,7 @@ namespace WFForm
             Cesta
         }
 
-        public FormWord()
+        public FormSoubor()
         {
             InitializeComponent();
         }

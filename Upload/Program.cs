@@ -22,22 +22,22 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     Zip.KopirovatSlozku(Cesty.AdresarDebugInstal, Cesty.PripravaTeZakInstal);
     Console.WriteLine("Ok");
 
-    Console.Write("Zip .....");
-    Zip.Start(Cesty.PripravaTeZak, Cesty.ZIP);
+    Console.Write("Vytvožení Zip ze složky PripravaTeZak.....");
+    Zip.Start(Cesty.PripravaTeZak, Cesty.InstalZIP);
     //SevenZIP.Start(Cesty.AdresarDebugInstal, Cesty.SevenZIP);
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");
-    string SoubourZip = await Install.Upload(Cesty.ZIP);
+    string SoubourZip = await Install.Upload(Cesty.InstalZIP);
     if (string.IsNullOrEmpty(SoubourZip))
         Console.WriteLine("Chyba nahrání souboru");
     else
         Console.WriteLine($"Byl nahran soubor : {SoubourZip}");
 
     //Smazaní adresaže ZIP
-    if (File.Exists(Cesty.ZIP))
+    if (File.Exists(Cesty.InstalZIP))
     {
-        if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIP)))
+        if (Directory.Exists(Path.GetDirectoryName(Cesty.InstalZIP)))
         {
             //adresar zip někdo používá možná nahrávání na web 
             //Directory.Delete(Path.GetDirectoryName(Cesty.ZIP), true);
@@ -60,20 +60,20 @@ Console.WriteLine("Poslat novou verzi ZIP na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
     Console.Write("Zip .....");
-    Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIP);
+    Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIPzip);
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");
-    string SoubourZip = await Install.Upload(Cesty.ZIP);
+    string SoubourZip = await Install.Upload(Cesty.ZIPzip);
     if (string.IsNullOrEmpty(SoubourZip))
         Console.WriteLine("Chyba nahrání souboru");
     else
         Console.WriteLine($"Byl nahran soubor : {SoubourZip}");
 
     //Smazaní adresaže ZIP
-    if (File.Exists(Cesty.ZIP))
+    if (File.Exists(Cesty.ZIPzip))
     {
-        if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIP)))
+        if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIPzip)))
         { 
             //adresar zip někdo používá možná nahrávání na web 
             //Nejde smazat
