@@ -53,13 +53,15 @@ namespace XMLTabulka1
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
+        public static string Upload => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
 
         public static string Priprava
         {
             get
             {
-                string Priprava = @"c:\Users\Martin\OneDriveKopie\Databaze\Tezak\";
-                var Cesta = Path.Combine(Priprava, "Priprava");
+                var Cesta = Path.Combine(Upload, "Priprava");
+                //string Priprava = @"c:\Users\Martin\OneDriveKopie\Databaze\Tezak\";
+                //var Cesta = Path.Combine(Priprava, "Priprava");
                 if (!Directory.Exists(Cesta))
                     Directory.CreateDirectory(Cesta);
                 //Directory.CreateDirectory(Path.GetDirectoryName(Cesta));

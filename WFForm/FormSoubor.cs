@@ -38,6 +38,7 @@ namespace WFForm
                 Close();
 
             }
+            await Task.Delay(1);
         }
 
         private void FormWord_Load(object sender, EventArgs e)

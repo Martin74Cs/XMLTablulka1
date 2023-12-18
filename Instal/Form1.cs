@@ -25,9 +25,10 @@ namespace Instal
             var Akt = MenuInstal.Aktualizuj();
             //provedení instalace na zadanou cestu
             var zip = await Install.GetSearchAsync("zip.zip");
+            //var zip = await Install.GetSearchAsync("instal.zip");
             if(zip.Count < 1)
             {
-                MessageBox.Show($"Chyba hledání souboru v RestApi\nSoubor pravdìpodobnì nìní nahrán");
+                MessageBox.Show($"Chyba hledání souboru v RestApi\nSoubor pravdepodobne není nahrán");
                 Akt.Close();
                 Close();
                 return;

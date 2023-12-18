@@ -131,7 +131,7 @@ namespace WFForm
                                     break;
                                 case FormSoubor.Vyber.Cesta:
                                     //Soubor existuje a mùže být otevøen
-                                    Acad.OtevøitExistujícíSouborAcad(teZak.PATH);
+                                    Acad.OtevritExistujícíSouborAcad(teZak.PATH);
                                     break;
                                 default:
                                     break;
@@ -200,14 +200,14 @@ namespace WFForm
                                         { return; }
                                     }
                                     //Blokovani.Zapnuto();
-                                    if (!await Word.VytvoøitDokumentDoc(teZak))
+                                    if (!await Word.VytvoritDokumentDoc(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     else
                                     {
                                         var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
                                         if (result == DialogResult.Yes)
                                         {
-                                            if (!await Word.OtevøiDokument(teZak))
+                                            if (!await Word.OtevriDokument(teZak))
                                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                         }
                                     }
@@ -218,7 +218,7 @@ namespace WFForm
                                     //Pokud byla zvolena cesta pro otevøení souboru
                                     teZak.PATH = FormWord.Cesta;
                                     //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                                    if (!await Word.OtevøiDokument(teZak))
+                                    if (!await Word.OtevriDokument(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     break;
                                 default:
@@ -237,7 +237,7 @@ namespace WFForm
                         //vytvoøit z databázové cesty
                         if (ANONE.DialogResult == DialogResult.Yes)
                         {
-                            if (!await Word.VytvoøitDokumentDoc(teZak))
+                            if (!await Word.VytvoritDokumentDoc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                     }
