@@ -137,11 +137,22 @@ namespace XMLTabulka1
             }
         }
 
-        public static string ZIPzip
+        public static string InstalExe
         {
             get
             {
-                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.zip");
+                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.exe");
+                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+
+        public static string ZIPProgram
+        {
+            get
+            {
+                var Cesta = Path.Combine(Priprava, "ZIP", "Program.zip");
                 if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                     Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
                 return Cesta;

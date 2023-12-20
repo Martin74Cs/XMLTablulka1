@@ -64,7 +64,7 @@ namespace Instal
             if (response.IsSuccessStatusCode)
             {
                 //cesta dočasného uložení
-                string zipFilePath = Path.Combine(Path.GetTempPath(), "temp.zip");
+                //string zipFilePath = Path.Combine(Path.GetTempPath(), "temp.zip");
 
                 //Stažení proudu dat jako soubor zip
                 byte[] fileBytes = await response.Content.ReadAsByteArrayAsync();
@@ -75,7 +75,7 @@ namespace Instal
                 System.IO.Compression.ZipFile.ExtractToDirectory(memoryStream, Uložit, true);
 
                 //vytvoření souboru z proudu dat
-                File.WriteAllBytes(zipFilePath, fileBytes);
+                //File.WriteAllBytes(zipFilePath, fileBytes);
                 //Extrahování souborů z archivu, true - přepsání souborů,
                 //System.IO.Compression.ZipFile.ExtractToDirectory(zipFilePath, Uložit,true);
 
@@ -84,8 +84,8 @@ namespace Instal
                 //    return false;
 
                 //Smazaní dočasného uložení
-                if (File.Exists(zipFilePath))
-                    File.Delete(zipFilePath);
+                //if (File.Exists(zipFilePath))
+                //    File.Delete(zipFilePath);
                 return true;
             }
             else
@@ -127,10 +127,10 @@ namespace Instal
         }
 
 
-        public static async Task<ProgramInfo> ManifestDownloadAsync()
+        public static async Task<ProgramInfo> ManifestDownloadAsync(string filename)
         {
             var http = new HttpApi();
-            var response = await http.GetAsync($"/api/File/Manifest");
+            var response = await http.GetAsync($"/api/File/Manifest/{filename}");
             if (response.IsSuccessStatusCode)
             {
                 var fileStream = response.Content.ReadAsStream();
@@ -141,9 +141,9 @@ namespace Instal
 
         }
 
-        public static async Task<bool> ManifestUploadAsync(string Verze)
+        public static async Task<bool> ManifestUploadAsync(string Filename, string Verze)
         {
-            string Cesta = Path.Combine(Cesty.Manifest, "Manifest.txt");
+            string Cesta = Path.Combine(Cesty.Manifest, Filename);
 
             //ProgramInfo program = new() { Version = Verze, ReleaseDate = DateTime.Now.ToString(), DownloadUrl = "192.168.1.210" };
             ProgramInfo program = new() { Version = Verze, ReleaseDate = DateTime.Now, DownloadUrl = HttpApi.IP() };

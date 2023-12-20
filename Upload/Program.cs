@@ -6,6 +6,14 @@ using System.Diagnostics;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
+Console.WriteLine("Poslat insalační program exe na WEB .....[Ano/Ne]");
+if (Console.ReadKey(true).Key == ConsoleKey.A)
+{
+    //pokus o vytvoření EXE
+    SevenZIPmoje.SevenExe(Cesty.PripravaTeZak, Cesty.InstalExe);
+}
+
+
 Console.WriteLine("Poslat kompletní intalaci zip na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
@@ -24,6 +32,7 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
 
     Console.Write("Vytvožení Zip ze složky PripravaTeZak.....");
     Zip.Start(Cesty.PripravaTeZak, Cesty.InstalZIP);
+
     //SevenZIP.Start(Cesty.AdresarDebugInstal, Cesty.SevenZIP);
     Console.WriteLine("Ok");
 
@@ -56,24 +65,24 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     //}
 }
 
-Console.WriteLine("Poslat novou verzi ZIP na WEB .....[Ano/Ne]");
+Console.WriteLine("Poslat novou verzi hlavního programu v ZIP na WEB jako nouvou verzi programu .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
     Console.Write("Zip .....");
-    Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIPzip);
+    Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIPProgram);
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");
-    string SoubourZip = await Install.Upload(Cesty.ZIPzip);
+    string SoubourZip = await Install.Upload(Cesty.ZIPProgram);
     if (string.IsNullOrEmpty(SoubourZip))
         Console.WriteLine("Chyba nahrání souboru");
     else
         Console.WriteLine($"Byl nahran soubor : {SoubourZip}");
 
     //Smazaní adresaže ZIP
-    if (File.Exists(Cesty.ZIPzip))
+    if (File.Exists(Cesty.ZIPProgram))
     {
-        if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIPzip)))
+        if (Directory.Exists(Path.GetDirectoryName(Cesty.ZIPProgram)))
         { 
             //adresar zip někdo používá možná nahrávání na web 
             //Nejde smazat
@@ -83,10 +92,11 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
 
 }
 
-Console.WriteLine("Poslat novou verzi Manifest na WEB .....[Ano/Ne]");
+Console.WriteLine("Poslat novou verzi Manifest na WEB pro kontrolu publikování nového programu.....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
-    var result = await Install.ManifestDownloadAsync();
+    //stažení původního manifestu
+    var result = await Install.ManifestDownloadAsync("Manifest.txt");
     Console.WriteLine($"Manifes původní : {result.Version}");
     //navýšení verze
     string[] Verze = result.Version.Split('.');
@@ -97,8 +107,12 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
         for (int i = 0; i < Verze.Length-1; i++)
             Uprava += Verze[i] + ".";
         Uprava += Cislo.ToString();
-        await Install.ManifestUploadAsync(Uprava);
-        var Vysledek = await Install.ManifestDownloadAsync();
+
+        //nahrání upraveného manifestu
+        await Install.ManifestUploadAsync("Manifest.txt", Uprava);
+
+        //stažení upraveného manifestu pro kontrolu
+        var Vysledek = await Install.ManifestDownloadAsync("Manifest.txt");
         Console.WriteLine($"Manifes nový : {Vysledek.Version}");
     }
 }
