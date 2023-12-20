@@ -69,6 +69,17 @@ namespace XMLTabulka1
             }
         }
 
+        public static string PripravaSetup
+        {
+            get
+            {
+                string Cesta = Path.Combine(Priprava, "Setup");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                //Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
 
         public static string PripravaTeZak
         {
@@ -100,6 +111,14 @@ namespace XMLTabulka1
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
         //public static string Podpora => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\Podpora"));
         //#else
+        public static string AdresarInstalPrvni
+        {
+            get
+            {
+                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "InstalPrvni", "bin", "Debug", "net8.0-windows8.0"));
+                return cesta;
+            }
+        }
 
         public static string AdresarDebugInstal
         {

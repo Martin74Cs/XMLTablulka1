@@ -9,8 +9,21 @@ using XMLTabulka1.Trida;
 Console.WriteLine("Poslat insalační program exe na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
+    Console.Write("Vytvožení kopie InstalPrvni Setup pro instalaci......");
+    Zip.KopirovatSlozku(Cesty.AdresarInstalPrvni, Cesty.PripravaSetup);
+    Console.WriteLine("Ok");
+
+    Console.Write("Vytvožení Zip ze složky PripravaTeZak.....");
+    Zip.Start(Cesty.AdresarInstalPrvni, Cesty.InstalZIP);
+
     //pokus o vytvoření EXE
-    SevenZIPmoje.SevenExe(Cesty.PripravaTeZak, Cesty.InstalExe);
+    SevenZIPmoje.SevenExe(Cesty.AdresarInstalPrvni, Cesty.InstalExe);
+    Console.WriteLine("Poslat soubor na WEB .....");
+    string SoubourZip = await Install.Upload(Cesty.InstalExe);
+    if (string.IsNullOrEmpty(SoubourZip))
+        Console.WriteLine("Chyba nahrání souboru");
+    else
+        Console.WriteLine($"Byl nahran soubor : {SoubourZip}");
 }
 
 
