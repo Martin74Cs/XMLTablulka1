@@ -87,7 +87,7 @@ namespace LibraryAplikace.Word
         /// <summary>
         /// Dokumenet neexistuje
         /// </summary>
-        public static async Task<bool> VytvořitDokumentDoc(TeZak teZak)
+        public static async Task<bool> VytvoritDokumentDoc(TeZak teZak)
         {
             await Task.Delay(1);
 
@@ -124,7 +124,7 @@ namespace LibraryAplikace.Word
         }
 
 
-        public static async Task<bool> OtevřiDokument(TeZak teZak)
+        public static async Task<bool> OtevriDokument(TeZak teZak)
         {
             await Task.Delay(1);
 
