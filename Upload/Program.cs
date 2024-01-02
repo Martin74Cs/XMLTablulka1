@@ -26,12 +26,12 @@ if (Console.ReadKey(true).Key == ConsoleKey.A)
     }
 }
 
-
 Console.WriteLine("Poslat novou verzi ZIP na WEB .....[Ano/Ne]");
 if (Console.ReadKey(true).Key == ConsoleKey.A)
 {
     Console.Write("Zip .....");
-    Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIP);
+    if(!Zip.Start(Cesty.AdresarDebugWFForm, Cesty.ZIP))
+        return;
     Console.WriteLine("Ok");
 
     Console.WriteLine("Poslat soubor na WEB .....");

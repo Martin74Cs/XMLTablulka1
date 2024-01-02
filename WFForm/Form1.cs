@@ -7,9 +7,6 @@ using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.ListView;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WFForm
 {
@@ -37,7 +34,6 @@ namespace WFForm
             ListView1.VypisMojeZakazky(LibraryAplikace.Zakazky.MojeZakazkyList());
             Akt.Visible = false;
             Akt.Close();
-
         }
 
         private void DataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -70,15 +66,21 @@ namespace WFForm
             //DataGridView1.SelectionChanged -= DataGridView1_SelectionChanged;
         }
 
-        private void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
+        private async void TreeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            ///
             ///
             //DataGridView1.ListStrom(TreeView1.SelectedNode, TreeView1.PathSeparator);
             ///
-            ///
             DataGridView1.ListStromAPI(TreeView1.SelectedNode, TreeView1.PathSeparator);
-
+            string[] Hodnota = TreeView1.SelectedNode.FullPath.Split(TreeView1.PathSeparator);
+            if(Hodnota.Length > 1 ) return;
+            InfoProjekt.CisloProjektu = Hodnota.FirstOrDefault();
+            if (string.IsNullOrEmpty(InfoProjekt.CisloProjektu)) return;
+            var jedna = await API.APIJson<TeZak>($"api/TeZak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
+            _ = new InfoProjekt(jedna);
+            label1.Text = InfoProjekt.CisloProjektu;
+            label2.Text = InfoProjekt.Projekt;
+            label3.Text = InfoProjekt.HIP;
         }
 
         private async void DataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -284,7 +286,7 @@ namespace WFForm
         private void Button3_Click(object sender, EventArgs e)
         {
             List<MojeZakazky> moje = LibraryAplikace.Zakazky.MojeZakazkyList();
-            SelectedListViewItemCollection V = ListView1.SelectedItems;
+            ListView.SelectedListViewItemCollection V = ListView1.SelectedItems;
             foreach (ListViewItem item in V)
             {
                 MojeZakazky del = moje.FirstOrDefault(x => x.CisloProjektu == item.Text);

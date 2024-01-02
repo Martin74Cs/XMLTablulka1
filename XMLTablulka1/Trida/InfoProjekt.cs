@@ -18,5 +18,15 @@ namespace XMLTabulka1.Trida
         public static string Misto { get; set; } = string.Empty;
         public static string Investor { get; set; } = string.Empty;
         public static string HIP { get; set; } = string.Empty;
+
+        public InfoProjekt(TeZak teZak)
+        {
+            Projekt = teZak.NAZ_PROJ;
+            CisloProjektu = teZak.C_PROJ;
+            HIP = teZak.HIP;
+            Misto = teZak.M_STAVBY;
+            Investor = teZak.INVESTOR;
+            //doplnit další pokud bude potřeba
+        }
     }
 }

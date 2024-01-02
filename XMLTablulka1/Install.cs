@@ -30,6 +30,9 @@ namespace Instal
         /// 
         public static async Task<string> Upload(string file)
         {
+            if (!File.Exists(file))
+            { Console.WriteLine("Soubor nebyl nalezen"); return ""; }
+              
             var fileStream = System.IO.File.OpenRead(file);
             var streamContent = new StreamContent(fileStream);
             var content = new MultipartFormDataContent();

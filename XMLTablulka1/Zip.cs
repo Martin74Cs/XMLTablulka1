@@ -14,14 +14,14 @@ namespace Library
         /// ZIPOVÁNNÍ ZADANÉ SLOŽKY
         /// </summary>
         /// <param name="DirZip"></param>
-        public static void Start(string DirZip, string zipSoubor)
+        public static bool Start(string DirZip, string zipSoubor)
         {
             // Zkontrolujte, zda zadaná složka existuje
             if (Directory.Exists(DirZip))
             {
                 // Nastavte název výsledného zip souboru
                 if (string.IsNullOrEmpty(zipSoubor))
-                    return;
+                    return false;
                     //zipSoubor = @"c:\Z\Zip.zip";
 
                 // Zazipujte obsah složky
@@ -30,12 +30,13 @@ namespace Library
 
                 // Vytvoření archivu ZIP //výjimkou nebude souboru data.json
                 ZipArchiveZip(DirZip, zipSoubor);
-
+                return true;
                 //ZipFile.CreateFromDirectory(DirZip, zipSoubor);
             }
             else
             {
                 Console.WriteLine("Zadaná složka neexistuje.");
+                return false;
             }
         }
 

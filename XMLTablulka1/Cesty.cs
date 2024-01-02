@@ -55,9 +55,9 @@ namespace XMLTabulka1
 
         public static string AdresarDebugWFForm
         {
-            get 
-            {
-                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "WFForm","bin","Debug","net8.0-windows8.0"));
+            get
+                                                              {//d:\OneDrive\Databaze\Tezak\XMLTablulka1\Upload\bin\x64\Debug\net8.0-windows8.0\
+                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "..", "WFForm","bin", "x64", "Debug","net8.0-windows8.0"));
                 return cesta;
 
                 //if (Environment.MachineName == "KANCELAR")

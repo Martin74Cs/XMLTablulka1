@@ -27,13 +27,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_817327559F634D21837B7097F80C8DAE"
+        "MsmKey" = "8:_B2A077315BC5435F93A3533F5B108FEF"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_B2A077315BC5435F93A3533F5B108FEF"
+        "MsmKey" = "8:_D9797B7A10FA43919149BE8F7036253A"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -69,6 +69,11 @@
                     "Name" = "8:Modul runtime .NET 8.0.0 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x64"
                     }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.8.0.x64"
+                    {
+                    "Name" = "8:Modul runtime .NET Desktop 8.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.8.0.x64"
+                    }
                 }
             }
         }
@@ -96,10 +101,15 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.CoreRuntime.8.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:Modul runtime .NET 8.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.CoreRuntime.8.0.x64"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.8.0.x64"
+                    {
+                    "Name" = "8:Modul runtime .NET Desktop 8.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.8.0.x64"
                     }
                 }
             }
@@ -244,7 +254,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Databaze"
         "ProductCode" = "8:{E23805B0-5388-4F76-9325-F0EDD85B966E}"
-        "PackageCode" = "8:{E9915375-9699-440C-A2FD-234DE3522E40}"
+        "PackageCode" = "8:{9CAB5FAE-33E6-423E-9129-BB80FB991D01}"
         "UpgradeCode" = "8:{67EC3EFF-CA3A-4E58-B729-0942A2B478F2}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -364,7 +374,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_FF02F159C9CF40728010A771A6C9F2E4"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4BC11F53D77A4C818BA6C34F863B0314"
             {
             "Name" = "8:TeZak"
             "Arguments" = "8:"
@@ -372,9 +382,23 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_B2A077315BC5435F93A3533F5B108FEF"
+            "Target" = "8:_57CBCF0CE33D4816825A66D936E5E8BF"
+            "Folder" = "8:_226B4E127D744B75950F04B8054D42CA"
+            "WorkingFolder" = "8:_D2326442D33B43009C025E1AD973A569"
+            "Icon" = "8:_57CBCF0CE33D4816825A66D936E5E8BF"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A2A320E6E62743E78308C7A185E1446F"
+            {
+            "Name" = "8:TeZak"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_D9797B7A10FA43919149BE8F7036253A"
             "Folder" = "8:_71BAE5DA24F3401B914321C6C3D31700"
-            "WorkingFolder" = "8:_C67D424EF36C4E1CBFAF22964C6CEFB8"
+            "WorkingFolder" = "8:_D2326442D33B43009C025E1AD973A569"
             "Icon" = "8:_57CBCF0CE33D4816825A66D936E5E8BF"
             "Feature" = "8:"
             }
@@ -779,7 +803,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2D5712E21DD242628C3BF1E07E93C34E"
             {
-            "SourcePath" = "8:..\\Instal\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "SourcePath" = "8:..\\Instal\\obj\\x64\\Release\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_5756ED7B96274FB195D51CB28811004D"
@@ -805,37 +829,9 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_817327559F634D21837B7097F80C8DAE"
-            {
-            "SourcePath" = "8:..\\WFForm\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_D2326442D33B43009C025E1AD973A569"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{3393136D-ED91-4C07-BC29-07C34B4DCBB8}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B2A077315BC5435F93A3533F5B108FEF"
             {
-            "SourcePath" = "8:..\\ProgramFiles\\obj\\x64\\Debug\\net8.0-windows8.0\\apphost.exe"
+            "SourcePath" = "8:..\\ProgramFiles\\obj\\x64\\Release\\net8.0-windows8.0\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_C67D424EF36C4E1CBFAF22964C6CEFB8"
@@ -856,6 +852,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{6FD0B051-41FB-49CA-9CD0-1920F46C8E30}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D9797B7A10FA43919149BE8F7036253A"
+            {
+            "SourcePath" = "8:..\\WFForm\\obj\\x64\\Release\\net8.0-windows8.0\\apphost.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_D2326442D33B43009C025E1AD973A569"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:PublishItems"
+            "OutputProjectGuid" = "8:{3393136D-ED91-4C07-BC29-07C34B4DCBB8}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
