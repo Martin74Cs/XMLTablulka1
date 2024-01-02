@@ -121,7 +121,14 @@ namespace XMLTabulka1
         public static async Task DataSqlAdd()
         {
             //DbfDotazySQL sql = new();
-            Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);
+            Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborTezakDbf);
+            if (System.IO.File.Exists(Cesty.SouborTezakDbf))
+                Console.Write("Existuje");
+            else
+            { 
+                Console.Write("Chyba Není");
+                return;
+            }
             DataTable dt = DbfDotazySQL.HledejVse();
             Console.WriteLine(" OK --");
             //var teZaks = data.DataTabletoJson<TeZak>();

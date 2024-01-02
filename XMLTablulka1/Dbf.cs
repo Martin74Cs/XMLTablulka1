@@ -26,7 +26,7 @@ namespace XMLTabulka1
 
             try
             {
-                //using OleDbConnection Con = new OleDbConnection() { ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Cesty.SouborDbf + ";Extended Properties=dBase IV" };
+                //using OleDbConnection Con = new() { ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Cesty.SouborDbf + ";Extended Properties=dBase IV" };
                 using OleDbConnection Con = new() { ConnectionString = "Provider=Microsoft.ACE.Oledb.12.0;Data Source=" + Cesty.SouborDbf + ";Extended Properties=dBase IV" };
                 using OleDbCommand dbfcmd = new(Querry, Con);
                 using OleDbDataAdapter dbfda = new(dbfcmd);
