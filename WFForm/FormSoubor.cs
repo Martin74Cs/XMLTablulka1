@@ -2,7 +2,7 @@
 
 namespace WFForm
 {
-    public partial class FormWord : Form
+    public partial class FormSoubor : Form
     {
         public string Cesta { get; set; }
 
@@ -13,7 +13,7 @@ namespace WFForm
             Cesta
         }
 
-        public FormWord()
+        public FormSoubor()
         {
             InitializeComponent();
         }
@@ -38,6 +38,7 @@ namespace WFForm
                 Close();
 
             }
+            await Task.Delay(1);
         }
 
         private void FormWord_Load(object sender, EventArgs e)

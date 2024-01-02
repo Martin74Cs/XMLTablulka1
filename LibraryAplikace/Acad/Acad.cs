@@ -12,7 +12,7 @@ namespace LibraryAplikace.Acad
         /// <summary>
         /// všechna prace s autocadem. Pokud soubor na cesta nexistuje bude vytvořen nový dokument dle šablony z dat teZak
         /// </summary>
-        public static void OtevřitExistujícíSouborAcad(string Cesta)
+        public static void OtevritExistujícíSouborAcad(string Cesta)
         {
             if (!File.Exists(Cesta)) return;
             //soubor existuje a může být otevřen

@@ -107,14 +107,14 @@ namespace WFForm
                     List<string> ListSouboraCAD = Word.ExistujeSouborPriponou(teZak.PATH, Word.Dokument.Autocad);
                     if (ListSouboraCAD != null && ListSouboraCAD.Count > 0)
                     {
-                        var FormAcad = new FormWord();
+                        var FormAcad = new FormSoubor();
                         FormAcad.listView1.AddListString(ListSouboraCAD);
                         FormAcad.ShowDialog();
                         if (FormAcad.DialogResult == DialogResult.OK)
                         {
                             switch (FormAcad.Volba)
                             {
-                                case FormWord.Vyber.Vyvorit:
+                                case FormSoubor.Vyber.Vyvorit:
                                     if (File.Exists(teZak.PATH))
                                     {
                                         //MessageBox.Show("Soubor existuje, Chceš ho smazat a znovu vytvoøit", "Info", MessageBoxButtons.YesNo);
@@ -134,9 +134,9 @@ namespace WFForm
                                     //soubor neexistuje a bude vytvoøen
                                     Acad.Prace(teZak, teZak.PATH);
                                     break;
-                                case FormWord.Vyber.Cesta:
+                                case FormSoubor.Vyber.Cesta:
                                     //Soubor existuje a mùže být otevøen
-                                    Acad.OtevøitExistujícíSouborAcad(teZak.PATH);
+                                    Acad.OtevritExistujícíSouborAcad(teZak.PATH);
                                     break;
                                 default:
                                     break;
@@ -181,14 +181,14 @@ namespace WFForm
                     List<string> ListSouborWord = Word.ExistujeSouborPriponou(teZak.PATH, Word.Dokument.Word);
                     if (ListSouborWord != null && ListSouborWord.Count > 0)
                     {
-                        var FormWord = new FormWord();
+                        var FormWord = new FormSoubor();
                         FormWord.listView1.AddListString(ListSouborWord);
                         FormWord.ShowDialog();
                         if (FormWord.DialogResult == DialogResult.OK)
                         {
                             switch (FormWord.Volba)
                             {
-                                case WFForm.FormWord.Vyber.Vyvorit:
+                                case WFForm.FormSoubor.Vyber.Vyvorit:
                                     //teZak.PATH = Path.ChangeExtension(teZak.PATH, ".docx");
                                     //Kotrola existence dokumnetu
                                     if (File.Exists(teZak.PATH) || File.Exists(Path.ChangeExtension(teZak.PATH, ".docx")))
@@ -205,25 +205,25 @@ namespace WFForm
                                         { return; }
                                     }
                                     //Blokovani.Zapnuto();
-                                    if (!await Word.VytvoøitDokumentDoc(teZak))
+                                    if (!await Word.VytvoritDokumentDoc(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     else
                                     {
                                         var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
                                         if (result == DialogResult.Yes)
                                         {
-                                            if (!await Word.OtevøiDokument(teZak))
+                                            if (!await Word.OtevriDokument(teZak))
                                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                         }
                                     }
 
                                     //Blokovani.Vypnuto();
                                     break;
-                                case WFForm.FormWord.Vyber.Cesta:
+                                case WFForm.FormSoubor.Vyber.Cesta:
                                     //Pokud byla zvolena cesta pro otevøení souboru
                                     teZak.PATH = FormWord.Cesta;
                                     //Word.Doc(Sloupec.CestaDatabaze, Cesty.JedenRadekXml);
-                                    if (!await Word.OtevøiDokument(teZak))
+                                    if (!await Word.OtevriDokument(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     break;
                                 default:
@@ -242,7 +242,7 @@ namespace WFForm
                         //vytvoøit z databázové cesty
                         if (ANONE.DialogResult == DialogResult.Yes)
                         {
-                            if (!await Word.VytvoøitDokumentDoc(teZak))
+                            if (!await Word.VytvoritDokumentDoc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                         }
                     }

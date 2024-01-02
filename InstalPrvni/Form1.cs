@@ -1,10 +1,9 @@
-using System.Diagnostics;
-using System.Windows.Forms;
-using XMLTabulka1;
+using Instal;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
+using XMLTabulka1;
 
-namespace Instal
+namespace InstalPrvni
 {
     public partial class Form1 : Form
     {
@@ -13,33 +12,24 @@ namespace Instal
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            //textBox1.Text = Path.GetDirectoryName(Cesty.AdresarSpusteni);
-            //textBox1.Text = Path.GetDirectoryName(Cesty.AppDataInstal);
-            textBox1.Text = Cesty.AppDataTezak;
-        }
-
-        private async void Instalace_ClickAsync(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var Akt = MenuInstal.Aktualizuj();
             //provedení instalace na zadanou cestu
-            var zip = await Install.GetSearchAsync("zip.zip");
-            //var zip = await Install.GetSearchAsync("instal.zip");
-            if(zip.Count < 1)
+            var zip = await Install.GetSearchAsync("Instal.zip");
+            if (zip.Count < 1)
             {
-                MessageBox.Show($"Chyba hledání souboru v RestApi\nSoubor pravdepodobne není nahrán");
+                MessageBox.Show($"Chyba hledání souboru v RestApi\nSoubor pravdìpodobnì nìní nahrán");
                 Akt.Close();
                 Close();
                 return;
             }
 
             string RandomFilename = zip.Last().StoredFileName ?? "";
-            string Cesta = textBox1.Text;
-
+            string Cesta = Cesty.AppDataTezak;
             //mìlo by vždy existovat
             if (!Directory.Exists(Cesta))
-            { 
+            {
                 Directory.CreateDirectory(Cesta);
                 //Directory.CreateDirectory(Cesty.Podpora);
                 //Directory.CreateDirectory(Cesty.Acad);
@@ -67,10 +57,10 @@ namespace Instal
             //Cesty.PodporaDataJson
 
             string soubor = "WFForm.exe";
-            Cesta = Path.Combine(Cesty.AdresarSpusteni, soubor);
+            Cesta = Path.Combine(Cesta, soubor);
 
-            if (File.Exists(Cesty.AppDataTezakWFForm))
-                Soubor.StartAplikace(Cesty.AppDataTezakWFForm, "");
+            if (File.Exists(Cesta))
+                Soubor.StartAplikace(Cesta, "");
 
             //KOnec programu instalace
             Environment.Exit(0);

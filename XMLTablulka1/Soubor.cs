@@ -577,5 +577,25 @@ namespace XMLTabulka1
                 Console.WriteLine("Došlo k chybě: " + ex.Message);
             }
         }
+
+        public static List<string> SeznamSouboruAdresarioPod(string Adresar)
+        {
+            List<string> listSouboru = [];
+            foreach (var SouborJedna in Directory.GetFileSystemEntries(Adresar))
+            {
+                if (Directory.Exists(SouborJedna))
+                {
+                    List<string> listpomc = SeznamSouboruAdresarioPod(SouborJedna);
+                    listSouboru.AddRange(listpomc);
+                }
+                else
+                {
+                    if(File.Exists(SouborJedna)) 
+                        listSouboru.Add(SouborJedna);
+                }
+            }
+            return listSouboru;
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace WFForm
 {
-    partial class FormWord
+    partial class FormSoubor
     {
         /// <summary>
         /// Required designer variable.
