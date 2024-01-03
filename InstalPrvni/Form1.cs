@@ -44,7 +44,7 @@ namespace InstalPrvni
                 return;
             }
 
-            //naètení manifestu z restApi
+            //načtení manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
             //uložení manifestu
             Nova.SaveJson(Cesty.ManifestInstal);
