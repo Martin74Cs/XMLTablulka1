@@ -1,4 +1,4 @@
-using Instal;
+Ôªøusing Instal;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
 using XMLTabulka1;
@@ -15,11 +15,11 @@ namespace InstalPrvni
         private async void button1_Click(object sender, EventArgs e)
         {
             var Akt = MenuInstal.Aktualizuj();
-            //provedenÌ instalace na zadanou cestu
+            //proveden√≠ instalace na zadanou cestu
             var zip = await Install.GetSearchAsync("Instal.zip");
             if (zip.Count < 1)
             {
-                MessageBox.Show($"Chyba hled·nÌ souboru v RestApi\nSoubor pravdÏpodobnÏ nÏnÌ nahr·n");
+                MessageBox.Show($"Chyba hled√°n√≠ souboru v RestApi\nSoubor pravdƒõpodobnƒõ nen√≠ nahr√°n");
                 Akt.Close();
                 Close();
                 return;
@@ -27,7 +27,7 @@ namespace InstalPrvni
 
             string RandomFilename = zip.Last().StoredFileName ?? "";
             string Cesta = Cesty.AppDataTezak;
-            //mÏlo by vûdy existovat
+            //m√¨lo by v≈ædy existovat
             if (!Directory.Exists(Cesta))
             {
                 Directory.CreateDirectory(Cesta);
@@ -38,19 +38,19 @@ namespace InstalPrvni
 
             if (!await Install.Download(RandomFilename, Cesta))
             {
-                MessageBox.Show($"Chyba p¯i extrakci souboru: {zip.Last().FileName}");
+                MessageBox.Show($"Chyba p√∏i extrakci souboru: {zip.Last().FileName}");
                 Akt.Close();
                 Close();
                 return;
             }
 
-            //naËtenÌ manifestu z restApi
+            //na√®ten√≠ manifestu z restApi
             var Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
-            //uloûenÌ manifestu
+            //ulo≈æen√≠ manifestu
             Nova.SaveJson(Cesty.ManifestInstal);
             Akt.Close();
 
-            //SpuötenÌ programu TeZak
+            //Spu≈°ten√≠ programu TeZak
             //Cesta = @"D:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows\WFForm.exe";
             //Cesta = Path.Combine( Cesty.AppData, "TeZak","WFForm.exe");
             //Cesta = Cesty.AppDataTezakWFForm;
