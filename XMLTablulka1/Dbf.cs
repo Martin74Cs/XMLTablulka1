@@ -31,6 +31,8 @@ namespace XMLTabulka1
                 using OleDbCommand dbfcmd = new(Querry, Con);
                 using OleDbDataAdapter dbfda = new(dbfcmd);
                 using DataSet dbase = new();
+                //pokud nefunguje dopln do cproj
+                //<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
                 dbfda.Fill(dbase);
                 if (dbase == null) return null;                     //throw new DataException("Nebyl vracen žádny záznam z databaze");
                 if (dbase.Tables[0].Rows.Count == 0) return null;   //throw new DataException("Chybí zaznam");
