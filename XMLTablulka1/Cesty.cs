@@ -137,8 +137,9 @@ namespace XMLTabulka1
         public static string AdresarDebugWFForm
         {
             get
-                                                              {//d:\OneDrive\Databaze\Tezak\XMLTablulka1\Upload\bin\x64\Debug\net8.0-windows8.0\
-                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "..", "WFForm","bin", "x64", "Debug","net8.0-windows8.0"));
+                {//d:\OneDrive\Databaze\Tezak\XMLTablulka1\Upload\bin\x64\Debug\net8.0-windows8.0\
+                //string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "..", "WFForm","bin", "x64", "Debug","net8.0-windows8.0"));
+                string cesta = Path.GetFullPath(Path.Combine(AdresarSpusteni, "..", "..", "..", "..", "WFForm", "bin", "Debug", "net8.0-windows8.0"));
                 return cesta;
 
                 //if (Environment.MachineName == "KANCELAR")
@@ -147,50 +148,25 @@ namespace XMLTabulka1
                 //   return @"d:\OneDrive\Databaze\Tezak\XMLTablulka1\WFForm\bin\Debug\net8.0-windows8.0\";
             }
         }
-        public static string InstalZIP
+
+        public static string ZIP
         {
             get
             {
-                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.zip");
-                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                var Cesta = Path.Combine(Priprava, "ZIP");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
                 return Cesta;
             }
         }
 
-        public static string InstalExe
-        {
-            get
-            {
-                var Cesta = Path.Combine(Priprava, "ZIP", "Instal.exe");
-                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
-                return Cesta;
-            }
-        }
+        public static string InstalZIP => Path.Combine(ZIP, "Instal.zip");
 
-        public static string ZIPProgram
-        {
-            get
-            {
-                var Cesta = Path.Combine(Priprava, "ZIP", "Program.zip");
-                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
-                return Cesta;
-            }
-        }
+        public static string InstalExe => Path.Combine(ZIP, "Instal.exe");
 
-        public static string SevenZIP
-        {
-            get
-            {
-                var Cesta = Path.Combine(AdresarSpusteni, "ZIP", "Zip.7z");
-                if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
-                return Cesta;
-            }
-        }
+        public static string ZIPProgram => Path.Combine(ZIP, "Program.zip");
 
+        public static string SevenZIP => Path.Combine(ZIP, "Zip.7z");
 
         public static string Pomoc  
         {
@@ -210,7 +186,6 @@ namespace XMLTabulka1
                     Directory.CreateDirectory(Cesta);
                 return Path.GetFullPath(Cesta);            }
         }
-
 
 //#endif
 

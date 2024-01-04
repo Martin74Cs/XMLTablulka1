@@ -11,14 +11,15 @@ using System.Threading.Tasks;
 using XMLTabulka1;
 using XMLTabulka1.Trida;
 
-namespace Instal
+namespace Install
 {
     public class Install
     {
-        public static async Task<List<Upload>> GetSearchAsync(string FileName)
+        /// <summary> Hledej soubor </summary>
+        public static async Task<List<Instal>> GetSearchAsync(string FileName)
         {
             var http = new HttpApi();
-            var response = await http.GetFromJsonAsync<List<Upload>>($"/api/File/Search/{FileName}");
+            var response = await http.GetFromJsonAsync<List<Instal>>($"/api/Instal/Search/{FileName}");
             if (response == null)
                 return [];
             return response;
@@ -27,29 +28,35 @@ namespace Instal
         /// <summary>
         /// Nahraní souboru na WEB
         /// </summary>
-        /// <param name="file"></param>
-        /// 
         public static async Task<string> Upload(string file)
         {
+            //List<Instal> instals = new();
+            Instal instal = new()
+            {Adresar="TeZak" , FileName = Path.GetFileName(file), };
+
             if (!File.Exists(file))
             { Console.WriteLine("Soubor nebyl nalezen"); return ""; }
-              
+
+            
             var fileStream = System.IO.File.OpenRead(file);
             var streamContent = new StreamContent(fileStream);
             var content = new MultipartFormDataContent();
 
             streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(MediaTypeNames.Application.Zip);
+            content.Add(content: streamContent, name: "files", fileName: Path.GetFileName(file));
 
-            //fileNames.Add(file.Name);
-            content.Add(content: streamContent, name: "\"files\"", fileName: Path.GetFileName(file));
+            // Přidat popisné informace jako další část
+            //posíláno metadata, nazev parametru
+            content.Add(new StringContent(instal.Adresar), nameof(instal.Adresar));
+            content.Add(new StringContent(instal.FileName), nameof(instal.FileName));
 
             var http = new HttpApi();
-            var response = await http.PostAsync("/api/File", content);
+            var response = await http.PostAsync("/api/Instal", content);
             //zpětné načtení souboru který byl uložen
-            var newUploadResult = await response.Content.ReadFromJsonAsync<List<Upload>>();
+            var newUploadResult = await response.Content.ReadFromJsonAsync<List<XMLTabulka1.Trida.Instal>>();
             if (newUploadResult != null)
             {
-                var uploads = new List<Upload>();
+                var uploads = new List<XMLTabulka1.Trida.Instal>();
                 //uploads = uploads.Concat(newUploadResult).ToList();
                 uploads = [.. uploads, .. newUploadResult];
                 return uploads.First().StoredFileName;
@@ -63,7 +70,7 @@ namespace Instal
         public static async Task<bool> Download(string StoredFileName, string Uložit)
         {
             var http = new HttpApi();
-            var response = await http.GetAsync($"/api/File/{StoredFileName}");
+            var response = await http.GetAsync($"/api/Instal/{StoredFileName}");
             if (response.IsSuccessStatusCode)
             {
                 //cesta dočasného uložení
@@ -133,7 +140,7 @@ namespace Instal
         public static async Task<ProgramInfo> ManifestDownloadAsync(string filename)
         {
             var http = new HttpApi();
-            var response = await http.GetAsync($"/api/File/Manifest/{filename}");
+            var response = await http.GetAsync($"/api/Instal/Manifest/{filename}");
             if (response.IsSuccessStatusCode)
             {
                 var fileStream = response.Content.ReadAsStream();
@@ -162,10 +169,10 @@ namespace Instal
             streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(MediaTypeNames.Text.Plain);
 
             //fileNames.Add(file.Name);
-            content.Add(content: streamContent, name: "\"files\"", fileName: Path.GetFileName(Cesta));
+            content.Add(content: streamContent, name: "files", fileName: Path.GetFileName(Cesta));
 
             var http = new HttpApi();
-            var response = await http.PostAsync("/api/File/Manifest", content);
+            var response = await http.PostAsync("/api/Instal/Manifest", content);
             var newUploadResult = await response.Content.ReadAsStringAsync();
             if (newUploadResult != null)
             {

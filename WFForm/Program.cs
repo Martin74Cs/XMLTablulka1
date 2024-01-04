@@ -30,7 +30,7 @@ namespace WFForm
             //Kontrola nové verze programu pøes RestAPI
             if (await aktualizuj.KontrolaVerze())
             {
-                var menu = new Menu();
+                var menu = new Menu();              
                 var Vyber = menu.NováVerze(aktualizuj.Nova);
                 //Vyber.Close();
                 if (menu.Dialog == DialogResult.OK)

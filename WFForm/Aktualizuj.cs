@@ -42,8 +42,13 @@ namespace WFForm
         /// </summary>
         public async Task<bool> KontrolaVerze()
         {
+            string file = "Manifest.json";
+
+            var ghd = await Install.Install.GetSearchAsync(file);
+            if (ghd == null) return false;
+
             //načtení manifestu z restApi
-            Nova = await API.APIDownloadFile<ProgramInfo>($"api/file/manifest");
+            Nova = await API.APIDownloadFile<ProgramInfo>($"api/instal/{ghd.First().StoredFileName}");
             if (Nova == null) return false;
 
             //načtení z manifestu ze souboru

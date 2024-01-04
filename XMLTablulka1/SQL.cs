@@ -126,7 +126,7 @@ namespace XMLTabulka1
                 Console.Write("Existuje");
             else
             { 
-                Console.Write("Chyba Není");
+                Console.WriteLine("Chyba Není");
                 return;
             }
             DataTable dt = DbfDotazySQL.HledejVse();

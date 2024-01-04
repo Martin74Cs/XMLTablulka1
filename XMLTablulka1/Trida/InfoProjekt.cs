@@ -28,5 +28,10 @@ namespace XMLTabulka1.Trida
             Investor = teZak.INVESTOR;
             //doplnit další pokud bude potřeba
         }
+
+        public InfoProjekt()
+        {
+            
+        }
     }
 }
