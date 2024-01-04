@@ -9,6 +9,7 @@
     <Platforms>AnyCPU;x64</Platforms>
     <PublishAot>False</PublishAot>
     <SignAssembly>False</SignAssembly>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
 
   <ItemGroup>
