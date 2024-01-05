@@ -70,10 +70,13 @@ namespace Library
         public static void ZipArchiveZip(string sourceDirectory, string zipFileName)
         {
             using (var zipFileStream = new FileStream(zipFileName, FileMode.Create))
-            using (var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create))
-            {
-                AddFilesToZip(archive, sourceDirectory, "");
+            { 
+                using (var archive = new ZipArchive(zipFileStream, ZipArchiveMode.Create))
+                {
+                    AddFilesToZip(archive, sourceDirectory, "");
+                }
             }
+            
         }
         private static void AddFilesToZip(ZipArchive archive, string sourceDirectory, string relativePath)
         {

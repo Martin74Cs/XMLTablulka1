@@ -24,7 +24,7 @@ namespace Instal
         {
             var Akt = MenuInstal.Aktualizuj();
             //provedení instalace na zadanou cestu
-            var zip = await Install.GetSearchAsync("zip.zip");
+            var zip = await Install.Install.GetSearchAsync("TeZak.zip");
             //var zip = await Install.GetSearchAsync("instal.zip");
             if(zip.Count < 1)
             {
@@ -46,7 +46,7 @@ namespace Instal
                 //Directory.CreateDirectory(Cesty.Word);
             }
 
-            if (!await Install.Download(RandomFilename, Cesta))
+            if (!await Install.Install.Download(RandomFilename, Cesta))
             {
                 MessageBox.Show($"Chyba pøi extrakci souboru: {zip.Last().FileName}");
                 Akt.Close();

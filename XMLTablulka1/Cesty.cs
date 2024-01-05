@@ -92,12 +92,24 @@ namespace XMLTabulka1
                 return Cesta;
             }
         }
+        public static string PripravaTeZakAll
+        {
+            get
+            {
+                string Cesta = Path.Combine(Priprava, "TeZakAll");
+                if (!Directory.Exists(Cesta))
+                    Directory.CreateDirectory(Cesta);
+                //Directory.CreateDirectory(Path.GetDirectoryName(Cesta));
+                return Cesta;
+            }
+        }
+
         public static string PripravaTeZakInstal
         {
             get
             {
                 //string Priprava = @"c:\Users\Martin\OneDriveKopie\Databaze\Tezak\";
-                var Cesta = Path.Combine(PripravaTeZak, "Instal");
+                var Cesta = Path.Combine(PripravaTeZakAll, "Instal");
                 //if (!Directory.Exists(Path.GetDirectoryName(Cesta)))
                 if (!Directory.Exists(Cesta))
                     Directory.CreateDirectory(Cesta);
@@ -161,6 +173,9 @@ namespace XMLTabulka1
         }
 
         public static string InstalZIP => Path.Combine(ZIP, "Instal.zip");
+
+        public static string InstalTeZakAll => Path.Combine(ZIP, "TeZakAll.zip");
+        public static string InstalTeZak => Path.Combine(ZIP, "TeZak.zip");
 
         public static string InstalExe => Path.Combine(ZIP, "Instal.exe");
 

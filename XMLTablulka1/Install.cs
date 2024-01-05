@@ -53,10 +53,10 @@ namespace Install
             var http = new HttpApi();
             var response = await http.PostAsync("/api/Instal", content);
             //zpětné načtení souboru který byl uložen
-            var newUploadResult = await response.Content.ReadFromJsonAsync<List<XMLTabulka1.Trida.Instal>>();
+            var newUploadResult = await response.Content.ReadFromJsonAsync<List<Instal>>();
             if (newUploadResult != null)
             {
-                var uploads = new List<XMLTabulka1.Trida.Instal>();
+                var uploads = new List<Instal>();
                 //uploads = uploads.Concat(newUploadResult).ToList();
                 uploads = [.. uploads, .. newUploadResult];
                 return uploads.First().StoredFileName;
@@ -140,7 +140,7 @@ namespace Install
         public static async Task<ProgramInfo> ManifestDownloadAsync(string filename)
         {
             var http = new HttpApi();
-            var response = await http.GetAsync($"/api/Instal/Manifest/{filename}");
+            var response = await http.GetAsync($"/api/Instal/{filename}");
             if (response.IsSuccessStatusCode)
             {
                 var fileStream = response.Content.ReadAsStream();
@@ -148,7 +148,6 @@ namespace Install
                 return myData;
             }
             return null;
-
         }
 
         public static async Task<bool> ManifestUploadAsync(string Filename, string Verze)
@@ -166,13 +165,18 @@ namespace Install
             var streamContent = new StreamContent(memoryStream);
             var content = new MultipartFormDataContent();
 
-            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(MediaTypeNames.Text.Plain);
-
+            var instal = new Instal() { Adresar= "TeZak" };
             //fileNames.Add(file.Name);
+
+            streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(MediaTypeNames.Text.Plain);
             content.Add(content: streamContent, name: "files", fileName: Path.GetFileName(Cesta));
+            // Přidat popisné informace jako další část
+            //posíláno metadata, nazev parametru
+            content.Add(new StringContent(instal.Adresar), nameof(instal.Adresar));
+            content.Add(new StringContent(Filename), nameof(instal.FileName));
 
             var http = new HttpApi();
-            var response = await http.PostAsync("/api/Instal/Manifest", content);
+            var response = await http.PostAsync("/api/Instal", content);
             var newUploadResult = await response.Content.ReadAsStringAsync();
             if (newUploadResult != null)
             {

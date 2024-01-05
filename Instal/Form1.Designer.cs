@@ -36,11 +36,11 @@
             // Instalace
             // 
             Instalace.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
-            Instalace.Location = new Point(669, 54);
+            Instalace.Location = new Point(652, 54);
             Instalace.Name = "Instalace";
-            Instalace.Size = new Size(101, 32);
+            Instalace.Size = new Size(118, 32);
             Instalace.TabIndex = 0;
-            Instalace.Text = "Instalovat";
+            Instalace.Text = "Aktualizovat";
             Instalace.UseVisualStyleBackColor = true;
             Instalace.Click += Instalace_ClickAsync;
             // 

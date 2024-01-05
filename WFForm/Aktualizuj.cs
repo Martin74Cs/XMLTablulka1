@@ -42,10 +42,10 @@ namespace WFForm
         /// </summary>
         public async Task<bool> KontrolaVerze()
         {
-            string file = "Manifest.json";
+            string file = "TeZak.json";
 
             var ghd = await Install.Install.GetSearchAsync(file);
-            if (ghd == null) return false;
+            if (ghd.Count < 1) return false;
 
             //načtení manifestu z restApi
             Nova = await API.APIDownloadFile<ProgramInfo>($"api/instal/{ghd.First().StoredFileName}");
