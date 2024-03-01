@@ -31,6 +31,7 @@
             listView1 = new ListView();
             button1 = new Button();
             label1 = new Label();
+            button2 = new Button();
             SuspendLayout();
             // 
             // listView1
@@ -63,17 +64,28 @@
             label1.TabIndex = 2;
             label1.Text = "Nalezené soubory";
             // 
-            // FormWord
+            // button2
+            // 
+            button2.Location = new Point(564, 208);
+            button2.Name = "button2";
+            button2.Size = new Size(106, 38);
+            button2.TabIndex = 3;
+            button2.Text = "Průzkumník";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // FormSoubor
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(777, 259);
+            Controls.Add(button2);
             Controls.Add(label1);
             Controls.Add(button1);
             Controls.Add(listView1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 238);
             Margin = new Padding(4);
-            Name = "FormWord";
+            Name = "FormSoubor";
             Text = "Word";
             Load += FormWord_Load;
             ResumeLayout(false);
@@ -85,5 +97,6 @@
         public ListView listView1;
         public Button button1;
         private Label label1;
+        public Button button2;
     }
 }

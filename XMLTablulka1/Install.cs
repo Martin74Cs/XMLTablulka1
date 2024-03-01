@@ -36,7 +36,6 @@ namespace Install
 
             if (!File.Exists(file))
             { Console.WriteLine("Soubor nebyl nalezen"); return ""; }
-
             
             var fileStream = System.IO.File.OpenRead(file);
             var streamContent = new StreamContent(fileStream);

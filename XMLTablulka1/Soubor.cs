@@ -22,6 +22,8 @@ namespace XMLTabulka1
 
     public static class Soubor
     {
+        ///<summary> Otevření průzkumníku cesta musí být adresar jinak se otevře přidružená aplikace </summary>
+        ///<param name="cesta">Ceta k adresáři jinak se otevře přidružená aplikace</param>
         public static void Pruzkumnik(string cesta = @"C:\") 
         {
             Process process = new();
@@ -31,7 +33,7 @@ namespace XMLTabulka1
             return;
         }
 
-        /// <summary>        /// KopieDbf (Cesta, zakaz kopirovani)     /// </summary>
+        /// <summary>KopieDbf (Cesta, zakaz kopirovani)</summary>
         public static bool KopieDbf(bool VytvorKopii = false)
         {
             if (VytvorKopii == true)
@@ -603,7 +605,7 @@ namespace XMLTabulka1
             List<FileInfo> listSouboru = [];
             foreach (var SouborJedna in Directory.GetFiles(Adresar))
             {
-                FileInfo fileInfo = new FileInfo(SouborJedna);
+                var fileInfo = new FileInfo(SouborJedna);
                 listSouboru.Add(fileInfo);              
             }
             return listSouboru;

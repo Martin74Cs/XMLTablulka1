@@ -87,10 +87,8 @@ namespace LibraryAplikace.Word
         /// <summary>
         /// Dokumenet neexistuje
         /// </summary>
-        public static async Task<bool> VytvoritDokumentDoc(TeZak teZak)
+        public static bool VytvoritDokumentDoc(TeZak teZak)
         {
-            await Task.Delay(1);
-
             //neexistují data pro vytvoření dokumetu
             if (teZak == null) return false;
 

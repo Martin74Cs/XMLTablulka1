@@ -33,7 +33,7 @@ namespace XMLTabulka1
         public static string Podminka
         {
             get {
-                string MachineName = Environment.MachineName;
+                //string MachineName = Environment.MachineName;
                 //string Jmeno = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
                 //if (Jmeno == "fe80::6521:3e9b:e592:b3df%11")
                 //if (Environment.MachineName == "W10177552")
@@ -107,7 +107,7 @@ namespace XMLTabulka1
             SqlDataAdapter sqlda = new(cmd);
             sqlda.Fill(Data);
 
-            List<string> textlist = new();
+            var textlist = new List<string>();
             foreach (DataRow item in Data.Tables[0].Rows)
             {
                 textlist.Add(item[0].ToString());
@@ -158,7 +158,8 @@ namespace XMLTabulka1
                     //Převedení DataRow na Třídu
                     TeZak teZaks = dr.DataRowToObject<TeZak>();
                     //přídání záznamu přes RestAPI
-                    var result = await new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
+                    //var result = await new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
+                    await new ApiHelper().PostAsJsonAsync("api/TeZak", teZaks);
                     Console.WriteLine("ZÁZNAM Přidán Zakázka " + teZaks.C_PROJ + "  Název: " + teZaks.NAZ_PROJ + "  GLOBALID  " + teZaks.GLOBALID);
                 }
                 else
@@ -303,7 +304,7 @@ namespace XMLTabulka1
             }
             //valString = valString.Substring(0, valString.Length - 2);
             //valString = valString[..^2]; vymazat dva poseldní znaky.
-            valString = valString + "APID";
+            valString += "APID";
             //var sqlString1 = sqlString.Substring(0, sqlString.Length - 2) + ") VALUES ('" + valString + "')";
             var sqlString1 = sqlString + "APID" + ") VALUES ('" + valString + "')";
 

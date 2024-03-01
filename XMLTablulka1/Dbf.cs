@@ -5,20 +5,14 @@ using System.Runtime.InteropServices;
 
 namespace XMLTabulka1
 {
-    public class Dbf
+    /// <summary>
+    /// Připojení databaze DBF, Data jsou uloženy na cestě Cesty.SouborDbf
+    /// </summary>
+    /// <param name="Querry">Dotaz</param>
+    /// <returns>DataSet</returns>
+    public class Dbf(string Cesty)
     {
-        private readonly string cesty;
-
-        /// <summary>
-        /// Připojení databaze DBF, Data jsou uloženy na cestě Cesty.SouborDbf
-        /// </summary>
-        /// <param name="Querry">Dotaz</param>
-        /// <returns>DataSet</returns>
-
-        public Dbf(string Cesty)
-        {
-            cesty = Cesty;
-        }
+        private readonly string cesty = Cesty;
 
         //public string Cesty { get; set; }
 
@@ -37,7 +31,7 @@ namespace XMLTabulka1
             try
             {
                 //using OleDbConnection Con = new() { ConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + Cesty.SouborDbf + ";Extended Properties=dBase IV" };
-                using OleDbConnection Con = new() { ConnectionString = "Provider=Microsoft.ACE.Oledb.12.0; Data Source=" + Cesty.SouborDbf + ";Extended Properties=dBase IV" };
+                using OleDbConnection Con = new() { ConnectionString = "Provider=Microsoft.ACE.Oledb.12.0; Data Source=" + Cesty + ";Extended Properties=dBase IV" };
                 using OleDbCommand dbfcmd = new(Querry, Con);
                 using OleDbDataAdapter dbfda = new(dbfcmd);
                 using DataSet dbase = new();

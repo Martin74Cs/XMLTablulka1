@@ -210,7 +210,8 @@ namespace LibraryAplikace
                 { 
                     //kontorla existence adrsáře
                     //Directory.CreateDirectory(Path.GetDirectoryName(CestaCil)??"");
-                    Directory.CreateDirectory(Path.GetDirectoryName(CestaCil));
+                    if(!Directory.Exists(Path.GetDirectoryName(CestaCil)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(CestaCil));
 
                     //kopirování souborů s přepsnáním;
                     System.IO.File.Copy(CestaZdroj, CestaCil, true);

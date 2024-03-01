@@ -1,5 +1,7 @@
 ﻿
 
+using XMLTabulka1;
+
 namespace WFForm
 {
     public partial class FormSoubor : Form
@@ -8,7 +10,7 @@ namespace WFForm
 
         public Vyber Volba { get; set; }
         public enum Vyber
-        { 
+        {
             Vyvorit,
             Cesta
         }
@@ -44,6 +46,15 @@ namespace WFForm
         private void FormWord_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (listView1.Items.Count > 0)
+            { 
+                ListViewItem selectedRow = listView1.Items[0];
+                Soubor.Pruzkumnik(Path.GetDirectoryName(selectedRow.SubItems[0].Text));
+            }
         }
     }
 }

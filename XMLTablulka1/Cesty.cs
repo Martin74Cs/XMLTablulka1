@@ -54,7 +54,7 @@ namespace XMLTabulka1
         public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
 
-        public static string AdresarTezakDbfSitováCesta = @"U:\Elektro\mcsato\Databaze";
+        public static readonly string AdresarTezakDbfSitováCesta = @"U:\Elektro\mcsato\Databaze";
 
         public static string Upload => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
 

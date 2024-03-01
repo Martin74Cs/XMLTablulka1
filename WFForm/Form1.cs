@@ -207,7 +207,7 @@ namespace WFForm
                                         { return; }
                                     }
                                     //Blokovani.Zapnuto();
-                                    if (!await Word.VytvoritDokumentDoc(teZak))
+                                    if (Word.VytvoritDokumentDoc(teZak))
                                         MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
                                     else
                                     {
@@ -244,8 +244,17 @@ namespace WFForm
                         //vytvoøit z databázové cesty
                         if (ANONE.DialogResult == DialogResult.Yes)
                         {
-                            if (!await Word.VytvoritDokumentDoc(teZak))
+                            if (!Word.VytvoritDokumentDoc(teZak))
                                 MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                            else
+                            {
+                                var result = MessageBox.Show("Dokument Wordu VYTVOØEN. \n OTEVØÍT?", "Info", MessageBoxButtons.YesNo);
+                                if (result == DialogResult.Yes)
+                                {
+                                    if (!await Word.OtevriDokument(teZak))
+                                        MessageBox.Show("Chyba pøi generování Wordu.", "Info", MessageBoxButtons.OK);
+                                }
+                            }
                         }
                     }
 
@@ -388,6 +397,7 @@ namespace WFForm
             {
                 if (ANO == false) return;
                 //ComboBox1.TextChanged -= ComboBox1_TextChanged;
+                var Akt = Menu.Aktualizuj();
                 var result = await API.APIJsonList<TeZak>($"api/tezak/search/{Hodnota}");
                 if (result != null && result.Count > 0)
                 {
@@ -405,8 +415,10 @@ namespace WFForm
                     ComboBox1.DataSource = combo;
                     ComboBox1.Refresh();
                     //ComboBox1.DroppedDown = true;
+                    
+
                     ComboBox1.Text = Hodnota;
-                    ComboBox1.Select(Hodnota.Length, 0);
+                    //ComboBox1.Select(Hodnota.Length, 0);
 
                     //ComboBox1.Focus();
                     //ComboBox1.DroppedDown = true;
@@ -416,6 +428,10 @@ namespace WFForm
                     //ComboBox1.DroppedDown = true;
                     //Button1.Focus();
                 }
+                Akt.Close();
+                ComboBox1.Focus();
+                ComboBox1.Select(Hodnota.Length, 0);
+                ComboBox1.DroppedDown = true;
                 //ComboBox1.TextChanged += ComboBox1_TextChanged;
 
             }
@@ -453,6 +469,7 @@ namespace WFForm
         {
             if (ComboBox1.SelectedItem != null)
             {
+                var Akt = Menu.Aktualizuj();
                 ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
                 InfoProjekt.CisloProjektu = selected.Tag.ToString();
                 TreeView1.CollapseAll();
@@ -468,6 +485,7 @@ namespace WFForm
                         break;
                     }
                 }
+                Akt.Close();
             }
         }
     }

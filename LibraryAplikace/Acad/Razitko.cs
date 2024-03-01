@@ -24,7 +24,7 @@ namespace LibraryAplikace.Acad
                 //jedná se o sloupec s podpůrného souboru jde o nazvy tagů v Databázi
                 string SouborDatabaze = item[1].ToString().Trim();
                 string RazitkoTag = item[0].ToString().Trim();
-                if (SouborDatabaze == "") continue;
+                if (string.IsNullOrEmpty(SouborDatabaze)) continue;
                 string TeZAkValue = teZak.GetType().GetProperty(SouborDatabaze).GetValue(teZak).ToString();
                 //VyberSloupec test;
                 //if (!Enum.TryParse(SouborDatabaze, out test)) // continue; //prevod chyba
