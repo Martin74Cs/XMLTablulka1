@@ -7,6 +7,8 @@ using System.Windows.Forms;
 using XMLTabulka1;
 using XMLTabulka1.API;
 using XMLTabulka1.Trida;
+using static WFForm.FormSoubor;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WFForm
 {
@@ -364,11 +366,20 @@ namespace WFForm
             const int mindelka = 3;
             if (ComboBox1.SelectedIndex > -1)
             {
-                ANO = false;
+                //ANO = false;
                 ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
                 InfoProjekt.CisloProjektu = selected.Tag.ToString();
                 List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
                 DataGridView1.Vypis(TableJson);
+
+                var jedna = await API.APIJson<TeZak>($"api/TeZak/Projekt/Jedna/{InfoProjekt.CisloProjektu}");
+                _ = new InfoProjekt(jedna);
+                label1.Text = InfoProjekt.CisloProjektu;
+                label2.Text = InfoProjekt.Projekt;
+                label3.Text = InfoProjekt.HIP;
+                label1.Text = InfoProjekt.CisloProjektu;
+                label2.Text = InfoProjekt.Projekt;
+                label3.Text = InfoProjekt.HIP;
                 return;
 
             }
@@ -376,49 +387,88 @@ namespace WFForm
             if (Hodnota.Length >= mindelka)
             {
                 if (ANO == false) return;
-                ComboBox1.TextChanged -= ComboBox1_TextChanged;
+                //ComboBox1.TextChanged -= ComboBox1_TextChanged;
                 var result = await API.APIJsonList<TeZak>($"api/tezak/search/{Hodnota}");
-                if (result.Count != 0)
+                if (result != null && result.Count > 0)
                 {
                     InfoProjekt.CisloProjektu = result.First().C_PROJ;
                     //comboBox1.Items.Clear(); // Clear existing items before adding new ones
-                    ComboBox1.Items.Clear();
+                    //ComboBox1.Items.Clear();
+                    var combo = new List<ComboBoxItem>();
                     foreach (var teZak in result)
                     {
                         var polozky = new ComboBoxItem(teZak.C_PROJ + " " + teZak.NAZ_PROJ, teZak.C_PROJ);
-                        ComboBox1.Items.Add(polozky);
+                        combo.Add(polozky);
+                        //ComboBox1.Items.Add(polozky);
                     }
-                    ComboBox1.DroppedDown = true;
+                    //ComboBox1.DataSource = new List<ComboBoxItem>();
+                    ComboBox1.DataSource = combo;
+                    ComboBox1.Refresh();
+                    //ComboBox1.DroppedDown = true;
                     ComboBox1.Text = Hodnota;
                     ComboBox1.Select(Hodnota.Length, 0);
+
+                    //ComboBox1.Focus();
+                    //ComboBox1.DroppedDown = true;
+                    //ComboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
+                    //ComboBox1.AutoCompleteMode = AutoCompleteMode.Suggest;
+                    //ComboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    //ComboBox1.DroppedDown = true;
+                    //Button1.Focus();
                 }
-                ComboBox1.TextChanged += ComboBox1_TextChanged;
+                //ComboBox1.TextChanged += ComboBox1_TextChanged;
+
             }
             else
                 ANO = true;
             if (Hodnota.Length < 1)
-                ComboBox1.Items.Clear();
+            {
+                //ComboBox1.Items.Clear();
+                ComboBox1.DataSource = new List<ComboBoxItem>();
+                label1.Text = "";
+                label2.Text = "";
+                label3.Text = "";
+            }
+
         }
 
         private async void ComboBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
-            {
-                if (ComboBox1.SelectedItem != null)
-                {
-                    ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
-                    InfoProjekt.CisloProjektu = selected.Tag.ToString();
-                    if (ComboBox1.DroppedDown == true)
-                        ComboBox1.DroppedDown = false;
-                    List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
-                    DataGridView1.Vypis(TableJson);
-                }
-            }
+            //if (e.KeyChar == (char)Keys.Enter)
+            //{
+            //    if (ComboBox1.SelectedItem != null)
+            //    {
+            //        ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
+            //        InfoProjekt.CisloProjektu = selected.Tag.ToString();
+            //        if (ComboBox1.DroppedDown == true)
+            //            ComboBox1.DroppedDown = false;
+            //        List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+            //        DataGridView1.Vypis(TableJson);
+                     
+            //    }
+            //}
         }
 
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private async void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (ComboBox1.SelectedItem != null)
+            {
+                ComboBoxItem selected = (ComboBoxItem)ComboBox1.SelectedItem;
+                InfoProjekt.CisloProjektu = selected.Tag.ToString();
+                TreeView1.CollapseAll();
+                foreach (TreeNode item in TreeView1.Nodes)
+                {
+                    if (item.Text == InfoProjekt.CisloProjektu)
+                    {
+                        item.ExpandAll();
+                        TreeView1.TopNode = item;
 
+                        List<TeZak> TableJson = await API.APIJsonList<TeZak>($"api/tezak/{InfoProjekt.CisloProjektu}");
+                        DataGridView1.Vypis(TableJson);
+                        break;
+                    }
+                }
+            }
         }
     }
 
