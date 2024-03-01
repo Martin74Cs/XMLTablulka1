@@ -33,10 +33,11 @@ namespace XMLTabulka1
         public static string Podminka
         {
             get {
-                //string MachineName = Environment.MachineName;
+                string MachineName = Environment.MachineName;
                 //string Jmeno = System.Net.Dns.GetHostByName(System.Net.Dns.GetHostName()).AddressList[0].ToString();
                 //if (Jmeno == "fe80::6521:3e9b:e592:b3df%11")
-                if (Environment.MachineName == "W10177552")
+                //if (Environment.MachineName == "W10177552")
+                if (Environment.MachineName == "W5CD344HXYH")
                         return "10.55.1.100";
                 return @"KANCELAR\SQLEXPRESS";
             }
@@ -122,6 +123,11 @@ namespace XMLTabulka1
         {
             //DbfDotazySQL sql = new();
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborTezakDbf);
+            string cesta = Soubor.SouboruNejnovesi(Cesty.AdresarTezakDbfSitováCesta);
+
+            Soubor.SouborKopie(cesta, Cesty.SouborTezakDbf);
+            //System.IO.File.Copy(cesta, target, true);
+            //if (System.IO.File.Exists(cesta))
             if (System.IO.File.Exists(Cesty.SouborTezakDbf))
                 Console.Write("Existuje");
             else
@@ -129,7 +135,7 @@ namespace XMLTabulka1
                 Console.WriteLine("Chyba Není");
                 return;
             }
-            DataTable dt = DbfDotazySQL.HledejVse();
+            DataTable dt = new DbfDotazySQL().HledejVse();
             Console.WriteLine(" OK --");
             //var teZaks = data.DataTabletoJson<TeZak>();
 
@@ -191,7 +197,8 @@ namespace XMLTabulka1
             string Database = "TractebelTeZak";
             string Table = "TeZak";
 
-            SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
+            //SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;Integrated Security=True;Pooling=False");
+            SqlConnection ConnectionString = new("Data Source=" + Podminka + ";Initial Catalog= " + Database + " ;User Id=www; Password=www; Pooling=False");
             ConnectionString.Open();
 
             string querry = $"SELECT TOP 1 {Hledej} FROM {Table} WHERE {Hledej} = '{Polozka}'";
@@ -250,7 +257,7 @@ namespace XMLTabulka1
 
             //DbfDotazySQL sql = new();
             Console.Write("Načtení Tabulky z databaze TeZak.dbf ..." + Cesty.SouborDbf);     
-            DataTable dt = DbfDotazySQL.HledejVse();
+            DataTable dt = new DbfDotazySQL().HledejVse();
             Console.WriteLine(" OK --");
             //new Table
             //string strCreateColumns = "";

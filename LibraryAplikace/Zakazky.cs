@@ -21,7 +21,7 @@ namespace LibraryAplikace
     {
         public static string JmenoProjektuDlePrvniho()
         {
-           DataTable table = DbfDotazySQL.JedenTezak(Sloupec.C_PROJ,InfoProjekt.CisloProjektu);
+           DataTable table = new DbfDotazySQL().JedenTezak(Sloupec.C_PROJ,InfoProjekt.CisloProjektu);
            List<TeZak> teZak = table.DataTabletoJson<TeZak>();
            //var Jeden = teZak.First();
            //InfoProjekt.Projekt = Jeden.NAZEV;

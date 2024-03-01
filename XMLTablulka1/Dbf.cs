@@ -7,21 +7,31 @@ namespace XMLTabulka1
 {
     public class Dbf
     {
+        private readonly string cesty;
+
         /// <summary>
         /// Připojení databaze DBF, Data jsou uloženy na cestě Cesty.SouborDbf
         /// </summary>
         /// <param name="Querry">Dotaz</param>
         /// <returns>DataSet</returns>
 
-        public static DataSet Pripoj(string Querry)
+        public Dbf(string Cesty)
+        {
+            cesty = Cesty;
+        }
+
+        //public string Cesty { get; set; }
+
+        public DataSet Pripoj(string Querry)
         {
             //if (File.Exists(Cesty.SouborDbf) == false) return null;
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) throw new Exception($"System nepoužívá platformu Windows");
             //FileInfo InformaceOSouboru = new FileInfo(Cesty.SouborDbf);
             //if (!InformaceOSouboru.Exists) throw new FileNotFoundException($"Soubor {Cesty.SouborDbf} nenalezen");
             //string AdresarDbf = InformaceOSouboru.DirectoryName;
-             
-            if (!System.IO.Directory.Exists(Cesty.SouborDbf)) throw new DirectoryNotFoundException($"Adresar {Cesty.SouborDbf} nenalezen");
+
+            if (!System.IO.Directory.Exists(cesty)) throw new DirectoryNotFoundException($"Adresar {cesty} nenalezen");
+            //if (!System.IO.Directory.Exists(Cesty.SouborDbf)) throw new DirectoryNotFoundException($"Adresar {Cesty.SouborDbf} nenalezen");
             if (Querry == null || Querry == "") throw new Exception("Chyba dotaz je prázdný"); ;
 
             try

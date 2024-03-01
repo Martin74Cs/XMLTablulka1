@@ -14,21 +14,21 @@ namespace XMLTabulka1
             //Načti seznam projektů Cesty.CislaProjektuTxt.
             if (!File.Exists(Cesty.CislaProjektuTxt))
             {
-                string[] Hromada = DbfDotazySQL.SeznamJeden(VyberSloupec.C_PROJ);
+                string[] Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.C_PROJ);
                 Hromada.SaveTXT(Cesty.CislaProjektuTxt);
                 InfoProjekt.CisloProjektu = Hromada.Last();
             }
 
             if (!File.Exists(Cesty.NazevProjektuTxt))
             {
-                string[]  Hromada = DbfDotazySQL.SeznamJeden(VyberSloupec.NAZ_PROJ);
+                string[]  Hromada = new DbfDotazySQL().SeznamJeden(VyberSloupec.NAZ_PROJ);
                 Hromada.SaveTXT(Cesty.NazevProjektuTxt);
             }
 
             if (!File.Exists(Cesty.CislaDokumentuXML) && !File.Exists(Cesty.CislaDokumentuJson))
             {
                 string Querry = "SELECT DISTINCT PCC,TD,PCDOC FROM TEZAK ORDER BY PCC,TD,PCDOC";
-                DataSet data = Dbf.Pripoj(Querry);
+                DataSet data = new Dbf(Cesty.SouborTezakDbf).Pripoj(Querry);
                 data.Tables[0].WriteXml(Cesty.CislaDokumentuXML);
                 List<TeZak> teZaks = data.Tables[0].DataTabletoJson<TeZak>();
                 teZaks.SaveJson(Cesty.CislaDokumentuJson);

@@ -11,7 +11,7 @@ namespace Database
         public static void Linq()
         {
             //DbfDotazySQL sql = new();
-            DataTable table = DbfDotazySQL.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+            DataTable table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
             if (table == null) return;
             //LinqDotazy linq = new();
             DataTable Nova = LinqDotazy.Test5(table, VyberSloupec.C_UKOL);
@@ -26,7 +26,7 @@ namespace Database
         public static void CteniZapisXML()
         {
             //DbfDotazySQL sql = new();
-            DataTable table = DbfDotazySQL.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+            DataTable table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
             if (table == null) return;
 
             Soubor.SaveXML(table, Cesty.Pomoc + "/XML.xml");
@@ -39,7 +39,7 @@ namespace Database
         public static void CteniZapisTXT()
         {
             //DbfDotazySQL sql = new();
-            DataTable table = DbfDotazySQL.HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
+            DataTable table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, "P.018806");
             if (table == null) return;
             table.DataTabletoCSV(Cesty.Pomoc + "/CSV.txt");
 

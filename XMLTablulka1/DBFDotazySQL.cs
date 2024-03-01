@@ -7,12 +7,14 @@ namespace XMLTabulka1
 {
     public class DbfDotazySQL
     {
+        private readonly string cesta = Cesty.SouborDbf;
+
         /// <summary>
         /// Vratí tabulku dle dotazu
         /// </summary>
-        public static DataTable Hledej(string Dotaz)
+        public DataTable Hledej(string Dotaz)
         {
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) return new DataTable();// throw new ArgumentNullException($"Podle krytérii nebyly nenalezeny záznamy");
             //return Data.Tables[0];
             return new Cestina().Tabulka(Data.Tables[0]);
@@ -21,12 +23,12 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí tabulku celé databaze dbf
         /// </summary>
-        public static DataTable HledejVse()
+        public DataTable HledejVse()
         {
-            string Dotaz = "SELECT * FROM TEZAK";
-            //string Dotaz = "SELECT * FROM TEZAK ORDER BY GLOBALID ASC";
+            //string Dotaz = "SELECT * FROM TEZAK";
+            string Dotaz = "SELECT * FROM TEZAK ORDER BY GLOBALID ASC";
             //DbfXml dbf = new();
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) throw new ArgumentNullException($"Podle {Data} krytérii nebyly nenalezeny záznamy");
             //return Data.Tables[0];
             return new Cestina().Tabulka(Data.Tables[0]);
@@ -35,10 +37,10 @@ namespace XMLTabulka1
         /// <summary>
         /// Vratí Pole stringů názvy sloupců Databaze Tezek
         /// </summary>
-        public static string[] SloupceTezak()
+        public string[] SloupceTezak()
         {
             string Dotaz = "SELECT TOP 1 * FROM TEZAK";
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) throw new ArgumentNullException($"Podle {Data} krytérii nebyly nenalezeny záznamy");
             List<string> Pole = [];
             foreach (DataColumn item in Data.Tables[0].Columns)
@@ -51,10 +53,10 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrati jeden radek dle podmínky SELECT TOP 1 *
         /// </summary>
-        public static DataTable JedenTezak(string Hledej, string Polozka)
+        public DataTable JedenTezak(string Hledej, string Polozka)
         {
             string Dotaz = $"SELECT TOP 1 * FROM TEZAK WHERE {Hledej} = '{Polozka}'";
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) throw new ArgumentNullException($"Podle {Data} krytérii nebyly nenalezeny záznamy");
             return new Cestina().Tabulka(Data.Tables[0]);
         }
@@ -62,13 +64,13 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium
         /// </summary>
-        public static DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
+        public DataTable HledejPrvek(VyberSloupec Prvek, string CisloProjektu)
         {
             if (CisloProjektu == "") throw new Exception($"Číslo {CisloProjektu} nexistuje"); // return null;
             //string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY PCDOC";
             //string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY C_UKOL,[DIL],[CAST],PROFESE,PORADI,OR_CISLO";
             string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek + " ='" + CisloProjektu + "' ORDER BY [DIL],[CAST],PROFESE,PORADI,OR_CISLO";
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) throw new Exception($"Podle {Data} krytérii nebyl v databázi nenalezen žádný záznam");
             return new Cestina().Tabulka(Data.Tables[0]);
         }
@@ -76,15 +78,15 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí tabulku kde vyhovuje Podmínka 1.nazev sloupce, 2.kriterium, 3.nazev sloupce, 4.kriterium
         /// </summary>
-        public static DataTable HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
+        public DataTable HledejPrvek(VyberSloupec Prvek1, string PrvekText1, VyberSloupec Prvek2, string PrvekText2)
         {
             if (PrvekText1 == "") throw new ArgumentNullException($"Číslo {PrvekText1} nexistuje");
             if (PrvekText2 == "") throw new ArgumentNullException($"Číslo {PrvekText2} nexistuje");
 
             string Dotaz = "SELECT * FROM TEZAK WHERE " + Prvek1 + "='" + PrvekText1 + "' AND " + Prvek2 + "='" + PrvekText2 + "' AND (NOT (DIL IS NULL))";
-            DataSet data = Dbf.Pripoj(Dotaz);
+            DataSet data = new Dbf(cesta).Pripoj(Dotaz);
             if (data == null) throw new ArgumentNullException($"Podle {data} krytérii nebyl v databázi nenalezen žádný záznam");
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             return new Cestina().Tabulka(Data.Tables[0]);
 
         }
@@ -92,10 +94,10 @@ namespace XMLTabulka1
         /// <summary>
         /// Vrátí neopakující se obsah zadaného nazvu sloupce. Řazení sestupně DESC.
         /// </summary>
-        public static string[] SeznamJeden(VyberSloupec Prvek)
+        public string[] SeznamJeden(VyberSloupec Prvek)
         {
             string Dotaz = $"SELECT DISTINCT {Prvek} FROM tezak  ORDER BY {Prvek} DESC";
-            var data = Dbf.Pripoj(Dotaz);
+            var data = new Dbf(cesta).Pripoj(Dotaz);
             if (data == null) throw new ArgumentNullException($"Podle {data} krytérii nebyl v databázi nenalezen žádný záznam");
             DataTable Table = new Cestina().Tabulka(data.Tables[0]);
 
@@ -113,14 +115,14 @@ namespace XMLTabulka1
         /// <summary>
         /// Hledej číslo dokumentu ve formatu T1234, N9876 
         /// </summary>
-        public static DataTable HledejCislo(string HledejCislo)
+        public DataTable HledejCislo(string HledejCislo)
         {
             if (HledejCislo == "") throw new ArgumentNullException($"Číslo {HledejCislo} nexistuje", HledejCislo); // return null;
             string TD = HledejCislo.First().ToString().ToUpper(); //první znak retezce
             string PCDOC = HledejCislo.Replace(TD, "");
             if (PCDOC.Length != 4) throw new ArgumentException($"Chyba parsovaní Čísla {HledejCislo}"); // return null;
             string Dotaz = "SELECT * FROM TEZAK WHERE TD='" + TD + "' AND PCDOC='" + PCDOC + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO";
-            DataSet Data = Dbf.Pripoj(Dotaz);
+            DataSet Data = new Dbf(cesta).Pripoj(Dotaz);
             if (Data == null) return null;
             return new Cestina().Tabulka(Data.Tables[0]);
             //return new Dbf(KopieDbf).Pripoj(Dotaz);

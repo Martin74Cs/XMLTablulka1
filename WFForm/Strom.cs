@@ -16,6 +16,8 @@ namespace WFForm
     {
         public static void ListStrom(this DataGridView DataGridView1, TreeNode N, string Separator)
         {
+            var DbfSql = new DbfDotazySQL();
+
             string[] Cesta = N.FullPath.Split(Separator);
             if (N.Nodes.Count <= 0)
             {
@@ -26,7 +28,7 @@ namespace WFForm
                     case 1:
                         string querry = "SELECT DISTINCT " + Sloupec.C_UKOL + "  FROM TEZAK WHERE [" + N.Name + "]='" + N.Text + "'";
 
-                        foreach (DataRow item in DbfDotazySQL.Hledej(querry).Rows)
+                        foreach (DataRow item in DbfSql.Hledej(querry).Rows)
                             N.Nodes.Add(Sloupec.C_UKOL, item[Sloupec.C_UKOL].ToString());
                         N.Expand();
                         //vazba na moje zakazky
@@ -34,13 +36,13 @@ namespace WFForm
                         break;
                     case 2:
                         querry = "SELECT DISTINCT DIL FROM TEZAK WHERE " + N.Parent.Name + "='" + N.Parent.Text + "' AND " + N.Name + "='" + N.Text + "' AND (NOT (DIL IS NULL))";
-                        foreach (DataRow item in DbfDotazySQL.Hledej(querry).Rows)
+                        foreach (DataRow item in DbfSql.Hledej(querry).Rows)
                             N.Nodes.Add("DIL", item["DIL"].ToString());
                         N.Expand();
                         break;
                     case 3:
                         querry = "SELECT DISTINCT [CAST] FROM TEZAK WHERE " + N.Parent.Parent.Name + "='" + N.Parent.Parent.Text + "'AND " + N.Parent.Name + "='" + N.Parent.Text + "'AND " + N.Name + "='" + N.Text + "' AND (NOT ([CAST] IS NULL))";
-                        foreach (DataRow item in DbfDotazySQL.Hledej(querry).Rows)
+                        foreach (DataRow item in DbfSql.Hledej(querry).Rows)
                             N.Nodes.Add("CAST", item["CAST"].ToString());
                         N.Expand();
                         break;
@@ -54,19 +56,19 @@ namespace WFForm
                     break;
                 case 1:
                     string querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID,NAZ_PROJ,INVESTOR,M_STAVBY,HIP FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO";
-                    DataGridView1.DataSource = DbfDotazySQL.Hledej(querry);
+                    DataGridView1.DataSource = DbfSql.Hledej(querry);
                     break;
                 case 2:
                     querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    DataGridView1.DataSource = DbfDotazySQL.Hledej(querry);
+                    DataGridView1.DataSource = DbfSql.Hledej(querry);
                     break;
                 case 3:
                     querry = "SELECT DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT,NAZEV,PCC,TD,PCDOC,C_REV,ID_DOCR,EXT,GLOBALID FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND DIL = '" + Cesta[2] + "' ORDER BY DIL,[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    DataGridView1.DataSource = DbfDotazySQL.Hledej(querry);
+                    DataGridView1.DataSource = DbfSql.Hledej(querry);
                     break;
                 case 4:
                     querry = "SELECT * FROM TEZAK WHERE C_PROJ='" + Cesta[0] + "' AND C_UKOL = '" + Cesta[1] + "' AND [DIL] = '" + Cesta[2] + "' AND [CAST] = '" + Cesta[3] + "' ORDER BY [DIL],[CAST],PROFESE,PORADI,OR_CISLO,PROF_CX,OR_CIT";
-                    DataGridView1.DataSource = DbfDotazySQL.Hledej(querry);
+                    DataGridView1.DataSource = DbfSql.Hledej(querry);
                     break;
                 default:
                     break;

@@ -332,8 +332,8 @@ namespace WFForm
                 //foreach (string item in XMLTabulka1.Soubor.LoadTXT(Cesty.CislaProjektuTxt))
                 TreeView1.Nodes.Add("C_PROJ", item);
             //}
-
-            table = DbfDotazySQL.HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
+            
+            table = new DbfDotazySQL().HledejPrvek(VyberSloupec.C_PROJ, InfoProjekt.CisloProjektu);
             DataGridView1.Vypis(table);
         }
 

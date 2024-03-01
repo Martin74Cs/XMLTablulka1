@@ -597,5 +597,45 @@ namespace XMLTabulka1
             return listSouboru;
         }
 
+        public static List<FileInfo> SeznamSouboru(string Adresar)
+        {
+            if(!Directory.Exists(Adresar)) return new();
+            List<FileInfo> listSouboru = [];
+            foreach (var SouborJedna in Directory.GetFiles(Adresar))
+            {
+                FileInfo fileInfo = new FileInfo(SouborJedna);
+                listSouboru.Add(fileInfo);              
+            }
+            return listSouboru;
+        }
+
+        public static string SouboruNejnovesi(string Adresar)
+        {
+            if (!Directory.Exists(Adresar)) return string.Empty;
+            var Sort = Directory.GetFiles(Adresar).OrderByDescending(x => new FileInfo(x).LastWriteTime).FirstOrDefault(x => Path.GetExtension(x) == ".dbf");
+            return Sort;
+        }
+
+        public static bool SouborKopie(string Source, string Target)
+        {
+            if(!File.Exists(Source)) return false;
+            if (!File.Exists(Target))
+            {
+                File.Copy(Source, Target, true);
+                return true;
+            }
+            else
+            {
+                DateTime DateSouce = new FileInfo(Source).LastWriteTime;
+                DateTime DateTarget = new FileInfo(Target).LastWriteTime;
+                if (DateSouce > DateTarget)
+                {
+                    File.Copy(Source, Target, true);
+                    //return true;
+                }
+                return true;
+            }
+        }
+
     }
 }

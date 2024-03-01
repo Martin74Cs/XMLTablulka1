@@ -50,8 +50,11 @@ namespace XMLTabulka1
         //adresar spušteni
         public static string AdresarSpusteni => Path.GetDirectoryName(SouborExe); 
 
-        public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\..\"));
+        //public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\..\"));
+        public static string SouborDbf => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\"));
         public static string SouborTezakDbf => Path.GetFullPath(Path.Combine(SouborDbf, @"Tezak.dbf"));
+
+        public static string AdresarTezakDbfSitováCesta = @"U:\Elektro\mcsato\Databaze";
 
         public static string Upload => Path.GetFullPath(Path.Combine(AdresarSpusteni, @"..\..\..\..\..\"));
 

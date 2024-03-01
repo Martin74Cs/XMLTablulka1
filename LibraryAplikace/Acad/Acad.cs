@@ -38,7 +38,7 @@ namespace LibraryAplikace.Acad
         /// <summary>
         /// všechna prace s autocadem. Pokud soubor na cesta nexistuje bude vytvořen nový dokument dle šablony z dat teZak
         /// </summary>
-        public static async void Prace(TeZak teZak, string Cesta)
+        public static void Prace(TeZak teZak, string Cesta)
         {
             AcadDocument document = null;
             if (!File.Exists(Cesta)) 
